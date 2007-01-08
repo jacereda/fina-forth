@@ -1,0 +1,25 @@
+#!/bin/bash
+# Usage: cce CONSTANT_NAME
+source=`tempfile --suffix=.c`
+program=`tempfile`
+cat >$source <<EOF
+#include <GL/gl.h>
+#include <GL/glu.h>
+
+int main(int argc, char ** argv)
+{          
+    printf("%d", $*);
+    return 0;
+}
+EOF
+#cc -framework OpenGL -framework GLUT $source -o $program 2> /dev/null
+cc -lGL -lGLU -lglut $source -o $program #2> /dev/null
+if [ $? -ne 0 ]
+then
+    echo -13 THROW
+    exit
+fi
+$program
+rm -f $source $program
+
+

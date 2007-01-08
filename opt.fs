@@ -1,0 +1,3 @@
+-1 constant has-files
+-1 constant has-allocate
+-1 constant more-prims

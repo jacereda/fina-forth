@@ -1,0 +1,26 @@
+- Fix -1 0 ?do i . loop (should work as in gforth)
+- Blocks
+- Make it possible to compile without bootstrap compiler (keep .s files for
+  the supported architectures). Should also drop the gcc2 build-depend.
+- isolate compiler constants (/dict et al) from arch-specific code
+- negative strings?
+- douser is slow
+- implement USEPFR for better code on MIPS machines.
+- cleanup host-gforth
+- fast dictionary search using endian-specific code, i.e
+   if (((*(CELL*)cstr1) << 3) == ((*(CELL*)cstr2) << 3)) ...
+- factorize INTERPRET with something like FOREACHPARSED
+- implement defer..is and remove @execute
+- EVALUATE should use SAVE-INPUT
+- document
+- split ?dodefine -> ?xt+xtbody
+- documentation system
+- more file tests
+- forlist/repeat?
+- implement user and remove fake definition from host-fina.fs
+- remove debug stuff (shifts, type2, rdepth, rpick...)
+- split docreate -> dovar+dodoes
+- cross-compiling support
+- ensure headers compiled with s, don't yield different images in test
+- 0 -1 1 perform 0<> >= u> u>= <> lshift arshift fm/mod / mod /mod as primitives
+- implement as primitives >= u> u>= <> dofor do?do lshift rshift /mod /

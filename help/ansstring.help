@@ -1,0 +1,126 @@
+[left.gif] [right.gif] [up.gif] Table of Contents
+===============================================================================
+****** 17. The optional String word set ******
+===============================================================================
+***** 17.1 Introduction *****
+
+===============================================================================
+***** 17.2 Additional terms and notation *****
+ None.
+===============================================================================
+***** 17.3 Additional usage requirements *****
+ Append table 17.1 to table 3.5.
+See: 3.2.6 Environmental queries
+Table 17.1 - Environmental query strings
+String         Value data type    Constant?   Meaning
+------         ---------------    ---------   -------
+STRING          flag              no          string word set present
+STRING-EXT      flag              no          string extensions word set
+present
+===============================================================================
+***** 17.4 Additional documentation requirements *****
+ None.
+===============================================================================
+***** 17.5 Compliance and labeling *****
+
+===============================================================================
+**** 17.5.1 ANS Forth systems ****
+ The phrase Providing the String word set shall be appended to the label of any
+Standard System that provides all of the String word set.
+The phrase Providing name(s) from the String Extensions word set shall be
+appended to the label of any Standard System that provides portions of the
+String Extensions word set.
+The phrase Providing the String Extensions word set shall be appended to the
+label of any Standard System that provides all of the String and String
+Extensions word sets.
+===============================================================================
+**** 17.5.2 ANS Forth programs ****
+ The phrase Requiring the String word set shall be appended to the label of
+Standard Programs that require the system to provide the String word set.
+The phrase Requiring name(s) from the String Extensions word set shall be
+appended to the label of Standard Programs that require the system to provide
+portions of the String Extensions word set.
+The phrase Requiring the String Extensions word set shall be appended to the
+label of Standard Programs that require the system to provide all of the String
+and String Extensions word sets.
+===============================================================================
+***** 17.6 Glossary *****
+
+===============================================================================
+**** 17.6.1 String words ****
+
+===============================================================================
+17.6.1.0170 -TRAILING
+dash-trailing STRING
+	( c-addr u1 -- c-addr u2 )
+If u1 is greater than zero, u2 is equal to u1 less the number of spaces at the
+end of the character string specified by c-addr u1. If u1 is zero or the entire
+string consists of spaces, u2 is zero.
+===============================================================================
+17.6.1.0245 /STRING
+slash-string STRING
+	( c-addr1 u1 n -- c-addr2 u2 )
+Adjust the character string at c-addr1 by n characters. The resulting character
+string, specified by c-addr2 u2, begins at c-addr1 plus n characters and is u1
+minus n characters long.
+See: A.17.6.1.0245_/STRING
+===============================================================================
+17.6.1.0780 BLANK
+STRING
+	( c-addr u -- )
+If u is greater than zero, store the character value for space in u consecutive
+character positions beginning at c-addr.
+===============================================================================
+17.6.1.0910 CMOVE
+c-move STRING
+	( c-addr1 c-addr2 u -- )
+If u is greater than zero, copy u consecutive characters from the data space
+starting at c-addr1 to that starting at c-addr2, proceeding character-by-
+character from lower addresses to higher addresses.
+See: A.17.6.1.0910_CMOVE , 17.6.1.0920_CMOVE>
+===============================================================================
+17.6.1.0920 CMOVE>
+c-move-up STRING
+	( c-addr1 c-addr2 u -- )
+If u is greater than zero, copy u consecutive characters from the data space
+starting at c-addr1 to that starting at c-addr2, proceeding character-by-
+character from higher addresses to lower addresses.
+See: 17.6.1.0910_CMOVE , A.17.6.1.0920_CMOVE>
+===============================================================================
+17.6.1.0935 COMPARE
+STRING
+	( c-addr1 u1 c-addr2 u2 -- n )
+Compare the string specified by c-addr1 u1 to the string specified by c-addr2
+u2. The strings are compared, beginning at the given addresses, character by
+character, up to the length of the shorter string or until a difference is
+found. If the two strings are identical, n is zero. If the two strings are
+identical up to the length of the shorter string, n is minus-one (-1) if u1 is
+less than u2 and one (1) otherwise. If the two strings are not identical up to
+the length of the shorter string, n is minus-one (-1) if the first non-matching
+character in the string specified by c-addr1 u1 has a lesser numeric value than
+the corresponding character in the string specified by c-addr2 u2 and one (1)
+otherwise.
+See: A.17.6.1.0935_COMPARE
+===============================================================================
+17.6.1.2191 SEARCH
+STRING
+	( c-addr1 u1 c-addr2 u2 -- c-addr3 u3 flag )
+Search the string specified by c-addr1 u1 for the string specified by c-addr2
+u2. If flag is true, a match was found at c-addr3 with u3 characters remaining.
+If flag is false there was no match and c-addr3 is c-addr1 and u3 is u1.
+See: A.17.6.1.2191_SEARCH
+===============================================================================
+17.6.1.2212 SLITERAL
+STRING
+	Interpretation: Interpretation semantics for this word are undefined.
+        Compilation: ( c-addr1 u -- )
+Append the run-time semantics given below to the current definition.
+        Run-time:       ( -- c-addr2 u )
+Return c-addr2 u describing a string consisting of the characters specified by
+c-addr1 u during compilation. A program shall not alter the returned string.
+See: A.17.6.1.2212_SLITERAL
+===============================================================================
+**** 17.6.2 String extension words ****
+ None
+[up.gif] Table of Contents
+[right.gif] Next Section

@@ -1,0 +1,135 @@
+[left.gif] [right.gif] [up.gif] Table of Contents
+===============================================================================
+****** 14. The optional Memory-Allocation word set ******
+===============================================================================
+***** 14.1 Introduction *****
+See: A.14 The optional Memory-Allocation word set
+===============================================================================
+***** 14.2 Additional terms and notation *****
+ None.
+===============================================================================
+***** 14.3 Additional usage requirements *****
+
+===============================================================================
+**** 14.3.1 I/O Results data type ****
+ I/O results are single-cell numbers indicating the result of I/O operations. A
+value of zero indicates that the I/O operation completed successfully; other
+values and their meanings are implementation-defined.
+Append table 14.1 to table_3.1.
+Table 14.1 - Data types
+Symbol  Data type       Size on stack
+------  ---------       -------------
+ior     I/O results     1 cell
+===============================================================================
+**** 14.3.2 Environmental queries ****
+ Append table 14.2 to table 3.5.
+See: 3.2.6 Environmental queries
+Table 14.2 - Environmental query strings
+String             Value data type  Constant?  Meaning
+------             ---------------  ---------  -------
+MEMORY-ALLOC       flag             no         memory-allocation word set
+present
+MEMORY-ALLOC-EXT   flag             no         memory-allocation extensions
+word set present
+===============================================================================
+**** 14.3.3 Allocated regions ****
+ A program may address memory in data space regions made available by ALLOCATE
+or RESIZE and not yet released by FREE.
+See: 3.3.3 Data space
+===============================================================================
+***** 14.4 Additional documentation requirements *****
+
+===============================================================================
+**** 14.4.1 System documentation ****
+
+===============================================================================
+*** 14.4.1.1 Implementation-defined options ***
+    * values and meaning of ior (14.3.1 I/O Results data type, 14.6.1.0707
+      ALLOCATE, 14.6.1.1605 FREE, 14.6.1.2145 RESIZE).
+===============================================================================
+*** 14.4.1.2 Ambiguous conditions ***
+    * no additional requirements.
+===============================================================================
+*** 14.4.1.3 Other system documentation ***
+    * no additional requirements.
+===============================================================================
+**** 14.4.2 Program documentation ****
+    * no additional requirements.
+===============================================================================
+***** 14.5 Compliance and labeling *****
+===============================================================================
+**** 14.5.1 ANS Forth systems ****
+ The phrase Providing the Memory-Allocation word set shall be appended to the
+label of any Standard System that provides all of the Memory-Allocation word
+set.
+The phrase Providing name(s) from the Memory-Allocation Extensions word set
+shall be appended to the label of any Standard System that provides portions of
+the Memory-Allocation Extensions word set.
+The phrase Providing the Memory-Allocation Extensions word set shall be
+appended to the label of any Standard System that provides all of the Memory-
+Allocation and Memory-Allocation Extensions word sets.
+===============================================================================
+**** 14.5.2 ANS Forth programs ****
+ The phrase Requiring the Memory-Allocation word set shall be appended to the
+label of Standard Programs that require the system to provide the Memory-
+Allocation word set.
+The phrase Requiring name(s) from the Memory-Allocation Extensions word set
+shall be appended to the label of Standard Programs that require the system to
+provide portions of the Memory-Allocation Extensions word set.
+The phrase Requiring the Memory-Allocation Extensions word set shall be
+appended to the label of Standard Programs that require the system to provide
+all of the Memory-Allocation and Memory-Allocation Extensions word sets.
+===============================================================================
+***** 14.6 Glossary *****
+
+===============================================================================
+**** 14.6.1 Memory-Allocation words ****
+
+===============================================================================
+14.6.1.0707 ALLOCATE
+MEMORY
+	( u -- a-addr ior )
+Allocate u address units of contiguous data space. The data-space pointer is
+unaffected by this operation. The initial content of the allocated space is
+undefined.
+If the allocation succeeds, a-addr is the aligned starting address of the
+allocated space and ior is zero.
+If the operation fails, a-addr does not represent a valid address and ior is
+the implementation-defined I/O result code.
+See: 6.1.1650_HERE , 14.6.1.1605_FREE , 14.6.1.2145_RESIZE
+===============================================================================
+14.6.1.1605 FREE
+MEMORY
+	( a-addr -- ior )
+Return the contiguous region of data space indicated by a-addr to the system
+for later allocation. a-addr shall indicate a region of data space that was
+previously obtained by ALLOCATE or RESIZE. The data-space pointer is unaffected
+by this operation.
+If the operation succeeds, ior is zero. If the operation fails, ior is the
+implementation-defined I/O result code.
+See: 6.1.1650_HERE
+===============================================================================
+14.6.1.2145 RESIZE
+MEMORY
+	( a-addr1 u -- a-addr2 ior )
+Change the allocation of the contiguous data space starting at the address a-
+addr1, previously allocated by ALLOCATE or RESIZE, to u address units. u may be
+either larger or smaller than the current size of the region. The data-space
+pointer is unaffected by this operation.
+If the operation succeeds, a-addr2 is the aligned starting address of u address
+units of allocated memory and ior is zero. a-addr2 may be, but need not be, the
+same as a-addr1. If they are not the same, the values contained in the region
+at a-addr1 are copied to a-addr2, up to the minimum size of either of the two
+regions. If they are the same, the values contained in the region are preserved
+to the minimum of u or the original size. If a-addr2 is not the same as a-
+addr1, the region of memory at a-addr1 is returned to the system according to
+the operation of FREE.
+If the operation fails, a-addr2 equals a-addr1, the region of memory at a-addr1
+is unaffected, and ior is the implementation-defined I/O result code.
+See: 6.1.1650_HERE
+===============================================================================
+**** 14.6.2 Memory-Allocation extension words ****
+None
+===============================================================================
+[up.gif] Table of Contents
+[right.gif] Next Section
