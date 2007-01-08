@@ -4,8 +4,17 @@ To build the software, install scons ( http://scons.org ) and run:
 
 $ scons
 
+To pass some regression tests, build with:
+
+$ scons check=1
+
+To perform some benchmarks, build with:
+
+$ scons bench=1
+
 To install, just build passing a prefix argument:
 
 $ scons prefix=/tmp/fina/
 
 (The ending slash is required!)
+

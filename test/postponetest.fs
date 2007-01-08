@@ -36,7 +36,7 @@
 \ name. If name has other than default compilation semantics, append
 \ them to the current definition;...
 
-require coretest.fs
+require test/coretest.fs
 
 \ Note that the compilation semantics are appended, not some
 \ state-dependent semantics.
