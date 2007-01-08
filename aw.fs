@@ -1,5 +1,5 @@
 require ffi.fs
-library aw libaw
+library aw aw
 
 aw awInit (int) awInit
 aw awEnd (void) awEnd

@@ -1,5 +1,5 @@
 require ffi.fs
-library libc libc
+library libc c
 libc system ptr (int) system
 libc popen ptr ptr (ptr) popen
 libc pclose ptr (int) pclose

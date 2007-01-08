@@ -6,7 +6,7 @@ hex
 00004000 constant GL_COLOR_BUFFER_BIT
 00000100 constant GL_DEPTH_BUFFER_BIT
 decimal
-library GL libGL
+library GL GL
 GL glViewport int int int int  (void) glViewport
 GL glClear int  (void) glClear
 
