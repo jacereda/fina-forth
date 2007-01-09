@@ -1,10 +1,11 @@
 require aw.fs
+require cce.fs
 create buffer 256 allot
 : 0term buffer place 0 buffer count + c! buffer 1+ ;
 
 hex
-00004000 constant GL_COLOR_BUFFER_BIT
-00000100 constant GL_DEPTH_BUFFER_BIT
+cconstant GL_COLOR_BUFFER_BIT
+cconstant GL_DEPTH_BUFFER_BIT
 decimal
 library GL GL
 GL glViewport int int int int  (void) glViewport
