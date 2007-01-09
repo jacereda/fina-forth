@@ -118,17 +118,19 @@ static inline unsigned CELL UMSlashMod(unsigned CELL * dd,
 #endif
 }
 
-#define SAVEREGS \
+#define SAVEREGS do { \
         saved->tos = tos; \
         saved->rsp = rsp; \
         saved->dsp = dsp; \
-        saved->fpc = fpc 
+        saved->fpc = fpc; \
+} while(0)
 
-#define RESTREGS \
+#define RESTREGS do { \
         fpc = saved->fpc; \
         rsp = saved->rsp; \
         dsp = saved->dsp; \
-        tos = saved->tos 
+        tos = saved->tos; \
+} while(0)
 
 int FINA_Init(int argc, char ** argv)
 {

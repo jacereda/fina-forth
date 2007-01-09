@@ -17,7 +17,7 @@ prefix = ARGUMENTS.get('prefix', '#')
 helpdir = prefix + 'share/fina/help'
 
 env = Environment(ARCH=arch(), CC='gcc')
-env.Append(CPPFLAGS='-O2')
+env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
 if sys.platform == 'netbsd3' or sys.platform == 'netbsd4':
 	env.Append(LINKFLAGS=' -static ')
