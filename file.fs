@@ -102,12 +102,13 @@ create nrbuf 2 cells allot
     r> r> r> r>   r> r> r> r>   r> 
     nrbuf 2@ >r ; compile-only
 
-create line 102 allot
+pad tib - 2 + constant /line
+create line /line allot
 
 : foreachline ( file xt -- )
    2>r begin
       1 sourceline# + to sourceline# 
-      line 100 2r> over swap 2>r read-line throw
+      line /line 2r> over swap 2>r read-line throw
    while ( u )
       line swap r@ execute
    repeat drop rdrop rdrop ;
@@ -150,5 +151,10 @@ defer inchook1  ' noop is inchook1
 : include ( i*x "filename" -- j*x )
    here parse-word s, count included ;
 
+: .sourceloc
+   sourcefilename type [char] : emit sourceline# 0 (d.) type ." : " ;
+
+:noname ( code -- )
+   dup 1 -1 within if .sourceloc then [ '.error @ compile, ] ; '.error ! 
 
 env: file true ;env
