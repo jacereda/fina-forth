@@ -326,12 +326,12 @@
                 t7 = Sys_Year((void*)t1);
                 CALLREST;
                 dsp -= 5;
-                tos = t2;
-                dsp[4] = t3;
-                dsp[3] = t4;
-                dsp[2] = t5;
-                dsp[1] = t6;
-                dsp[0] = t7;
+                dsp[4] = t2;
+                dsp[3] = t3;
+                dsp[2] = t4;
+                dsp[1] = t5;
+                dsp[0] = t6;
+                tos = t7;
                 NEXT;
 
                 PRIM(ARGC,300);
