@@ -12,11 +12,14 @@ fenv.Tab('ffitab.it', 'ffi.i')
 fenv.Command('arch.h', '$ARCH-arch.h', 'ln -sf ${SOURCE.abspath} $TARGET')
 fenv.Asm('finac.s', 'finac.c')
 
+	
 
 def gendict(arch, phase, kernel):
+	dictsrc = Split("""
+	   core.fs defer.fs throwmsg.fs search.fs coreext.fs opt.fs tconfig.fs
+	""")
         fenv.Command(arch + '-dict' + str(phase) + '.s', 
-		[kernel] + \
-		Split('core.fs defer.fs throwmsg.fs search.fs coreext.fs opt.fs') + \
+		[kernel] + dictsrc + \
                 [arch + '-tconfig.fs'] + Split('host-fina.fs meta.fs fina.fs'),
                 'cat ${SOURCES[1:]} | $SOURCE > $TARGET')
 
