@@ -70,10 +70,11 @@ here 1 c, 10 c, pad !
 : resize-file ( ud fileid -- ior )
    truncf ;
 
+0 value sourceline#
 variable (fname) 0 ,
 
--1 value sourceline#
-here ," the terminal" count (fname) 2!
+: termsource!
+   s" the terminal" (fname) 2!  0 to sourceline# ;
 
 : sourcefilename 
    (fname) 2@ ;
@@ -155,6 +156,8 @@ defer inchook1  ' noop is inchook1
    sourcefilename type [char] : emit sourceline# 0 (d.) type ." : " ;
 
 :noname ( code -- )
-   dup 1 -1 within if .sourceloc then [ '.error @ compile, ] ; '.error ! 
+   dup 1 -1 within if .sourceloc then 
+   [ '.error @ compile, ] 
+   termsource! ; '.error ! 
 
 env: file true ;env
