@@ -1,12 +1,5 @@
 
 32        constant tcellbits
-256       constant /pad
-256       constant /tib
-256       constant /hld
-256       constant /user
-1024      constant /ds
-1024      constant /rs
-64 1024 * constant /tdict
 8         constant /tcall
 
 : .call" 
