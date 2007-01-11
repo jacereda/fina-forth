@@ -16,7 +16,7 @@ variable requested 0 ,
 
 \ Did we find a matching line?
 : matches? ( c-addr u -- flag )
-   bl scan bl skip nextword requested 2@ compare 0= ;
+   bl scan bl skip nextword requested 2@ icompare 0= ;
 
 0 value helpstatus 
 0 value '@see

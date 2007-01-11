@@ -117,7 +117,7 @@ VARIABLE CHARPTR
 \G Determine if line at HERE is glossary comment, if so.
 \G allot it, else store into oldline.
 : GLOS-COMMENT? ( --- flag)
-   HERE C@ 1 > HERE CHAR+ 2 S" \G" COMPARE 0= AND
+   HERE C@ 1 > HERE CHAR+ 2 S" \G" ICOMPARE 0= AND
    IF
     HERE C@ 1+ CHARS ALLOT 1 \G incorporate current line.
    ELSE

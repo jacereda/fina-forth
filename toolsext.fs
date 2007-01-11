@@ -14,9 +14,9 @@
    until rdrop ;
 
 : []handle
-   s" [if]"   2over compare 0= if 2drop 1+ -1 exit then
-   s" [else]" 2over compare 0= if 2drop 1- -1 exit then
-   s" [then]" 2over compare 0= if 2drop 1- -1 exit then 
+   s" [if]"   2over icompare 0= if 2drop 1+ -1 exit then
+   s" [else]" 2over icompare 0= if 2drop 1- -1 exit then
+   s" [then]" 2over icompare 0= if 2drop 1- -1 exit then 
    2drop 0 ; 
 
 : [else] 

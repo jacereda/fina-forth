@@ -252,6 +252,9 @@ prim c@ ( c-addr -- char )
 \g @see anscore
 prim move ( c-addr1 c-addr2 u -- )
 
+\g Compare strings alphabetically, case-insensitive
+prim isame? ( c-addr1 c-addr2 u -- -1|0|1 )
+
 \g Compare strings alphabetically
 prim same? ( c-addr1 c-addr2 u -- -1|0|1 )
 
@@ -924,7 +927,7 @@ create #order ( -- a-addr )
 
 : match? ( c-addr -- c-addr )
    dup namecount parsed @ = if 
-      parsed 2@ same? 0= if dup to found then
+      parsed 2@ isame? 0= if dup to found then
    else drop then ;  
 
 \g Find word in wordlist, sets PARSED, result also stored in FOUND
