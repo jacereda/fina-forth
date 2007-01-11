@@ -51,7 +51,7 @@ static inline unsigned upCase(unsigned uiVal)
         return uiVal;
 }
 
-static inline CELL nCaseCompare(CELL p1, CELL p2, CELL len)
+static inline CELL nInsensitiveCompare(CELL p1, CELL p2, CELL len)
 {
         CELL c1 = 0, c2 = 0;
         while (len-- && c1 == c2)
@@ -59,8 +59,20 @@ static inline CELL nCaseCompare(CELL p1, CELL p2, CELL len)
                 c1 = upCase(*(char*)p1++);
                 c2 = upCase(*(char*)p2++);
         }
-        return c1 == c2? 0 : c1 < c2? -1 : 1;
+        return c1 == c2? 0 : c1 < c2? 1 : -1;
 }
+
+static inline CELL nCompare(CELL p1, CELL p2, CELL len)
+{
+        CELL c1 = 0, c2 = 0;
+        while (len-- && c1 == c2)
+        {
+                c1 = *(char*)p1++;
+                c2 = *(char*)p2++;
+        }
+        return c1 == c2? 0 : c1 < c2? 1 : -1;
+}
+
 
 #if defined(HAS_FILES)
 static char * zstr(const char * str, unsigned len)

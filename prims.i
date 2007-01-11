@@ -293,13 +293,22 @@
                 dsp += 4;
                 NEXT;
                 
-                PRIM(SAMEQ,62);
+                PRIM(ISAMEQ,62);
                 CALLSAVE;
-                t1 = nCaseCompare(dsp[0], dsp[1], tos);
+                t1 = nInsensitiveCompare(dsp[0], dsp[1], tos);
                 CALLREST;
                 tos = t1;
                 dsp += 2;
                 NEXT;
+
+                PRIM(SAMEQ,63);
+                CALLSAVE;
+                t1 = nCompare(dsp[0], dsp[1], tos);
+                CALLREST;
+                tos = t1;
+                dsp += 2;
+                NEXT;
+
 
                 PRIM(RFETCH,33);
                 PUSH;

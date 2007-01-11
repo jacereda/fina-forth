@@ -5,6 +5,13 @@
     umin same? ?dup if rdrop exit then
     r> dup if 0< 2* 1+ then ;
 
+\g case-insensitive COMPARE
+: icompare  ( c-addr1 u1 c-addr2 u2 -- n )
+    rot 2dup swap - >r
+    umin isame? ?dup if rdrop exit then
+    r> dup if 0< 2* 1+ then ;
+
+
 \g @see ansstring
 : -trailing ( a u1 -- a u2 )
    begin 2dup + 1- c@ bl = over and while 1- repeat ;
