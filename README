@@ -1,8 +1,17 @@
 Yes, this README sucks, but you know, it is still unreleased.
 
-To build the software, install scons ( http://scons.org ) and run:
+To build the software, install scons ( http://scons.org ) and
+libffi. Then run:
 
 $ scons
+
+To start the interpreter:
+
+$ bin/fina
+
+You can get help with:
+
+help <word>
 
 To pass some regression tests, build with:
 
