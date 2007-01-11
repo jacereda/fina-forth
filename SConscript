@@ -109,7 +109,7 @@ bye.fs	       facilityext.fs	hype.fs		powerpc-tconfig.fs  tools.fs
 cce.fs	       ffi.fs		i386-tconfig.fs	require.fs	    toolsext.fs
 checkans.fs    file.fs		lineedit.fs	save.fs		    verboseinc.fs
 core.fs        fileext.fs	maketoc.fs	savefina.fs	    wordsets.fs
-coreext.fs     memory.fs	search.fs
+coreext.fs     memory.fs	search.fs       timer.fs
 """
 
 anshelp = Split("""
