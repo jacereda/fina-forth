@@ -92,14 +92,14 @@ static void sighandler(int sig)
         longjmp(jmpbuf, throw);
 }
 
-int Sys_Tick()
+int Sys_Tick(struct FINA_State * state)
 {
         static int set = 0;
         int throw = 0;
         if (!set)
                 throw = setjmp(jmpbuf);
         set = !throw;
-		return throw;
+		return FINA_InternalTick(state, throw);
 }
 
 static void initSignals()
