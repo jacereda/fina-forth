@@ -149,7 +149,7 @@ void FINA_End(struct FINA_State * state)
         Sys_End();
 }
 
-int FINA_Tick(struct FINA_State * state)
+int FINA_InternalTick(struct FINA_State * state, int throw)
 {
         static CELL * tab[] = {
                 &&NOOP,
@@ -189,7 +189,6 @@ int FINA_Tick(struct FINA_State * state)
         long long ll, ll2;
         unsigned long long ull;
         float f;
-		int throw = Sys_Tick();
         
         (void)ll; (void)ll2; (void)ull;
         if (throw)
@@ -245,3 +244,7 @@ end:
         return ret;
 }
 
+int FINA_Tick(struct FINA_State * state)
+{
+		return Sys_Tick(state);
+}

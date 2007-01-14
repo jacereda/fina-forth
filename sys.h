@@ -1,6 +1,8 @@
+int FINA_InternalTick(struct FINA_State * state, int throw);
+
 void Sys_Init(int argc, char ** argv);
 void Sys_End();
-int Sys_Tick();
+int Sys_Tick(struct FINA_State * state);
 unsigned Sys_Argc();
 char ** Sys_Argv();
 
