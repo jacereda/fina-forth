@@ -11,6 +11,8 @@ def arch():
 	arch = shelloutput('uname -m')
 	if arch == 'ppc':
 		arch = 'powerpc'
+	if arch == 'i686':
+		arch = 'i386'
 	return arch
 
 prefix = ARGUMENTS.get('prefix', '#')
