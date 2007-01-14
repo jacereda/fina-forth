@@ -99,7 +99,7 @@ int Sys_Tick()
         if (!set)
                 throw = setjmp(jmpbuf);
         set = !throw;
-        return FINA_InternalTick(throw);
+		return throw;
 }
 
 static void initSignals()

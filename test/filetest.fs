@@ -17,7 +17,7 @@ decimal
 { 0 file-position -> -1 -1 -37 }
 { 0 0 file reposition-file -> 0 }
 { pad 20 file read-line -> 20 -1 0 }
-{ pad 80 file read-line -> 19 -1 0 }
+{ pad 80 file read-line -> 25 -1 0 }
 { pad 80 file read-line -> 20 -1 0 }
 { pad 80 file read-line -> 0 -1 0 }
 { 0 close-file -> -37 }

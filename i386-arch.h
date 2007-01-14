@@ -1,5 +1,3 @@
-#define CELL long
-
 #define PRIMSATTR  
 #define FPCREG asm("%esi")
 #define RSPREG
