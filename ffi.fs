@@ -23,6 +23,7 @@
 : library ( "forthname" "libname" ) 
    create 0 parse 
    0 >r
+   2dup s" " trylib r> or >r
    2dup s" .dylib" trylib r> or >r
    2dup s" .so" trylib r> or >r
    2dup s" .so.6" trylib r> or >r   \ Special case for libc
