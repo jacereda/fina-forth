@@ -1,4 +1,4 @@
-Import('env prefix helpdir')
+Import('env prefix')
 fenv = env.Copy()
 fenv.Append(CPPPATH=['obj'] + fenv['INCFFI'])
 fenv.Append(LIBPATH=fenv['LIBPATHFFI'])
@@ -40,7 +40,7 @@ for arch in architectures:
 	fenv.Default(fenv.Command(arch + 'dummy', arch + '-dict2.s', 
        	  		  Copy(arch + '-dict0.s', '$SOURCE')))
 	
-
+helpdir = prefix + 'share/fina/help'
 if helpdir[0] == '#':
 	helpdir2 = helpdir[1:]
 else:

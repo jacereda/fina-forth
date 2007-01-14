@@ -16,7 +16,6 @@ def arch():
 	return arch
 
 prefix = ARGUMENTS.get('prefix', '#')
-helpdir = prefix + 'share/fina/help'
 
 env = Environment(ARCH=arch(), CC='gcc')
 env.Append(CCFLAGS='-O2 -g')
@@ -79,5 +78,5 @@ env['LIBX'] = {
 env.SConscript('SConscript', 
 		build_dir = 'obj', 
 		src_dir = '.', 
-		exports=['env', 'prefix', 'helpdir'],
+		exports=['env', 'prefix'],
 		duplicate = 0)
