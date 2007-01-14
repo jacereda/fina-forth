@@ -1,4 +1,4 @@
-require ffi.fs
+\ Don't use this, include timer.fs
 library librt rt.so.1
 librt clock_gettime int ptr (int) clock_gettime
 : sns ( -- seconds nanoseconds )
