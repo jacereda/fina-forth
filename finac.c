@@ -26,18 +26,6 @@
 #define RPOP(reg) reg = *rsp++;
 #define POP tos = *dsp++
 
-struct state {
-        CELL * fpc;
-        CELL * dsp;
-        CELL * rsp;
-        CELL   tos;
-} _saved;
-struct state volatile * volatile saved = &_saved;
-#define BOOTSTRAP_STACK 16
-
-static CELL bootstrap_dsp[BOOTSTRAP_STACK];
-static CELL bootstrap_rsp[BOOTSTRAP_STACK];
-
 static inline CELL *userP()
 {
         extern CELL Forth_UserP;
@@ -131,37 +119,37 @@ static inline unsigned CELL UMSlashMod(unsigned CELL * dd,
 }
 
 #define SAVEREGS do { \
-        saved->tos = tos; \
-        saved->rsp = rsp; \
-        saved->dsp = dsp; \
-        saved->fpc = fpc; \
+        state->tos = tos; \
+        state->rsp = rsp; \
+        state->dsp = dsp; \
+        state->fpc = fpc; \
 } while(0)
 
 #define RESTREGS do { \
-        fpc = saved->fpc; \
-        rsp = saved->rsp; \
-        dsp = saved->dsp; \
-        tos = saved->tos; \
+        fpc = state->fpc; \
+        rsp = state->rsp; \
+        dsp = state->dsp; \
+        tos = state->tos; \
 } while(0)
 
-int FINA_Init(int argc, char ** argv)
+int FINA_Init(struct FINA_State * state, int argc, char ** argv)
 {
         extern CELL Forth_Entry;
         Sys_Init(argc, argv);
         
-        saved->fpc = (CELL*)(Forth_Entry + arch_callsize());
-        saved->dsp = bootstrap_dsp+BOOTSTRAP_STACK;
-        saved->rsp = bootstrap_rsp+BOOTSTRAP_STACK;
-        saved->tos = 0;
+        state->fpc = (CELL*)(Forth_Entry + arch_callsize());
+        state->dsp = state->bootstrap_ds + FINA_BOOTSTRAP_STACK;
+        state->rsp = state->bootstrap_rs + FINA_BOOTSTRAP_STACK;
+        state->tos = 0;
         return 0;
 }
 
-void FINA_End()
+void FINA_End(struct FINA_State * state)
 {
         Sys_End();
 }
 
-int FINA_InternalTick(int throw)
+int FINA_Tick(struct FINA_State * state)
 {
         static CELL * tab[] = {
                 &&NOOP,
@@ -201,13 +189,14 @@ int FINA_InternalTick(int throw)
         long long ll, ll2;
         unsigned long long ull;
         float f;
+		int throw = Sys_Tick();
         
         (void)ll; (void)ll2; (void)ull;
         if (throw)
         {
                 fpc = (CELL*)(arch_callsize() + **(CELL**)userP());
-                rsp = bootstrap_rsp + BOOTSTRAP_STACK;
-                dsp = bootstrap_dsp + BOOTSTRAP_STACK;
+                rsp = state->bootstrap_rs + FINA_BOOTSTRAP_STACK;
+                dsp = state->bootstrap_ds + FINA_BOOTSTRAP_STACK;
                 tos = throw;
         }
         else
@@ -254,10 +243,5 @@ int FINA_InternalTick(int throw)
 end:
         SAVEREGS;
         return ret;
-}
-
-int FINA_Tick()
-{
-        return Sys_Tick();
 }
 
