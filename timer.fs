@@ -1,5 +1,5 @@
 require ffi.fs
-char " parse nstimer.fs ' included try
+char " parse nstimer.fs" ' included catch
 [if]
 include ustimer.fs
 : sns sus 1000 * ;
