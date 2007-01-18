@@ -63,11 +63,12 @@ static inline CELL nCompare(CELL p1, CELL p2, CELL len)
 
 
 #if defined(HAS_FILES)
-static char * zstr(char * res, const char * str, unsigned len)
+static inline char * zstr(char * res, const char * str, unsigned len)
 {
         len &= MAXSTR-1;
-        Sys_MemMove(res, str, len);
-        res[len] = 0;
+	res[len] = 0;
+	while (len--)
+		res[len] = str[len];
         return res;
 }
 #endif  // HAS_FILES
