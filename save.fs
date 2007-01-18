@@ -15,5 +15,5 @@
    close-file throw  r> close-file throw ;
 
 : save"
-   [char] " parse save ;
+   [char] " parse ." saving " 2dup type ." ..." save ."  done" cr ;
 
