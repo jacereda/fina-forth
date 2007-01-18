@@ -18,7 +18,7 @@ def arch():
 prefix = ARGUMENTS.get('prefix', '#')
 
 env = Environment(ARCH=arch(), CC='gcc')
-env.Append(CCFLAGS='-O2 -g')
+env.Append(CCFLAGS='-O2 -g -fno-reorder-blocks')
 env.Append(LINKFLAGS='-g')
 if sys.platform == 'netbsd3' or sys.platform == 'netbsd4':
 	env.Append(LINKFLAGS=' -static ')
