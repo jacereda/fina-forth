@@ -8,7 +8,7 @@
 #endif
 
 // #define PROFILE_FORTH 1
-
+#define MAXSTR 512 // power of 2
 #define FLAG(x) (x)? -1 : 0;
 
 #define POPLL  ll  = (((long long)tos) << 32) | *(unsigned*)dsp++; tos = *dsp++
@@ -63,19 +63,9 @@ static inline CELL nCompare(CELL p1, CELL p2, CELL len)
 
 
 #if defined(HAS_FILES)
-static char * zstr(const char * str, unsigned len)
+static char * zstr(char * res, const char * str, unsigned len)
 {
-        static char res[512];
-        len &= 511;
-        Sys_MemMove(res, str, len);
-        res[len] = 0;
-        return res;
-}
-
-static char * zstr2(const char * str, unsigned len)
-{
-        static char res[512];
-        len &= 511;
+        len &= MAXSTR-1;
         Sys_MemMove(res, str, len);
         res[len] = 0;
         return res;
@@ -89,6 +79,21 @@ static unsigned strLen(const char * str)
     return str - ostr - 1;
 }
 
+#if defined(HAS_FFI)
+void FINA_Closure(ffi_cif * cif, void * result, void ** args, void * xt)
+{
+	unsigned nargs = cif->nargs;
+	struct FINA_State state;
+	state.fpc = xt;
+	state.dsp = state.bootstrap_ds+FINA_BOOTSTRAP_STACK;
+	state.rsp = state.bootstrap_rs+FINA_BOOTSTRAP_STACK;
+	state.tos = (CELL)args[0];
+	while(nargs--)
+		*--(state.dsp) = (CELL)*args++;
+	FINA_Tick(&state);
+	*(CELL*)result = state.tos;
+}
+#endif // HAS_FFI
 
 static inline unsigned CELL UMSlashMod(unsigned CELL * dd, 
                                        unsigned CELL d, 
@@ -189,7 +194,9 @@ int FINA_InternalTick(struct FINA_State * state, int throw)
         long long ll, ll2;
         unsigned long long ull;
         float f;
-        
+	char str1[MAXSTR];
+	char str2[MAXSTR];
+
         (void)ll; (void)ll2; (void)ull;
         if (throw)
         {
