@@ -60,7 +60,7 @@ f = fenv.Command('fina', Split("""kernel2
            lineedit.fs multi.fs osnice.fs
            help.fs args.fs save.fs savefina.fs
         """),
-        ['echo "`cat ${SOURCES[1:]} ` save\\" obj/fina\\" bye"  | $SOURCE',
+        ['echo "`cat ${SOURCES[1:]} ` save\\" $TARGET\\" bye"  | $SOURCE',
         'chmod 777 $TARGET'])
 env.Default(env.Install(prefix + 'bin', f))
 
@@ -79,12 +79,13 @@ if ARGUMENTS.get('test', 0):
 		'$SOURCE ${SOURCES[1:]}')
 
 
-awenv = env.Copy()
-awenv.Append(LIBPATH=awenv['LIBX'])
-awenv.Append(CPPPATH=awenv['INCX'])
-awenv.Append(LIBS=['X11', 'GL', 'Xxf86vm', 'Xext'])
-awenv.Append(CCFLAGS=' -g ')
-env.Default(awenv.SharedLibrary(prefix + 'lib/fina/aw', Split('aw.c awx.c')))
+#awenv = env.Copy()
+#awenv.Append(LIBPATH=awenv['LIBX'])
+#awenv.Append(CPPPATH=awenv['INCX'])
+#awenv.Append(LIBS=['X11', 'GL', 'Xxf86vm', 'Xext'])
+#awenv.Append(CCFLAGS=' -g ')
+#env.Default(awenv.SharedLibrary(prefix + 'lib/fina/aw', Split('aw.c awx.c')))
+
 
 env.Default(env.Install(prefix + 'share/fina', Split("""
         gtk.fs sh.fs ans-report.fs module.fs
