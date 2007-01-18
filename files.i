@@ -2,7 +2,7 @@
 #if defined(HAS_FILES)
                 PRIM(OPENF, 200);
                 CALLSAVE;
-                t1 = (CELL)Sys_FileOpen(zstr((char*)dsp[1], dsp[0]), tos);
+                t1 = (CELL)Sys_FileOpen(zstr(str1, (char*)dsp[1], dsp[0]), tos);
                 t2 = Sys_Throw();
                 CALLREST;
                 *++dsp = t1;
@@ -99,7 +99,7 @@
 
                 PRIM(DELETEF, 209);
                 CALLSAVE;
-                Sys_FileDelete(zstr((char*)*dsp, tos));
+                Sys_FileDelete(zstr(str1, (char*)*dsp, tos));
                 t1 = Sys_Throw();
                 CALLREST;
                 dsp++;
@@ -108,7 +108,7 @@
 
                 PRIM(STATF, 210);
                 CALLSAVE;
-                t1 = Sys_FileStat(zstr((char*)dsp[0], tos));
+                t1 = Sys_FileStat(zstr(str1, (char*)dsp[0], tos));
                 t2 = Sys_Throw();
                 CALLREST;
                 dsp[0] = t1;
@@ -117,8 +117,8 @@
 
                 PRIM(RENF, 211);
                 CALLSAVE;
-                t1 = (CELL)zstr2((char*)dsp[0], tos);
-                Sys_FileRen(zstr((char*)dsp[2], dsp[1]), (char*)t1);
+                t1 = (CELL)zstr(str1, (char*)dsp[0], tos);
+                Sys_FileRen(zstr(str2, (char*)dsp[2], dsp[1]), (char*)t1);
                 t1 = Sys_Throw();
                 CALLREST;
                 tos = t1;
