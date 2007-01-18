@@ -49,7 +49,7 @@
 
         PRIM(DLOPEN, 1100);
         CALLSAVE;
-        t1 = (CELL)dlopen(zstr((char*)dsp[0], tos), 
+        t1 = (CELL)dlopen(zstr(str1, (char*)dsp[0], tos), 
 #if defined(__NetBSD__)
 	DL_LAZY
 #else
@@ -63,7 +63,7 @@
         
         PRIM(DLSYM, 1101);
         CALLSAVE;
-        t1 = (CELL)dlsym((void*)tos, zstr((char*)dsp[1], dsp[0]));
+        t1 = (CELL)dlsym((void*)tos, zstr(str1, (char*)dsp[1], dsp[0]));
         CALLREST;
         tos = t1;
         dsp += 2;
