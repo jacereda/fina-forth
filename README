@@ -5,6 +5,8 @@ libffi. Then run:
 
 $ scons
 
+Compiling with gcc versions earlier than gcc 4 might be troublesome.
+
 To start the interpreter:
 
 $ bin/fina
