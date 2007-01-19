@@ -16,7 +16,7 @@ constant w/o ( -- fam )
 
 \g @see ansfile
 : open-file ( c-addr u fam -- fileid ior )
-\   >r 2dup parsed 2! r>
+   >r 2dup parsed 2! r>
    openf ;
 
 \g @see ansfile
@@ -118,6 +118,7 @@ create line /line allot
    sourcevar 2! >in off interpret ;
 
 : (finclude)
+   parsed 2@ (fname) 2!
    to source-id  0 to sourceline#
    source-id ['] intline foreachline ;
 
@@ -137,15 +138,12 @@ defer inchook1  ' noop is inchook1
 
 \g @see ansfile
 : included  ( i*x c-addr u -- j*x )
-   2dup parsed 2!  
    inchook0
-   save-input n>r  here >r
-   2dup r/o open-file throw >r 
-   (fname) 2!
-   r@ (finclude)
+   here >r
+   r/o open-file throw >r 
+   r@ include-file
    r> close-file throw
-   r> inchook1 drop
-   nr> restore-input -37 ?throw ;
+   r> inchook1 drop ;
 
 \g Include file
 \g @also included
