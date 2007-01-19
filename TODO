@@ -1,8 +1,4 @@
-- Fix -1 0 ?do i . loop (should work as in gforth)
 - Blocks
-- Make it possible to compile without bootstrap compiler (keep .s files for
-  the supported architectures). Should also drop the gcc2 build-depend.
-- isolate compiler constants (/dict et al) from arch-specific code
 - negative strings?
 - douser is slow
 - implement USEPFR for better code on MIPS machines.
@@ -14,7 +10,6 @@
 - EVALUATE should use SAVE-INPUT
 - document
 - split ?dodefine -> ?xt+xtbody
-- documentation system
 - more file tests
 - forlist/repeat?
 - implement user and remove fake definition from host-fina.fs
