@@ -7,6 +7,9 @@ def shelloutput(cmd):
         pipe.close()
         return ret.strip()
 
+def gccversion():
+	return shelloutput('gcc --version').split(' ')[2].split('.')
+
 def arch():
 	arch = shelloutput('uname -m')
 	if arch == 'ppc':
@@ -24,7 +27,9 @@ if sys.platform == 'netbsd3' or sys.platform == 'netbsd4':
 	env.Append(LINKFLAGS=' -static ')
 env.Append(CPPDEFINES=['HAS_FILES', 'HAS_ALLOCATE', 'HAS_FIXED', 'HAS_FFI', 
 			'MORE_PRIMS'])
-
+gccmajor, gccminor, gccrev = gccversion()
+if gccmajor < 3:
+	env.Append(CPPDEFINES=[['__LONG_LONG_MAX__', '9223372036854775807']])
 
 tab = Builder(action=
 	'cat $SOURCE | grep "^ *PRIM(" | sed "s/PRIM(\(.*\),.*/\&\&\\1,/g" > $TARGET',
