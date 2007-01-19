@@ -22,7 +22,9 @@ decimal
 { pad 80 file read-line -> 0 -1 0 }
 { 0 close-file -> -37 }
 { file close-file -> 0 }
-\ { file close-file -> -37 } \ Can't detect, glibc aborts due to double free
+\ Can't detect this one, glibc aborts due to double free.
+\ One approach would be to keep a table of open files.
+\ { file close-file -> -37 } 
 { char " parse test/right.fs" ' included catch -> 0 }
 { char " parse test/wrong.fs" ' included catch -> 42 }
 { char " parse test/wronginclude.fs" ' included catch -> 42 }
