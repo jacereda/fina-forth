@@ -65,9 +65,9 @@ f = fenv.Command('fina', Split("""kernel2
 env.Default(env.Install(prefix + 'bin', f))
 
 tests = Split("""
-	test/tester.fs test/finatest.fs 
-	test/coretest.fs test/postponetest.fs
-	test/filetest.fs test/dbltest.fs test/dbltest2.fs
+	test/tester.fs test/fina.fs 
+	test/core.fs test/postpone.fs
+	test/file.fs test/double.fs test/double2.fs
 """)
 
 benchmarks = Split("""
