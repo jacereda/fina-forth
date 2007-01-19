@@ -21,7 +21,7 @@ def arch():
 prefix = ARGUMENTS.get('prefix', '#')
 
 env = Environment(ARCH=arch(), CC='gcc')
-env.Append(CCFLAGS='-O2 -g -fno-reorder-blocks')
+env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
 if sys.platform == 'netbsd3' or sys.platform == 'netbsd4':
 	env.Append(LINKFLAGS=' -static ')
@@ -30,6 +30,9 @@ env.Append(CPPDEFINES=['HAS_FILES', 'HAS_ALLOCATE', 'HAS_FIXED', 'HAS_FFI',
 gccmajor, gccminor, gccrev = gccversion()
 if gccmajor < 3:
 	env.Append(CPPDEFINES=[['__LONG_LONG_MAX__', '9223372036854775807']])
+else:
+	env.Append(CCFLAGS='-fno-reorder-blocks')
+
 
 tab = Builder(action=
 	'cat $SOURCE | grep "^ *PRIM(" | sed "s/PRIM(\(.*\),.*/\&\&\\1,/g" > $TARGET',
