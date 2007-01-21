@@ -7,9 +7,9 @@ libc _realpath ptr ptr (ptr) realpath
    r/o open-file 0= if close-file throw 1 then ;
 
 \ Convert relative path to installation-relative path
-: >inst ( addr len -- addr' len' )
+: >share ( addr len -- addr' len' )
    0 arg pad place s" /../../share/fina/" pad append
    pad append pad count realpath ;
 
 :noname
-   2dup file-exists? 0= if >inst then deferred inchook0 ; is inchook0
+   2dup file-exists? 0= if >share then deferred inchook0 ; is inchook0
