@@ -41,7 +41,7 @@ for phase in range(3):
 for arch in architectures:
         fenv.Default(fenv.Command(arch + 'dummy', 
                         'kernel/' + arch + '-dict2.s', 
-                        Copy(arch + '-dict0.s', '$SOURCE')))
+                        Copy('kernel/' + arch + '-dict0.s', '$SOURCE')))
         
 
 
