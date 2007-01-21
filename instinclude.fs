@@ -1,7 +1,7 @@
 libc _realpath ptr ptr (ptr) realpath
 
-: realpath ( addr len -- )
-   0term pad _realpath dup 0= -37 ?throw 0count ;
+: realpath ( addr len -- addr' len' )
+   0term pad 1+ _realpath dup 0= -37 ?throw 0count ;
 
 : file-exists? ( addr len -- flag )
    r/o open-file 0= if close-file throw 1 then ;
