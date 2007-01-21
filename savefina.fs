@@ -4,8 +4,6 @@
    r@ ['] .line foreachline
    r> close-file throw ;
 
-defer banner
-
 :noname
    ." FINA v0.2. Copyright (c) 2004-2007, Jorge Acereda Macia." cr
    ." FINA comes with EVEN LESS WARRANTY; for details type 'license'." cr
@@ -23,11 +21,8 @@ defer banner
    +loop ;
 
 :noname
-   rp0 @ rp! 
-   sp0 @ sp!
-   ['] doargs catch '.error @execute
-   banner
-   quit ; 'cold!
+   ['] doargs catch '.error @execute 
+   deferred coldchain ; is coldchain
 
 :noname
    ." ok" cr ; '.prompt ! 

@@ -4,6 +4,17 @@
 : 'cold!
    dict0 cell+ cell+ ! ;
 
+\g Deferred word for building the startup execution chain
+defer coldchain
+
+\g Deferred word, prints the startup banner
+defer banner
+
+:noname banner quit ; is coldchain
+
+:noname 
+   rp0 @ rp!  sp0 @ sp!  coldchain ; 'cold!
+
 : save ( a u -- )
    w/o open-file throw >r   0 arg r/o open-file throw
    dup mmap-file throw
@@ -15,5 +26,4 @@
    close-file throw  r> close-file throw ;
 
 : save"
-   [char] " parse ." saving " 2dup type ." ..." save ."  done" cr ;
-
+   [char] " parse save ;
