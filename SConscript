@@ -58,8 +58,9 @@ f = fenv.Command('fina', Split("""kernel2
            tools.fs toolsext.fs
            facility.fs facilityext.fs 
            lineedit.fs multi.fs osnice.fs
-           help.fs args.fs save.fs 
-           ffi.fs c.fs instinclude.fs
+           args.fs save.fs 
+           ffi.fs c.fs 
+           instinclude.fs help.fs
            savefina.fs
         """),
         ['echo "`cat ${SOURCES[1:]} ` save\\" obj/fina\\" bye"  | $SOURCE',

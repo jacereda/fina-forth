@@ -1,10 +1,4 @@
 
-: c+! ( n addr -- )
-   >r r@  c@ +  r> c! ;
-
-: append ( str len cstr -- )
-    2dup 2>r  count chars +  swap chars move  2r> c+! ;
-
 \ Does str1 begin with str2?)
 : beginswith? ( c-addr1 u1 c-addr2 u2 -- flag )
    2>r r@ umin 2r> compare 0= ;
@@ -46,8 +40,8 @@ variable requested 0 ,
 : @see ( c-addr u -- )
    level 1+ to level
    s" <<" ?type 2dup ?type s" >>" ?type ?cr
-   s" @HLPDIR@/" pad place
-   pad append
+   s" help" >share pad place
+   s" /" pad append  pad append
    s" .help" pad append 
    pad count r/o open-file throw >r
    2 to helpstatus
