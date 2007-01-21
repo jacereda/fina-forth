@@ -1,24 +1,21 @@
-require ffi.fs
-library libc c
+require c.fs
 libc system ptr (int) system
 libc popen ptr ptr (ptr) popen
 libc pclose ptr (int) pclose
-create buffer 256 allot
-: 0term buffer place 0 buffer count + c! buffer 1+ ;
 : (sh) 0term system throw ;
 : sh" 
    [char] " parse postpone sliteral postpone (sh) ; immediate compile-only
 : sh 0 parse (sh) ;
 
 create wfamtab
-char r c, 0 c, 0 c, 0 c,
-char r c, 0 c, 0 c, 0 c,
-char w c, 0 c, 0 c, 0 c,
-char w c, 0 c, 0 c, 0 c,
-char w c, 0 c, 0 c, 0 c,
-char w c, 0 c, 0 c, 0 c,
+char r c, 0 c,
+char r c, 0 c,
+char w c, 0 c,
+char w c, 0 c,
+char w c, 0 c,
+char w c, 0 c,
 
-: wfam>str cells wfamtab + ;
+: wfam>str 2* wfamtab + ;
 : open-pipe ( c-addr u wfam -- wfileid wior )
    >r 0term r> wfam>str popen dup 0= -32 and ;
 : close-pipe ( wfileid -- wretval wior )
