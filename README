@@ -6,6 +6,7 @@ compiler/interpreter. Should be easy to port and embed in other
 applications. Tries to follow the ANS Forth standard. Currently
 supports PowerPC and X86 (MIPS and ARM untested).
 
+
 ROOTS
 =====
 
@@ -52,12 +53,22 @@ To perform some benchmarks, build with:
 
 $ scons bench=1
 
+
 INSTALLATION
 ============
 
 To install, just build passing a prefix argument:
 
 $ scons prefix=/tmp/fina
+
+
+STATUS
+======
+
+You can get a report on implemented/missing words running:
+
+$ inst/bin/fina test/checkans.fs
+
 
 THANKS
 ======

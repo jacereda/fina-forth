@@ -12,23 +12,36 @@ fenv.Command('arch.h', 'kernel/$ARCH-arch.h', 'ln -sf ${SOURCE.abspath} $TARGET'
 fenv.Asm('finac.s', 'kernel/finac.c')
 
 boot = ['sys/' + i for i in Split("""
-core.fs defer.fs throwmsg.fs search.fs coreext.fs opt.fs tconfig.fs
+   core.fs defer.fs throwmsg.fs search.fs coreext.fs 
 """)]
 
-tests = Split("""
-        test/tester.fs test/fina.fs 
-        test/core.fs test/postpone.fs
-        test/file.fs test/double.fs test/double2.fs
-	test/bye.fs
-""")
+full = ['sys/' + i for i in Split("""
+   core.fs defer.fs throwmsg.fs signals.fs
+   search.fs coreext.fs searchext.fs file.fs
+   fileext.fs double.fs doubleext.fs optional.fs
+   string.fs require.fs tools.fs toolsext.fs
+   facility.fs facilityext.fs lineedit.fs multi.fs
+   osnice.fs args.fs save.fs ffi.fs c.fs
+   instinclude.fs help.fs savefina.fs
+""")]
 
+kerneltests = ['sys/core.fs'] + ['test/' + i for i in Split("""
+   tester.fs core.fs postpone.fs bye.fs
+""")]
 
+tests = ['test/' + i for i in Split("""
+   tester.fs core.fs postpone.fs
+   file.fs double.fs double2.fs
+   fina.fs bye.fs
+""")]
+
+benchmarks = env.Glob('benchmarks/*.fs')
 
 def gendict(arch, phase, kernel):
         meta =  ['meta/' + arch + '-tconfig.fs'] + \
                 ['meta/' + i for i in Split("""
-                host-fina.fs meta.fs fina.fs
-        """)]
+		   opt.fs tconfig.fs host-fina.fs meta.fs fina.fs
+	        """)]
         fenv.Command('kernel/' + arch + '-dict' + str(phase) + '.s', 
                 [kernel] + boot + meta,
                 'cat ${SOURCES[1:]} | $SOURCE > $TARGET')
@@ -42,8 +55,9 @@ for phase in range(3):
         k = fenv.Program('kernel' + str(phase), 
                         [ks, 'kernel/sysposix.c', 'kernel/main.c'])
         if ARGUMENTS.get('test', 0):
-                fenv.Command('dummy' + str(phase), [k] + tests + ['bye.fs'],
-                        'cat ${SOURCES[1:]} | $SOURCE')
+                fenv.Default(fenv.Command('dummy' + str(phase), 
+				[k] + kerneltests,
+	                        'cat ${SOURCES[1:]} | $SOURCE'))
         for arch in architectures:
                 gendict(arch, phase+1, k)
 
@@ -53,24 +67,9 @@ for arch in architectures:
                         Copy('kernel/' + arch + '-dict0.s', '$SOURCE')))
         
 
-
-
-full = ['sys/' + i for i in Split("""
-        core.fs defer.fs throwmsg.fs signals.fs
-        search.fs coreext.fs searchext.fs file.fs
-        fileext.fs double.fs doubleext.fs optional.fs
-        string.fs require.fs tools.fs toolsext.fs
-        facility.fs facilityext.fs lineedit.fs multi.fs
-        osnice.fs args.fs save.fs ffi.fs c.fs
-        instinclude.fs help.fs savefina.fs
-""")]
-
-
 f = fenv.Command('fina', ['kernel2'] + full,
         ['echo "`cat ${SOURCES[1:]} ` save\\" obj/fina\\" bye"  | $SOURCE',
         'chmod 777 $TARGET'])
-
-benchmarks = env.Glob('benchmarks/*.fs')
 
 if ARGUMENTS.get('test', 0):
         fenv.Command('testfina', [f] + tests, 
@@ -115,3 +114,4 @@ if ARGUMENTS.get('bench', 0):
     for i in benchmarks:
         env.Default(env.Command('dummy' + i , i,
                 'time ' + prefix + 'bin/fina $SOURCE -e "main bye"'))
+
