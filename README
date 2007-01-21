@@ -1,15 +1,44 @@
-Yes, this README sucks, but you know, it is still unreleased.
+WHAT IS FINA?
+=============
 
-To build the software, install scons ( http://scons.org ) and
-libffi. Then run:
+FINA (FINA Is Not ANS) is a small direct-threaded Forth
+compiler/interpreter. Should be easy to port and embed in other
+applications. Tries to follow the ANS Forth standard. Currently
+supports PowerPC and X86 (MIPS and ARM untested).
+
+ROOTS
+=====
+
+FINA is inspired by hForth ( http://www.taygeta.com/hforth.html )
+and Gforth ( http://www.gnu.org/software/gforth/ ). 
+
+
+BUILD REQUIREMENTS
+==================
+
+- GCC ( http://gcc.gnu.org ). Versions 2.x and 4.x seem to generate
+  better code than 3.x. In some cases, 3.x might even generate wrong
+  code.
+
+- libffi ( http://sources.redhat.com/libffi/ ). Recent versions of
+  libffi are distributed with gcc sources. If your package system
+  doesn't offer a prepackaged libffi and you don't want to download
+  the full GCC sources, you can get the tarball that comes with
+  elastiC ( http://www.elasticworld.org/download_devel.html )
+
+- SCons ( http://scons.org ). This one requires a Python installation.
+
+
+BUILDING
+========
+
+Typing the following will build and install under a directory called "inst":
 
 $ scons
 
-Compiling with gcc versions earlier than gcc 4 might be troublesome.
-
 To start the interpreter:
 
-$ bin/fina
+$ inst/bin/fina
 
 You can get help with:
 
@@ -23,9 +52,15 @@ To perform some benchmarks, build with:
 
 $ scons bench=1
 
+INSTALLATION
+============
+
 To install, just build passing a prefix argument:
 
-$ scons prefix=/tmp/fina/
+$ scons prefix=/tmp/fina
 
-(The ending slash is required!)
+THANKS
+======
 
+Thanks to the authors of hForth and Gforth for building those great
+pieces of software.
