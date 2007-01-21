@@ -74,7 +74,9 @@ here 1 c, 10 c, pad !
 variable (fname) 0 ,
 
 : termsource!
-   s" the terminal" (fname) 2!  0 to sourceline# ;
+   s" terminal" (fname) 2!  0 to sourceline# ;
+
+termsource!
 
 : sourcefilename 
    (fname) 2@ ;
@@ -155,7 +157,7 @@ defer inchook1  ' noop is inchook1
 
 :noname ( code -- )
    dup 1 -1 within if .sourceloc then 
-   [ '.error @ compile, ] 
-   termsource! ; '.error ! 
+   deferred .error
+   termsource! ; is .error
 
 env: file true ;env

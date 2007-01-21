@@ -50,7 +50,7 @@ fenv.Command('help.fs', 'help.tmpl.fs',
         'sed "s^@HLPDIR@^' + helpdir2 + '^" $SOURCE > $TARGET')
 
 f = fenv.Command('fina', Split("""kernel2
-           core.fs throwmsg.fs defer.fs signals.fs search.fs
+           core.fs defer.fs throwmsg.fs signals.fs search.fs
            coreext.fs searchext.fs
            file.fs fileext.fs
            double.fs doubleext.fs
