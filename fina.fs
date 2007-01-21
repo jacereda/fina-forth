@@ -813,7 +813,7 @@ p: count  ( c-addr1 -- c-addr2 u )
 \g Place string at c-addr2
 : place  ( c-addr1 u c-addr2 -- )
    over 255 u>= -18 ?throw
-   >r r@ c!   r@ 1+ r> c@ move ; 
+   over >r rot over 1+ r> move c! ;
 
 \g @see anscore
 p: +!  ( x a-addr -- )
