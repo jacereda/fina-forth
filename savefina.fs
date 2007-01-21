@@ -21,7 +21,7 @@
    +loop ;
 
 :noname
-   ['] doargs catch '.error @execute 
+   ['] doargs catch .error
    deferred coldchain ; is coldchain
 
 :noname
