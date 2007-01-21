@@ -46,9 +46,6 @@ if helpdir[0] == '#':
 else:
 	helpdir2 = helpdir
 
-fenv.Command('help.fs', 'help.tmpl.fs', 
-        'sed "s^@HLPDIR@^' + helpdir2 + '^" $SOURCE > $TARGET')
-
 f = fenv.Command('fina', Split("""kernel2
            core.fs defer.fs throwmsg.fs signals.fs search.fs
            coreext.fs searchext.fs
