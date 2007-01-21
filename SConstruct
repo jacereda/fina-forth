@@ -1,5 +1,6 @@
 import os
 import sys
+import glob
 
 def shelloutput(cmd):
         pipe = os.popen(cmd, 'r')
@@ -17,8 +18,6 @@ def arch():
 	if arch == 'i686':
 		arch = 'i386'
 	return arch
-
-prefix = ARGUMENTS.get('prefix', '#')
 
 env = Environment(ARCH=arch(), CC='gcc')
 env.Append(CCFLAGS='-O2 -g')
@@ -83,8 +82,14 @@ env['LIBX'] = {
 	'linux2': ['/usr/lib'],
 }[sys.platform]
 
+
+def myglob(self, pat):
+	return glob.glob(str(Dir('#')) + '/' +  pat)
+
+Environment.Glob = classmethod(myglob)
+
 env.SConscript('SConscript', 
 		build_dir = 'obj', 
 		src_dir = '.', 
-		exports=['env', 'prefix'],
+		exports=['env'],
 		duplicate = 0)
