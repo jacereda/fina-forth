@@ -105,9 +105,8 @@ env.Default(env.Install(prefix + 'share/doc/fina', ['README', 'AUTHORS']))
 
 # Check installation
 if ARGUMENTS.get('check', 0):
-    for i in tests[1:-1]:
-        env.Default(env.Command('dummy' + i, ['test/tester.fs', i],
-                                prefix + 'bin/fina $SOURCES -e bye'))
+	env.Default(env.Command('dummy' + i, tests,
+                                prefix + 'bin/fina $SOURCES'))
 
 # Benchmarks
 if ARGUMENTS.get('bench', 0):
