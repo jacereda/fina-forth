@@ -26,90 +26,90 @@ user taskname ( -- a-addr )
 \ SYSTEM VARIABLES
 
 0 
-ivariable parsed ( -- a-addr )
+variable parsed ( -- a-addr )
 \g Double variable holding last found word
 0 ,
 
 0 
-ivariable bal ( -- a-addr )
+variable bal ( -- a-addr )
 \g Tracks depth of control-flow stack
 
 
 0 
-ivariable sourcevar ( -- a-addr )
+variable sourcevar ( -- a-addr )
 \g Double variable holding input buffer string
 0 ,
 
 0 
-ivariable abort"msg  ( -- a-addr )
+variable abort"msg  ( -- a-addr )
 \g Double variable holding ABORT" message
 0 ,
 
 0 
-ivariable hld  ( -- a-addr )
+variable hld  ( -- a-addr )
 \g Pointer to numeric output string
 
 0 
-ivariable userp  ( -- a-addr )
+variable userp  ( -- a-addr )
 \g User variables pointer
 
 -1 
-ivariable warnings  ( -- a-addr )
+variable warnings  ( -- a-addr )
 \g Holds flag to control printing of warnings
 
 0 
-ivariable 'ekey?  ( -- a-addr )
+variable 'ekey?  ( -- a-addr )
 \g Execution vector of EKEY?
 
 0 
-ivariable 'ekey  ( -- a-addr )
+variable 'ekey  ( -- a-addr )
 \g Execution vector of EKEY
 
 0 
-ivariable 'emit?  ( -- a-addr )
+variable 'emit?  ( -- a-addr )
 \g Execution vector of EMIT?
 
 0 
-ivariable 'emit  ( -- a-addr )
+variable 'emit  ( -- a-addr )
 \g Execution vector of EMIT
 
 0 
-ivariable '.prompt  ( -- a-addr )
+variable '.prompt  ( -- a-addr )
 \g Execution vector of .PROMPT
 
 0
-ivariable '.error  ( -- a-addr )
+variable '.error  ( -- a-addr )
 \g Execution vector for printing THROW error codes
 
 0 
-ivariable 'interpret  ( -- a-addr )
+variable 'interpret  ( -- a-addr )
 \g Execution vector for interpreter
 
 0
-ivariable 'compile,  ( -- a-addr )
+variable 'compile,  ( -- a-addr )
 \g Execution vector for compile,
 
 0 
-ivariable 'khan ( buf buflen char c-addr -- char | 0 )
+variable 'khan ( buf buflen char c-addr -- char | 0 )
 \g Execution vector for key handler
 
 10 
-ivariable base  ( -- a-addr )
+variable base  ( -- a-addr )
 \g @see anscore
 
 0 
-ivariable >in  ( -- a-addr )
+variable >in  ( -- a-addr )
 \g @see anscore
 
 \g @see anscore
-0 ivariable span
-
-0 
-ivariable state  ( -- a-addr )
-\g @see anscore
+0 variable span
 
 0 
-ivariable hasname?  ( -- a-addr )
+variable state  ( -- a-addr )
+\g @see anscore
+
+0 
+variable hasname?  ( -- a-addr )
 \g Contains true when the last definition has a name
 
 \ SYSTEM VALUES
@@ -1172,7 +1172,7 @@ bcreate exstr ,"  exception # "
 : : ( "<spaces>name" -- colon-sys )
    head, :noname rot drop   hasname? on ;  
 
-0 ivariable dummy1
+0 variable dummy1
 
 \g Make last name visible in name searches
 : linklast ( -- )
@@ -1236,5 +1236,5 @@ p: doto  ( x -- )
    get-current 1 #order 2!
    sp0 @ sp!
    quit ;
-0 ivariable dummy2
+0 variable dummy2
 bye
