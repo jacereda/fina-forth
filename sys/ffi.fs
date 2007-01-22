@@ -48,7 +48,7 @@ variable libs libs off
    does> @ newfun ;
 
 :noname
-   libs begin @ dup while dup cell+ count openlib over cell- ! repeat 
+   libs begin @ dup while dup cell+ count openlib over cell- ! repeat drop
    deferred coldchain ; is coldchain
 
 0 [if]
