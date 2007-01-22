@@ -889,21 +889,16 @@ create #order ( -- a-addr )
    namecount + aligned 
    dup @ h# deadbeef = if cell+ @ then ;  
 
-\g Is xt a primitive xt?
-: primxt? ( xt -- flag )
-   xtof noop xtof argv cell+ within ;
-
 : link? dup 0= swap dict? or ;
 
-\g Go from execution token to name
-: xt>name ( xt -- c-addr )
-   >r r@ primxt? if
-      xtof cold recurse
-      begin cell- @ dup name>xt r@ = until
-   else
-      r@ ?dodefine nip 0= if rdrop 0 exit then
-      r@ begin cell- dup name>xt r@ = over cell- @ link? and  until
-   then  rdrop ;  
+\g Get name for colon definition
+: colname ( xt -- c-addr)
+   dup ?dodefine nip 0= if drop 0 exit then
+   >r r@ begin cell- dup name>xt r@ = over cell- @ link? and  until rdrop ;
+
+\g Get name for primitive definition   
+: primname ( xt -- c-addr)
+   >r xtof cold colname  begin cell- @ dup name>xt r@ = until rdrop ;
 
 \g Convert address/count to loop limits
 : bounds  ( c-addr1 u -- c-addr2 c-addr3 )
@@ -1210,8 +1205,8 @@ p: doto  ( x -- )
 
 \g Startup word
 : cold ( -- )
-   xtof dict0 xt>name [ 6 cells ] literal - xtof dict0 [ /tcall ] literal + !
-   xtof dummy2 xt>name to here
+   xtof dict0 colname [ 6 cells ] literal - xtof dict0 [ /tcall ] literal + !
+   xtof dummy2 colname to here
    dict0
    [ /tdict ] literal + dup to memtop  cell-
    dup userp ! [ /user ]  literal - \ must be initialized before rp0 and sp0
@@ -1229,8 +1224,8 @@ p: doto  ( x -- )
    xtof .err '.error !
    xtof , 'compile, !
    xtof noop '.prompt !
-   xtof forth-wordlist xt>name 3 cells - to forth-wordlist 
-   xtof cold xt>name forth-wordlist !
+   xtof forth-wordlist colname 3 cells - to forth-wordlist 
+   xtof cold colname forth-wordlist !
    forth-wordlist to get-current
    get-current 1 #order 2!
    sp0 @ sp!
