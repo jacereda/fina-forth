@@ -2914,18 +2914,6 @@ _XT_DOTO:
  .p2align 2
  .long 1b
 1:
-  .byte 0x68,0x70,0x6F,0x73,0x74,0x70,0x6F,0x6E,0x65
- .p2align 2
-XT_POSTPONE:
- nop
- nop
- nop
- call XT_DOLIST
- .long XT_TICK,XT_FIMMED,XT_ZEROLT,XT_ZEROBRANCH,0x14,XT_LPARENCOMPILERPAREN,XT_LPARENCOMPILERPAREN,XT_COMMA,XT_EXIT,XT_COMPILECOMMA,XT_EXIT
-
- .p2align 2
- .long 1b
-1:
   .byte 0x2,0x73,0x2C
  .p2align 2
 XT_SCOMMA:
@@ -2959,5 +2947,5 @@ XT_DUMMYTWO:
  call XT_DOVAR
  .long 0x0
 
- .fill 251431 ,1,0
+ .fill 251499 ,1,0
  .long 0xcacacaca
