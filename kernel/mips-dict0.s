@@ -2596,7 +2596,7 @@ XT_LINKLAST:
 XT_REVEAL:
  bal XT_DOLIST
  nop 
- .long XT_HASNAMEQ,XT_FETCH,XT_ZEROBRANCH,0x8,XT_LINKLAST,XT_HASNAMEQ,XT_OFF,XT_EXIT
+ .long XT_HASNAMEQ,XT_FETCH,XT_ZEROBRANCH,0x8,XT_LINKLAST,XT_EXIT
 
  .balign 4
  .long 1b
@@ -2647,7 +2647,7 @@ XT_DUMMYTWO:
  nop 
  .long 0x0
 
- .fill 251499 ,1,0
+ .fill 251507 ,1,0
  .long 0xcacacaca
 .set reorder
 .set at
