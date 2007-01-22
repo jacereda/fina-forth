@@ -1,14 +1,14 @@
 warnings off
+
 : immediate
    lastname c@ 64 or lastname c! ;
 
-: \ 
-   source >in ! drop ; immediate
-
-: \g postpone \ ; immediate
-
 : compile-only
    lastname c@ 32 or lastname c! ;
+
+: postpone
+   ' fimmed 0< 0branch [ 5 cells , ] (compile) (compile) , exit
+   compile, ; immediate compile-only  
 
 : char  
    parse-word drop c@ ;
@@ -19,6 +19,13 @@ warnings off
 : (  
    [char] ) parse 2drop ; immediate
 
+: \ 
+   source >in ! drop ; immediate
+
+: \g postpone \ ; immediate
+
+\g @see anscore
+\ postpone ( "<spaces>name" -- )
 
 \g @see anscore
 \ immediate ( -- )

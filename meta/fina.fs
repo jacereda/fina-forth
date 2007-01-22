@@ -1180,7 +1180,6 @@ bcreate exstr ,"  exception # "
    bal @ 1- -22 ?throw 
    nip 1+ -22 ?throw
    reveal
-\   hasname? @ if  linklast  then hasname? off  
    bal off
    postpone exit  postpone [ ; immediate compile-only 
 
@@ -1189,11 +1188,6 @@ bcreate exstr ,"  exception # "
 \g Runtime for TO, store x at inline address
 p: doto  ( x -- ) 
    @r+ [ /tcall ] literal + ! ; compile-only 
-
-\g @see anscore
-: postpone ( "<spaces>name" -- )
-   ' fimmed 0< if postpone (compile) , exit then
-   compile, ; immediate compile-only  
 
 \ Strings
 
