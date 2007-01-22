@@ -3,9 +3,6 @@
 
 \ XXX Should we have a per-task HERE?
 
-
-require assert.fs
-
 : hex. base @ >r hex . r> base ! ;
 
 : user ( "<spaces>name" -- ) 
