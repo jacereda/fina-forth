@@ -20,7 +20,8 @@ full = ['sys/' + i for i in Split("""
    search.fs coreext.fs searchext.fs file.fs
    fileext.fs double.fs doubleext.fs optional.fs
    string.fs require.fs tools.fs toolsext.fs
-   facility.fs facilityext.fs lineedit.fs multi.fs
+   facility.fs facilityext.fs lineedit.fs 
+   assert.fs multi.fs
    osnice.fs args.fs save.fs ffi.fs c.fs
    instinclude.fs help.fs savefina.fs
 """)]

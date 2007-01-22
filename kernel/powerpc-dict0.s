@@ -2482,6 +2482,15 @@ _XT_DOTO:
  .align 2
  .long 1b
 1:
+  .byte 0x68,0x70,0x6F,0x73,0x74,0x70,0x6F,0x6E,0x65
+ .align 2
+XT_POSTPONE:
+ bl XT_DOLIST
+ .long XT_TICK,XT_FIMMED,XT_ZEROLT,XT_ZEROBRANCH,0x14,XT_LPARENCOMPILERPAREN,XT_LPARENCOMPILERPAREN,XT_COMMA,XT_EXIT,XT_COMPILECOMMA,XT_EXIT
+
+ .align 2
+ .long 1b
+1:
   .byte 0x2,0x73,0x2C
  .align 2
 XT_SCOMMA:
@@ -2506,5 +2515,5 @@ XT_DUMMYTWO:
  bl XT_DOVAR
  .long 0x0
 
- .fill 252095 ,1,0
+ .fill 252031 ,1,0
  .long 0xcacacaca

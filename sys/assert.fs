@@ -1,6 +1,3 @@
-\ XXX
-require backtrace.fs
-
 variable assert-level 
 1 assert-level !
 : assertn 
@@ -18,8 +15,6 @@ variable assert-level
 : .input ( -- )
     cr ." input: " sourcevar 2@ type ;
 : (endassert)
-    0= if 
-        cr ." ERROR: assertion failed" .input .stacks abort 
-    then ;
+    0= abort" assertion failed" ;
 : ) 
     postpone (endassert) ; immediate
