@@ -897,7 +897,6 @@ create #order ( -- a-addr )
 
 \g Go from execution token to name
 : xt>name ( xt -- c-addr )
-   dup xtof dict0 = if  8 - exit  then
    >r r@ primxt? if
       xtof cold recurse
       begin cell- @ dup name>xt r@ = until
