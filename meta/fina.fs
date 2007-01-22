@@ -1172,7 +1172,6 @@ bcreate exstr ,"  exception # "
 : linklast ( -- )
    lastname get-current ! ;
 
-\g Make last name visible in name searches, do nothing if :noname
 : reveal ( -- )
    hasname? @ if linklast then ;
 
@@ -1189,6 +1188,11 @@ bcreate exstr ,"  exception # "
 \g Runtime for TO, store x at inline address
 p: doto  ( x -- ) 
    @r+ [ /tcall ] literal + ! ; compile-only 
+
+\g @see anscore
+: postpone ( "<spaces>name" -- )
+   ' fimmed 0< if postpone (compile) , exit then
+   compile, ; immediate compile-only  
 
 \ Strings
 
