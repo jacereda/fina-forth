@@ -1172,8 +1172,9 @@ bcreate exstr ,"  exception # "
 : linklast ( -- )
    lastname get-current ! ;
 
+\g Make last name visible in name searches, do nothing if :noname
 : reveal ( -- )
-   hasname? @ if linklast then hasname? off ;
+   hasname? @ if linklast then ;
 
 \g @see anscore
 : ; ( colon-sys -- )
