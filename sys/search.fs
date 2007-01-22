@@ -1,3 +1,11 @@
+\g Is xt a primitive xt?
+: primxt? ( xt -- flag )
+   xtof noop xtof argv cell+ within ;
+
+\g Go from execution token to name
+: xt>name ( xt -- c-addr )
+   dup primxt? if primname else colname then ;
+
 \g @see anssearch 
 : wordlist ( -- wid )
    forth-wordlist begin cell+ dup @ while @ repeat

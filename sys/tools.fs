@@ -62,9 +62,13 @@ forth-wordlist set-current
    dup primxt? if ." primitive " then
    drop ;
 
+\g returns true if the val could be a PC address
+: pc? ( val -- flag )
+   dup aligned over = swap dict? and ;
+
+\g returs true if val could be an xt
 : xt? ( val -- flag )
-   dup aligned over <> if drop 0 exit then
-   dup dict? 0= if primxt? else ?dodefine nip 0<> then ;
+   dup pc? if ?dodefine nip 0<> else primxt? then ;
 
 : safext>name ( xt -- name|0 )
    dup xt? if xt>name else 0 (d.) pad place pad then ;
