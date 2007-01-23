@@ -223,6 +223,9 @@ variable leaves
 : abort ( i*x --  r: j*x -- )
    -1 throw ;
 
+\g Double variable holding ABORT" message
+variable abort"msg  ( -- a-addr ) 0 ,
+
 \g Runtime for ABORT"
 : (abort")
    if r> count abort"msg 2! -2 throw else r> count + aligned >r then ;

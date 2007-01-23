@@ -25,90 +25,65 @@ user taskname ( -- a-addr )
 
 \ SYSTEM VARIABLES
 
-0 
 variable parsed ( -- a-addr )
 \g Double variable holding last found word
 0 ,
 
-0 
 variable bal ( -- a-addr )
 \g Tracks depth of control-flow stack
 
-
-0 
 variable sourcevar ( -- a-addr )
 \g Double variable holding input buffer string
 0 ,
 
-0 
-variable abort"msg  ( -- a-addr )
-\g Double variable holding ABORT" message
-0 ,
-
-0 
 variable hld  ( -- a-addr )
 \g Pointer to numeric output string
 
-0 
 variable userp  ( -- a-addr )
 \g User variables pointer
 
--1 
 variable warnings  ( -- a-addr )
 \g Holds flag to control printing of warnings
 
-0 
 variable 'ekey?  ( -- a-addr )
 \g Execution vector of EKEY?
 
-0 
 variable 'ekey  ( -- a-addr )
 \g Execution vector of EKEY
 
-0 
 variable 'emit?  ( -- a-addr )
 \g Execution vector of EMIT?
 
-0 
 variable 'emit  ( -- a-addr )
 \g Execution vector of EMIT
 
-0 
 variable '.prompt  ( -- a-addr )
 \g Execution vector of .PROMPT
 
-0
 variable '.error  ( -- a-addr )
 \g Execution vector for printing THROW error codes
 
-0 
 variable 'interpret  ( -- a-addr )
 \g Execution vector for interpreter
 
-0
 variable 'compile,  ( -- a-addr )
 \g Execution vector for compile,
 
-0 
 variable 'khan ( buf buflen char c-addr -- char | 0 )
 \g Execution vector for key handler
 
-10 
 variable base  ( -- a-addr )
 \g @see anscore
 
-0 
 variable >in  ( -- a-addr )
 \g @see anscore
 
 \g @see anscore
-0 variable span
+variable span
 
-0 
 variable state  ( -- a-addr )
 \g @see anscore
 
-0 
 variable hasname?  ( -- a-addr )
 \g Contains true when the last definition has a name
 
@@ -1166,7 +1141,7 @@ bcreate exstr ,"  exception # "
 : : ( "<spaces>name" -- colon-sys )
    head, :noname rot drop   hasname? on ;  
 
-0 variable dummy1
+variable dummy1
 
 \g Make last name visible in name searches
 : linklast ( -- )
@@ -1214,6 +1189,7 @@ p: doto  ( x -- )
    [ /pad ]   literal - dup to pad
    [ /tib ]   literal - dup to tib
    drop
+   10 base !
    xtof rx? 'ekey? !
    xtof rx@ 'ekey !
    xtof tx? 'emit? !
@@ -1229,5 +1205,5 @@ p: doto  ( x -- )
    get-current 1 #order 2!
    sp0 @ sp!
    quit ;
-0 variable dummy2
+variable dummy2
 bye

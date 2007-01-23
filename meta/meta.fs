@@ -206,7 +206,7 @@ variable underscore  underscore off
 :' user 
    >t ?stack ['] user>t to type>t user ;
 :' variable
-   >t ['] var>t to type>t variable lastxt execute ! ;
+   >t ['] var>t to type>t variable ;
 :' constant   
    >t ['] const>t to type>t constant ;
 :' value      
