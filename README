@@ -10,8 +10,9 @@ supports PowerPC and X86 (MIPS and ARM untested).
 ROOTS
 =====
 
-FINA is inspired by hForth ( http://www.taygeta.com/hforth.html )
-and Gforth ( http://www.gnu.org/software/gforth/ ). 
+FINA takes some inspiration from:
+- hForth ( http://www.taygeta.com/hforth.html )
+- Gforth ( http://www.gnu.org/software/gforth/ ).
 
 
 BUILD REQUIREMENTS
@@ -41,10 +42,6 @@ To start the interpreter:
 
 $ inst/bin/fina
 
-You can get help with:
-
-help <word>
-
 To pass some regression tests, build with:
 
 $ scons check=1
@@ -62,12 +59,35 @@ To install, just build passing a prefix argument:
 $ scons prefix=/tmp/fina
 
 
+HELP
+====
+
+To read the documentation for a word, type:
+
+help <word>
+
+
 STATUS
 ======
 
 You can get a report on implemented/missing words running:
 
 $ inst/bin/fina test/checkans.fs
+
+
+INTERNALS
+=========
+
+FINA doesn't use an image file. The image is contained in the
+executable. That's the reason for the big size of the binary, it will
+be as big as your desired dictionary size. This isn't as bad as it
+might sound, since you can compress the executable with gzexe.
+Compiling FINA with a dictionary size of 16 Mb will result in an
+executable of ~16800000 bytes, but the stripped executable compressed
+with gzexe will only take ~41000 bytes.
+
+The default dictionary size is set to 256 Kb. This and several other
+values can be tweaked in meta/tconfig.fs
 
 
 THANKS
