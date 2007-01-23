@@ -14,8 +14,9 @@
 : refill  ( -- flag )
    source-id -1 = if 0 exit then
    source-id 0= if refill exit then
-   line 100 source-id read-line throw if
+   line /line source-id read-line throw if
          line swap sourcevar 2!  >in off  true 
    else 2drop false then ;
+
 
 env: file-ext true ;env
