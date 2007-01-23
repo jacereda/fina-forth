@@ -34,9 +34,9 @@ else:
 
 
 tab = Builder(action=
-   'cat $SOURCE' + \
+   'install -d obj && cat $SOURCE' + \
    ' | grep "^ *PRIM("' + \
-   ' | sed "s/PRIM(\(.*\),.*/\&\&\\1,/g" > $TARGET',
+   ' | sed "s/PRIM(\(.*\),.*/\&\&\\1,/g" > obj/`basename $TARGET`',
    source_scanner = CScan)
 
 asm = Builder(action=
