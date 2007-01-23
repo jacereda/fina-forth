@@ -8,13 +8,13 @@
 
 : (.name) ( nfa -- nfa )
    dup .name 
-   1 here +! ;
+   1 pad +! ;
 
 \g @see anstools
 : words ( -- )
-   here off
+   pad off
    get-order over >r set-order r> ['] (.name) forwordsin
-   cr here @ . ." words" cr ;
+   cr pad @ . ." words" cr ;
 
 root-wordlist set-current
 : words words ; 
@@ -77,6 +77,7 @@ forth-wordlist set-current
    dup @ safext>name .name 
    cell+ ;
 
+\g Examine code for xt
 : xtsee ( xt -- )
    dup doersee 
    dup xt>name .name
