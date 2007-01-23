@@ -12,10 +12,9 @@
 \G glossary file.
 
 
-: \G 
-\G \G is an alias for \, so it is a comment till end-of-line, but
-\G it has a special meaning for the Glossary Generator.
-POSTPONE \ ; IMMEDIATE
+\ \G \G is an alias for \, so it is a comment till end-of-line, but
+\ \G it has a special meaning for the Glossary Generator.
+\ \G POSTPONE \ ; IMMEDIATE
 
 
 VARIABLE GLOSLIST 

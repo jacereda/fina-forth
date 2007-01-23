@@ -85,7 +85,7 @@ if ARGUMENTS.get('test', 0):
 #env.Default(awenv.SharedLibrary(prefix + 'lib/fina/aw', Split('aw.c awx.c')))
 
 
-allforth = full
+allforth = env.Glob('*.fs') + env.Glob('sys/*.fs') + env.Glob('meta/*.fs')
 
 anshelp = env.Glob('help/*.help')
 

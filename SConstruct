@@ -44,7 +44,7 @@ asm = Builder(action=
    source_scanner = CScan)
 
 hlp = Builder(action=
-  'obj/fina glosgen.fs -e "newglos makeglos $SOURCE writeglos $TARGET bye"')
+  'obj/fina help/glosgen.fs -e "newglos makeglos $SOURCE writeglos $TARGET bye"')
 
 
 env.Append(BUILDERS = {

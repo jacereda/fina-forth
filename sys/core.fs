@@ -20,6 +20,9 @@ warnings off
    [char] ) parse 2drop ; immediate
 
 
+\g Comment marker used by help system
+\ \g ( -- )
+
 \g @see anscore
 \ immediate ( -- )
 
