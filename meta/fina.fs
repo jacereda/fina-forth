@@ -69,7 +69,7 @@ variable 'interpret  ( -- a-addr )
 variable 'compile,  ( -- a-addr )
 \g Execution vector for compile,
 
-variable 'khan ( buf buflen char c-addr -- char | 0 )
+variable 'khan ( buf buflen char -- buf buflen char | 0 )
 \g Execution vector for key handler
 
 variable base  ( -- a-addr )

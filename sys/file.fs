@@ -160,4 +160,6 @@ defer inchook1  ' noop is inchook1
    deferred .error
    termsource! ; is .error
 
+:noname dup 9 = if drop bl then deferred keyhandler ; is keyhandler
+
 env: file true ;env

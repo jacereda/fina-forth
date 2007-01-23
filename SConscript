@@ -17,8 +17,8 @@ boot = ['sys/' + i for i in Split("""
 
 full = ['sys/' + i for i in Split("""
    core.fs defer.fs throwmsg.fs signals.fs
-   search.fs coreext.fs searchext.fs file.fs
-   fileext.fs double.fs doubleext.fs optional.fs
+   search.fs coreext.fs searchext.fs keyhandler.fs 
+   file.fs fileext.fs double.fs doubleext.fs optional.fs
    string.fs require.fs tools.fs toolsext.fs
    facility.fs facilityext.fs lineedit.fs 
    assert.fs multi.fs
@@ -69,7 +69,8 @@ for arch in architectures:
         
 
 f = fenv.Command('fina', ['kernel2'] + full,
-        ['echo "`cat ${SOURCES[1:]} ` save\\" obj/fina\\" bye"  | $SOURCE',
+        ['echo "`cat ${SOURCES[1:]} ` warnings on save\\" obj/fina\\" bye"' +\
+         '  | $SOURCE',
         'chmod 777 $TARGET'])
 
 if ARGUMENTS.get('test', 0):

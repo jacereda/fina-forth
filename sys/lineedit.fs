@@ -14,7 +14,7 @@ variable echo  echo off
       6 of  1 +span if cursor 1- c@ emit then  6 endof
       8 of  del  8  endof
       127 of  del  127 endof
-      printable echo @ if 
+      deferred keyhandler echo @ if 
          dup if dup emit else bell then 
       then dup 
-   endcase ; 'khan !
+   endcase ; is keyhandler

@@ -1,4 +1,3 @@
-require ffi.fs
 char " parse nstimer.fs" ' included catch 
 [if]
 include ustimer.fs
