@@ -16,9 +16,6 @@ variable requested 0 ,
 0 value '@see
 0 value level
 
-\ XXX
-: 0> 0 > ;
-
 : ?type level 0> and type ;
 : ?cr level 0> if cr then ;
 
