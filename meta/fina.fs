@@ -1016,11 +1016,9 @@ bcreate redefstr ," redefined "
    -1 span +! span @ ;
 
 \g @see anscore
-: refill  ( -- flag )
+: (refill)  ( -- flag )
    source-id if 0 exit then
    tib dup [ /tib ] literal accept sourcevar 2! >in off -1 ;  
-
-: (refill) refill ;
 
 \g @see anscore
 : compile,  ( xt -- )
