@@ -59,4 +59,6 @@ does>
 
 \ Undefined
 create dummy2
-
+create (refill)
+create refill
+create 'refill

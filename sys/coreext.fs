@@ -132,6 +132,14 @@ does>     dup @ to here
 : [compile]  ( "<spaces>name" -- )
    ' compile, ; immediate compile-only
 
+create 'refill 0 , 
+' refill
+\g @see anscore
+defer refill ( -- flag )
+
+is refill  
+' refill 'refill !
+
 \g @see anscore
 defer save-input  ( -- xn ... x1 n )
 :noname
