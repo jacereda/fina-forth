@@ -83,14 +83,14 @@ termsource!
 
 \ Extend save-input and restore-input to save file name and line number
 :noname  ( -- xn ... x1 n )
-   sourcefilename  sourceline# deferred save-input 3 + ; is save-input
+   sourcefilename 2stksave 
+   sourceline# stksave
+   deferred inputsaver ; is inputsaver
 
 :noname  ( xn ... x1 n -- flag )
-   3 - deferred restore-input if 
-      2drop drop -1 
-   else 
-      to sourceline# (fname) 2! 0 
-   then ; is restore-input
+   deferred inputrestorer
+   stkrest to sourceline#
+   2stkrest (fname) 2! ; is inputrestorer
 
 create nrbuf 2 cells allot
 : n>r ( n1 .. nn n -- )
