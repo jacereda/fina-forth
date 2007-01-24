@@ -72,6 +72,9 @@ variable 'compile,  ( -- a-addr )
 variable 'khan ( buf buflen char -- buf buflen char | 0 )
 \g Execution vector for key handler
 
+variable 'refill ( -- flag )
+\g Execution vector for refill
+
 variable base  ( -- a-addr )
 \g @see anscore
 
@@ -1017,6 +1020,7 @@ bcreate redefstr ," redefined "
    source-id if 0 exit then
    tib dup [ /tib ] literal accept sourcevar 2! >in off -1 ;  
 
+: (refill) refill ;
 
 \g @see anscore
 : compile,  ( xt -- )
@@ -1123,7 +1127,7 @@ bcreate exstr ,"  exception # "
 : quit  ( --  r: i*x -- )
    begin
       rp0 @ rp!  0 to source-id  bal off  postpone [  begin
-         refill drop 
+         'refill @execute drop 
          'interpret @ catch ?dup 0=
       while
          state @ 0= if .prompt then
@@ -1199,6 +1203,7 @@ p: doto  ( x -- )
    xtof .err '.error !
    xtof , 'compile, !
    xtof noop '.prompt !
+   xtof (refill) 'refill !
    xtof forth-wordlist colname 3 cells - to forth-wordlist 
    xtof cold colname forth-wordlist !
    forth-wordlist to get-current
