@@ -3,6 +3,7 @@ Import('env')
 fenv = env.Copy()
 fenv.Append(CPPPATH=['obj'] + fenv['INCFFI'])
 fenv.Append(LIBPATH=fenv['LIBPATHFFI'])
+fenv.Append(LINKFLAGS=' -rpath=' + env['LIBPATHFFI'])
 fenv.Append(LIBS=fenv['LIBFFI'])
 
 for i in env.Glob('kernel/*.i'):
@@ -78,7 +79,7 @@ if ARGUMENTS.get('test', 0):
                 '$SOURCE ${SOURCES[1:]}')
 
 #awenv = env.Copy()
-#awenv.Append(LIBPATH=awenv['LIBX'])
+#awenv.Append(LIBPATH=awenv['LIBPATHX'])
 #awenv.Append(CPPPATH=awenv['INCX'])
 #awenv.Append(LIBS=['X11', 'GL', 'Xxf86vm', 'Xext'])
 #awenv.Append(CCFLAGS=' -g ')
