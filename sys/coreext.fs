@@ -143,6 +143,10 @@ defer save-input  ( -- xn ... x1 n )
    source  >in @  source-id 4 ; is save-input
 
 \g @see anscore
+: 0> ( n -- flag ) 
+  0 > ;
+
+\g @see anscore
 defer restore-input  ( xn ... x1 n -- flag )
 :noname
    dup 4 = if
