@@ -22,8 +22,6 @@ def arch():
 env = Environment(ARCH=arch(), CC='gcc')
 env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
-if sys.platform == 'netbsd3' or sys.platform == 'netbsd4':
-	env.Append(LINKFLAGS=' -static ')
 env.Append(CPPDEFINES=['HAS_FILES', 'HAS_ALLOCATE', 'HAS_FIXED', 'HAS_FFI', 
 			'MORE_PRIMS'])
 gccmajor, gccminor, gccrev = gccversion()
@@ -81,13 +79,12 @@ env['INCX'] = {
 	'darwin': ['/usr/X11R6/include'],
 	'linux2': ['/usr/include'],
 }[sys.platform]
-env['LIBX'] = {
+env['LIBPATHX'] = {
 	'netbsd3': ['/usr/X11R6/lib'],
 	'netbsd4': ['/usr/X11R6/lib'],
 	'darwin': ['/usr/X11R6/lib'],
 	'linux2': ['/usr/lib'],
 }[sys.platform]
-
 
 def myglob(self, pat):
 	return glob.glob(str(Dir('#')) + '/' +  pat)
