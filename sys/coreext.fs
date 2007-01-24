@@ -8,6 +8,11 @@ constant false ( -- 0 )
 
 
 \g @see anscore
+defer refill ( -- flag )
+' (refill) is refill  
+' refill 'refill !
+
+\g @see anscore
 : hex ( -- )
    16 base ! ;
 
@@ -131,14 +136,6 @@ does>     dup @ to here
 \g @see anscore
 : [compile]  ( "<spaces>name" -- )
    ' compile, ; immediate compile-only
-
-create 'refill 0 , 
-' refill
-\g @see anscore
-defer refill ( -- flag )
-
-is refill  
-' refill 'refill !
 
 \g @see anscore
 defer save-input  ( -- xn ... x1 n )
