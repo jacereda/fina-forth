@@ -268,12 +268,9 @@ variable abort"msg  ( -- a-addr ) 0 ,
    nip -1 <> bal @ 1 <> or -22 ?throw
    (compile) pipe (xt,) dolist -1 ; immediate compile-only
 
-\ 
-
 \g @see anscore
 : c,  ( char -- )
    here c! 1 allot ;
-
 
 \g @see anscore
 : decimal  ( -- )
@@ -282,13 +279,6 @@ variable abort"msg  ( -- a-addr ) 0 ,
 \g @see anscore
 : u.  ( u -- )
    0 d. ;
-
-\g @see anscore
-: evaluate  ( i*x c-addr u -- j*x )
-   source >r >r >in @ >r source-id >r 
-   -1 to source-id  sourcevar 2!  >in off 
-   interpret
-   r> to source-id  r> >in !  r> r> sourcevar 2! ;
 
 \g @see anscore
 : word  ( char "<chars>ccc<char>" -- c-addr )
@@ -309,7 +299,6 @@ variable abort"msg  ( -- a-addr ) 0 ,
 \g @see anscore
 : */mod  ( n1 n2 n3 -- n4 n5 )
    >r m* r> fm/mod ;
-
 
 \g @see anscore
 : */  ( n1 n2 n3 -- n4 )

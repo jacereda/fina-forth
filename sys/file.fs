@@ -84,13 +84,13 @@ termsource!
 : sourcefilename 
    (fname) 2@ ;
 
-: 's-nextline ( file -- addr len flag )
+: nextline ( file -- addr len flag )
    line /line rot read-line throw line -rot ;
 
-: nextline ( -- flag )
+: line>source ( -- flag )
    1 sourceline# + to sourceline#
    source-id file-position throw sourcepos 2!
-   source-id 's-nextline
+   source-id nextline
    if sourcevar 2! >in off true else 2drop false then ;
 
 \ Extend save-input and restore-input to save file name and line number
@@ -106,33 +106,24 @@ termsource!
    2stkrest sourcepos 2! 
    source-id 0> if 
       sourcepos 2@ source-id reposition-file throw 
-      source-id 's-nextline drop 2drop
+      source-id nextline drop 2drop
    then 
    stkrest to sourceline# ; is inputrestorer
 
-\g Save n items to return stack
-: n>r ( n1 .. nn n -- )
-   0 begin 2dup <> while rot r> 2>r 1+ repeat drop r> swap >r >r ;
-
-\g Restore n items from return stack
-: nr> ( -- n1 .. nn n )
-   r> r> swap >r 0 begin 2dup <> while 2r> >r -rot 1+ repeat drop ;
-
 : foreachline ( file xt -- )
    2>r begin
-      2r@ drop 's-nextline
+      2r@ drop nextline
    while
       r@ execute
    repeat 2drop rdrop rdrop ;
 
-: (finclude)
-   parsed 2@ (fname) 2!
-   to source-id  0 to sourceline#
-   begin nextline while interpret repeat ;
-
 \g @see ansfile
 : include-file
-   save-input n>r (finclude) nr> restore-input -37 ?throw ;
+   save-input n>r 
+   parsed 2@ (fname) 2! \ XXX
+   to source-id  0 to sourceline#
+   begin  line>source  while  interpret  repeat 
+   nr> restore-input -37 ?throw ;
 
 
 \g Deferred word called at start of INCLUDED. 

@@ -1015,9 +1015,8 @@ bcreate redefstr ," redefined "
    begin ekey 'khan @execute 10 = until 2drop 
    -1 span +! span @ ;
 
-\g @see anscore
+\g in-kernel refill implementation
 : (refill)  ( -- flag )
-   source-id if 0 exit then
    tib dup [ /tib ] literal accept sourcevar 2! >in off -1 ;  
 
 \g @see anscore

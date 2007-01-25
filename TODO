@@ -1,3 +1,4 @@
+- generate .help files inside obj
 - Simplify file handling (use refill)
 - Blocks
 - negative strings?
