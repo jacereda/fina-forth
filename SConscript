@@ -13,11 +13,11 @@ fenv.Command('arch.h', 'kernel/$ARCH-arch.h', 'ln -sf ${SOURCE.abspath} $TARGET'
 fenv.Asm('finac.s', 'kernel/finac.c')
 
 boot = ['sys/' + i for i in Split("""
-   core.fs defer.fs throwmsg.fs search.fs coreext.fs 
+   core.fs defer.fs core2.fs throwmsg.fs search.fs coreext.fs 
 """)]
 
 full = ['sys/' + i for i in Split("""
-   core.fs defer.fs throwmsg.fs signals.fs
+   core.fs defer.fs core2.fs throwmsg.fs signals.fs
    search.fs coreext.fs searchext.fs keyhandler.fs 
    file.fs fileext.fs double.fs doubleext.fs optional.fs
    string.fs require.fs tools.fs toolsext.fs

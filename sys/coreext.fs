@@ -8,25 +8,12 @@ constant false ( -- 0 )
 
 
 \g @see anscore
-defer refill ( -- flag )
-' (refill) is refill  
-' refill 'refill !
-
-\g @see anscore
 : hex ( -- )
    16 base ! ;
 
 \g @see anscore 
 : unused ( -- u )
    pad here - ;
-
-\g @see anscore
-: 2>r  ( d --  r: -- d )
-   swap r> swap >r swap >r >r ;
-
-\g @see anscore
-: 2r>  ( -- d  r: d -- )
-   r> r> swap r> swap >r swap ;
 
 \g Runtime for C"
 : doc" ( -- c-addr )
@@ -136,39 +123,6 @@ does>     dup @ to here
 \g @see anscore
 : [compile]  ( "<spaces>name" -- )
    ' compile, ; immediate compile-only
-
-: stksave ( n*x n val -- n*x+1 n+1 )
-   swap 1+ ;
-
-: 2stksave 
-   >r stksave r> stksave ;
-
-: stkrest ( n*x+1 n+1 -- n*x n val )
-   1- swap ;
-
-: 2stkrest
-  stkrest >r stkrest r> ;
-
-defer inputsaver
-:noname
-   source 2stksave
-   >in @ stksave 
-   source-id stksave ; is inputsaver
-
-defer inputrestorer
-:noname
-   stkrest to source-id 
-   stkrest >in ! 
-   2stkrest sourceVar 2! ; is inputrestorer
-
-\g @see anscore
-defer save-input  ( -- xn ... x1 n )
-: save-input
-   0 inputsaver ;
-
-\g @see anscore
-: restore-input  ( xn ... x1 n -- flag )
-   inputrestorer ;
 
 \g @see anscore
 : 0> ( n -- flag ) 

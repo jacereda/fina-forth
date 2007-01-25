@@ -11,9 +11,7 @@
    flushf ;
 
 :noname ( -- flag )
-   source-id -1 = if 0 exit then
-   source-id 0= if deferred refill exit then
-   nextline ;
+   source-id 0> if  line>source  else  deferred refill  then ;
 
 \g @see ansfile
 is refill ( -- flag )
