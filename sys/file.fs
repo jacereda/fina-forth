@@ -123,7 +123,7 @@ termsource!
       2r@ drop 's-nextline
    while
       r@ execute
-   repeat drop rdrop rdrop ;
+   repeat 2drop rdrop rdrop ;
 
 : (finclude)
    parsed 2@ (fname) 2!
