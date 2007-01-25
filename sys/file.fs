@@ -92,7 +92,7 @@ termsource!
    stkrest to sourceline#
    2stkrest (fname) 2! ; is inputrestorer
 
-\g Save n items in return stack
+\g Save n items to return stack
 : n>r ( n1 .. nn n -- )
    0 begin 2dup <> while rot r> 2>r 1+ repeat drop r> swap >r >r ;
 
