@@ -1,6 +1,6 @@
 : .line type cr ;
 : license
-   s" LICENSE" r/o open-file throw >r
+   s" share/doc/fina/LICENSE" r/o open-file throw >r
    r@ ['] .line foreachline
    r> close-file throw ;
 

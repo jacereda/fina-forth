@@ -13,10 +13,7 @@
 :noname ( -- flag )
    source-id -1 = if 0 exit then
    source-id 0= if deferred refill exit then
-   1 sourceline# + to sourceline# 
-   line /line source-id read-line throw if
-         line swap sourcevar 2!  >in off  true 
-   else 2drop false then ; 
+   nextline ;
 
 \g @see ansfile
 is refill ( -- flag )

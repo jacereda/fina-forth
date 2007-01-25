@@ -104,7 +104,9 @@ env.Default(env.Install(prefix + 'share/fina', env.Glob('*.fs')))
 env.Default(env.Install(prefix + 'share/fina/test', tests))
 env.Default(env.Install(prefix + 'share/fina/benchmarks', benchmarks))
 env.Default(env.Install(prefix + 'share/fina/help', [toc] + allhelp + anshelp))
-env.Default(env.Install(prefix + 'share/doc/fina', ['README', 'AUTHORS']))
+env.Default(env.Install(prefix + 'share/doc/fina', Split("""
+  README AUTHORS LICENSE
+""")))
 
 # Check installation
 if ARGUMENTS.get('check', 0):

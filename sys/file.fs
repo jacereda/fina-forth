@@ -72,6 +72,9 @@ here 1 c, 10 c, pad !
 
 0 value sourceline#
 variable (fname) 0 ,
+variable sourcepos 0 ,
+pad tib - 2 + constant /line
+create line /line allot
 
 : termsource!
    s" terminal" (fname) 2!  0 to sourceline# ;
@@ -81,16 +84,31 @@ termsource!
 : sourcefilename 
    (fname) 2@ ;
 
+: 's-nextline ( file -- addr len flag )
+   line /line rot read-line throw line -rot ;
+
+: nextline ( -- flag )
+   1 sourceline# + to sourceline#
+   source-id file-position throw sourcepos 2!
+   source-id 's-nextline
+   if sourcevar 2! >in off true else 2drop false then ;
+
 \ Extend save-input and restore-input to save file name and line number
 :noname  ( -- xn ... x1 n )
-   sourcefilename 2stksave 
    sourceline# stksave
+   sourcepos 2@ 2stksave
+   sourcefilename 2stksave 
    deferred inputsaver ; is inputsaver
 
 :noname  ( xn ... x1 n -- flag )
    deferred inputrestorer
-   stkrest to sourceline#
-   2stkrest (fname) 2! ; is inputrestorer
+   2stkrest (fname) 2! 
+   2stkrest sourcepos 2! 
+   source-id 0> if 
+      sourcepos 2@ source-id reposition-file throw 
+      source-id 's-nextline drop 2drop
+   then 
+   stkrest to sourceline# ; is inputrestorer
 
 \g Save n items to return stack
 : n>r ( n1 .. nn n -- )
@@ -100,24 +118,17 @@ termsource!
 : nr> ( -- n1 .. nn n )
    r> r> swap >r 0 begin 2dup <> while 2r> >r -rot 1+ repeat drop ;
 
-pad tib - 2 + constant /line
-create line /line allot
-
 : foreachline ( file xt -- )
    2>r begin
-      1 sourceline# + to sourceline# 
-      line /line 2r> over swap 2>r read-line throw
-   while ( u )
-      line swap r@ execute
+      2r@ drop 's-nextline
+   while
+      r@ execute
    repeat drop rdrop rdrop ;
-
-: intline
-   sourcevar 2! >in off interpret ;
 
 : (finclude)
    parsed 2@ (fname) 2!
    to source-id  0 to sourceline#
-   source-id ['] intline foreachline ;
+   begin nextline while interpret repeat ;
 
 \g @see ansfile
 : include-file
