@@ -87,7 +87,11 @@ env['LIBPATHX'] = {
 }[sys.platform]
 
 def myglob(self, pat):
-	return glob.glob(str(Dir('#')) + '/' +  pat)
+	curr = os.getcwd()
+	os.chdir(str(Dir('#')))
+	ret = glob.glob(pat)
+	os.chdir(curr)
+	return ret
 
 Environment.Glob = classmethod(myglob)
 
