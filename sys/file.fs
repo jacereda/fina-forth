@@ -93,10 +93,10 @@ termsource!
    2stkrest (fname) 2! ; is inputrestorer
 
 : n>r ( n1 .. nn n -- )
-   0 begin 2dup <> while rot r> swap >r >r 1+ repeat drop r> swap >r >r ;
+   0 begin 2dup <> while rot r> 2>r 1+ repeat drop r> swap >r >r ;
 
 : nr> ( -- n1 .. nn n )
-   r> r> swap >r 0 begin 2dup <> while r> r> swap >r -rot 1+ repeat drop ;
+   r> r> swap >r 0 begin 2dup <> while 2r> >r -rot 1+ repeat drop ;
 
 pad tib - 2 + constant /line
 create line /line allot
