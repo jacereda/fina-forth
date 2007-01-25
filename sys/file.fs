@@ -92,18 +92,11 @@ termsource!
    stkrest to sourceline#
    2stkrest (fname) 2! ; is inputrestorer
 
-create nrbuf 2 cells allot
 : n>r ( n1 .. nn n -- )
-    dup 10 > abort" too many items"
-    r> over nrbuf 2! 
-    cells negate [ here 9 cells + 5 cells + ] literal + >r exit
-    >r >r >r >r   >r >r >r >r   >r
-    nrbuf 2@ >r >r ; compile-only
+   0 begin 2dup <> while rot r> swap >r >r 1+ repeat drop r> swap >r >r ;
+
 : nr> ( -- n1 .. nn n )
-    r> r> dup rot nrbuf 2!
-    cells negate [ here 9 cells + 5 cells + ] literal + >r exit
-    r> r> r> r>   r> r> r> r>   r> 
-    nrbuf 2@ >r ; compile-only
+   r> r> swap >r 0 begin 2dup <> while r> r> swap >r -rot 1+ repeat drop ;
 
 pad tib - 2 + constant /line
 create line /line allot
