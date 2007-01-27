@@ -93,7 +93,11 @@ def myglob(self, pat):
 	os.chdir(curr)
 	return ret
 
+def basename(self, path):
+	return os.path.basename(path)
+
 Environment.Glob = classmethod(myglob)
+Environment.Basename = classmethod(basename)
 
 env.SConscript('SConscript', 
 		build_dir = 'obj', 
