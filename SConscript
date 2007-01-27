@@ -6,7 +6,7 @@ fenv.Append(LINKFLAGS=' -rpath=' + env['LIBPATHFFI'])
 fenv.Append(LIBS=fenv['LIBFFI'])
 
 for i in fenv.Glob('kernel/*.i'):
-	print fenv.Tab(fenv.Basename(i[:-2]) + 'tab.it', i)
+	fenv.Tab(fenv.Basename(i[:-2]) + 'tab.it', i)
 
 fenv.Command('arch.h', 'kernel/$ARCH-arch.h', 'ln -sf ${SOURCE.abspath} $TARGET')
 fenv.Asm('finac.s', 'kernel/finac.c')
