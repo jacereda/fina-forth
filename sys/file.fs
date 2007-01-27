@@ -117,13 +117,18 @@ termsource!
       r@ execute
    repeat 2drop rdrop rdrop ;
 
+
+: interpret-file
+   begin  line>source  while  interpret  repeat ;
+
 \g @see ansfile
 : include-file
-   save-input n>r 
+   save-input n>r
    parsed 2@ (fname) 2! \ XXX
    to source-id  0 to sourceline#
-   begin  line>source  while  interpret  repeat 
-   nr> restore-input -37 ?throw ;
+   ['] interpret-file catch
+   nr> restore-input -37 ?throw 
+   throw ;
 
 
 \g Deferred word called at start of INCLUDED. 
@@ -140,9 +145,10 @@ defer inchook1  ' noop is inchook1
    inchook0
    here >r
    r/o open-file throw >r 
-   r@ include-file
+   r@ ['] include-file catch
    r> close-file throw
-   r> inchook1 drop ;
+   r> inchook1 drop 
+   throw ;
 
 \g Include file
 \g @also included
