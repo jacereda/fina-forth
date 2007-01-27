@@ -84,6 +84,8 @@ termsource!
 : sourcefilename 
    (fname) 2@ ;
 
+: filesource? source-id 1 -1 within ;
+
 : nextline ( file -- addr len flag )
    line /line rot read-line throw line -rot ;
 
@@ -104,7 +106,7 @@ termsource!
    deferred inputrestorer
    2stkrest (fname) 2! 
    2stkrest sourcepos 2! 
-   source-id 0> if 
+   filesource? if 
       sourcepos 2@ source-id reposition-file throw 
       source-id nextline drop 2drop
    then 
