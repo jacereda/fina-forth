@@ -68,7 +68,7 @@ for arch in architectures:
                         Copy('kernel/' + arch + '-dict0.s', '$SOURCE')))
         
 
-fenv.Command('sys/build.fs', full[:-2], 
+fenv.Command('sys/build.fs', ['kernel2'] + full[:-2], 
 	"""echo ": build s\\" `svnversion .`\\" ;" > $TARGET""")
 f = fenv.Command('fina', ['kernel2'] + full,
         ['echo "`cat ${SOURCES[1:]} ` warnings on save\\" obj/fina\\" bye"' +\
