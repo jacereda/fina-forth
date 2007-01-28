@@ -3,7 +3,7 @@
    s" share/doc/fina/LICENSE" >inst r/o open-file throw >r
    r@ ['] .line foreachline
    r> close-file throw ;
-
+defer banner
 :noname
    ." FINA v0.2. Copyright (c) 2004-2007, Jorge Acereda Macia." cr
    ." FINA comes with EVEN LESS WARRANTY; for details type 'license'." cr
@@ -21,8 +21,9 @@
    +loop ;
 
 :noname
-   ['] doargs catch .error
-   deferred coldchain ; is coldchain
+   deferred coldchain 
+   ['] doargs catch .error 
+   banner quit ; is coldchain
 
 :noname
    ." ok" cr ; '.prompt ! 

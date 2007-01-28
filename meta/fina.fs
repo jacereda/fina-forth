@@ -403,7 +403,7 @@ prim ffvoid
 prim ffint
 prim fffloat
 prim ffptr
-
+prim ffint64
 
 prim dlopen
 prim dlsym

@@ -11,8 +11,8 @@ static inline CELL * getlnk()
         return res;
 }
 
-#define CALLSAVE SAVEREGS
-#define CALLREST RESTREGS
+#define CALLSAVE //SAVEREGS
+#define CALLREST //RESTREGS
 
 static inline CELL arch_iscall(CELL xt)
 {
