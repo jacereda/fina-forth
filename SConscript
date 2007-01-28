@@ -89,7 +89,7 @@ allforth = env.Glob('*.fs') + env.Glob('sys/*.fs') + env.Glob('meta/*.fs')
 
 anshelp = env.Glob('help/*.help')
 
-allhelp = [env.Hlp(i.replace('.fs', '.help'), i) for i in allforth]
+allhelp = [env.Hlp(i.replace('.fs', '.help'), [i, f]) for i in allforth]
 toc = env.Command('toc.help', [f] + allhelp, 
         '$SOURCE help/maketoc.fs -e "toc{ ${SOURCES[1:]} }toc bye" > $TARGET')
 
