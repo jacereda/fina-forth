@@ -1,12 +1,14 @@
-char " parse machtimer.fs" ' included catch [if]
+warnings @ warnings off
+char " parse ustimer.fs" ' included catch [if]
 2drop
+[then]
 char " parse nstimer.fs" ' included catch [if]
 2drop
-include ustimer.fs
-: sns sus 1000 * ;
+[then]
+char " parse machtimer.fs" ' included catch [if]
+2drop
 [then]
 
 \g Returns clock in nanoseconds
-: nstime ( -- d)
-   sns >r 1000000000 m* r> m+ ;
-[then]
+\ nstime ( -- d)
+warnings !
