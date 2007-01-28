@@ -1,10 +1,9 @@
-- Fix files (regression fail in test/file.fs)
-- Blocks
+- blocks
 - negative strings?
 - fast dictionary search using endian-specific code, i.e
    if (((*(CELL*)cstr1) << 3) == ((*(CELL*)cstr2) << 3)) ...
 - factorize INTERPRET with something like FOREACHPARSED
-- implement defer..is and remove @execute
+- implement defer..is in meta and remove @execute
 - document
 - split ?dodefine -> ?xt+xtbody
 - more file tests
@@ -13,5 +12,6 @@
 - remove debug stuff (shifts, type2, rdepth, rpick...)
 - split docreate -> dovar+dodoes
 - cross-compiling support
-- 0 -1 1 perform 0<> >= u> u>= <> lshift arshift fm/mod / mod /mod as primitives
-- implement as primitives >= u> u>= <> dofor do?do lshift rshift /mod /
+- implement as primitives:
+    >= u> u>= <> 0<> dofor do?do lshift rshift arshift 
+   fm/mod mod / 0 -1 1 perform

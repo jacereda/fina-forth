@@ -7,3 +7,8 @@
 1024       constant /ds      \ Data stack size
 1024       constant /rs      \ Return stack size
 256 1024 * constant /tdict   \ Dictionary size
+
+
+-1 constant has-files
+-1 constant has-allocate
+-1 constant more-prims
