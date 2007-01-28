@@ -1,3 +1,5 @@
+- Print line numbers in errors for the terminal.
+- Errors in EVALUATE should report the source correctly.
 - blocks
 - negative strings?
 - fast dictionary search using endian-specific code, i.e

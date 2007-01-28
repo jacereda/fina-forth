@@ -71,9 +71,6 @@ here pad !
 : errstr
    parsed 2@ 256 u< swap dict? and if parsed 2@ else s" (wrong)" then ;
 
-
-defer .error
-
 :noname ( code -- )
    dup 1 -1 within if
       space
@@ -88,4 +85,4 @@ defer .error
       then cr
    then drop ; is .error
 
-' .error '.error !
+

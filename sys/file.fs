@@ -121,16 +121,15 @@ termsource!
 
 
 : interpret-file
-   begin  line>source  while  interpret  repeat ;
+   begin  refill  while  interpret  repeat ;
 
 \g @see ansfile
 : include-file
    save-input n>r
    parsed 2@ (fname) 2! \ XXX
    to source-id  0 to sourceline#
-   ['] interpret-file catch
-   nr> restore-input -37 ?throw 
-   throw ;
+   ['] interpret-file catch dup .error
+   nr> restore-input -37 ?throw throw ;
 
 
 \g Deferred word called at start of INCLUDED. 

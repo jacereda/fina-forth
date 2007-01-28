@@ -48,10 +48,6 @@ defer save-input  ( -- xn ... x1 n )
 : nr> ( -- n1 .. nn n )
    r> r> swap >r 0 begin 2dup <> while 2r> >r -rot 1+ repeat drop ;
 
-defer refill ( -- flag )
-' (refill) is refill  
-' refill 'refill !
-
 :noname source-id if  0  else  deferred refill  then ;
 
 \g @see anscore
@@ -61,6 +57,6 @@ is refill
 : evaluate  ( i*x c-addr u -- j*x )
    save-input n>r
    -1 to source-id  sourcevar 2!  >in off 
-   ['] interpret catch
-   nr> restore-input -37 ?throw
+   ['] interpret catch dup .error
+   nr> restore-input -37 ?throw 
    throw ;

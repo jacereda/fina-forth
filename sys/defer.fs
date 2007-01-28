@@ -17,3 +17,11 @@
 \g Compile xt of deferred word's current xt
 : deferred ( "<spaces>name" -- )
    what's compile, ; immediate compile-only 
+
+defer refill ( -- flag )
+' (refill) is refill  
+' refill 'refill !
+
+defer .error
+' .err is .error
+' .error '.error !
