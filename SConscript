@@ -23,7 +23,7 @@ full = ['sys/' + i for i in Split("""
    facility.fs facilityext.fs lineedit.fs 
    assert.fs multi.fs
    osnice.fs args.fs save.fs ffi.fs c.fs
-   instinclude.fs help.fs savefina.fs
+   instinclude.fs help.fs build.fs savefina.fs
 """)]
 
 kerneltests = ['sys/core.fs'] + ['test/' + i for i in Split("""
@@ -68,6 +68,8 @@ for arch in architectures:
                         Copy('kernel/' + arch + '-dict0.s', '$SOURCE')))
         
 
+fenv.Command('sys/build.fs', full[:-2], 
+	"""echo ": build s\\" `svnversion .`\\" ;" > $TARGET""")
 f = fenv.Command('fina', ['kernel2'] + full,
         ['echo "`cat ${SOURCES[1:]} ` warnings on save\\" obj/fina\\" bye"' +\
          '  | $SOURCE',
