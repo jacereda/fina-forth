@@ -61,5 +61,6 @@ is refill
 : evaluate  ( i*x c-addr u -- j*x )
    save-input n>r
    -1 to source-id  sourcevar 2!  >in off 
-   interpret
-   nr> restore-input throw ;
+   ['] interpret catch
+   nr> restore-input -37 ?throw
+   throw ;
