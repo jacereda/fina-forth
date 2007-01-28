@@ -20,6 +20,8 @@ def arch():
 	return arch
 
 env = Environment(ARCH=arch(), CC='gcc')
+env['ENV']['PATH'] = os.environ['PATH']
+print env['ENV']['PATH']
 env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
 env.Append(CPPDEFINES=['HAS_FILES', 'HAS_ALLOCATE', 'HAS_FIXED', 'HAS_FFI', 

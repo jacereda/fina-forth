@@ -5,7 +5,8 @@
    r> close-file throw ;
 defer banner
 :noname
-   ." FINA v0.2. Copyright (c) 2004-2007, Jorge Acereda Macia." cr
+   ." FINA v0.2-" build type
+   ." , Copyright (c) 2004-2007, Jorge Acereda Macia." cr
    ." FINA comes with EVEN LESS WARRANTY; for details type 'license'." cr
    ." Type 'bye' to exit." cr
 ; is banner
