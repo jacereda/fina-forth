@@ -41,7 +41,7 @@ benchmarks = env.Glob('benchmarks/*.fs')
 def gendict(arch, phase, kernel):
         meta =  ['meta/' + arch + '-tconfig.fs'] + \
                 ['meta/' + i for i in Split("""
-		   opt.fs tconfig.fs host-fina.fs meta.fs fina.fs
+		   tconfig.fs host-fina.fs meta.fs fina.fs
 	        """)]
         fenv.Command('kernel/' + arch + '-dict' + str(phase) + '.s', 
                 [kernel] + boot + meta,
