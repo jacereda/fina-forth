@@ -1173,6 +1173,15 @@ _XT_FFPTR:
  .p2align 2
  .long 1b
 1:
+  .byte 0x7,0x66,0x66,0x69,0x6E,0x74,0x36,0x34
+ .p2align 2
+_XT_FFINTSIXFOUR:
+ .long 0xdeadbeef,XT_FFINTSIXFOUR
+
+
+ .p2align 2
+ .long 1b
+1:
   .byte 0x6,0x64,0x6C,0x6F,0x70,0x65,0x6E
  .p2align 2
 _XT_DLOPEN:
@@ -2959,5 +2968,5 @@ XT_DUMMYTWO:
  call XT_DOVAR
  .long 0xDEADBEEF
 
- .fill 251431 ,1,0
+ .fill 251411 ,1,0
  .long 0xcacacaca

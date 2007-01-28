@@ -1089,6 +1089,15 @@ _XT_FFPTR:
  .balign 4
  .long 1b
 1:
+  .byte 0x7,0x66,0x66,0x69,0x6E,0x74,0x36,0x34
+ .balign 4
+_XT_FFINTSIXFOUR:
+ .long 0xdeadbeef,XT_FFINTSIXFOUR
+
+
+ .balign 4
+ .long 1b
+1:
   .byte 0x6,0x64,0x6C,0x6F,0x70,0x65,0x6E
  .balign 4
 _XT_DLOPEN:
@@ -2657,7 +2666,7 @@ XT_DUMMYTWO:
  nop 
  .long 0xDEADBEEF
 
- .fill 251431 ,1,0
+ .fill 251411 ,1,0
  .long 0xcacacaca
 .set reorder
 .set at

@@ -16,10 +16,12 @@
    0 parse rot dlsym dup 0= abort" Unable to lookup symbol" lastbody ! ;
 
 : int ( -- ) ffint , ;
+: int64 ( -- ) ffint64 , ;
 : sf ( -- ) fffloat , ;
 : df sf ; \ XXX
 : ptr ( -- ) ffptr , ;
 : (int) ( -- ) ffint , fn ;
+: (int64) ( -- ) ffint64 , fn ;
 : (float) ( -- ) fffloat , fn ;
 : (ptr) ( -- ) ffptr , fn ;
 : (void) ( -- ) ffvoid , fn ;

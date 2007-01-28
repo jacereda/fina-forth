@@ -13,16 +13,22 @@
         // ... func cif -- 
         {
         void * arg[16];
+		CELL ret[2];
+		ffi_type * rtype = ((ffi_cif*)tos)->rtype;
         int n = ((ffi_cif*)tos)->nargs;
         t0 = *dsp++;
         while(n--) { arg[n] = (void*)(dsp++); }
         CALLSAVE;
-        ffi_call((ffi_cif*)tos, FFI_FN(t0), &t1, arg);
+        ffi_call((ffi_cif*)tos, FFI_FN(t0), ret, arg);
         CALLREST;
-        if (((ffi_cif*)tos)->rtype != &ffi_type_void) 
-                tos = t1;
+        if (rtype != &ffi_type_void) 
+                tos = ret[0];
         else
                 tos = *dsp++;
+		if (rtype == &ffi_type_uint64) {
+				*--dsp = tos;
+				tos = ret[1];
+		}
         }
         NEXT;
 
@@ -46,6 +52,10 @@
         tos = (CELL)&ffi_type_pointer;
         NEXT;
 
+        PRIM(FFINTSIXFOUR, 1006);
+        PUSH;
+        tos = (CELL)&ffi_type_uint64;
+        NEXT;
 
         PRIM(DLOPEN, 1100);
         CALLSAVE;

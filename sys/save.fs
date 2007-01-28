@@ -5,12 +5,7 @@
    dict0 cell+ cell+ ! ;
 
 \g Deferred word for building the startup execution chain
-defer coldchain
-
-\g Deferred word, prints the startup banner
-defer banner
-
-:noname banner quit ; is coldchain
+defer coldchain  ' noop is coldchain
 
 :noname 
    rp0 @ rp!  sp0 @ sp!  coldchain ; 'cold!
