@@ -26,6 +26,6 @@ decimal
 \ One approach would be to keep a table of open files.
 \ { file close-file -> -37 } 
 { char " parse test/right.fs" ' included catch -> 0 }
-{ char " parse test/wrong.fs" ' included catch -> 42 }
-{ char " parse test/wronginclude.fs" ' included catch -> 42 }
-{ char " parse test/wrongafterinclude.fs" ' included catch -> 42 }
+{ char " parse test/wrong.fs" ' included catch nip nip -> 42 }
+{ char " parse test/wronginclude.fs" ' included catch nip nip -> 42 }
+{ char " parse test/wrongafterinclude.fs" ' included catch nip nip -> 42 }

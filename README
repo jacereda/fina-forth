@@ -50,6 +50,10 @@ To perform some benchmarks, build with:
 
 $ scons bench=1
 
+To clean the built files (~= make clean):
+
+$ scons -c
+
 
 INSTALLATION
 ============
