@@ -1,5 +1,3 @@
-: mark ( a1 -- a2 )
-   begin cell+ dup 2@ [ hex ] feedbabe.deadbeef [ decimal ]  d= until ;
 
 : 'cold!
    dict0 cell+ cell+ ! ;
@@ -10,15 +8,45 @@ defer coldchain  ' noop is coldchain
 :noname 
    rp0 @ rp!  sp0 @ sp!  coldchain ; 'cold!
 
+: mark ( a1 -- a2 )
+   begin cell+ dup 2@ [ hex ] feedbabe.deadbeef [ decimal ]  d= until ;
+
+: hdrsize ( src -- size )
+   dup mark swap - ;
+
+: dictsize ( -- size )
+   memtop dict0 - ;
+
+: exesize 322436 exit
+   0 arg r/o open-file throw >r
+   r@ file-size throw drop
+   r> close-file throw ;
+
+: savehdr ( src dstfile )
+   >r dup hdrsize r> write-file throw ;
+
+: savedict ( dstfile )
+   dict0 dictsize rot write-file throw ;
+
+: saveftr ( src dstfile )
+   >r exesize over hdrsize dictsize + /string r> write-file throw ;
+
+: savefile' ( dstfile srcfile -- srcmem dstfile )
+   mmap-file throw swap
+   2dup savehdr
+   dup savedict ;
+
+: savefile ( dstfile -- )
+   0 arg r/o open-file throw >r
+   r@ ['] savefile' catch
+   r> close-file throw 
+   throw saveftr ;
+
 : save ( a u -- )
-   w/o open-file throw >r   0 arg r/o open-file throw
-   dup mmap-file throw
-   dup dup mark over - dup pad ! r@ write-file throw 
-   dict0 memtop over - dup pad +! r@ write-file throw
-   dup pad @ + >r ( handle addr r: start)
-   over file-size throw drop + ( handle end r: start )
-   r@ - r> swap  r@ write-file throw 
-   close-file throw  r> close-file throw ;
+   w/o open-file throw >r   
+   r@ ['] savefile catch 
+   r> close-file throw throw ;
+
 
 : save"
    [char] " parse save ;
