@@ -25,3 +25,7 @@ defer refill ( -- flag )
 defer .error
 ' .err is .error
 ' .error '.error !
+
+defer .error!
+' noop is .error!
+' .error! '.error! ! 

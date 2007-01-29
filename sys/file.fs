@@ -70,24 +70,15 @@ here 1 c, 10 c, pad !
 : resize-file ( ud fileid -- ior )
    truncf ;
 
-0 value sourceline#
-variable (fname) 0 ,
-variable sourcepos 0 ,
 pad tib - 2 + constant /line
 create line /line allot
-
-: termsource!
-   s" terminal" (fname) 2!  0 to sourceline# ;
-
-termsource!
-
-: sourcefilename 
-   (fname) 2@ ;
 
 : filesource? source-id 1 -1 within ;
 
 : nextline ( file -- addr len flag )
    line /line rot read-line throw line -rot ;
+
+variable sourcepos 0 ,
 
 : line>source ( -- flag )
    1 sourceline# + to sourceline#
@@ -95,22 +86,17 @@ termsource!
    source-id nextline
    if sourcevar 2! >in off true else 2drop false then ;
 
-\ Extend save-input and restore-input to save file name and line number
-:noname  ( -- xn ... x1 n )
-   sourceline# stksave
+:noname 
    sourcepos 2@ 2stksave
-   sourcefilename 2stksave 
    deferred inputsaver ; is inputsaver
 
-:noname  ( xn ... x1 n -- flag )
+:noname 
    deferred inputrestorer
-   2stkrest (fname) 2! 
-   2stkrest sourcepos 2! 
+   2stkrest sourcepos 2!
    filesource? if 
       sourcepos 2@ source-id reposition-file throw 
       source-id nextline drop 2drop
-   then 
-   stkrest to sourceline# ; is inputrestorer
+   then ; is inputrestorer
 
 : foreachline ( file xt -- )
    2>r begin
@@ -126,10 +112,11 @@ termsource!
 \g @see ansfile
 : include-file
    save-input n>r
-   parsed 2@ (fname) 2! \ XXX
+   parsed 2@ sourcename 2! \ XXX
    to source-id  0 to sourceline#
-   ['] interpret-file catch dup .error
-   nr> restore-input -37 ?throw throw ;
+   ['] interpret-file catch .error!
+   nr> restore-input -37 ?throw 
+   throw ;
 
 
 \g Deferred word called at start of INCLUDED. 
@@ -155,14 +142,6 @@ defer inchook1  ' noop is inchook1
 \g @also included
 : include ( i*x "filename" -- j*x )
    here parse-word s, count included ;
-
-: .sourceloc
-   sourcefilename type [char] : emit sourceline# 0 (d.) type ." : " ;
-
-:noname ( code -- )
-   dup 1 -1 within if .sourceloc then 
-   deferred .error
-   termsource! ; is .error
 
 :noname dup 9 = if drop bl then deferred keyhandler ; is keyhandler
 
