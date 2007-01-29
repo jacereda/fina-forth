@@ -52,40 +52,43 @@ env.Append(BUILDERS = {
 	'Hlp' : hlp,
 })
 
-env['INCFFI'] = {
-	'netbsd3' : [	'/usr/pkg/include' ],
-	'netbsd4' : [	'/usr/pkg/include' ],
-	'darwin' : [
-		'/sw/lib/gcc4/lib/gcc/i386-apple-darwin8/4.2.0/include/libffi',
-		'/sw/lib/gcc4/include/'
-	],
-	'linux2' : [	'/usr/include/libffi' ],
-}[sys.platform]
-env['LIBPATHFFI'] = {
+env['INCFFI'] = ARGUMENTS.get('INCFFI',{
+	'netbsd3' : '/usr/pkg/include',
+	'netbsd4' : '/usr/pkg/include',
+	'darwin' : '/sw/lib/gcc4/lib/gcc/i386-apple-darwin8/4.2.0/include/libffi' +\
+		':/sw/lib/gcc4/include/',
+	'freebsd6' : '/usr/local/include',
+	'linux2' : '/usr/include/libffi',
+}[sys.platform]).split(':')
+env['LIBPATHFFI'] = ARGUMENTS.get('LIBPATHFFI', {
 	'netbsd3' : '/usr/pkg/lib',
 	'netbsd4' : '/usr/pkg/lib',
 	'darwin' : '/sw/lib/gcc4/lib',
+	'freebsd6' : '/usr/local/lib',
 	'linux2' : '/usr/lib/libffi',
-}[sys.platform]
+}[sys.platform])
 env['LIBFFI'] = {
 	'netbsd3' : 'ffi',
 	'netbsd4' : 'ffi',
 	'darwin' : ['ffi', 'dl'],
+	'freebsd6' : 'ffi',
 	'linux2' : ['ffi', 'dl'],
 }[sys.platform]
 
-env['INCX'] = {
+env['INCX'] = ARGUMENTS.get('INCX', {
 	'netbsd3': ['/usr/X11R6/include'],
 	'netbsd4': ['/usr/X11R6/include'],
 	'darwin': ['/usr/X11R6/include'],
+	'freebsd6': ['/usr/X11R6/include'],
 	'linux2': ['/usr/include'],
-}[sys.platform]
-env['LIBPATHX'] = {
+}[sys.platform])
+env['LIBPATHX'] = ARGUMENTS.get('LIBPATHX', {
 	'netbsd3': ['/usr/X11R6/lib'],
 	'netbsd4': ['/usr/X11R6/lib'],
 	'darwin': ['/usr/X11R6/lib'],
+	'freebsd6': ['/usr/X11R6/lib'],
 	'linux2': ['/usr/lib'],
-}[sys.platform]
+}[sys.platform])
 
 def myglob(self, pat):
 	curr = os.getcwd()
