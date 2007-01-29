@@ -10,8 +10,12 @@ libc _dirname ptr (ptr) dirname
 : file-exists? ( addr len -- flag )
    r/o open-file 0= if close-file throw 1 then ;
 
+: progname ( -- addr len )
+   s" which " pad place  0 arg pad append
+   pad count pad 256 pipeto ;
+
 : instpath ( -- addr len )
-   0 arg realpath dirname dirname pad place 
+   progname dirname dirname pad place 
    s" /" pad append pad count ;
 
 : >inst ( addr len -- addr' len' )
