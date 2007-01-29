@@ -100,8 +100,13 @@ def myglob(self, pat):
 def basename(self, path):
 	return os.path.basename(path)
 
+def outputfrom(self, cmd):
+	return shelloutput(cmd)
+
+
 Environment.Glob = classmethod(myglob)
 Environment.Basename = classmethod(basename)
+Environment.OutputFrom = classmethod(outputfrom)
 
 env.SConscript('SConscript', 
 		build_dir = 'obj', 
