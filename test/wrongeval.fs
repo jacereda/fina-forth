@@ -1,2 +1,2 @@
 
-: test s" 0 off" evaluate ; test
+: test s" 42 throw" evaluate ; test
