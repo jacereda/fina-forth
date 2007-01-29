@@ -22,7 +22,7 @@ full = ['sys/' + i for i in Split("""
    string.fs require.fs tools.fs toolsext.fs
    facility.fs facilityext.fs lineedit.fs 
    assert.fs multi.fs
-   osnice.fs args.fs save.fs ffi.fs c.fs
+   osnice.fs args.fs save.fs ffi.fs c.fs pipe.fs
    instinclude.fs help.fs build.fs savefina.fs
 """)]
 
