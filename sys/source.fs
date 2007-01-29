@@ -1,22 +1,22 @@
 variable sourcename 0 ,  :noname s" *terminal*" ; execute sourcename 2!
 0 value sourceline#
-create errorname 256 allot
+variable errorname 0 ,
 0 value errorline#
 
 : sourcefilename 
    sourcename 2@ ;
 
 :noname ( throwcode -- throwcode )
-   dup if 
-      sourcefilename errorname place
+   dup errorline# 0= and if 
+      sourcefilename errorname 2!
       sourceline# to errorline# 
    then ; is .error!
 
 :noname ( throwcode -- )
    dup 1 -1 within if 
-      errorname count type [char] : emit 
+      errorname 2@ type [char] : emit 
       errorline# 0 (d.) type ." : "
-   then
+   then 0 to errorline#
    deferred .error ; is .error
 
 :noname  ( 0 -- xn ... x1 n )
