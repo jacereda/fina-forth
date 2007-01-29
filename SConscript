@@ -69,7 +69,9 @@ for arch in architectures:
         
 
 fenv.Command('sys/build.fs', ['kernel2'] + full[:-2], 
-	"""echo ": build s\\" `svnversion .`\\" ;" > $TARGET""")
+	'echo ": build s\\" ' + \
+	fenv.OutputFrom('svnversion ' + str(Dir('#'))) + \
+	'\\" ;" > $TARGET')
 f = fenv.Command('fina', ['kernel2'] + full,
         ['echo "`cat ${SOURCES[1:]} ` warnings on save\\" obj/fina\\" bye"' +\
          '  | $SOURCE',
