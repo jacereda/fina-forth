@@ -38,6 +38,11 @@ Typing the following will build and install under a directory called "inst":
 
 $ scons
 
+If the build infrastructure is unable to find libffi, you can compile with:
+
+$ scons INCFFI=<path-to-ffi-includes> LIBPATHFFI=<path-to-ffi-libs> \
+        INCX=<path-to-x-includes> LIBPATHX=<path-to-x-libs>
+
 To start the interpreter:
 
 $ inst/bin/fina
