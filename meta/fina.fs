@@ -63,6 +63,9 @@ variable '.prompt  ( -- a-addr )
 variable '.error  ( -- a-addr )
 \g Execution vector for printing THROW error codes
 
+variable '.error!  ( u -- u )
+\g Execution vector for setting error source
+
 variable 'interpret  ( -- a-addr )
 \g Execution vector for interpreter
 
@@ -1120,12 +1123,12 @@ bcreate exstr ,"  exception # "
 : .err  ( throwcode -- )
    parsed 2@ type exstr count type . cr ;
 
-\g 
+\g @see anscore
 : quit  ( --  r: i*x -- )
    begin
       rp0 @ rp!  0 to source-id  bal off  postpone [  begin
          'refill @execute drop 
-         'interpret @ catch ?dup 0=
+         'interpret @ catch '.error! @execute ?dup 0=
       while
          state @ 0= if .prompt then
       repeat
@@ -1198,6 +1201,7 @@ p: doto  ( x -- )
    xtof printable 'khan !
    xtof interpret 'interpret !
    xtof .err '.error !
+   xtof noop '.error! !
    xtof , 'compile, !
    xtof noop '.prompt !
    xtof (refill) 'refill !

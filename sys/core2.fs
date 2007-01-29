@@ -18,7 +18,6 @@
 : 2stkrest
   stkrest >r stkrest r> ;
 
-
 defer inputsaver
 :noname
    source 2stksave
@@ -29,7 +28,7 @@ defer inputrestorer
 :noname
    stkrest to source-id 
    stkrest >in ! 
-   2stkrest sourceVar 2! ; is inputrestorer
+   2stkrest sourcevar 2! ; is inputrestorer
 
 \g @see anscore
 defer save-input  ( -- xn ... x1 n )
@@ -53,10 +52,14 @@ defer save-input  ( -- xn ... x1 n )
 \g @see anscore
 is refill
 
+defer evalhook ( -- ) 
+' noop is evalhook
+
 \g @see anscore
 : evaluate  ( i*x c-addr u -- j*x )
    save-input n>r
    -1 to source-id  sourcevar 2!  >in off 
-   ['] interpret catch dup .error
+   evalhook
+   ['] interpret catch .error!
    nr> restore-input -37 ?throw 
    throw ;
