@@ -78,13 +78,16 @@ create line /line allot
 : nextline ( file -- addr len flag )
    line /line rot read-line throw line -rot ;
 
+: tabs>spaces ( addr len -- )
+  begin 9 scan dup while >r bl over c! r> repeat 2drop ;
+
 variable sourcepos 0 ,
 
 : line>source ( -- flag )
    1 sourceline# + to sourceline#
    source-id file-position throw sourcepos 2!
    source-id nextline
-   if sourcevar 2! >in off true else 2drop false then ;
+   if sourcevar 2! >in off source tabs>spaces true else 2drop false then ;
 
 :noname 
    sourcepos 2@ 2stksave
