@@ -6,29 +6,46 @@
 
 : lastbody ( -- addr )
    lastname name>xt xt>body ;
-
-: fn ( libhandle "name" -- )
-   lastbody 9 cells + \ args
-   here cell- @ \ ret
-   here cell-  lastbody 9 cells +  - 1 cells / \ nargs
-   lastbody cell+ \ cif  
+: funcif cell+ ;
+: funnargs   11 cells + ;
+: funargs funnargs cell+ ;
+: funret dup funnargs @ cells swap funargs + ;
+: funname funret cell+ ;
+: funresolve ( lib fun -- )
+   >r
+   r@ funargs r@ funret @  r@ funnargs @  r@ funcif
    ffprep abort" Unable to prepare function call" 
-   0 parse rot dlsym dup 0= abort" Unable to lookup symbol" lastbody ! ;
+   r@ funname count rot @ dlsym dup 0= abort" Unable to lookup symbol" 
+   r> ! ;
 
-: int ( -- ) ffint , ;
-: int64 ( -- ) ffint64 , ;
-: sf ( -- ) fffloat , ;
-: df sf ; \ XXX
-: ptr ( -- ) ffptr , ;
-: (int) ( -- ) ffint , fn ;
-: (int64) ( -- ) ffint64 , fn ;
-: (float) ( -- ) fffloat , fn ;
-: (ptr) ( -- ) ffptr , fn ;
-: (void) ( -- ) ffvoid , fn ;
+: funarg ( fun type -- fun )
+   , 1 over funnargs +! ;
+: funret ( lib fun type -- )
+   , 0 parse s, funresolve ;
 
-: newfun ( lib -- )
-   create 0 , 8 cells allot \ func|cif, will be filled by "ret"
+: int ( fun -- fun ) ffint funarg ;
+: int64 ( fun -- fun ) ffint64 funarg ;
+: sf ( fun -- fun ) fffloat funarg ;
+: ptr ( fun -- fun ) ffptr funarg ;
+
+: (int) ( lib fun -- ) ffint funret ;
+: (int64) ( lib fun -- ) ffint64 funret ;
+: (float) ( lib fun -- ) fffloat funret ;
+: (ptr) ( lib fun -- ) ffptr funret ;
+: (void) ( lib fun -- ) ffvoid funret ;
+
+
+: libfuncs 2 cells + ;
+
+\ Structure addr|link|9*cif|nargs|args...|name
+: newfun ( lib -- lib fun )
+   create here 
+   0 ,                      \ addr
+   9 cells allot            \ 9*cif
+   over libfuncs linked     \ link
+   0 ,                      \ nargs
    does> dup @ swap cell+ ffcall ;
+: link>fun 10 cells - ;
 
 : trylib
    s" lib" pad place 2swap pad append pad append  pad count dlopen ;
@@ -44,20 +61,29 @@ variable libs libs off
    2drop r>
    dup 0= abort" Unable to open library" ;
 
+: libname 3 cells + ;
+
+: restorelib ( lib -- )
+   dup libname count openlib over ! 
+   dup libfuncs begin @ dup while 2dup link>fun funresolve repeat 2drop ;
+
+
+\ Structure: handle|liblink|funclink|name
 : library ( "forthname" "libname" ) 
-   create here 0 , libs linked 0 parse 2dup s,
-   openlib swap !
-   does> @ newfun ;
+   create here 
+   0 ,             \ handle
+   libs linked     \ link
+   0 ,             \ funcs
+   0 parse s, \ name
+   restorelib
+   does> newfun ;
+: link>lib cell- ;
+
 
 create 0buffer 256 allot
-: 0term 0buffer place 0 0buffer count + c! 0buffer 1+ ;
-: 0count 0 over begin dup c@ while 1 under+ 1+ repeat drop ;
-: 0s, 1+ s, 0 here 1- c! ;
-: 0sliteral postpone dos" 0s, align postpone drop ;
-: 0s"  [char] " parse 0sliteral ; immediate compile-only
 
 :noname
-   libs begin @ dup while dup cell+ count openlib over cell- ! repeat drop
+   libs begin @ dup while dup link>lib restorelib repeat drop
    deferred coldchain ; is coldchain
 
 0 [if]
@@ -65,6 +91,6 @@ library libc c
 
 libc sleep int (int) sleep
 libc cwrite int ptr int (int) write
-1 lastname count cwrite .
+1 lastname count cwrite . cr
 1 sleep .
 [then]
