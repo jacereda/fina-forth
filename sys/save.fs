@@ -17,7 +17,7 @@ defer coldchain  ' noop is coldchain
 : dictsize ( -- size )
    memtop dict0 - ;
 
-: exesize 322436 exit
+: exesize
    0 arg r/o open-file throw >r
    r@ file-size throw drop
    r> close-file throw ;
