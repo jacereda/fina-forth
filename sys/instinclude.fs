@@ -11,8 +11,8 @@ libc 0realpath ptr ptr (ptr) realpath
 
 \g Returns absolute program name
 : progname ( -- addr len )
-   0 arg drop 0buffer 0realpath \ args are already 0-terminated
-   s" which " pad place  0buffer 0count pad append
+   0 arg drop 0buffer 0realpath 0count \ args are already 0-terminated
+   s" which " pad place  pad append
    pad count pad 256 pipeto ;
 
 \g Returns absolute installation path
