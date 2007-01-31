@@ -1,11 +1,9 @@
-libc _realpath ptr ptr (ptr) realpath
-libc _dirname ptr (ptr) dirname
-
-: realpath ( addr len -- addr' len' )
-   0term pad _realpath dup 0= -37 ?throw 0count ;
+libc 0dirname ptr (ptr) dirname
+libc 0getenv ptr (ptr) getenv
+libc 0setenv ptr ptr int (int) setenv
 
 : dirname ( addr len -- addr' len' )
-   0term _dirname dup 0= -37 ?throw 0count ;
+   0term 0dirname dup 0= -37 ?throw 0count ;
 
 : file-exists? ( addr len -- flag )
    r/o open-file 0= if close-file throw 1 then ;
@@ -27,3 +25,15 @@ libc _dirname ptr (ptr) dirname
 
 :noname
    2dup file-exists? 0= if >share then deferred inchook0 ; is inchook0
+
+: 0+path ( val var -- )
+   >r  r@ 0getenv ?dup if 0count else s" " then pad place
+   s" :" pad append
+   0count pad append
+   r> pad count 0term 1 0setenv ;
+
+\ Add our lib path to lib search path
+:noname
+\   s" lib/fina/" >inst 0term 0s" LD_LIBRARY_PATH" 0+path
+\   s" lib/fina/" >inst 0term 0s" DYLD_LIBRARY_PATH" 0+path
+   deferred coldchain ; is coldchain
