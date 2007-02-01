@@ -1,3 +1,5 @@
+- HIDDEN
+- More C types in FFI
 - Print line numbers in errors for the terminal.
 - Errors in EVALUATE should report the source correctly.
 - blocks
