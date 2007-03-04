@@ -1,40 +1,84 @@
-\ *S ANS Forth name scoping mechanism  -- BNE
 
-\ *P In large Forth programs, organizing namespace by breaking it up into
-\ ** different modules makes for a cleaner and less error prone system.
-\ ** The names of the four words used to do this are in common use by MPE.
+wordlist constant modules
 
-\ *P This version can be added to any ANS Forth. It hides private words of
-\ ** a module in a temporary namespace. You are free to nest modules and
-\ ** manipulate the search order within a module, with the understanding
-\ ** that the implementation assumes the current wordlist is at the top of
-\ ** the search order.
+\g Find module by name, returns it's wordlist
+: find-module ( "name" -- wid )
+   get-order 1+ modules swap set-order ' execute previous ;
 
-: MODULE ( <name> -- )
-   get-order wordlist dup set-current                 \ search order is:
-   create dup , swap 1+   set-order ;                 \ ... public private
+\g Expose module associated to wordlist, returns parent wordlist
+\g (the wordlist that was current before the operation)
+: exposed-module ( wid -- pwid )
+   >r  get-current get-order 1+ r@ swap set-order  r> set-current ;
 
-: END-MODULE
-   previous definitions ;
+\g Expose module by name
+: expose-module ( "name" -- )
+   find-module exposed-module ;
 
-: EXPORT ( <name> -- )
-   get-order >in @ bl word find dup 0= abort" ???"    \ copy private
-   >r >r >r 2 pick set-current r> >in ! : r> compile, \ to public
-   postpone ; r> 0< 0= if immediate then
-   over set-current set-order ;
+\g Begin the definition of a module, returns parent wordlist
+\g (the wordlist that was current before the operation).
+\g This allows module nesting.
+: module ( "name" -- pwid )
+   get-current modules set-current
+   wordlist >r r@ constant 
+   set-current 
+   r> exposed-module ;
 
-: EXPOSE-MODULE ( <name> -- )                         \ add module to
-   get-order ' >body @ swap 1+ set-order ;            \ search order
+\g Find a word in a wordlist, returning the previous word's NFA 
+\g and the word's NFA.
+: findprev ( c-addr u wid -- prevnfa nfa )
+   0 2swap 2>r swap cell+ -1 begin
+      over cell- @ and
+   while
+      nip dup cell- @
+      dup namecount r@ = if 2r@ isame? 0<> else drop -1 then
+   repeat rdrop rdrop ;
 
-\ *P Usage
+\g Unlink word from a wordlist, returns it's NFA
+: unlink-word ( addr len wid -- nfa )
+   findprev >r r@ cell- @ swap cell- ! r> ;
 
-\ *E MODULE test
-\ ** : bar boop over bop ;
-\ ** : foo blah blivit ;
-\ ** EXPORT foo
-\ ** \ more...
-\ ** END-MODULE
+\g Export word to parent wordlist
+: exported ( pwid addr len -- pwid )
+   get-current unlink-word over @ over cell- ! over ! ;
 
-\ *P For debugging purposes, you can make the whole module visible with
-\ ** EXPOSE-MODULE test. Afterwards, you can hide it again using PREVIOUS.
+\g Export to the parent wordlist the words in this line
+: export ( pwid "name..." -- )
+   begin parse-word dup while exported repeat 2drop ;
 
+\g End module definition and return to parent wordlist
+: end-module ( pwid -- )
+   previous set-current ;
+
+
+0 [if]
+module foo
+
+module baz
+: 1 ;
+: 2 ;
+: 3 ;
+words
+export 1 2
+words
+end-module
+words
+: a ;
+: b ;
+: c ;
+words
+export b c
+words
+
+module bar
+: x ;
+: y ;
+: z ;
+words
+export y
+words
+end-module
+
+words
+
+end-module
+[then]
