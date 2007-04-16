@@ -98,6 +98,23 @@ with gzexe will only take ~41000 bytes.
 The default dictionary size is set to 256 Kb. This and several other
 values can be tweaked in meta/tconfig.fs
 
+Wordlists have the following structure:
+
+finst-word-nfa|next-wordlist
+
+NFA points to the LEN+FLAGS field of a word header. That is, the
+following would inspect the first NFA in FORTH-WORDLIST
+
+forth-wordlist @ 40 dump
+
+Word headers have the following structure:
+
+next-nfa|len+flags|name|(padding)|(body)
+
+So, you can inspect the NFA of the word defined before DUP as follows:
+
+' dup xt>name cell- @ 40 dump
+
 
 THANKS
 ======

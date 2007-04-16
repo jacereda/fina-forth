@@ -1,4 +1,3 @@
-- HIDDEN
 - More C types in FFI
 - Print line numbers in errors for the terminal.
 - Errors in EVALUATE should report the source correctly.
@@ -17,5 +16,5 @@
 - split docreate -> dovar+dodoes
 - cross-compiling support
 - implement as primitives:
-    >= u> u>= <> 0<> dofor do?do lshift rshift arshift 
+   >= u> u>= <> 0<> dofor do?do lshift rshift arshift 
    fm/mod mod / 0 -1 1 perform
