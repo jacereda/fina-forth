@@ -5,8 +5,8 @@
 
 HAVE _TEST_ [IF] _TEST_ [THEN]  MARKER _TEST_
 
-\ S" TESTER.FTH" INCLUDED
-include ../tester.fs
+\ S" TESTE.RFTH" INCLUDED
+include ../test/tester.fs
 TRUE VERBOSE !
 DECIMAL
 { -> }

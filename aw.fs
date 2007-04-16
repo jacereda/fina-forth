@@ -1,4 +1,4 @@
-require ffi.fs
+\ require ffi.fs
 library aw aw
 
 aw awInit (int) awInit

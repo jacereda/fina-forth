@@ -1,3 +1,4 @@
+module timer
 marker forgettimer
 
 char " parse nstime" ' evaluate catch nip nip [if]
@@ -17,3 +18,5 @@ char " parse nstime" ' evaluate catch nip nip [if]
 
 \g Returns clock in nanoseconds
 \ nstime ( -- d)
+export nstime
+end-module
