@@ -164,6 +164,12 @@ int mapKey(KeyCode keycode) {
 	return XKeycodeToKeysym(g_dpy, keycode, 0);
 }
 
+static void getClientCoords(Window w, int * px, int * py) {
+	Window child;
+	XTranslateCoordinates(g_dpy, w, XRootWindow(g_dpy, g_screen), 
+			      0, 0, px, py, &child);
+}
+
 struct awEvent * awosNextEvent(aw w) {
 	struct awEvent * pev = NULL;
 	XEvent event;
@@ -171,9 +177,12 @@ struct awEvent * awosNextEvent(aw w) {
 		w->pending = 0;
 		pev = &w->ev2;
 	} else if (XPending(g_dpy)) { 
-		pev = &w->ev;
-		XNextEvent(g_dpy, &event);
-		switch(event.type) {
+		int mine;
+		XPeekEvent(g_dpy, &event);
+		mine = event.xany.window == w->win;
+		if (mine) XNextEvent(g_dpy, &event);
+		if (mine) pev = &w->ev;
+		if (mine) switch(event.type) {
 			
 		case ClientMessage:
 			pev->type = AW_EVENT_CLOSE;
@@ -181,8 +190,8 @@ struct awEvent * awosNextEvent(aw w) {
 			
 		case ConfigureNotify:
 			pev->type = AW_EVENT_MOVE;
-			pev->u.move.x = event.xconfigure.x;
-			pev->u.move.y = event.xconfigure.y;
+			getClientCoords(w->win, 
+					&pev->u.move.x, &pev->u.move.y);
 			w->pending = 1;
 			w->ev2.type = AW_EVENT_RESIZE;
 			w->ev2.u.resize.w = event.xconfigure.width;
