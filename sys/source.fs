@@ -17,7 +17,7 @@ create errorbuf 256 allot
 :noname ( throwcode -- )
    dup 1 -1 within if 
       errorname 2@ type [char] : emit 
-      errorline# 0 (d.) type ." : "
+      errorline# 0 10 based (d.) type ." : "
       errorbuf count parsed 2!
    then    -1 to errorline#
    deferred .error ; is .error
