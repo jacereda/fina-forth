@@ -33,12 +33,14 @@ forth-wordlist set-current
      then emit char+
   loop nip cr ;
 
-\g @see anstools
-: dump  ( addr u -- )
-   base @ >r hex
+: (dump)
    16 /mod swap >r
    0 ?do 16 dumprow loop
-   r> dumprow drop r> base ! ;
+   r> dumprow drop ;
+
+\g @see anstools
+: dump  ( addr u -- )
+   16 based (dump) ;
 
 : (next?)
    2dup cell- @ = over and to found ;

@@ -3,8 +3,6 @@
 
 \ XXX Should we have a per-task HERE?
 
-: hex. base @ >r hex . r> base ! ;
-
 : user ( "<spaces>name" -- ) 
    nesting?  head, ['] douser xt, drop
    lastuser ,  

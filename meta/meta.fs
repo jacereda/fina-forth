@@ -7,7 +7,7 @@
 : [char] bl parse drop c@ postpone literal ; immediate compile-only
 : h# ( <hexnum> -- u )
     0 0 bl parse
-    base @ >r  hex  >number  r> base !   
+    16 based >number
     0= invert -24 and throw 2drop
     state @ if  postpone literal  then
     ; immediate
@@ -71,7 +71,7 @@ variable options
       endcase
    loop ;
 : xttype ." XT_" asmtype ;
-: asm. ." 0x" base @ >r hex 0 <# #s #> type r> base ! ;
+: asm. ." 0x" 16 based repr type ;
 
 \ Metacompiler constants
 32 constant compo
