@@ -100,7 +100,7 @@ values can be tweaked in meta/tconfig.fs
 
 Wordlists have the following structure:
 
-finst-word-nfa|next-wordlist
+first-word-nfa|next-wordlist
 
 NFA points to the LEN+FLAGS field of a word header. That is, the
 following would inspect the first NFA in FORTH-WORDLIST
