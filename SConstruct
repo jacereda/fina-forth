@@ -9,7 +9,13 @@ def shelloutput(cmd):
         return ret.strip()
 
 def gccversion():
-	return shelloutput('gcc --version').split(' ')[2].split('.')
+	out = shelloutput('gcc --version').split(' ')
+	if len(out) < 3:
+		ind = 0
+	else:
+		ind = 2
+	return map(int, out[ind].split('.'))
+
 
 def arch():
 	arch = shelloutput('uname -m')
