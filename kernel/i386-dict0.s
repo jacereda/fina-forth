@@ -2685,6 +2685,18 @@ XT_XTOF:
  .p2align 2
  .long 1b
 1:
+  .byte 0x6,0x6C,0x6F,0x77,0x65,0x72,0x3F
+ .p2align 2
+XT_LOWERQ:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .long XT_DOLIT,0x61,XT_DOLIT,0x7B,XT_WITHIN,XT_EXIT
+
+ .p2align 2
+ .long 1b
+1:
   .byte 0x7,0x74,0x6F,0x75,0x70,0x70,0x65,0x72
  .p2align 2
 XT_TOUPPER:
@@ -2692,7 +2704,7 @@ XT_TOUPPER:
  nop
  nop
  call XT_DOLIST
- .long XT_DUP,XT_DOLIT,0x61,XT_DOLIT,0x7B,XT_WITHIN,XT_DOLIT,0x20,XT_AND,XT_INVERT,XT_AND,XT_EXIT
+ .long XT_DUP,XT_LOWERQ,XT_DOLIT,0xFFFFFFE0,XT_AND,XT_PLUS,XT_EXIT
 
  .p2align 2
  .long 1b
@@ -2980,5 +2992,5 @@ XT_DUMMYTWO:
  call XT_DOVAR
  .long 0xDEADBEEF
 
- .fill 251359 ,1,0
+ .fill 251335 ,1,0
  .long 0xcacacaca

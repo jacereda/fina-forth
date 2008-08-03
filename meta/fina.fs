@@ -1034,9 +1034,13 @@ bcreate redefstr ," redefined "
 : xtof  ( -- xt ) 
    @r+ ; compile-only 
 
+\g Returns true for lower case characters
+: lower?  ( char -- flag)
+   [char] a [ char z 1+ ] literal within ;
+
 \g Convert character to upper case
 : toupper  ( char1 -- char2) 
-   dup [char] a [ char z 1+ ] literal within h# 20 and invert and ;  
+   dup lower? -32 and + ;
 
 \g Convert character to digit
 : digit  ( char -- u ) 
