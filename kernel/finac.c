@@ -195,6 +195,7 @@ int FINA_InternalTick(struct FINA_State * state, int throw)
         long long ll, ll2;
         unsigned long long ull;
         float f;
+	double d;
 	char str1[MAXSTR];
 	char str2[MAXSTR];
 

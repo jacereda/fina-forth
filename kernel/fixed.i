@@ -16,3 +16,24 @@
 		tos = (CELL)f;
                 NEXT;
                 }
+
+                PRIM(FXGTDOUBLE, 262);
+                { 
+                d = tos;
+		POP;
+		d /= 65536.0;
+		__builtin_memcpy(&ll, &d, 2 * sizeof(CELL));
+                PUSHLL;
+                NEXT;
+                }
+
+                PRIM(DOUBLEGTFX, 263);
+                {
+                POPLL;
+		__builtin_memcpy(&d, &ll, 2 * sizeof(CELL));
+		d *= 65536;
+		PUSH;
+		tos = (CELL)d;
+                NEXT;
+                }
+

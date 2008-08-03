@@ -12,22 +12,28 @@
         PRIM(FFCALL, 1001);
         // ... func cif -- 
         {
-        void * arg[16];
+		void * arg[16];
 		CELL ret[2];
 		ffi_type * rtype = ((ffi_cif*)tos)->rtype;
-        int n = ((ffi_cif*)tos)->nargs;
-        t0 = *dsp++;
-        while(n--) { arg[n] = (void*)(dsp++); }
-        CALLSAVE;
-        ffi_call((ffi_cif*)tos, FFI_FN(t0), ret, arg);
-        CALLREST;
-        if (rtype != &ffi_type_void) 
-                tos = ret[0];
-        else
-                tos = *dsp++;
-		if (rtype == &ffi_type_uint64) {
-				*--dsp = tos;
-				tos = ret[1];
+		int n = ((ffi_cif*)tos)->nargs;
+		t0 = *dsp++;
+		while(n--) { 
+			ffi_type * type = ((ffi_cif*)tos)->arg_types[n];
+			arg[n] = (void*)(dsp); 
+			dsp++;
+			dsp += type == &ffi_type_double 
+				|| type == &ffi_type_uint64;
+		}
+		CALLSAVE;
+		ffi_call((ffi_cif*)tos, FFI_FN(t0), ret, arg);
+		CALLREST;
+		if (rtype != &ffi_type_void) 
+			tos = ret[0];
+		else
+			tos = *dsp++;
+		if (rtype == &ffi_type_uint64 || rtype == &ffi_type_double) {
+			*--dsp = tos;
+			tos = ret[1];
 		}
         }
         NEXT;
@@ -55,6 +61,11 @@
         PRIM(FFINTSIXFOUR, 1006);
         PUSH;
         tos = (CELL)&ffi_type_uint64;
+        NEXT;
+
+        PRIM(FFDOUBLE, 1007);
+        PUSH;
+        tos = (CELL)&ffi_type_double;
         NEXT;
 
         PRIM(DLOPEN, 1100);

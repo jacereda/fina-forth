@@ -26,6 +26,7 @@
 : int ( fun -- fun ) ffint funarg ;
 : int64 ( fun -- fun ) ffint64 funarg ;
 : sf ( fun -- fun ) fffloat funarg ;
+: df ( fun -- fun ) ffdouble funarg ;
 : ptr ( fun -- fun ) ffptr funarg ;
 
 : (int) ( lib fun -- ) ffint funret ;
