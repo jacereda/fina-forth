@@ -7,7 +7,7 @@
 static inline CELL * getlnk()
 {
         CELL * res;
-        asm volatile (" popl %0 " : "=r" (res));
+        asm volatile  (" popl %0 " : "=r" (res));
         return res;
 }
 

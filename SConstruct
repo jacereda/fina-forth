@@ -61,15 +61,14 @@ env.Append(BUILDERS = {
 env['INCFFI'] = ARGUMENTS.get('INCFFI',{
 	'netbsd3' : '/usr/pkg/include',
 	'netbsd4' : '/usr/pkg/include',
-	'darwin' : '/sw/lib/gcc4.2/lib/gcc/i386-apple-darwin8/4.2.0/include/libffi' +\
-		':/sw/lib/gcc4.2/include/',
+	'darwin' : '/Volumes/pkg/lib/gcc/i386-apple-darwin8/include/',
 	'freebsd6' : '/usr/local/include',
 	'linux2' : '/usr/include/libffi',
 }[sys.platform]).split(':')
 env['LIBPATHFFI'] = ARGUMENTS.get('LIBPATHFFI', {
 	'netbsd3' : '/usr/pkg/lib',
 	'netbsd4' : '/usr/pkg/lib',
-	'darwin' : '/sw/lib/gcc4.2/lib',
+	'darwin' : '/Volumes/pkg/lib/',
 	'freebsd6' : '/usr/local/lib',
 	'linux2' : '/usr/lib/libffi',
 }[sys.platform])
