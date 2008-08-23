@@ -396,6 +396,12 @@ prim fx>float
 \g Convert float to 16.16 fixed point integer
 prim float>fx
 
+\g Convert 16.16 fixed point integer to double
+prim fx>double
+
+\g Convert double to 16.16 fixed point integer
+prim double>fx
+
 \g Prepare foreign function call
 prim ffprep 
 
@@ -405,6 +411,7 @@ prim ffcall
 prim ffvoid
 prim ffint
 prim fffloat
+prim ffdouble
 prim ffptr
 prim ffint64
 
