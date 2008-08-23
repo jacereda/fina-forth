@@ -83,13 +83,6 @@ if ARGUMENTS.get('test', 0):
         fenv.Command('testfina', [f] + tests, 
                 '$SOURCE ${SOURCES[1:]}')
 
-awenv = env.Copy()
-awenv.Append(LIBPATH=awenv['LIBPATHX'])
-awenv.Append(CPPPATH=awenv['INCX'])
-awenv.Append(LIBS=['X11', 'GL', 'Xxf86vm', 'Xext'])
-awenv.Append(CCFLAGS=' -g ')
-aw = awenv.SharedLibrary('aw', Split('libs/aw.c libs/awx.c'))
-
 allforth = env.Glob('*.fs') + env.Glob('sys/*.fs') + env.Glob('meta/*.fs')
 
 anshelp = env.Glob('help/*.help')
@@ -111,8 +104,6 @@ env.Default(env.Install(prefix + 'share/fina/help', [toc] + allhelp + anshelp))
 env.Default(env.Install(prefix + 'share/doc/fina', Split("""
   README AUTHORS LICENSE
 """)))
-if ARGUMENTS.get('BUILDLIBS', 0):
-	env.Default(env.Install(prefix + 'lib/fina/', aw))
 
 # Check installation
 if ARGUMENTS.get('check', 0):
