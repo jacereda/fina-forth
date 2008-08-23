@@ -9,12 +9,12 @@ char " parse AW test" 0term
 aw awPushCurrent
 
 : unknown ." unknown" cr drop ;
-defer resize :noname ." resize " 2@ . . cr ; is resize
+: none drop ;
+defer resize  ' drop is resize
+defer down  ' drop is down
+defer up  ' drop is up
+defer motion  ' drop is motion
 : close drop aw awClose ." Goodbye" cr bye ;
-: down ." down " @ . ;
-: up ." up " @ . ;
-: motion ." motion " 2@ . . cr ;
-: none abort ;
 
 create handlers 
 ' unknown , ' none , ' resize , ' down , ' up , ' motion , ' close ,
