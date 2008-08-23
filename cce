@@ -1,7 +1,7 @@
 #!/bin/bash
 # Usage: cce CONSTANT_NAME
-source=`tempfile --suffix=.c`
-program=`tempfile`
+program=`mktemp /tmp/cce-XXXXXX`
+source=$program".c"
 cat >$source <<EOF
 #include <stdio.h>
 #include <GL/gl.h>
@@ -13,8 +13,7 @@ int main(int argc, char ** argv)
     return 0;
 }
 EOF
-#cc -framework OpenGL -framework GLUT $source -o $program 2> /dev/null
-cc $source -o $program #2> /dev/null
+cc -I/usr/X11R6/include $source -o $program #2> /dev/null
 if [ $? -ne 0 ]
 then
     echo -13 THROW
@@ -22,5 +21,3 @@ then
 fi
 $program
 rm -f $source $program
-
-
