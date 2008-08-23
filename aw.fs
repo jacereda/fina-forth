@@ -8,4 +8,3 @@ aw awSwapBuffers ptr (void) awSwapBuffers
 aw awPushCurrent ptr (void) awPushCurrent
 aw awPopCurrent ptr (void) awPopCurrent
 aw awNextEvent ptr (ptr) awNextEvent
-
