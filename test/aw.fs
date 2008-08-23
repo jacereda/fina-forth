@@ -3,38 +3,31 @@ require cce.fs
 create buffer 256 allot
 : 0term buffer place 0 buffer count + c! buffer 1+ ;
 
-hex
-cconstant GL_COLOR_BUFFER_BIT
-cconstant GL_DEPTH_BUFFER_BIT
-decimal
-library GL GL
-GL glViewport int int int int  (void) glViewport
-GL glClear int  (void) glClear
-
 :noname awInit 0= abort" Unable to initialize" ; execute
-awOpen value aw
-aw char " parse Mi titulo" 0term awSetTitle
-aw 100 100 awResize
-aw 100 100 awMove
-aw awShow
+char " parse AW test" 0term 
+100 200 300 400 awOpen value aw
+aw awPushCurrent
 
 : unknown ." unknown" cr drop ;
-: resize ." resize" 2@ . . cr ;
-: moveh ." move" 2@ . . cr ;
+defer resize :noname ." resize " 2@ . . cr ; is resize
 : close drop aw awClose ." Goodbye" cr bye ;
 : down ." down " @ . ;
 : up ." up " @ . ;
 : motion ." motion " 2@ . . cr ;
+: none abort ;
 
 create handlers 
-' unknown , ' moveh , ' resize , ' close , ' down , ' up , ' motion ,
+' unknown , ' none , ' resize , ' down , ' up , ' motion , ' close ,
+
+defer draw ' noop is draw
 
 : evloop
    begin 
       aw awNextEvent ?dup if 
          dup cell+ swap @ cells handlers + @execute 
       else
-         GL_COLOR_BUFFER_BIT GL_DEPTH_BUFFER_BIT or glClear aw awSwapBuffers
+         draw
+         aw awSwapBuffers
       then 
       pause
    again ;
