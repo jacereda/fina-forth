@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Usage: cce CONSTANT_NAME
 program=`mktemp /tmp/cce-XXXXXX`
 source=$program".c"
@@ -13,7 +13,7 @@ int main(int argc, char ** argv)
     return 0;
 }
 EOF
-cc -I/usr/X11R6/include $source -o $program #2> /dev/null
+cc -I/usr/X11R6/include $source -o $program -L/usr/X11R6/lib -lGL -lGLU #2> /dev/null
 if [ $? -ne 0 ]
 then
     echo -13 THROW
