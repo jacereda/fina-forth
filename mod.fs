@@ -7,6 +7,7 @@ wordlist constant modules
 : exposed-module ( wid -- pwid )
    >r  get-current get-order 1+ r@ swap set-order  r> set-current ;
 
+\g Add module to search list
 : expose-module ( "name" -- )
    find-module exposed-module ;
 

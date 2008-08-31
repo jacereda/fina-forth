@@ -1,32 +1,43 @@
+TESTING MOD
 require mod.fs
+{ -> }
+
+2variable ctx
+: save ctx ! ;
+: restore ctx @ ;
+: 2save ctx 2! ;
+: 2restore ctx 2@ ;
 
 module foo
-
+save { (words) -> 0 } restore
 module baz
-: 1 ;
-: 2 ;
-: 3 ;
-words
+2save { (words) -> 0 } 2restore
+: d ;
+: e ;
+: f ;
+2save { (words) -> 3 } 2restore
 export 1 2
-words
+2save { (words) -> 1 } 2restore
 end-module
-words
+
+save { (words) -> 2 } restore
+
 : a ;
 : b ;
 : c ;
-words
+save { (words) -> 5 } restore
 export b c
-words
+save { (words) -> 3 } restore
 
 module bar
 : x ;
 : y ;
 : z ;
-words
+2save { (words) -> 3 } 2restore
 export y
-words
+2save { (words) -> 2 } 2restore
 end-module
 
-words
+save { (words) -> 4 } restore
 
 end-module
