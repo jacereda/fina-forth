@@ -10,11 +10,14 @@
    dup .name 
    1 pad +! ;
 
+: (words) ( -- n)
+   pad off
+   get-order over >r set-order r> ['] (.name) forwordsin cr
+   pad @ ;
+
 \g @see anstools
 : words ( -- )
-   pad off
-   get-order over >r set-order r> ['] (.name) forwordsin
-   cr pad @ . ." words" cr ;
+   (words) . ." words" cr ;
 
 root-wordlist set-current
 : words words ; 
