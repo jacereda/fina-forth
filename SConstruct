@@ -26,7 +26,7 @@ def arch():
 	return arch
 
 env = Environment(ARCH=arch(), CC='gcc')
-env['ENV']['PATH'] = os.environ['PATH']
+#env['ENV']['PATH'] = os.environ['PATH']
 env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
 env.Append(CPPDEFINES=['HAS_FILES', 'HAS_ALLOCATE', 'HAS_FIXED', 'HAS_FFI', 
@@ -57,21 +57,6 @@ env.Append(BUILDERS = {
 	'Asm' : asm,
 	'Hlp' : hlp,
 })
-
-env['INCX'] = ARGUMENTS.get('INCX', {
-	'netbsd3': ['/usr/X11R6/include'],
-	'netbsd4': ['/usr/X11R6/include'],
-	'darwin': ['/usr/X11R6/include'],
-	'freebsd6': ['/usr/X11R6/include'],
-	'linux2': ['/usr/include'],
-}[sys.platform])
-env['LIBPATHX'] = ARGUMENTS.get('LIBPATHX', {
-	'netbsd3': ['/usr/X11R6/lib'],
-	'netbsd4': ['/usr/X11R6/lib'],
-	'darwin': ['/usr/X11R6/lib'],
-	'freebsd6': ['/usr/X11R6/lib'],
-	'linux2': ['/usr/lib'],
-}[sys.platform])
 
 def myglob(self, pat):
 	curr = os.getcwd()
