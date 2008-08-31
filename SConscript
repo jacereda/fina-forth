@@ -1,9 +1,32 @@
 Import('env')
+ffienv = env.Copy()
+fficpppath = [
+	'libs/libffi/include', 
+	'libs/libffi/src/x86/',
+	'libs/libffi/',
+]
+
+ffienv.Append(CPPPATH=fficpppath)
+ffienv.Append(CPPDEFINES=[
+	['TARGET', 'X86_DARWIN'],
+	['HAVE_LONG_DOUBLE', 1],
+])
+ffienv.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
+	debug.c 
+	prep_cif.c 
+	types.c
+	raw_api.c 
+	java_raw_api.c 
+	closures.c
+	x86/ffi.c 
+	x86/darwin.S
+''')])
+
+
 fenv = env.Copy()
-fenv.Append(CPPPATH=['obj'] + fenv['INCFFI'])
-fenv.Append(LIBPATH=fenv['LIBPATHFFI'])
-fenv.Append(LINKFLAGS=' -rpath=' + env['LIBPATHFFI'])
-fenv.Append(LIBS=fenv['LIBFFI'])
+fenv.Append(CPPPATH=['obj'] + fficpppath)
+fenv.Append(LIBPATH=['.'])
+fenv.Append(LIBS=['ffi'])
 
 for i in fenv.Glob('kernel/*.i'):
 	fenv.Tab(fenv.Basename(i[:-2]) + 'tab.it', i)
