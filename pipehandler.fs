@@ -1,3 +1,5 @@
+require handler.fs
+require filehandler.fs
 handler pipe
 :noname 
    2dup s" pipe://" beginswith? if 
@@ -6,6 +8,7 @@ handler pipe
       false 
    then ;    pipe matches
 ' open-pipe  pipe opens
-' close-pipe pipe closes
+:noname close-pipe nip ; pipe closes
 file reader  pipe reads
 file writer  pipe writes
+
