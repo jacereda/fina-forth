@@ -1077,24 +1077,28 @@ bcreate redefstr ," redefined "
    repeat
    r> base ! ;  
 
-\g Convert string to unsigned number
-: s>unumber ( c-addr u1 -- u2 | ud )
+\g Convert string to unsigned double number
+: s>udnumber ( c-addr u -- ud )
    -1 dpl !
    0 0 2swap begin 
       >number dup 
    while 
       over c@ [char] . <> -13 ?throw dup 1- dpl ! 1 /string 
-   repeat 2drop 
-   dpl @ 0< if drop then ;  
+   repeat 2drop ;
 
-\g Convert string to number
-: s>number ( c-addr u -- x | x x )
+\g Convert string to double number
+: s>dnumber ( c-addr u -- d )
    over c@ [char] - = >r  
    r@ negate /string
-   s>unumber 
-   r> if 
-      dpl @ 0<  if negate else dnegate then  
-   then ;  
+   s>udnumber r> if dnegate then ;
+
+\g Convert string to unsigned number
+: s>unumber ( c-addr u1 -- u2 | ud )
+   s>udnumber dpl @ 0< if drop then ;
+
+\g Convert string to number
+: s>number ( c-addr u -- n | d )
+   s>dnumber dpl @ 0< if drop then ;
 
 \g @see anscore
 : literal ( ct: x -- rt: -- x )

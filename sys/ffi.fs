@@ -34,7 +34,8 @@
 : (float) ( lib fun -- ) fffloat funret ;
 : (ptr) ( lib fun -- ) ffptr funret ;
 : (void) ( lib fun -- ) ffvoid funret ;
-
+: (sf) ( lib fun -- ) fffloat funret ;
+: (df) ( lib fun -- ) ffdouble funret ;
 
 : libfuncs 2 cells + ;
 

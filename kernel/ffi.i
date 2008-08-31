@@ -13,28 +13,44 @@
         // ... func cif -- 
         {
 		void * arg[16];
+		double darg[16];
+		float farg[16];
 		CELL ret[2];
 		ffi_type * rtype = ((ffi_cif*)tos)->rtype;
 		int n = ((ffi_cif*)tos)->nargs;
 		t0 = *dsp++;
+		void * parg;
 		while(n--) { 
 			ffi_type * type = ((ffi_cif*)tos)->arg_types[n];
-			arg[n] = (void*)(dsp); 
-			dsp++;
-			dsp += type == &ffi_type_double 
-				|| type == &ffi_type_uint64;
+			if (type == &ffi_type_double) {
+				darg[n] = (*(int*)dsp) / 65536.;
+				parg = darg+n;
+				dsp++;
+			} else if (type == &ffi_type_float) {
+				farg[n] = (*(int*)dsp) / 65536.;
+				parg = farg+n;
+				dsp++;
+			} else if (type == &ffi_type_uint64) {
+				parg = dsp;
+				dsp += 2;
+			}
+			else
+				parg = dsp++;
+			arg[n] = parg; 
 		}
 		CALLSAVE;
 		ffi_call((ffi_cif*)tos, FFI_FN(t0), ret, arg);
 		CALLREST;
-		if (rtype != &ffi_type_void) 
+		if (rtype == &ffi_type_float)
+			tos = 65536 * *(float*)ret;
+		else if (rtype == &ffi_type_double)
+			tos = 65536 * *(double*)ret;
+		else if (rtype == &ffi_type_uint64)
+			*--dsp = ret[0], tos = ret[1];
+		else if (rtype != &ffi_type_void) 
 			tos = ret[0];
 		else
 			tos = *dsp++;
-		if (rtype == &ffi_type_uint64 || rtype == &ffi_type_double) {
-			*--dsp = tos;
-			tos = ret[1];
-		}
         }
         NEXT;
 
