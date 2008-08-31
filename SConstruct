@@ -58,28 +58,6 @@ env.Append(BUILDERS = {
 	'Hlp' : hlp,
 })
 
-env['INCFFI'] = ARGUMENTS.get('INCFFI',{
-	'netbsd3' : '/usr/pkg/include',
-	'netbsd4' : '/usr/pkg/include',
-	'darwin' : '/Volumes/pkg/lib/gcc/i386-apple-darwin8/include/',
-	'freebsd6' : '/usr/local/include',
-	'linux2' : '/usr/include/libffi',
-}[sys.platform]).split(':')
-env['LIBPATHFFI'] = ARGUMENTS.get('LIBPATHFFI', {
-	'netbsd3' : '/usr/pkg/lib',
-	'netbsd4' : '/usr/pkg/lib',
-	'darwin' : '/Volumes/pkg/lib/',
-	'freebsd6' : '/usr/local/lib',
-	'linux2' : '/usr/lib/libffi',
-}[sys.platform])
-env['LIBFFI'] = {
-	'netbsd3' : 'ffi',
-	'netbsd4' : 'ffi',
-	'darwin' : ['ffi', 'dl'],
-	'freebsd6' : 'ffi',
-	'linux2' : ['ffi', 'dl'],
-}[sys.platform]
-
 env['INCX'] = ARGUMENTS.get('INCX', {
 	'netbsd3': ['/usr/X11R6/include'],
 	'netbsd4': ['/usr/X11R6/include'],
