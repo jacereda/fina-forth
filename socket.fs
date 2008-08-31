@@ -14,20 +14,23 @@ saddr - constant /saddr
 constant addr
 constant port
 
-: bw! >r dup 8 rshift r@ c! r> 1+ c! ;
+: bw! ( n addr -- , store short in big-endian mode)
+   >r dup 8 rshift r@ c! r> 1+ c! ;
 
 : gethostbyname 0term 0gethostbyname ;
 
 : split ( c-addr u c -- c-addr1 u1 c-addr2 u2 )
    >r 2dup r> scan 2swap 2 pick - ;
 
-: >ip gethostbyname 4 cells + @ @ @ ;
+: >ip ( c-addr u -- ip )
+   gethostbyname 4 cells + @ @ @ ;
 
 : (open-tcp) ( c-addr u port -- filenum ior )
    port bw! >ip addr !
    2 1 0 socket dup saddr /saddr connect -38 and ;
 
-: >mode 3 *  s" r  rb r+ r+b w  wb BAD" drop + 3 ;
+: >mode ( fam -- c-addr u)
+   3 *  s" r  rb r+ r+b w  wb BAD" drop + 3 ;
 
 : >port ( c-addr u -- port) 
    10 based s>unumber ;
