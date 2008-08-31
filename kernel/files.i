@@ -86,9 +86,9 @@
                 CALLSAVE;
                 { 
                     char buf[1024];
-                    t1 = Sys_FileLine(tos, buf, t4+1);
+                    t1 = Sys_FileLine((void*)tos, buf, t4+1);
                     t2 = Sys_Throw();
-                    Sys_MemMove(t3, buf, t4);
+                    Sys_MemMove((char*)t3, buf, t4);
                 }
                 CALLREST;
                 dsp[1] = t1;

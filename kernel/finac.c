@@ -24,6 +24,7 @@
 #define PUSH *--dsp = tos
 #define RPUSH(reg) *--rsp = (CELL)(reg)
 #define RPOP(reg) reg = *rsp++;
+#define ARPOP(reg) reg = (CELL*)*rsp++;
 #define POP tos = *dsp++
 
 static inline CELL *userP()

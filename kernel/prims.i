@@ -122,7 +122,7 @@
                 NEXT;
                 
                 PRIM(EXIT,28);
-                RPOP(fpc);
+                ARPOP(fpc);
                 NEXT;
                 
                 PRIM(MOVE,29);
@@ -163,19 +163,19 @@
                 NEXT;
                 
                 PRIM(BRANCH,36);
-                fpc = ((char*)fpc) + *fpc;
+                fpc = (CELL*)(((char*)fpc) + *fpc);
                 NEXT;
                 
                 PRIM(DONEXT, 116);
                 if (rsp[0]--)
-                        fpc = ((char*)fpc) + *fpc;
+                        fpc = (CELL*)(((char*)fpc) + *fpc);
                 else
                         fpc++;
                 NEXT;
                 
                 PRIM(DOLOOP,37);
                 if (++rsp[0] != rsp[1])
-                        fpc = ((char*)fpc) + *fpc;
+                        fpc = (CELL*)(((char*)fpc) + *fpc);
                 else
                         fpc++;
                 NEXT;
@@ -184,7 +184,7 @@
                 t0 = rsp[0] - rsp[1];
                 rsp[0] += tos;
                 if ((t0 ^ (t0 + tos)) >= 0 || (t0 ^ tos) >= 0)
-                        fpc = ((char*)fpc) + *fpc;
+                        fpc = (CELL*)(((char*)fpc) + *fpc);
                 else
                         fpc++;
                 POP;
@@ -220,7 +220,7 @@
                 
                 PRIM(ZEROBRANCH,42);
                 if (tos == 0)
-                        fpc = ((char*)fpc) + *fpc;
+                        fpc = (CELL*)(((char*)fpc) + *fpc);
                 else
                         fpc++;
                 POP;

@@ -6,7 +6,8 @@
                 
                 PRIM(UMSLASHMOD,67);
 #if 1
-                tos = UMSlashMod(dsp, tos, dsp+1);
+                tos = UMSlashMod((unsigned CELL*)dsp, tos, 
+				 (unsigned CELL*)(dsp+1));
                 dsp++;
 #else
                 t0 = tos;
