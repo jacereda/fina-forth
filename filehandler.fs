@@ -1,5 +1,8 @@
+require handler.fs
 handler file
-' true             file matches
+:noname 
+   2dup s" file://" beginswith? if 7 /string then 
+   true ;          file matches
 ' open-file        file opens
 ' close-file       file closes
 ' read-file        file reads
