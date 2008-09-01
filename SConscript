@@ -9,6 +9,7 @@ fficpppath = [
 ffienv.Append(CPPPATH=fficpppath)
 ffienv.Append(CPPDEFINES=[
 	['TARGET', 'X86_DARWIN'],
+	['X86_DARWIN', 1],
 	['HAVE_LONG_DOUBLE', 1],
 ])
 ffienv.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
