@@ -1,12 +1,5 @@
 Import('env')
 ffienv = env.Copy()
-fficpppath = [
-	'libs/libffi/include', 
-	'libs/libffi/src/x86/',
-	'libs/libffi/',
-]
-
-ffienv.Append(CPPPATH=fficpppath)
 ffiarch = {
 	'i386' : 'X86',
 	'powerpc' : 'POWERPC',
@@ -16,13 +9,38 @@ ffios = {
 	'freebsd' : '_FREEBSD',
 	'openbsd' : '_FREEBSD',
 	'darwin' : '_DARWIN',
-	'linux' : '',
+	'linux2' : '',
 }[ffienv['OS']]
 ffienv.Append(CPPDEFINES=[
 	['TARGET', ffiarch + ffios],
 	[ffiarch + ffios, 1],
 	['HAVE_LONG_DOUBLE', 1],
 ])
+ffiarchbase = {
+	'i386' : 'x86',
+	'powerpc': 'powerpc',
+}[ffienv['ARCH']]
+ffiossrc = {
+	'darwin' : 'darwin.S',
+	'linux2' : 'sysv.S ppc_closure.S',
+	'freebsd' : 'freebsd.S',
+	'openbsd' : 'freebsd.S',
+	'netbsd' : 'netbsd.S',
+}[ffienv['OS']]
+
+plat = ffiarchbase + '/ffi.c '
+for i in Split(ffiossrc):
+    print i
+    plat += ffiarchbase + '/' + i + ' '
+fficpppath = [
+	'libs/libffi/include', 
+	'libs/libffi/src/',
+	'libs/libffi/src/' + ffiarchbase,
+	'libs/libffi/',
+]
+
+ffienv.Append(CPPPATH=fficpppath)
+
 ffienv.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
 	debug.c 
 	prep_cif.c 
@@ -30,15 +48,16 @@ ffienv.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
 	raw_api.c 
 	java_raw_api.c 
 	closures.c
-	x86/ffi.c 
-	x86/darwin.S
-''')])
+''' + plat)])
 
 
 fenv = env.Copy()
 fenv.Append(CPPPATH=['obj'] + fficpppath)
+fenv.Append(CPPDEFINES=[[ffiarch + ffios, 1]])
 fenv.Append(LIBPATH=['.'])
 fenv.Append(LIBS=['ffi'])
+if fenv['OS'] == 'linux2':
+   fenv.Append(LIBS=['dl'])
 
 for i in fenv.Glob('kernel/*.i'):
 	fenv.Tab(fenv.Basename(i[:-2]) + 'tab.it', i)
