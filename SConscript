@@ -7,9 +7,20 @@ fficpppath = [
 ]
 
 ffienv.Append(CPPPATH=fficpppath)
+ffiarch = {
+	'i386' : 'X86',
+	'powerpc' : 'POWERPC',
+}[ffienv['ARCH']]
+ffios = {
+	'netbsd' : '_FREEBSD',
+	'freebsd' : '_FREEBSD',
+	'openbsd' : '_FREEBSD',
+	'darwin' : '_DARWIN',
+	'linux' : '',
+}[ffienv['OS']]
 ffienv.Append(CPPDEFINES=[
-	['TARGET', 'X86_DARWIN'],
-	['X86_DARWIN', 1],
+	['TARGET', ffiarch + ffios],
+	[ffiarch + ffios, 1],
 	['HAVE_LONG_DOUBLE', 1],
 ])
 ffienv.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
