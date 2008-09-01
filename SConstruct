@@ -25,7 +25,7 @@ def arch():
 		arch = 'i386'
 	return arch
 
-env = Environment(ARCH=arch(), CC='gcc')
+env = Environment(ARCH=arch(), CC='gcc', OS=sys.platform)
 #env['ENV']['PATH'] = os.environ['PATH']
 env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
