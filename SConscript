@@ -30,7 +30,6 @@ ffiossrc = {
 
 plat = ffiarchbase + '/ffi.c '
 for i in Split(ffiossrc):
-    print i
     plat += ffiarchbase + '/' + i + ' '
 fficpppath = [
 	'libs/libffi/include', 
