@@ -1,3 +1,4 @@
+expose-module private
 libc popen ptr ptr (ptr) popen
 libc pclose ptr (int) pclose
 
@@ -18,3 +19,6 @@ char w c, 0 c,
    2swap r/o open-pipe throw >r
    over swap r@ read-file drop
    r> close-pipe throw abort" Unable to execute command" ;
+
+export open-pipe close-pipe pipeto
+end-module

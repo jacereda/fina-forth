@@ -1,3 +1,4 @@
+module private
 0 
 constant r/o ( -- fam )
 \g @see ansfile
@@ -112,12 +113,6 @@ variable sourcepos 0 ,
 : interpret-file
    begin  refill  while  interpret  repeat ;
 
-: c+! ( n addr -- )
-   >r r@  c@ +  r> c! ;
-
-: append ( str len cstr -- )
-    2dup 2>r  count chars +  swap chars move  2r> c+! ;
-
 create includes-stack 256 allot 0 includes-stack c!
 
 : push-include ( c-addr u -- )
@@ -164,3 +159,14 @@ defer inchook1  ' noop is inchook1
 :noname dup 9 = if drop bl then deferred keyhandler ; is keyhandler
 
 env: file true ;env
+
+export r/o r/w w/o bin
+export open-file read-file write-file close-file mmap-file 
+export file-size file-position reposition-file read-line
+export create-file delete-file resize-file
+export include-file included include
+export newline write-line
+export sourcepos foreachline
+export filesource?
+
+end-module

@@ -1,5 +1,5 @@
-
-\ Does str1 begin with str2?)
+expose-module private
+\g Does str1 begin with str2?
 : beginswith? ( c-addr1 u1 c-addr2 u2 -- flag )
    2>r r@ umin 2r> compare 0= ;
 
@@ -49,3 +49,5 @@ variable requested 0 ,
 : help ( "word" -- )
    -1 to level
    parse-word requested 2! s" toc" cr @see ;
+export help beginswith?
+end-module

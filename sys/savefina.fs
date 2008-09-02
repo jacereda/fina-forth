@@ -1,3 +1,4 @@
+expose-module private
 : .line type cr ;
 : license
    s" share/doc/fina/LICENSE" >inst r/o open-file throw >r
@@ -30,4 +31,5 @@ defer banner
 :noname
    ." ok" cr ; '.prompt ! 
 echo on 
+end-module
 

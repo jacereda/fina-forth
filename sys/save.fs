@@ -1,4 +1,4 @@
-
+expose-module private
 : 'cold!
    dict0 cell+ cell+ ! ;
 
@@ -50,3 +50,6 @@ defer coldchain  ' noop is coldchain
 
 : save"
    [char] " parse save ;
+
+export save" save coldchain
+end-module

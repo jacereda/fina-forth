@@ -1,4 +1,5 @@
 \g Verbose includes
+expose-module private
 
 variable (incs)  (incs) off
 
@@ -9,6 +10,7 @@ variable (incs)  (incs) off
 : (.inc) 
    cell+ count type cr ;
 
+\g Print files included so far
 : .included
    forall (incs) (.inc) ;
 
@@ -19,8 +21,13 @@ variable (incs)  (incs) off
 : included?  ( c-addr u -- flag )
    0 to found forall (incs) (inc?) 2drop found ;
 
+\g Include file if not already included
 : required  ( c-addr u -- )
    2dup included? if 2drop else included then ;
 
-: require
+\g Include file if not already included
+: require ( "path" -- )
    parse-word required ;
+
+export required require .included
+end-module

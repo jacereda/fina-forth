@@ -1,3 +1,4 @@
+expose-module private
 libc 0dirname ptr (ptr) dirname
 libc 0realpath ptr ptr (ptr) realpath
 
@@ -31,3 +32,5 @@ libc 0realpath ptr ptr (ptr) realpath
 \ If included file doesn't exist, we lookup in share dir
 :noname
    2dup file-exists? 0= if >share then deferred inchook0 ; is inchook0
+
+end-module

@@ -1,3 +1,4 @@
+expose-module private
 : lastbody ( -- addr )
    lastname name>xt xt>body ;
 : funcif cell+ ;
@@ -75,18 +76,12 @@ variable libs libs off
    does> newfun ;
 : link>lib cell- ;
 
-
-create 0buffer 256 allot
-
 :noname
    libs begin @ dup while dup link>lib restorelib repeat drop
    deferred coldchain ; is coldchain
 
-0 [if]
-library libc c
+export library 0buffer
+export (int) (int64) (float) (ptr) (void) (sf) (df)
+export int int64 sf df ptr
 
-libc sleep int (int) sleep
-libc cwrite int ptr int (int) write
-1 lastname count cwrite . cr
-1 sleep .
-[then]
+end-module
