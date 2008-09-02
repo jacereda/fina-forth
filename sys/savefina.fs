@@ -23,6 +23,7 @@ defer banner
 
 :noname
    deferred coldchain 
+   s" *cmdline*" errorname 2!
    ['] doargs catch .error 
    banner quit ; is coldchain
 
