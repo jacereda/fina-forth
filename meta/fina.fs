@@ -700,8 +700,6 @@ p: *  ( n1|u1 n2|u2 -- n3|u3 )
 
 \g @see anscore
 p: um/mod  ( ud1 u1 -- u2 u3 )
-   dup 0= -10 ?throw 
-   2dup u< 0= -11 ?throw 
    negate [ tcellbits 1- ] literal for
       >r dup um+ >r >r dup um+ r> + dup
       r> r@ swap >r um+ r> or 
@@ -709,32 +707,8 @@ p: um/mod  ( ud1 u1 -- u2 u3 )
    next drop swap ;  
 
 \g @see anscore
-: fm/mod  ( d n1 -- n2 n3 )
-   >r r@ 2dup xor >r >r dup 0< if dnegate then
-   r@ abs um/mod
-   r> 0< if swap negate swap then 
-   r> 0< if 
-      negate over if r@ rot - swap 1- then 
-      rdrop 
-      0 over < -11 ?throw exit 
-   then rdrop 
-   dup 0< -11 ?throw ;  
-
-\g @see anscore
 p: s>d  ( n1 -- d1 )
    dup 0< ;  
-
-\g @see anscore
-: /mod  ( n1 n2 -- n3 n4 )
-   >r s>d r> fm/mod ;  
-
-\g @see anscore
-: /  ( n1 n2 -- n3 )
-   /mod nip ;  
-
-\g @see anscore
-: mod  ( n1 n2 -- n3 )
-   /mod drop ;
 
 \g @see anscore
 p: within  ( n1|u1 n2|u2 n3|u3 -- flag )
