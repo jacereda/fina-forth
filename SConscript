@@ -9,7 +9,7 @@ ffios = {
 	'freebsd' : '_FREEBSD',
 	'openbsd' : '_FREEBSD',
 	'darwin' : '_DARWIN',
-	'linux2' : '',
+	'linux' : '',
 }[ffienv['OS']]
 ffienv.Append(CPPDEFINES=[
 	['TARGET', ffiarch + ffios],
@@ -22,10 +22,10 @@ ffiarchbase = {
 }[ffienv['ARCH']]
 ffiossrc = {
 	'darwin' : 'darwin.S',
-	'linux2' : 'sysv.S ppc_closure.S',
+	'linux' : 'sysv.S ppc_closure.S',
 	'freebsd' : 'freebsd.S',
 	'openbsd' : 'freebsd.S',
-	'netbsd' : 'netbsd.S',
+	'netbsd' : 'freebsd.S',
 }[ffienv['OS']]
 
 plat = ffiarchbase + '/ffi.c '
