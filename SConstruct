@@ -25,7 +25,17 @@ def arch():
 		arch = 'i386'
 	return arch
 
-env = Environment(ARCH=arch(), CC='gcc', OS=sys.platform)
+def normalized_os():
+	ret = sys.platform
+	if ret[0:6] == 'netbsd':
+		ret = 'netbsd'
+	if ret[0:7] == 'freebsd':
+		ret = 'freebsd'
+	if ret[0:5] == 'linux':
+		ret = 'linux'
+	return ret
+
+env = Environment(ARCH=arch(), CC='gcc', OS=normalized_os())
 #env['ENV']['PATH'] = os.environ['PATH']
 env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
