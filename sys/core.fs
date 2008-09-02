@@ -288,6 +288,35 @@ variable abort"msg  ( -- a-addr ) 0 ,
 : find  ( a -- a 0 | xt 1 | xt -1 )
    count nfa if fxt fimmed else parsed cell+ @ -1 chars + 0 then ; 
 
+: um/mod
+   dup 0= -10 ?throw 
+   2dup u< 0= -11 ?throw 
+   um/mod ;
+
+\g @see anscore
+: fm/mod  ( d n1 -- n2 n3 )
+   >r r@ 2dup xor >r >r dup 0< if dnegate then
+   r@ abs um/mod
+   r> 0< if swap negate swap then 
+   r> 0< if 
+      negate over if r@ rot - swap 1- then 
+      rdrop 
+      0 over < -11 ?throw exit 
+   then rdrop 
+   dup 0< -11 ?throw ;  
+
+\g @see anscore
+: /mod  ( n1 n2 -- n3 n4 )
+   >r s>d r> fm/mod ;  
+
+\g @see anscore
+: /  ( n1 n2 -- n3 )
+   /mod nip ;  
+
+\g @see anscore
+: mod  ( n1 n2 -- n3 )
+   /mod drop ;
+
 \g @see anscore
 : sm/rem  ( d n1 -- n2 n3 )
    2dup xor >r over >r >r dup 0< if dnegate then 
