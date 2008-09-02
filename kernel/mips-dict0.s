@@ -1745,51 +1745,11 @@ _XT_UMSLASHMOD:
  .balign 4
  .long 1b
 1:
-  .byte 0x6,0x66,0x6D,0x2F,0x6D,0x6F,0x64
- .balign 4
-XT_FMSLASHMOD:
- bal XT_DOLIST
- nop 
- .long XT_GTR,XT_RFETCH,XT_TWODUP,XT_XOR,XT_GTR,XT_GTR,XT_DUP,XT_ZEROLT,XT_ZEROBRANCH,0x8,XT_DNEGATE,XT_RFETCH,XT_ABS,XT_UMSLASHMOD,XT_RGT,XT_ZEROLT,XT_ZEROBRANCH,0x10,XT_SWAP,XT_NEGATE,XT_SWAP,XT_RGT,XT_ZEROLT,XT_ZEROBRANCH,0x48,XT_NEGATE,XT_OVER,XT_ZEROBRANCH,0x18,XT_RFETCH,XT_ROT,XT_MINUS,XT_SWAP,XT_ONEMINUS,XT_RDROP,XT_DOLIT,0x0,XT_OVER,XT_LT,XT_DOQTHROW,0xFFFFFFF5,XT_EXIT,XT_RDROP,XT_DUP,XT_ZEROLT,XT_DOQTHROW,0xFFFFFFF5,XT_EXIT
-
- .balign 4
- .long 1b
-1:
   .byte 0x3,0x73,0x3E,0x64
  .balign 4
 _XT_SGTD:
  .long 0xdeadbeef,XT_SGTD
 
-
- .balign 4
- .long 1b
-1:
-  .byte 0x4,0x2F,0x6D,0x6F,0x64
- .balign 4
-XT_SLASHMOD:
- bal XT_DOLIST
- nop 
- .long XT_GTR,XT_SGTD,XT_RGT,XT_FMSLASHMOD,XT_EXIT
-
- .balign 4
- .long 1b
-1:
-  .byte 0x1,0x2F
- .balign 4
-XT_SLASH:
- bal XT_DOLIST
- nop 
- .long XT_SLASHMOD,XT_NIP,XT_EXIT
-
- .balign 4
- .long 1b
-1:
-  .byte 0x3,0x6D,0x6F,0x64
- .balign 4
-XT_MOD:
- bal XT_DOLIST
- nop 
- .long XT_SLASHMOD,XT_DROP,XT_EXIT
 
  .balign 4
  .long 1b
@@ -2733,7 +2693,7 @@ XT_DUMMYTWO:
  nop 
  .long 0xDEADBEEF
 
- .fill 251207 ,1,0
+ .fill 251515 ,1,0
  .long 0xcacacaca
 .set reorder
 .set at
