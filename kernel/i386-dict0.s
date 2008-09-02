@@ -1881,59 +1881,11 @@ _XT_UMSLASHMOD:
  .p2align 2
  .long 1b
 1:
-  .byte 0x6,0x66,0x6D,0x2F,0x6D,0x6F,0x64
- .p2align 2
-XT_FMSLASHMOD:
- nop
- nop
- nop
- call XT_DOLIST
- .long XT_GTR,XT_RFETCH,XT_TWODUP,XT_XOR,XT_GTR,XT_GTR,XT_DUP,XT_ZEROLT,XT_ZEROBRANCH,0x8,XT_DNEGATE,XT_RFETCH,XT_ABS,XT_UMSLASHMOD,XT_RGT,XT_ZEROLT,XT_ZEROBRANCH,0x10,XT_SWAP,XT_NEGATE,XT_SWAP,XT_RGT,XT_ZEROLT,XT_ZEROBRANCH,0x48,XT_NEGATE,XT_OVER,XT_ZEROBRANCH,0x18,XT_RFETCH,XT_ROT,XT_MINUS,XT_SWAP,XT_ONEMINUS,XT_RDROP,XT_DOLIT,0x0,XT_OVER,XT_LT,XT_DOQTHROW,0xFFFFFFF5,XT_EXIT,XT_RDROP,XT_DUP,XT_ZEROLT,XT_DOQTHROW,0xFFFFFFF5,XT_EXIT
-
- .p2align 2
- .long 1b
-1:
   .byte 0x3,0x73,0x3E,0x64
  .p2align 2
 _XT_SGTD:
  .long 0xdeadbeef,XT_SGTD
 
-
- .p2align 2
- .long 1b
-1:
-  .byte 0x4,0x2F,0x6D,0x6F,0x64
- .p2align 2
-XT_SLASHMOD:
- nop
- nop
- nop
- call XT_DOLIST
- .long XT_GTR,XT_SGTD,XT_RGT,XT_FMSLASHMOD,XT_EXIT
-
- .p2align 2
- .long 1b
-1:
-  .byte 0x1,0x2F
- .p2align 2
-XT_SLASH:
- nop
- nop
- nop
- call XT_DOLIST
- .long XT_SLASHMOD,XT_NIP,XT_EXIT
-
- .p2align 2
- .long 1b
-1:
-  .byte 0x3,0x6D,0x6F,0x64
- .p2align 2
-XT_MOD:
- nop
- nop
- nop
- call XT_DOLIST
- .long XT_SLASHMOD,XT_DROP,XT_EXIT
 
  .p2align 2
  .long 1b
@@ -3043,5 +2995,5 @@ XT_DUMMYTWO:
  call XT_DOVAR
  .long 0xDEADBEEF
 
- .fill 251207 ,1,0
+ .fill 251515 ,1,0
  .long 0xcacacaca
