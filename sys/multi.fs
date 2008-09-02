@@ -1,7 +1,7 @@
 \ FINA multitasker
 \ Inspired by the work of Bill Muench and Wonyong Koh
 
-\ XXX Should we have a per-task HERE?
+expose-module private
 
 : user ( "<spaces>name" -- ) 
    nesting?  head, ['] douser xt, drop
@@ -25,7 +25,7 @@ user stacktop  ( -- a-addr )
 
 \g Obtain user offset for a given variable name
 : 's-offset  ( "uvarname" -- n )
-   ' execute ego - assert0( dup -1024 1 within ) ; immediate
+   ' execute ego - assert( dup -1024 1 within ) ; immediate
 
 \g Obtain the address of a user variable in another task
 : 's  ( tid "uvarname" -- a-addr )
@@ -150,25 +150,5 @@ lastname taskname !
 : .tasks
    cr ['] .task foreachtask ;
 
-0 [if]
-64 64 64 task: mierda1
-64 64 64 task: mierda2
-64 64 64 task: mierda3
-64 64 64 task: mierda4
-
-mierda1 build 
-mierda2 build 
-mierda3 build 
-mierda4 build
-hex
-:noname mierda1 activate 4 0 do i . pause loop stop ; execute
-:noname mierda2 activate 0 begin 1+ dup . pause again ; execute
-:noname mierda3 activate 0 begin 1+ dup . pause again ; execute
-:noname mierda4 activate 0 begin 1+ dup . pause again ; execute
-.tasks 
-:noname pause ; execute
-mierda3 sleep
-mierda4 kill
-.tasks
-:noname 5 0 do .tasks pause loop cr ; execute
-[then]
+export .tasks .task task: activate build kill awake sleep stop pause
+end-module

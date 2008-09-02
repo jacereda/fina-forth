@@ -1,3 +1,5 @@
+expose-module private
+
 \g @see anstools
 : ?  ( a-addr -- )
    @ . ;
@@ -19,10 +21,14 @@
 : words ( -- )
    (words) . ." words" cr ;
 
+export words ? .name
+end-module
+
 root-wordlist set-current
 : words words ; 
 forth-wordlist set-current
 
+expose-module private
 : dumprow ( addr u -- addr' )
   swap dup 0 <#  # # # # # # # #  #> type space
   16 0 do
@@ -94,3 +100,6 @@ forth-wordlist set-current
 : see  ( "<spaces>name" -- )
    ' /fcompo fimmed rot xtsee 
    0 > if ." immediate "  then    0= if ." compile-only" then cr ;
+
+export see xtsee dump
+end-module

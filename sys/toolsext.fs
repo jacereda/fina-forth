@@ -1,3 +1,4 @@
+expose-module private
 
 \g Syntactic sugar used in combination with FOREACHPARSED
 : apply ( "word" --  xt )
@@ -32,3 +33,6 @@
 \g @see anstools
 : [then] ( -- )
    ; immediate 
+
+export [if] [else] [then]
+end-module

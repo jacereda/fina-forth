@@ -1,3 +1,10 @@
+library libc c
+
+libc sleep int (int) sleep
+libc cwrite int ptr int (int) write
+1 lastname count cwrite . cr
+1 sleep .
+
 require fixed.fs
 library libm m
 

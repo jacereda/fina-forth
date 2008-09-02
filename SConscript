@@ -72,8 +72,8 @@ boot = ['sys/' + i for i in Split("""
 full = ['sys/' + i for i in Split("""
    core.fs defer.fs core2.fs throwmsg.fs 
    based.fs source.fs signals.fs
-   search.fs coreext.fs searchext.fs keyhandler.fs 
-   file.fs fileext.fs double.fs doubleext.fs optional.fs
+   search.fs coreext.fs searchext.fs module.fs keyhandler.fs 
+   cstr.fs file.fs fileext.fs double.fs doubleext.fs optional.fs
    string.fs require.fs tools.fs toolsext.fs
    facility.fs facilityext.fs lineedit.fs 
    assert.fs multi.fs

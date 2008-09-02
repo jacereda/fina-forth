@@ -1,3 +1,4 @@
+expose-module private
 \g @see ansfile
 : file-status ( c-addr u -- x ior )
    statf ;
@@ -16,5 +17,8 @@
 \g @see ansfile
 is refill ( -- flag )
 
-
 env: file-ext true ;env
+
+export : file-status rename-file flush-file
+
+end-module

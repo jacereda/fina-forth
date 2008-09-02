@@ -1,3 +1,4 @@
+expose-module private
 variable echo  echo off
 : cursor ( c-addr u -- c-addr u c-addr2 )
    over span @ + ;
@@ -18,3 +19,5 @@ variable echo  echo off
          dup if dup emit else bell then 
       then dup 
    endcase ; is keyhandler
+export echo
+end-module
