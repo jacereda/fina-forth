@@ -112,12 +112,27 @@ variable sourcepos 0 ,
 : interpret-file
    begin  refill  while  interpret  repeat ;
 
+: c+! ( n addr -- )
+   >r r@  c@ +  r> c! ;
+
+: append ( str len cstr -- )
+    2dup 2>r  count chars +  swap chars move  2r> c+! ;
+
+create includes-stack 256 allot 0 includes-stack c!
+
+: push-include ( c-addr u -- )
+   includes-stack count +  over sourcename 2!  includes-stack append ;
+
+: pop-include ( -- )
+   includes-stack c@ sourcename @ - includes-stack c! ;
+
 \g @see ansfile
 : include-file
    save-input n>r
-   parsed 2@ sourcename 2! \ XXX
+   parsed 2@ push-include
    to source-id  0 to sourceline#
    ['] interpret-file catch .error!
+   pop-include
    nr> restore-input -37 ?throw 
    throw ;
 
