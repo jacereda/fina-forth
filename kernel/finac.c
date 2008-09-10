@@ -9,7 +9,7 @@
 
 // #define PROFILE_FORTH 1
 #define MAXSTR 512 // power of 2
-#define FLAG(x) (x)? -1 : 0;
+#define FLAG(x) ((x)? -1 : 0)
 
 #define POPLL  ll  = (((long long)tos) << 32) | *(unsigned*)dsp++; tos = *dsp++
 #define POPLL2 ll2 = (((long long)tos) << 32) | *(unsigned*)dsp++; tos = *dsp++
@@ -18,7 +18,7 @@
 #define PUSHLL *--dsp = tos; *--dsp = ll; tos = ll>>32
 #define PUSHULL *--dsp = tos; *--dsp = ull; tos = ull>>32
 
-//#define DEBUG
+#undef DEBUG
 #if defined(DEBUG)
 static inline void loc(const char * p) {
   while (*p++)
@@ -32,7 +32,7 @@ static inline void loc(const char * p) {
 #define DUMPLOC
 #endif
 
-#define PRIM(x, n)  x: asm(".p2align 2\n.globl XT_" #x "\nXT_" #x ":"); { DUMPDECL(x); int unused
+#define PRIM(x, n)  x: asm(".p2align 2\nXT_" #x ":"); { DUMPDECL(x); int unused
 #define NEXTT goto **fpc++
 #define NEXT (void) unused; DUMPLOC } NEXTT
 #define PUSH *--dsp = tos
@@ -170,8 +170,18 @@ void FINA_End(struct FINA_State * state)
         Sys_End();
 }
 
-int FINA_InternalTick(struct FINA_State * state, int throw)
+static int internalTick(struct FINA_State * state, int throw) PRIMSATTR;
+
+int FINA_InternalTick(struct FINA_State * state, int throw) {
+	return internalTick(state, throw);
+}
+
+int FINA_Tick(struct FINA_State * state)
 {
+		return Sys_Tick(state);
+}
+
+int internalTick(struct FINA_State * state, int throw) {
         static CELL * tab[] = {
                 &&NOOP,
 #include "primstab.it"
@@ -203,6 +213,9 @@ int FINA_InternalTick(struct FINA_State * state, int throw)
         register CELL * fpc FPCREG;
         register CELL * dsp DSPREG;
         register CELL   tos TOSREG; 
+#if defined(LNKREG)
+	volatile register CELL * lnk LNKREG;
+#endif
         int ret = 0xdeadbeef;
         extern CELL Forth_Here;
         register CELL t0;
@@ -224,8 +237,7 @@ int FINA_InternalTick(struct FINA_State * state, int throw)
         }
         else
                 RESTREGS;
-        
-        
+
         // DON'T MOVE THIS
         PRIM(NOOP,-1);
         NEXT;
@@ -268,7 +280,4 @@ end:
         return ret;
 }
 
-int FINA_Tick(struct FINA_State * state)
-{
-		return Sys_Tick(state);
-}
+
