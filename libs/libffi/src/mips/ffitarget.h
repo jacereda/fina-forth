@@ -40,7 +40,9 @@
 #  endif
 #endif
 
-#if !defined(_MIPS_SIM)
+#if defined(__NetBSD__)
+#define FFI_MIPS_032
+#elif !defined(_MIPS_SIM)
 -- something is very wrong --
 #else
 #  if (_MIPS_SIM==_ABIN32 && defined(_ABIN32)) || (_MIPS_SIM==_ABI64 && defined(_ABI64))

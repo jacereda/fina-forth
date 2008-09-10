@@ -37,7 +37,12 @@
 #endif
 
 #ifndef USE__BUILTIN___CLEAR_CACHE
+#if defined(__NetBSD__)
+#include <mips/cachectl.h>
+#define cacheflush _cacheflush
+#else
 #include <sys/cachectl.h>
+#endif
 #endif
 
 #ifdef FFI_DEBUG
