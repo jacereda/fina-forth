@@ -44,8 +44,6 @@ ffienv.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
 	debug.c 
 	prep_cif.c 
 	types.c
-	raw_api.c 
-	java_raw_api.c 
 	closures.c
 ''' + plat)])
 
