@@ -18,9 +18,23 @@
 #define PUSHLL *--dsp = tos; *--dsp = ll; tos = ll>>32
 #define PUSHULL *--dsp = tos; *--dsp = ull; tos = ull>>32
 
-#define PRIM(x, n)  x: asm(".p2align 2\n.globl XT_" #x "\nXT_" #x ":"); { int unused
+//#define DEBUG
+#if defined(DEBUG)
+static inline void loc(const char * p) {
+  while (*p++)
+    Sys_PutChar(p[-1]);
+  Sys_PutChar('\n');
+}
+#define DUMPDECL(x) const char * locstr = #x;
+#define DUMPLOC SAVEREGS; loc(locstr); RESTREGS; 
+#else
+#define DUMPDECL(x)
+#define DUMPLOC
+#endif
+
+#define PRIM(x, n)  x: asm(".p2align 2\n.globl XT_" #x "\nXT_" #x ":"); { DUMPDECL(x); int unused
 #define NEXTT goto **fpc++
-#define NEXT (void) unused; } NEXTT
+#define NEXT (void) unused; DUMPLOC } NEXTT
 #define PUSH *--dsp = tos
 #define RPUSH(reg) *--rsp = (CELL)(reg)
 #define RPOP(reg) reg = *rsp++;
