@@ -23,6 +23,8 @@ def arch():
 		arch = 'powerpc'
 	if arch == 'i686':
 		arch = 'i386'
+	if arch == 'sgimips':
+	   	arch = 'mips'
 	return arch
 
 def normalized_os():

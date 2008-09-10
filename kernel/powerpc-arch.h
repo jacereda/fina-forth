@@ -1,10 +1,10 @@
 #define PRIMSATTR
 
 
-#define RSPREG asm("%r18");
-#define FPCREG asm("%r17");
-#define DSPREG asm("%r16");
-#define TOSREG asm("%r15");
+#define RSPREG asm("%r18")
+#define FPCREG asm("%r17")
+#define DSPREG asm("%r16")
+#define TOSREG asm("%r15")
 
 #define CALLSAVE
 #define CALLREST

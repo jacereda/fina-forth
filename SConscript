@@ -3,6 +3,7 @@ ffienv = env.Copy()
 ffiarch = {
 	'i386' : 'X86',
 	'powerpc' : 'POWERPC',
+	'mips': 'MIPS',
 }[ffienv['ARCH']]
 ffios = {
 	'netbsd' : '_FREEBSD',
@@ -19,6 +20,7 @@ ffienv.Append(CPPDEFINES=[
 ffiarchbase = {
 	'i386' : 'x86',
 	'powerpc': 'powerpc',
+	'mips': 'mips',
 }[ffienv['ARCH']]
 ffiossrc = {
 	'darwin' : 'darwin.S',
@@ -27,6 +29,10 @@ ffiossrc = {
 	'openbsd' : 'freebsd.S',
 	'netbsd' : 'freebsd.S',
 }[ffienv['OS']]
+if ffienv['ARCH'] == 'mips' and ffiossrc == 'freebsd.S':
+   ffiossrc = 'o32.S'
+   ffienv.Append(CPPDEFINES=[['FFI_MIPS_O32', 1]])
+
 
 plat = ffiarchbase + '/ffi.c '
 for i in Split(ffiossrc):

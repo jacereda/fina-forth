@@ -1,21 +1,32 @@
 #define PRIMSATTR __attribute__ ((section (".data")))
 
-#define SAVESP
-#define RESTORESP
+#define RSPREG asm("%s3")
+#define FPCREG asm("%s2")
+#define DSPREG asm("%s1")
+#define TOSREG asm("%s0")
+#define LNKREG asm("%ra")
+#define CALLSAVE
+#define CALLREST
 
 
 static inline CELL * getlnk()
 {
-	register volatile CELL * lnk asm("$31");
-	return lnk;
+        CELL * res;
+        asm volatile  (" move	%0,$ra" : "=r" (res));
+        return res;
 }
-
 
 #if defined(__linux__)
 #include <sys/cachectl.h>
 static inline void flush_cache(char * pdict, unsigned bytes)
 {
-	cacheflush((char*)pdict, bytes, BCACHE);
+	cacheflush((char*)pdict, bytes, ICACHE);
+}
+#elif defined(__NetBSD__)
+#include <mips/cachectl.h>
+static inline void flush_cache(char * pdict, unsigned bytes) 
+{
+  	_cacheflush(pdict, bytes, ICACHE);
 }
 #else
 #error Define flush_cache
@@ -49,6 +60,6 @@ static inline void arch_xtstore(CELL xt, CELL pdict)
         xt |= 0x04110000;
         ((CELL*)pdict)[0] = xt;
         ((CELL*)pdict)[1] = 0;
-	flush_cache(pdict, 8);
+	flush_cache((char*)pdict, 8);
 }
 
