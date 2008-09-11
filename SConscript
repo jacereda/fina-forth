@@ -102,9 +102,12 @@ def gendict(arch, phase, kernel):
                 ['meta/' + i for i in Split("""
 		   tconfig.fs host-fina.fs meta.fs fina.fs
 	        """)]
+	name = 'kernel/' + arch + '-dict' + str(phase)
+	src = fenv.Command(name + '.fs', [kernel] + boot + meta,
+		'cat ${SOURCES[1:]} > $TARGET')
         fenv.Command('kernel/' + arch + '-dict' + str(phase) + '.s', 
-                [kernel] + boot + meta,
-                'cat ${SOURCES[1:]} | $SOURCE > $TARGET')
+		[kernel, src],
+                '${SOURCES[0]} < ${SOURCES[1]} > $TARGET')
 
 architectures = ['powerpc', 'mips', 'i386']
 
@@ -131,10 +134,10 @@ fenv.Command('sys/build.fs', ['kernel2'] + full[:-2],
 	'echo ": buildstr s\\" ' + \
 	fenv.OutputFrom('svnversion ' + str(Dir('#'))) + \
 	'\\" ;" > $TARGET')
-f = fenv.Command('fina', ['kernel2'] + full,
-        ['echo "`cat ${SOURCES[1:]} ` warnings on save\\" obj/fina\\" bye"' +\
-         '  | $SOURCE',
-        'chmod 777 $TARGET'])
+fsrc = fenv.Command('finasrc.fs', full,
+  'echo "`cat $SOURCES ` warnings on save\\" obj/fina\\" bye" > $TARGET')
+f = fenv.Command('fina', ['kernel2', fsrc],
+	['$SOURCE < ${SOURCES[1]}', 'chmod 777 $TARGET'])
 
 if ARGUMENTS.get('test', 0):
         fenv.Command('testfina', [f] + tests, 
