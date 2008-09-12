@@ -1,4 +1,4 @@
-module private
+expose-module private
 0 
 constant r/o ( -- fam )
 \g @see ansfile
