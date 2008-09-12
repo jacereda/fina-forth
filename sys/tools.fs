@@ -21,7 +21,9 @@ expose-module private
 : words ( -- )
    (words) . ." words" cr ;
 
-export words ? .name
+: .modules ['] words modules with-wordlist ;
+
+export words ? .name .modules
 end-module
 
 root-wordlist set-current

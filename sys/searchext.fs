@@ -18,6 +18,10 @@
 : previous  ( -- )
    get-order nip 1- set-order ;
 
+\g Execute xt adding wordlist to the search path and restore search path
+: with-wordlist ( xt wordlist -- )
+   >r get-order 1+ r> swap set-order execute previous ;
+
 \g Go from XT to data part, safe for non-CREATEd words
 : xt>body ( xt -- body )
    dup ?dodefine nip ['] docreate = if >body else ?dodefine drop then ;

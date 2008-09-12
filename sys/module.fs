@@ -3,7 +3,7 @@ wordlist constant modules
 
 \g Find module by name, returns it's wordlist
 : find-module ( "name" -- wid )
-   get-order 1+ modules swap set-order ' execute previous ;
+   ['] ' modules with-wordlist execute ;
 
 \g Expose module associated to wordlist, returns parent wordlist
 \g (the wordlist that was current before the operation)
