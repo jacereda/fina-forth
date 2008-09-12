@@ -12,18 +12,24 @@ expose-module private
    dup .name 
    1 pad +! ;
 
-: (words) ( -- n)
+: topmost-wordlist
+   get-order over >r set-order r> ;
+
+: (.wordsin) ( wordlist -- n )
    pad off
-   get-order over >r set-order r> ['] (.name) forwordsin cr
+   ['] (.name) forwordsin cr
    pad @ ;
+   
+: wordsin ( wordlist -- )
+   (.wordsin) . ." words" cr ;
 
 \g @see anstools
 : words ( -- )
-   (words) . ." words" cr ;
+   topmost-wordlist wordsin ;
 
-: .modules ['] words modules with-wordlist ;
+: .modules modules wordsin ;
 
-export words ? .name .modules
+export wordlist-words words ? .name .modules
 end-module
 
 root-wordlist set-current
