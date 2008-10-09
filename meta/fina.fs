@@ -45,10 +45,10 @@ variable userp  ( -- a-addr )
 variable warnings  ( -- a-addr )
 \g Holds flag to control printing of warnings
 
-variable '.error  ( -- a-addr )
+defer .error  ( -- a-addr )
 \g Execution vector for printing THROW error codes
 
-variable '.error!  ( u -- u )
+defer .error!  ( u -- u )
 \g Execution vector for setting error source
 
 defer interpret  ( -- a-addr )
@@ -1091,11 +1091,11 @@ bcreate exstr ,"  exception # "
    begin
       rp0 @ rp!  0 to source-id  bal off  postpone [  begin
          refill drop 
-         xtof interpret catch '.error! @execute ?dup 0=
+         xtof interpret catch .error! ?dup 0=
       while
          state @ 0= if .prompt then
       repeat
-      '.error @execute sp0 @ sp!
+      .error sp0 @ sp!
    again ;
 
 \g @see anscore
@@ -1165,8 +1165,8 @@ p: doto  ( x -- )
    xtof tx! (is) emit
    xtof printable (is) keyhandler
    xtof (interpret) (is) interpret
-   xtof .err '.error !
-   xtof noop '.error! !
+   xtof .err (is) .error
+   xtof noop (is) .error!
    xtof , (is) compile,
    xtof noop (is) .prompt
    xtof (refill) (is) refill
