@@ -51,9 +51,6 @@ variable '.error  ( -- a-addr )
 variable '.error!  ( u -- u )
 \g Execution vector for setting error source
 
-variable 'compile,  ( -- a-addr )
-\g Execution vector for compile,
-
 defer interpret  ( -- a-addr )
 
 defer keyhandler ( buf buflen char -- buf buflen char | 0 )
@@ -982,8 +979,7 @@ bcreate redefstr ," redefined "
    tib dup [ /tib ] literal accept sourcevar 2! >in off -1 ;  
 
 \g @see anscore
-: compile,  ( xt -- )
-   'compile, @execute ;
+defer compile,  ( xt -- )
 
 \g Compile inline xt into current colon def
 : (compile)  ( -- ) 
@@ -1171,7 +1167,7 @@ p: doto  ( x -- )
    xtof (interpret) (is) interpret
    xtof .err '.error !
    xtof noop '.error! !
-   xtof , 'compile, !
+   xtof , (is) compile,
    xtof noop (is) .prompt
    xtof (refill) 'refill !
    xtof forth-wordlist colname 3 cells - to forth-wordlist 
