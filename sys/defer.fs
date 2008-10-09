@@ -18,10 +18,3 @@
 : deferred ( "<spaces>name" -- )
    what's compile, ; immediate compile-only 
 
-defer .error
-' .err is .error
-' .error '.error !
-
-defer .error!
-' noop is .error!
-' .error! '.error! ! 
