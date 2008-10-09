@@ -45,35 +45,18 @@ variable userp  ( -- a-addr )
 variable warnings  ( -- a-addr )
 \g Holds flag to control printing of warnings
 
-variable 'ekey?  ( -- a-addr )
-\g Execution vector of EKEY?
-
-variable 'ekey  ( -- a-addr )
-\g Execution vector of EKEY
-
-variable 'emit?  ( -- a-addr )
-\g Execution vector of EMIT?
-
-variable 'emit  ( -- a-addr )
-\g Execution vector of EMIT
-
-variable '.prompt  ( -- a-addr )
-\g Execution vector of .PROMPT
-
 variable '.error  ( -- a-addr )
 \g Execution vector for printing THROW error codes
 
 variable '.error!  ( u -- u )
 \g Execution vector for setting error source
 
-variable 'interpret  ( -- a-addr )
-\g Execution vector for interpreter
-
 variable 'compile,  ( -- a-addr )
 \g Execution vector for compile,
 
-variable 'khan ( buf buflen char -- buf buflen char | 0 )
-\g Execution vector for key handler
+defer interpret  ( -- a-addr )
+
+defer keyhandler ( buf buflen char -- buf buflen char | 0 )
 
 variable 'refill ( -- flag )
 \g Execution vector for refill
@@ -438,24 +421,19 @@ prim noop ( -- )
    @ execute ;
 
 \g @see ansfacility
-: ekey?  ( -- flag ) 
-   'ekey? @execute ;  
+defer ekey?  ( -- flag ) 
 
 \g @see ansfacility
-: ekey  ( -- u )
-   'ekey @execute ;  
+defer ekey  ( -- u )
 
 \g @see ansfacility
-: emit?  ( -- flag ) 
-   'emit? @execute ;  
+defer emit?  ( -- flag ) 
 
 \g @see anscore
-: emit  ( char -- )
-   'emit @execute ;  
+defer emit  ( char -- )
 
-\g Display prompt, vectored
-: .prompt  ( -- ) 
-   '.prompt @execute ;  
+\g Display prompt
+defer .prompt  ( -- ) 
 
 \g @see anscore
 : cr  ( -- ) 
@@ -996,7 +974,7 @@ bcreate redefstr ," redefined "
 \g @see anscore
 : accept ( c-addr +n1 -- +n2 )
    2dup bl fill  span off
-   begin ekey 'khan @execute 10 = until 2drop 
+   begin ekey keyhandler 10 = until 2drop 
    -1 span +! span @ ;
 
 \g in-kernel refill implementation
@@ -1087,7 +1065,7 @@ bcreate redefstr ," redefined "
    postpone do2lit swap , , ; immediate compile-only
 
 \g Interpret input string
-: interpret ( i*x -- j*x )
+: (interpret) ( i*x -- j*x )
    begin
       depth 0< -4 ?throw
       parse-word dup
@@ -1117,7 +1095,7 @@ bcreate exstr ,"  exception # "
    begin
       rp0 @ rp!  0 to source-id  bal off  postpone [  begin
          'refill @execute drop 
-         'interpret @ catch '.error! @execute ?dup 0=
+         xtof interpret catch '.error! @execute ?dup 0=
       while
          state @ 0= if .prompt then
       repeat
@@ -1168,6 +1146,8 @@ p: doto  ( x -- )
 : s, ( c-addr u -- )
    here over char+ allot place ;
 
+: (is) @r+ [ /tcall cell+ ] literal + ! ;
+
 \ Initialization
 
 \g Startup word
@@ -1183,16 +1163,16 @@ p: doto  ( x -- )
    [ /tib ]   literal - dup to tib
    drop
    10 base !
-   xtof rx? 'ekey? !
-   xtof rx@ 'ekey !
-   xtof tx? 'emit? !
-   xtof tx! 'emit !
-   xtof printable 'khan !
-   xtof interpret 'interpret !
+   xtof rx? (is) ekey?
+   xtof rx@ (is) ekey
+   xtof tx? (is) emit?
+   xtof tx! (is) emit
+   xtof printable (is) keyhandler
+   xtof (interpret) (is) interpret
    xtof .err '.error !
    xtof noop '.error! !
    xtof , 'compile, !
-   xtof noop '.prompt !
+   xtof noop (is) .prompt
    xtof (refill) 'refill !
    xtof forth-wordlist colname 3 cells - to forth-wordlist 
    xtof cold colname forth-wordlist !
