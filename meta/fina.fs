@@ -45,19 +45,6 @@ variable userp  ( -- a-addr )
 variable warnings  ( -- a-addr )
 \g Holds flag to control printing of warnings
 
-defer .error  ( -- a-addr )
-\g Execution vector for printing THROW error codes
-
-defer .error!  ( u -- u )
-\g Execution vector for setting error source
-
-defer interpret  ( -- a-addr )
-
-defer keyhandler ( buf buflen char -- buf buflen char | 0 )
-
-defer refill ( -- flag )
-\g @see anscore
-
 variable base  ( -- a-addr )
 \g @see anscore
 
@@ -407,6 +394,23 @@ prim argv ( -- addr )
 \g Do nothing
 prim noop ( -- )
 
+
+\ HOOKS
+
+\g Print THROW error codes
+defer .error  ( throwcode -- )
+
+\g Set error source
+defer .error!  ( throwcode -- throwcode )
+
+\g Interpret input string
+defer interpret  ( i*x -- j*x )
+
+\g Called by accept to filter keys
+defer keyhandler ( buf buflen char -- buf buflen char | 0 )
+
+\g @see anscore
+defer refill ( -- flag )
 
 \ COLON DEFINITIONS
 
