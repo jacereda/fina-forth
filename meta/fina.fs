@@ -55,8 +55,8 @@ defer interpret  ( -- a-addr )
 
 defer keyhandler ( buf buflen char -- buf buflen char | 0 )
 
-variable 'refill ( -- flag )
-\g Execution vector for refill
+defer refill ( -- flag )
+\g @see anscore
 
 variable base  ( -- a-addr )
 \g @see anscore
@@ -1090,7 +1090,7 @@ bcreate exstr ,"  exception # "
 : quit  ( --  r: i*x -- )
    begin
       rp0 @ rp!  0 to source-id  bal off  postpone [  begin
-         'refill @execute drop 
+         refill drop 
          xtof interpret catch '.error! @execute ?dup 0=
       while
          state @ 0= if .prompt then
@@ -1169,7 +1169,7 @@ p: doto  ( x -- )
    xtof noop '.error! !
    xtof , (is) compile,
    xtof noop (is) .prompt
-   xtof (refill) 'refill !
+   xtof (refill) (is) refill
    xtof forth-wordlist colname 3 cells - to forth-wordlist 
    xtof cold colname forth-wordlist !
    forth-wordlist to get-current
