@@ -177,76 +177,6 @@ XT_WARNINGS:
  .p2align 2
  .long 1b
 1:
-  .byte 0x6,0x2E,0x65,0x72,0x72,0x6F,0x72
- .p2align 2
-XT_DOTERROR:
- nop
- nop
- nop
- call XT_DOCREATE
-
- .long XT_FETCHEXECUTE
- .long 0x0
-
- .p2align 2
- .long 1b
-1:
-  .byte 0x7,0x2E,0x65,0x72,0x72,0x6F,0x72,0x21
- .p2align 2
-XT_DOTERRORSTORE:
- nop
- nop
- nop
- call XT_DOCREATE
-
- .long XT_FETCHEXECUTE
- .long 0x0
-
- .p2align 2
- .long 1b
-1:
-  .byte 0x9,0x69,0x6E,0x74,0x65,0x72,0x70,0x72,0x65,0x74
- .p2align 2
-XT_INTERPRET:
- nop
- nop
- nop
- call XT_DOCREATE
-
- .long XT_FETCHEXECUTE
- .long 0x0
-
- .p2align 2
- .long 1b
-1:
-  .byte 0xA,0x6B,0x65,0x79,0x68,0x61,0x6E,0x64,0x6C,0x65,0x72
- .p2align 2
-XT_KEYHANDLER:
- nop
- nop
- nop
- call XT_DOCREATE
-
- .long XT_FETCHEXECUTE
- .long 0x0
-
- .p2align 2
- .long 1b
-1:
-  .byte 0x6,0x72,0x65,0x66,0x69,0x6C,0x6C
- .p2align 2
-XT_REFILL:
- nop
- nop
- nop
- call XT_DOCREATE
-
- .long XT_FETCHEXECUTE
- .long 0x0
-
- .p2align 2
- .long 1b
-1:
   .byte 0x4,0x62,0x61,0x73,0x65
  .p2align 2
 XT_BASE:
@@ -1200,6 +1130,76 @@ _XT_ARGV:
 _XT_NOOP:
  .long 0xdeadbeef,XT_NOOP
 
+
+ .p2align 2
+ .long 1b
+1:
+  .byte 0x6,0x2E,0x65,0x72,0x72,0x6F,0x72
+ .p2align 2
+XT_DOTERROR:
+ nop
+ nop
+ nop
+ call XT_DOCREATE
+
+ .long XT_FETCHEXECUTE
+ .long 0x0
+
+ .p2align 2
+ .long 1b
+1:
+  .byte 0x7,0x2E,0x65,0x72,0x72,0x6F,0x72,0x21
+ .p2align 2
+XT_DOTERRORSTORE:
+ nop
+ nop
+ nop
+ call XT_DOCREATE
+
+ .long XT_FETCHEXECUTE
+ .long 0x0
+
+ .p2align 2
+ .long 1b
+1:
+  .byte 0x9,0x69,0x6E,0x74,0x65,0x72,0x70,0x72,0x65,0x74
+ .p2align 2
+XT_INTERPRET:
+ nop
+ nop
+ nop
+ call XT_DOCREATE
+
+ .long XT_FETCHEXECUTE
+ .long 0x0
+
+ .p2align 2
+ .long 1b
+1:
+  .byte 0xA,0x6B,0x65,0x79,0x68,0x61,0x6E,0x64,0x6C,0x65,0x72
+ .p2align 2
+XT_KEYHANDLER:
+ nop
+ nop
+ nop
+ call XT_DOCREATE
+
+ .long XT_FETCHEXECUTE
+ .long 0x0
+
+ .p2align 2
+ .long 1b
+1:
+  .byte 0x6,0x72,0x65,0x66,0x69,0x6C,0x6C
+ .p2align 2
+XT_REFILL:
+ nop
+ nop
+ nop
+ call XT_DOCREATE
+
+ .long XT_FETCHEXECUTE
+ .long 0x0
 
  .p2align 2
  .long 1b
