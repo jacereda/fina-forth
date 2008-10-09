@@ -18,10 +18,6 @@
 : deferred ( "<spaces>name" -- )
    what's compile, ; immediate compile-only 
 
-defer refill ( -- flag )
-' (refill) is refill  
-' refill 'refill !
-
 defer .error
 ' .err is .error
 ' .error '.error !
