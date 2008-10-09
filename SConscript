@@ -1,5 +1,5 @@
 Import('env')
-ffienv = env.Copy()
+ffienv = env.Clone()
 ffiarch = {
 	'i386' : 'X86',
 	'powerpc' : 'POWERPC',
@@ -54,7 +54,7 @@ ffienv.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
 ''' + plat)])
 
 
-fenv = env.Copy()
+fenv = env.Clone()
 fenv.Append(CPPPATH=['obj'] + fficpppath)
 fenv.Append(CPPDEFINES=[[ffiarch + ffios, 1]])
 fenv.Append(LIBPATH=['.'])
@@ -76,7 +76,7 @@ boot = ['sys/' + i for i in Split("""
 full = ['sys/' + i for i in Split("""
    core.fs defer.fs core2.fs throwmsg.fs 
    based.fs source.fs signals.fs
-   search.fs coreext.fs searchext.fs module.fs keyhandler.fs 
+   search.fs coreext.fs searchext.fs module.fs
    cstr.fs file.fs fileext.fs double.fs doubleext.fs optional.fs
    string.fs require.fs tools.fs toolsext.fs
    facility.fs facilityext.fs lineedit.fs 
