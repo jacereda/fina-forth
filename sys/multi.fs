@@ -139,7 +139,7 @@ lastname taskname !
 
 \ Pause when no key ready
 :noname
-   ekey? 0= if begin pause ekey? until then [ 'ekey @ compile, ] ;  'ekey !
+   ekey? 0= if begin pause ekey? until then deferred ekey ; is ekey
 
 \g Display task information
 : .task ( tid -- tid )

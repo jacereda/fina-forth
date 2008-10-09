@@ -59,3 +59,11 @@ does>
 
 \ Undefined
 create dummy2
+create .prompt
+create (is)
+create keyhandler
+create (interpret)
+create interpret
+create .error
+create .error!
+create refill

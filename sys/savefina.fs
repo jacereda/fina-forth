@@ -29,7 +29,7 @@ defer banner
    banner quit ; is coldchain
 
 :noname
-   ." ok" cr ; '.prompt ! 
+   ." ok" cr ; is .prompt
 echo on 
 end-module
 
