@@ -58,25 +58,6 @@ warnings off
 : [']  ( "  xxx"" --  rt: -- xt )
    ' postpone literal ; immediate compile-only
 
-\g Runtime for s" 
-: dos"  ( -- c-addr u )
-   r> count 2dup + aligned >r ; compile-only
-
-\g @see ansstring
-: sliteral ( c-addr u -- )
-   postpone dos" s, align ; immediate compile-only 
-
-\g @see anscore
-: s"  ( "ccc<quote>" --  rt: -- c-addr u )
-   [char] " parse   postpone sliteral ; immediate compile-only
-
-
-\g @see anscore
-: ."  ( "ccc<quote>" --  rt: -- )
-   [char] " parse   postpone sliteral 
-   postpone type ; immediate compile-only
-
-
 \ Exceptions
 
 \g Throw code if flag is true. Changes the runtime of the previous
@@ -140,6 +121,25 @@ warnings off
 \g @see anscore
 : until ( a-addr -1 -- )
    postpone 0branch  bwresolve ; immediate compile-only
+
+\ Strings
+
+\g Runtime for s" 
+: dos"  ( -- c-addr u )
+   r> count 2dup + aligned >r ; compile-only
+
+\g @see ansstring
+: sliteral ( c-addr u -- )
+   postpone dos" s, align ; immediate compile-only 
+
+\g @see anscore
+: ."  ( "ccc<quote>" --  rt: -- )
+   [char] " parse   postpone sliteral 
+   postpone type ; immediate compile-only
+
+\g @see anscore
+: s"  ( "ccc<quote>" --  rt: -- c-addr u )
+   [char] " parse  state @ if  postpone sliteral  then ; immediate 
 
 \ Definers
 

@@ -7,7 +7,7 @@ expose-module private
 defer banner
 :noname
    ." FINA v0.2-" buildstr type
-   ." , Copyright (c) 2004-2007, Jorge Acereda Macia." cr
+   ." , Copyright (c) 2004-2008, Jorge Acereda Macia." cr
    ." FINA comes with EVEN LESS WARRANTY; for details type 'license'." cr
    ." Type 'bye' to exit." cr
 ; is banner
