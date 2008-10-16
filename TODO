@@ -1,12 +1,11 @@
+- Fix see for deferred words
 - More C types in FFI
 - Print line numbers in errors for the terminal.
-- Errors in EVALUATE should report the source correctly.
 - blocks
 - negative strings?
 - fast dictionary search using endian-specific code, i.e
    if (((*(CELL*)cstr1) << 3) == ((*(CELL*)cstr2) << 3)) ...
 - factorize INTERPRET with something like FOREACHPARSED
-- implement defer..is in meta and remove @execute
 - document
 - split ?dodefine -> ?xt+xtbody
 - more file tests
