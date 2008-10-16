@@ -4,7 +4,7 @@
 expose-module private
 
 : user ( "<spaces>name" -- ) 
-   nesting?  head, ['] douser xt, drop
+   head, ['] douser xt, drop
    lastuser ,  
    lastuser -1 cells + to lastuser
    linklast ;

@@ -57,7 +57,7 @@ constant false ( -- 0 )
 
 \g @see anscore
 : case ( ct: -- 0 3 )
-   0 3  1 bal +! ; immediate compile-only
+   0 3 ; immediate compile-only
 
 \g @see anscore
 : of  ( ct: -- orig 2 )
@@ -74,8 +74,7 @@ constant false ( -- 0 )
       dup 2 =
    while
       1- postpone then
-   repeat  3 <> -22 ?throw drop  
-   -1 bal +! ; immediate compile-only
+   repeat  3 <> -22 ?throw drop ; immediate compile-only
 
 \g @see anscore
 : convert  ( ud1 c-addr1 -- ud2 c-addr2 )
