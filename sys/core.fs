@@ -70,20 +70,20 @@ warnings off
 
 \g Mark the start of a backwards jump
 : bwmark
-   here 1 bal +! -1 ;
+   here -1 ;
 
 \g Mark the start of a forward jump
 : fwmark
-   here -1414673666 , 1 bal +! 1 ;
+   here  -1414673666 ,  1 ;
 
 \g Resolve backwards jump
 : bwresolve
-   -1 <> -22 ?throw  -1 bal +!
+   -1 <> -22 ?throw
    here - , ;
 
 \g Resolve forward jump
 : fwresolve
-   1 <> -22 ?throw  -1 bal +!
+   1 <> -22 ?throw
    here over - swap ! ;
 
 \g @see anstools
@@ -143,22 +143,18 @@ warnings off
 
 \ Definers
 
-\g Check for compiler nesting
-: nesting? ( -- )
-   bal @ -29 ?throw ;
-
 \g @see anscore
 : constant ( x "<spaces>name" --  rt: -- x )
-   nesting?  head,  ['] doconst xt, drop  , linklast ;
+   head,  ['] doconst xt, drop  , linklast ;
 
 
 \g @see anscore
 : value ( x "name" -- rt: -- x )
-   nesting?  head,  ['] dovalue xt, drop  , linklast ;
+   head,  ['] dovalue xt, drop  , linklast ;
 
 \g @see anscore
 : variable ( "<spaces>name" -- ) 
-   nesting?  head, ['] dovar xt, drop  -559038737 , linklast ; 
+   head, ['] dovar xt, drop  -559038737 , linklast ; 
 
 variable leaves
 
@@ -219,8 +215,7 @@ variable leaves
 
 \g @see anscore
 : recurse ( ct: -- )
-   bal @ 1- 2* pick -1 <> throw 
-   bal @ 1- 2* 1+ pick compile, ; immediate compile-only
+   lastxt compile, ; immediate compile-only
 
 \g @see anscore
 : abort ( i*x --  r: j*x -- )
@@ -248,7 +243,7 @@ variable abort"msg  ( -- a-addr ) 0 ,
 
 \g @see anscore
 : create ( "<spaces>name" --  R: -- a-addr  )
-   nesting?  head, ['] docreate xt, drop  ['] noop , linklast ;
+   head, ['] docreate xt, drop  ['] noop , linklast ;
 
 \g @see anscore
 : >body ( xt -- a-addr )
@@ -265,7 +260,7 @@ variable abort"msg  ( -- a-addr ) 0 ,
 
 \g @see anscore
 : does> ( C: colon-sys1 -- colon-sys2 )
-   nip -1 <> bal @ 1 <> or -22 ?throw
+   nip -1 <> -22 ?throw
    (compile) pipe (xt,) dolist -1 ; immediate compile-only
 
 \g @see anscore

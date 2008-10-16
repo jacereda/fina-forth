@@ -29,9 +29,6 @@ variable parsed ( -- a-addr )
 \g Double variable holding last found word
 0 ,
 
-variable bal ( -- a-addr )
-\g Tracks depth of control-flow stack
-
 variable sourcevar ( -- a-addr )
 \g Double variable holding input buffer string
 0 ,
@@ -72,6 +69,10 @@ value memtop  ( -- a-addr )
 0 
 value lastname  ( -- a-addr )
 \g Pointer to NFA of last word
+
+0
+value lastxt  ( -- a-addr )
+\g Pointer to XT of last word
 
 h# abadcafe 
 value here  ( -- c-addr )
@@ -1093,7 +1094,7 @@ bcreate exstr ,"  exception # "
 \g @see anscore
 : quit  ( --  r: i*x -- )
    begin
-      rp0 @ rp!  0 to source-id  bal off  postpone [  begin
+      rp0 @ rp!  0 to source-id  postpone [  begin
          refill drop 
          xtof interpret catch .error! ?dup 0=
       while
@@ -1104,8 +1105,8 @@ bcreate exstr ,"  exception # "
 
 \g @see anscore
 : :noname ( -- xt colon-sys )
-   bal @ -29 ?throw
-   hasname? off  1 bal !  ]
+   hasname? off  ]
+   here to lastxt
    xtof dolist xt, dup -1 ;  
 
 \g @see anscore
@@ -1123,10 +1124,8 @@ variable dummy1
 
 \g @see anscore
 : ; ( colon-sys -- )
-   bal @ 1- -22 ?throw 
    nip 1+ -22 ?throw
    reveal
-   bal off
    postpone exit  postpone [ ; immediate compile-only 
 
 \ Definers
