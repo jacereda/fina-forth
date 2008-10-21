@@ -84,6 +84,16 @@
         tos = (CELL)&ffi_type_double;
         NEXT;
 
+        PRIM(FFCLOS, 1050);
+        // xt cif clos -- status
+        CALLSAVE;
+        t1 = ffi_prep_closure((ffi_closure*)tos, (ffi_cif*)dsp[0],
+                              closure, (void*)dsp[1]);
+        CALLREST;
+        tos = t1;
+        dsp += 2;
+        NEXT;
+
         PRIM(DLOPEN, 1100);
         CALLSAVE;
         t1 = (CELL)dlopen(zstr(str1, (char*)dsp[0], tos), 

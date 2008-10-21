@@ -2,19 +2,22 @@ expose-module private
 : lastbody ( -- addr )
    lastname name>xt xt>body ;
 : funcif cell+ ;
-: funnargs   11 cells + ;
-: funargs funnargs cell+ ;
+: funnargs   10 cells + ;
+: funargs funnargs cell+ cell+ ;
 : funret dup funnargs @ cells swap funargs + ;
 : funname funret cell+ ;
+: setupcif ( fun -- )
+   >r  r@ funargs r@ funret @  r@ funnargs @  r@ funcif
+   ffprep abort" Unable to prepare function call"  rdrop ;
+
 : funresolve ( lib fun -- )
-   >r
-   r@ funargs r@ funret @  r@ funnargs @  r@ funcif
-   ffprep abort" Unable to prepare function call" 
+   >r  r@ setupcif 
    r@ funname count rot @ dlsym dup 0= abort" Unable to lookup symbol" 
    r> ! ;
 
 : funarg ( fun type -- fun )
    , 1 over funnargs +! ;
+defer ret
 : funret ( lib fun type -- )
    , 0 parse s, funresolve ;
 
@@ -24,25 +27,29 @@ expose-module private
 : df ( fun -- fun ) ffdouble funarg ;
 : ptr ( fun -- fun ) ffptr funarg ;
 
-: (int) ( lib fun -- ) ffint funret ;
-: (int64) ( lib fun -- ) ffint64 funret ;
-: (float) ( lib fun -- ) fffloat funret ;
-: (ptr) ( lib fun -- ) ffptr funret ;
-: (void) ( lib fun -- ) ffvoid funret ;
-: (sf) ( lib fun -- ) fffloat funret ;
-: (df) ( lib fun -- ) ffdouble funret ;
+: (int) ( lib fun -- ) ffint ret ;
+: (int64) ( lib fun -- ) ffint64 ret ;
+: (float) ( lib fun -- ) fffloat ret ;
+: (ptr) ( lib fun -- ) ffptr ret ;
+: (void) ( lib fun -- ) ffvoid ret ;
+: (sf) ( lib fun -- ) fffloat ret ;
+: (df) ( lib fun -- ) ffdouble ret ;
 
 : libfuncs 2 cells + ;
 
-\ Structure addr|link|9*cif|nargs|args...|name
-: newfun ( lib -- lib fun )
+: newproto (  -- )
    create here 
    0 ,                      \ addr
    9 cells allot            \ 9*cif
-   over libfuncs linked     \ link
    0 ,                      \ nargs
+;
+
+\ Structure addr|9*cif|link|nargs|args...|name
+: newfun ( lib -- lib fun )
+   ['] funret is ret  newproto
+   over libfuncs linked 
    does> dup @ swap cell+ ffcall ;
-: link>fun 10 cells - ;
+: link>fun 11 cells - ;
 
 : trylib
    s" lib" pad place 2swap pad append pad append  pad count dlopen ;
@@ -76,6 +83,20 @@ variable libs libs off
    does> newfun ;
 : link>lib cell- ;
 
+
+: cbret ( cif type -- )
+   , ;
+
+256 constant /clos
+
+: wrapcb ( xt -- xt')
+   pad ! :noname pad @ compile, postpone endtick postpone ; ;
+: callback ( -- cif )
+   ['] cbret is ret  newproto 0 ,
+   does> ( xt cif -- ) swap wrapcb swap funcif create here /clos allot ffclos ;
+
+: callback; ( cif -- ) setupcif ;
+
 :noname
    libs begin @ dup while dup link>lib restorelib repeat drop
    deferred coldchain ; is coldchain
@@ -83,5 +104,6 @@ variable libs libs off
 export library 0buffer
 export (int) (int64) (float) (ptr) (void) (sf) (df)
 export int int64 sf df ptr
+export callback callback;
 
 end-module

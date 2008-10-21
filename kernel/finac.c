@@ -96,11 +96,11 @@ static unsigned strLen(const char * str)
 }
 
 #if defined(HAS_FFI)
-void FINA_Closure(ffi_cif * cif, void * result, void ** args, void * xt)
+static void closure(ffi_cif * cif, void * result, void ** args, void * xt)
 {
 	unsigned nargs = cif->nargs;
 	struct FINA_State state;
-	state.fpc = xt;
+	state.fpc = (CELL*)(arch_callsize() + (char*)xt);
 	state.dsp = state.bootstrap_ds+FINA_BOOTSTRAP_STACK;
 	state.rsp = state.bootstrap_rs+FINA_BOOTSTRAP_STACK;
 	state.tos = (CELL)args[0];
