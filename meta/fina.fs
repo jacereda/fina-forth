@@ -376,6 +376,9 @@ prim ffprep
 \g Call to foreign function
 prim ffcall
 
+\g Prepare function closure
+prim ffclos
+
 prim ffvoid
 prim ffint
 prim fffloat

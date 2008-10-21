@@ -971,6 +971,15 @@ _XT_FFCALL:
  .balign 4
  .long 1b
 1:
+  .byte 0x6,0x66,0x66,0x63,0x6C,0x6F,0x73
+ .balign 4
+_XT_FFCLOS:
+ .long 0xdeadbeef,XT_FFCLOS
+
+
+ .balign 4
+ .long 1b
+1:
   .byte 0x6,0x66,0x66,0x76,0x6F,0x69,0x64
  .balign 4
 _XT_FFVOID:
@@ -2665,7 +2674,7 @@ XT_DUMMYTWO:
  nop 
  .long 0xDEADBEEF
 
- .fill 251695 ,1,0
+ .fill 251675 ,1,0
  .long 0xcacacaca
 .set reorder
 .set at

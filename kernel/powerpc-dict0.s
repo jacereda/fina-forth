@@ -948,6 +948,15 @@ _XT_FFCALL:
  .align 2
  .long 1b
 1:
+  .byte 0x6,0x66,0x66,0x63,0x6C,0x6F,0x73
+ .align 2
+_XT_FFCLOS:
+ .long 0xdeadbeef,XT_FFCLOS
+
+
+ .align 2
+ .long 1b
+1:
   .byte 0x6,0x66,0x66,0x76,0x6F,0x69,0x64
  .align 2
 _XT_FFVOID:
@@ -2528,5 +2537,5 @@ XT_DUMMYTWO:
  bl XT_DOVAR
  .long 0xDEADBEEF
 
- .fill 252267 ,1,0
+ .fill 252247 ,1,0
  .long 0xcacacaca

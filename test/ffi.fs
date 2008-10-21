@@ -14,3 +14,7 @@ libm cos df (df) cos
 { fx# 0.0 cosf -> fx# 1 }
 { fx# 0.0 cos -> fx# 1 }
 
+libc qsort ptr int int ptr (void) qsort
+callback pp:i ptr ptr (int) callback;
+:noname ." Callback!" 2drop 0 ; pp:i qsortcb
+here 4 1 qsortcb qsort
