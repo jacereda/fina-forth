@@ -16,12 +16,13 @@
 		double darg[16];
 		float farg[16];
 		CELL ret[2];
-		ffi_type * rtype = ((ffi_cif*)tos)->rtype;
-		int n = ((ffi_cif*)tos)->nargs;
+		ffi_cif * cif = (ffi_cif*)tos;
+		ffi_type * rtype = cif->rtype;
+		int n = cif->nargs;
 		t0 = *dsp++;
 		void * parg;
 		while(n--) { 
-			ffi_type * type = ((ffi_cif*)tos)->arg_types[n];
+			ffi_type * type = cif->arg_types[n];
 			if (type == &ffi_type_double) {
 				darg[n] = (*(int*)dsp) / 65536.;
 				parg = darg+n;
@@ -39,7 +40,7 @@
 			arg[n] = parg; 
 		}
 		CALLSAVE;
-		ffi_call((ffi_cif*)tos, FFI_FN(t0), ret, arg);
+		ffi_call(cif, FFI_FN(t0), ret, arg);
 		CALLREST;
 		if (rtype == &ffi_type_float)
 			tos = 65536 * *(float*)ret;

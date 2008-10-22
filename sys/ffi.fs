@@ -89,11 +89,19 @@ variable libs libs off
 
 256 constant /clos
 
+: cbexec ( inline:xt -- )
+   @r+
+   sp0 @ >r
+   sp@ 10 cells + sp0 ! 
+   execute 
+   r> sp0 ! endtick ;
+
 : wrapcb ( xt -- xt')
-   pad ! :noname pad @ compile, postpone endtick postpone ; ;
+   pad ! :noname postpone cbexec pad @ , postpone ; ;
 : callback ( -- cif )
    ['] cbret is ret  newproto 0 ,
-   does> ( xt cif -- ) swap wrapcb swap funcif create here /clos allot ffclos ;
+   does> ( xt cif -- ) >r wrapcb r> funcif create here /clos allot 
+   ffclos abort" Unable to setup closure" ;
 
 : callback; ( cif -- ) setupcif ;
 
