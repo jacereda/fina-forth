@@ -103,9 +103,11 @@ static void closure(ffi_cif * cif, void * result, void ** args, void * xt)
 	state.fpc = (CELL*)(arch_callsize() + (char*)xt);
 	state.dsp = state.bootstrap_ds+FINA_BOOTSTRAP_STACK;
 	state.rsp = state.bootstrap_rs+FINA_BOOTSTRAP_STACK;
-	state.tos = (CELL)args[0];
-	while(nargs--)
-		*--(state.dsp) = (CELL)*args++;
+	if (nargs--) {
+		while(nargs--)
+			*--(state.dsp) = *(CELL*)(*args++);
+		state.tos = *(CELL*)(*args++);
+	}
 	FINA_Tick(&state);
 	*(CELL*)result = state.tos;
 }
