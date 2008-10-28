@@ -150,5 +150,5 @@ lastname taskname !
 : .tasks
    cr ['] .task foreachtask ;
 
-export .tasks .task task: activate build kill awake sleep stop pause
+export .tasks .task task: activate build kill awake sleep stop pause user
 end-module
