@@ -10,10 +10,11 @@ expose-module private
    >r  r@ funargs r@ funret @  r@ funnargs @  r@ funcif
    ffprep abort" Unable to prepare function call"  rdrop ;
 
+: lookup ( addr len lib -- addr )
+   @ dlsym dup 0= abort" Unable to lookup symbol" ;
+
 : funresolve ( lib fun -- )
-   >r  r@ setupcif 
-   r@ funname count rot @ dlsym dup 0= abort" Unable to lookup symbol" 
-   r> ! ;
+   >r  r@ setupcif  r@ funname count rot lookup  r> ! ;
 
 : funarg ( fun type -- fun )
    , 1 over funnargs +! ;
@@ -89,10 +90,8 @@ variable libs libs off
 
 256 constant /clos
 
-: cbexec ( inline:xt -- )
-   @r+
-   sp0 @ >r
-   sp@ 10 cells + sp0 ! 
+: cbexec ( ... spbase inline:xt -- )
+   @r+ sp0 @ >r  swap sp0 ! 
    execute 
    r> sp0 ! endtick ;
 
@@ -109,9 +108,12 @@ variable libs libs off
    libs begin @ dup while dup link>lib restorelib repeat drop
    deferred coldchain ; is coldchain
 
+: symbolfrom: ' >body lookup ;
+
 export library 0buffer
 export (int) (int64) (float) (ptr) (void) (sf) (df)
 export int int64 sf df ptr
 export callback callback;
+export symbolfrom:
 
 end-module
