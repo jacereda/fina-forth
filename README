@@ -22,12 +22,6 @@ BUILD REQUIREMENTS
   better code than 3.x. In some cases, 3.x might even generate wrong
   code.
 
-- libffi ( http://sources.redhat.com/libffi/ ). Recent versions of
-  libffi are distributed with gcc sources. If your package system
-  doesn't offer a prepackaged libffi and you don't want to download
-  the full GCC sources, you can get the tarball that comes with
-  elastiC ( http://www.elasticworld.org/download_devel.html )
-
 - SCons ( http://scons.org ). This one requires a Python installation.
 
 
@@ -37,11 +31,6 @@ BUILDING
 Typing the following will build and install under a directory called "inst":
 
 $ scons
-
-If the build infrastructure is unable to find libffi, you can compile with:
-
-$ scons INCFFI=<path-to-ffi-includes> LIBPATHFFI=<path-to-ffi-libs> \
-        INCX=<path-to-x-includes> LIBPATHX=<path-to-x-libs>
 
 To start the interpreter:
 
