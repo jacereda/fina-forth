@@ -59,7 +59,8 @@ fenv.Append(CPPPATH=['obj'] + fficpppath)
 fenv.Append(CPPDEFINES=[[ffiarch + ffios, 1]])
 fenv.Append(LIBPATH=['.'])
 fenv.Append(LIBS=['ffi'])
-if fenv['OS'] == 'linux2':
+
+if fenv['OS'] == 'linux':
    fenv.Append(LIBS=['dl'])
 
 for i in fenv.Glob('kernel/*.i'):
