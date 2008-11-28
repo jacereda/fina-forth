@@ -52,14 +52,13 @@ defer save-input  ( -- xn ... x1 n )
 \g @see anscore
 is refill
 
-defer evalhook ( -- ) 
-' noop is evalhook
+defer evaluator ( -- ) 
+' interpret is evaluator
 
 \g @see anscore
 : evaluate  ( i*x c-addr u -- j*x )
    save-input n>r
    -1 to source-id  sourcevar 2!  >in off 
-   evalhook
-   ['] interpret catch .error!
+   ['] evaluator catch .error!
    nr> restore-input -37 ?throw 
    throw ;
