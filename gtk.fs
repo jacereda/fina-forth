@@ -11,10 +11,10 @@ create buf 256 allot
    pbuf c! pbuf 1+ to pbuf ;
 : gtk{ ( -- , send subsequent output to gtk-server)
    buf to pbuf
-   ['] gtkemit 'emit ! ;
+   ['] gtkemit is emit ;
 : }gtknores
    cr
-   ['] tx! 'emit !
+   ['] tx! is emit !
    s" gtkserver.fifo" w/o open-file throw >r
    buf  pbuf buf -  r@ write-file throw
    r> close-file throw ;
