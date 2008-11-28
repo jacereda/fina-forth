@@ -5,10 +5,13 @@ wordlist constant modules
 : find-module ( "name" -- wid )
    ['] ' modules with-wordlist execute ;
 
+: +order ( wid -- )
+   >r get-order 1+ r> swap set-order ;
+
 \g Expose module associated to wordlist, returns parent wordlist
 \g (the wordlist that was current before the operation)
 : exposed-module ( wid -- pwid )
-   >r  get-current get-order 1+ r@ swap set-order  r> set-current ;
+   dup +order  get-current swap set-current ;
 
 \g Expose module by name
 : expose-module ( "name" -- )
@@ -48,7 +51,6 @@ wordlist constant modules
 \g End module definition and return to parent wordlist
 : end-module ( pwid -- )
    previous set-current ;
-
 
 module private
 end-module
