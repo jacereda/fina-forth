@@ -35,4 +35,5 @@ create errorbuf 256 allot
    stkrest to sourceline# ; is inputrestorer
 
 :noname ( -- )
-   s" *evaluate*" sourcename 2!  0 to sourceline# ; is evalhook 
+   s" *evaluate*" sourcename 2!  0 to sourceline# deferred evaluator ; 
+is evaluator
