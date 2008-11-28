@@ -1068,24 +1068,23 @@ defer compile,  ( xt -- )
 : 2literal ( ct: xd --  rt: -- xd )
    postpone do2lit swap , , ; immediate compile-only
 
+\ process last found word
+: doword ( -- )
+   state @ /fcompo or 0= -14 ?throw 
+   fxt  state @ fimmed 0< and if compile, else execute then ;
+
+: donumber ( -- )
+   parsed 2@ s>number state @ if 
+      dpl @ 0< if postpone literal else postpone 2literal then
+   then ;
+
 \g Interpret input string
 : (interpret) ( i*x -- j*x )
    begin
       depth 0< -4 ?throw
       parse-word dup
    while
-      nfa if 
-         state @ /fcompo or 0= -14 ?throw 
-         fxt state @ if 
-            fimmed 0< if compile, else execute then 
-         else 
-            execute
-         then
-      else
-         parsed 2@ s>number state @ if 
-            dpl @ 0< if postpone literal else postpone 2literal then
-         then
-      then
+      nfa if  doword  else donumber then
    repeat 2drop ;
 
 bcreate exstr ,"  exception # "
