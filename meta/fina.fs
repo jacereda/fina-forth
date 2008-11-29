@@ -881,9 +881,6 @@ create #order ( -- a-addr )
 : nfa  ( a u -- nfa ) 
    parsed 2! xtof match? forwords found ;  
 
-: fxt ( -- xt )
-   found name>xt ;  
-
 \g Immediacy flag of word, 1 if word is immediate, -1 otherwise
 : fimmed  ( nfa -- -1|1 )
    c@ [ immed ] literal and 0= 2* 1+ ;  
