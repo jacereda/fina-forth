@@ -1,3 +1,6 @@
+fxt exception # -13 
+fxt exception # -13 
+search-wordlist exception # -13 
  .globl _Forth_Entry 
  .globl Forth_Entry 
  .globl _Forth_UserP
@@ -2050,15 +2053,6 @@ XT_NFA:
  .align 2
  .long 1b
 1:
-  .byte 0x3,0x66,0x78,0x74
- .align 2
-XT_FXT:
- bl XT_DOLIST
- .long XT_FOUND,XT_NAMEGTXT,XT_EXIT
-
- .align 2
- .long 1b
-1:
   .byte 0x6,0x66,0x69,0x6D,0x6D,0x65,0x64
  .align 2
 XT_FIMMED:
@@ -2564,5 +2558,5 @@ XT_DUMMYTWO:
  bl XT_DOVAR
  .long 0xDEADBEEF
 
- .fill 252163 ,1,0
+ .fill 252187 ,1,0
  .long 0xcacacaca

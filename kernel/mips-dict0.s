@@ -1,3 +1,6 @@
+fxt exception # -13 
+fxt exception # -13 
+search-wordlist exception # -13 
 .set noreorder
 .set noat
 .set nomacro
@@ -2134,16 +2137,6 @@ XT_NFA:
  .balign 4
  .long 1b
 1:
-  .byte 0x3,0x66,0x78,0x74
- .balign 4
-XT_FXT:
- bal XT_DOLIST
- nop 
- .long XT_FOUND,XT_NAMEGTXT,XT_EXIT
-
- .balign 4
- .long 1b
-1:
   .byte 0x6,0x66,0x69,0x6D,0x6D,0x65,0x64
  .balign 4
 XT_FIMMED:
@@ -2704,7 +2697,7 @@ XT_DUMMYTWO:
  nop 
  .long 0xDEADBEEF
 
- .fill 251579 ,1,0
+ .fill 251607 ,1,0
  .long 0xcacacaca
 .set reorder
 .set at
