@@ -881,21 +881,23 @@ create #order ( -- a-addr )
 : nfa  ( a u -- nfa ) 
    parsed 2! xtof match? forwords found ;  
 
-\g XT of last found word
 : fxt ( -- xt )
    found name>xt ;  
 
-\g Immediacy flag of last found word, 1 if word is immediate, -1 otherwise
-: fimmed  ( -- -1|1 )
-   found c@ [ immed ] literal and 0= 2* 1+ ;  
+\g Immediacy flag of word, 1 if word is immediate, -1 otherwise
+: fimmed  ( nfa -- -1|1 )
+   c@ [ immed ] literal and 0= 2* 1+ ;  
 
-\g Compile-only flag of last found word
-: /fcompo  ( -- flag )
-   found c@ [ compo ] literal and 0= ;  
+\g Compile-only flag of word
+: /fcompo  ( nfa -- flag )
+   c@ [ compo ] literal and 0= ;  
+
+: 'nfa ( "  xxx" -- nfa )
+   parse-word nfa dup 0= -13 ?throw ;
 
 \g @see anscore
 : '  ( "  xxx" -- xt )
-   parse-word nfa 0= -13 ?throw fxt ;  
+   'nfa name>xt ;
 
 \g @see anscore
 : type  ( a u -- )
@@ -1069,9 +1071,9 @@ defer compile,  ( xt -- )
    postpone do2lit swap , , ; immediate compile-only
 
 \ process last found word
-: doword ( -- )
-   state @ /fcompo or 0= -14 ?throw 
-   fxt  state @ fimmed 0< and if compile, else execute then ;
+: doword ( nfa -- )
+   dup /fcompo state @ or 0= -14 ?throw 
+   dup name>xt swap fimmed 0< state @ and if compile, else execute then ;
 
 : donumber ( -- )
    parsed 2@ s>number state @ if 
@@ -1084,7 +1086,7 @@ defer compile,  ( xt -- )
       depth 0< -4 ?throw
       parse-word dup
    while
-      nfa if  doword  else donumber then
+      nfa ?dup if  doword  else donumber then
    repeat 2drop ;
 
 bcreate exstr ,"  exception # "
@@ -1138,7 +1140,7 @@ p: doto  ( x -- )
 
 \g @see anscore
 : postpone ( "<spaces>name" -- )
-   ' fimmed 0< if postpone (compile) , exit then
+   'nfa dup name>xt swap fimmed 0< if postpone (compile) , exit then
    compile, ; immediate compile-only  
 
 \ Strings
