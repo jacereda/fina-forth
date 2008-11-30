@@ -1070,6 +1070,15 @@ _XT_ARGV:
  .balign 4
  .long 1b
 1:
+  .byte 0x5,0x78,0x74,0x65,0x6E,0x64
+ .balign 4
+_XT_XTEND:
+ .long 0xdeadbeef,XT_XTEND
+
+
+ .balign 4
+ .long 1b
+1:
   .byte 0x4,0x6E,0x6F,0x6F,0x70
  .balign 4
 _XT_NOOP:
@@ -2694,7 +2703,7 @@ XT_DUMMYTWO:
  nop 
  .long 0xDEADBEEF
 
- .fill 251607 ,1,0
+ .fill 251587 ,1,0
  .long 0xcacacaca
 .set reorder
 .set at

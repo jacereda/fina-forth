@@ -395,6 +395,9 @@ prim argc ( -- u )
 \g Get command line argument
 prim argv ( -- addr )
 
+\g End of xt
+prim xtend ( xt -- addr )
+
 \g Do nothing
 prim noop ( -- )
 

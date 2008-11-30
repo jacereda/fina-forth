@@ -63,8 +63,11 @@ expose-module private
    begin dup here = if false exit then cell+ dup ?dodefine nip until true ;
 
 : /xt ( xt -- a-addr )
-   dup primxt? if exit then  \ XXX
-   nextxt if xt>name cell- then ;
+   dup primxt? if  
+      xtend  
+   else  
+      nextxt if xt>name cell-  then  
+   then ;
 
 : type? ( addr <inline-doer> -- flag )
    ?dodefine nip @r+ = ;
@@ -93,12 +96,17 @@ expose-module private
    dup @ safext>name .name 
    cell+ ;
 
+defer codesee  
+:noname ( xt /xt -- )  over - dump ; is codesee
+
 \g Examine code for xt
 : (xtsee) ( xt -- )
    dup doersee 
    dup xt>name .name
    dup primxt? if dup else dup ?dodefine nip then xt>name .name
-   dup /xt swap ?dodefine drop 
+   dup /xt 
+   over primxt? if codesee exit then 
+   swap ?dodefine drop 
    begin  2dup >  while  cellsee  repeat 2drop ;
 
 : xtsee ( xt -- )

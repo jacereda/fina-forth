@@ -182,7 +182,7 @@ int FINA_Tick(struct FINA_State * state)
 }
 
 int internalTick(struct FINA_State * state, int throw) {
-        static CELL * tab[] = {
+        static const CELL * tab[] = {
                 &&NOOP,
 #include "primstab.it"
 
