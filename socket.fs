@@ -1,4 +1,3 @@
-require mod.fs
 module socket
 
 libc socket int int int (int) socket
