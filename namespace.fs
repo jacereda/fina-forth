@@ -2,7 +2,7 @@
    create , immediate does> @  
    get-order n>r  
    1 set-order  
-   ' drop ['] doword catch
+   'nfa ['] doword catch
    nr> set-order 
    throw ;
 
