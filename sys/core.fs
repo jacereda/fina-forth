@@ -281,7 +281,9 @@ variable abort"msg  ( -- a-addr ) 0 ,
 
 \g @see anscore
 : find  ( a -- a 0 | xt 1 | xt -1 )
-   count nfa dup if dup fimmed else parsed cell+ @ -1 chars + swap then ; 
+   count nfa dup if 
+      dup name>xt swap fimmed 
+   else parsed cell+ @ -1 chars + swap then ; 
 
 : um/mod
    dup 0= -10 ?throw 
