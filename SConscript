@@ -86,14 +86,15 @@ full = ['sys/' + i for i in Split("""
    instinclude.fs help.fs build.fs savefina.fs
 """)]
 
-kerneltests = ['sys/core.fs'] + ['test/' + i for i in Split("""
-   tester.fs core.fs postpone.fs bye.fs
-""")]
+kerneltests = ['sys/core.fs', 'sys/defer.fs', 'sys/core2.fs'] + \
+	      ['test/' + i for i in Split("""
+      	        tester.fs core.fs postpone.fs bye.fs
+	       """)]
 
 tests = ['test/' + i for i in Split("""
-   tester.fs core.fs postpone.fs
-   file.fs double.fs double2.fs
-   fina.fs bye.fs
+   tester.fs core.fs postpone.fs double.fs double2.fs file.fs
+   filehandler.fs pipehandler.fs tcphandler.fs 
+   fina.fs multi.fs module.fs struct.fs ffi.fs bye.fs
 """)]
 
 benchmarks = env.Glob('benchmarks/*.fs')
@@ -141,8 +142,8 @@ f = fenv.Command('fina', ['kernel2', fsrc],
 	['$SOURCE < ${SOURCES[1]}', 'chmod 777 $TARGET'])
 
 if ARGUMENTS.get('test', 0):
-        fenv.Command('testfina', [f] + tests, 
-                '$SOURCE ${SOURCES[1:]}')
+        fenv.Default(fenv.Command('testfina', [f] + tests, 
+                '$SOURCE ${SOURCES[1:]}'))
 
 allforth = env.Glob('*.fs') + env.Glob('sys/*.fs') + env.Glob('meta/*.fs')
 
