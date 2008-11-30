@@ -1047,6 +1047,15 @@ _XT_ARGV:
  .align 2
  .long 1b
 1:
+  .byte 0x5,0x78,0x74,0x65,0x6E,0x64
+ .align 2
+_XT_XTEND:
+ .long 0xdeadbeef,XT_XTEND
+
+
+ .align 2
+ .long 1b
+1:
   .byte 0x4,0x6E,0x6F,0x6F,0x70
  .align 2
 _XT_NOOP:
@@ -2555,5 +2564,5 @@ XT_DUMMYTWO:
  bl XT_DOVAR
  .long 0xDEADBEEF
 
- .fill 252187 ,1,0
+ .fill 252167 ,1,0
  .long 0xcacacaca
