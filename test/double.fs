@@ -18,8 +18,6 @@
 \ along with this program; if not, write to the Free Software
 \ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111, USA.
 
-require test/core.fs
-
 \ fm/mod, sm/rem, um/mod, s>d, m*, um* already covered in coretest.fs
 
 { 0. 0 m+ -> 0. }
