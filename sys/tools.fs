@@ -59,15 +59,12 @@ expose-module private
 : dump  ( addr u -- )
    16 based (dump) ;
 
-: (next?)
-   2dup cell- @ = over and to found ;
-
-: nextnfa ( nfa1 -- nfa2 )
-   ['] (next?) forwords drop found if found else here cell+ then ;
+: nextxt ( xt1 -- xt2 true | here false )
+   begin dup here = if false exit then cell+ dup ?dodefine nip until true ;
 
 : /xt ( xt -- a-addr )
    dup primxt? if exit then  \ XXX
-   xt>name nextnfa cell- ;
+   nextxt if xt>name cell- then ;
 
 : type? ( addr <inline-doer> -- flag )
    ?dodefine nip @r+ = ;
@@ -97,17 +94,22 @@ expose-module private
    cell+ ;
 
 \g Examine code for xt
-: xtsee ( xt -- )
+: (xtsee) ( xt -- )
    dup doersee 
    dup xt>name .name
    dup primxt? if dup else dup ?dodefine nip then xt>name .name
    dup /xt swap ?dodefine drop 
    begin  2dup >  while  cellsee  repeat 2drop ;
 
+: xtsee ( xt -- )
+   dup (xtsee) xt>name dup 
+   fimmed 0 > if ." immediate "  then   
+   /fcompo 0= if ." compile-only" then
+   cr ;
+
 \g @see anstools
 : see  ( "<spaces>name" -- )
-   ' /fcompo fimmed rot xtsee 
-   0 > if ." immediate "  then    0= if ." compile-only" then cr ;
+   ' xtsee ;
 
 export see xtsee dump
 end-module
