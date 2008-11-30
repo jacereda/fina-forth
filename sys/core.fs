@@ -281,7 +281,7 @@ variable abort"msg  ( -- a-addr ) 0 ,
 
 \g @see anscore
 : find  ( a -- a 0 | xt 1 | xt -1 )
-   count nfa if fxt fimmed else parsed cell+ @ -1 chars + 0 then ; 
+   count nfa dup if dup fimmed else parsed cell+ @ -1 chars + swap then ; 
 
 : um/mod
    dup 0= -10 ?throw 
@@ -344,7 +344,7 @@ create env-wordlist here forth-wordlist cell+ ! 0 , 0 , 0 ,
 
 \g @see anssearch
 : search-wordlist ( c-addr u wid -- 0 | xt 1 | xt -1 )
-   nfain if  fxt fimmed  else 0 then ;
+   nfain dup if dup fimmed  then ;
 
 \g @see anscore
 : environment? ( c-addr u -- false | i*x true )

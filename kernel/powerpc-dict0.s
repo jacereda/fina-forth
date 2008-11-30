@@ -1,6 +1,3 @@
-fxt exception # -13 
-fxt exception # -13 
-search-wordlist exception # -13 
  .globl _Forth_Entry 
  .globl Forth_Entry 
  .globl _Forth_UserP

@@ -14,11 +14,11 @@ variable sizeof
    previous
    set-current  create  sizeof @ ,  does>  @ * ;
 
-0 [if]
+1 [if]
 structure 2dpoint
    1 cells field x
    1 cells field y
-: init ( x y p -- ) tuck y ! x ! ;
+: init ( x y p -- )  tuck y ! x ! ;
 : immtest ." Immediate word executed" ; immediate
 /structure 2dpoints
 

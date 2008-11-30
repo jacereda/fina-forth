@@ -1,6 +1,3 @@
-fxt exception # -13 
-fxt exception # -13 
-search-wordlist exception # -13 
 .set noreorder
 .set noat
 .set nomacro

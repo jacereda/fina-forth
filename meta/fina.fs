@@ -885,7 +885,7 @@ create #order ( -- a-addr )
 : fimmed  ( nfa -- -1|1 )
    c@ [ immed ] literal and 0= 2* 1+ ;  
 
-\g Compile-only flag of word
+\g Negated compile-only flag of word
 : /fcompo  ( nfa -- flag )
    c@ [ compo ] literal and 0= ;  
 
