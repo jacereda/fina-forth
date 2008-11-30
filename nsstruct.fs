@@ -1,18 +1,23 @@
-variable sizeof
-
 \g Start structure definition
-: struct ( -- )
-   sizeof off ;
+: struct ( -- sizeof )
+   0 ;
 
 \g Define structure field
-: field ( size "name" -- )
-   create sizeof @ , sizeof +! does> @ + ;
+: field ( prevsizeof size "name" -- sizeof )
+   create over , + does> @ + ;
 
 \g Terminate structure definition
-: /struct ( "name" -- )
-   create  sizeof @ ,  does>  @ * ;
+: /struct ( sizeof "name" -- )
+   create ,  does>  @ * ;
 
 1 [if]
+
+struct
+   1 cells field x
+   1 cells field y
+   1 cells field z
+/struct v3
+
 struct ns 2dpoint
    1 cells field x
    1 cells field y
