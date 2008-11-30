@@ -1,31 +1,14 @@
-: ns ( "name" -- )
-   wordlist create , immediate does>
-   get-order n>r  
-   1 set-order  
+
+\g Begin namespace definition, leaves previously current wordlist on stack
+: ns ( "name" -- wid )
+   get-current  
+   wordlist create immediate dup , 
+   dup +order set-current does>
+   get-order n>r
+   @ 1 set-order  
    'nfa ['] doword catch
-   nr> set-order 
-   throw ;
-0 [if]   
+   nr> set-order  throw ;
 
-: (namespace) ( wid "name" -- )
-   create , immediate does> @  
-   get-order n>r  
-   1 set-order  
-   'nfa ['] doword catch
-   nr> set-order 
-   throw ;
-
-\ Create a namespace for the current wordlist
-: namespace: ( "name" -- )
-   get-current (namespace) ;
-
-\g Start namespace definition
-: ns ( "name" -- )
-   get-current  wordlist dup (namespace) set-current 
-   get-current +order ;
-[then]
-
-\g End namespace definition
-: /ns ( -- )
+\g End namespace definition and restore previously current wordlist
+: /ns ( wid -- )
    previous  set-current  ;
-
