@@ -139,7 +139,7 @@ warnings off
 
 \g @see anscore
 : s"  ( "ccc<quote>" --  rt: -- c-addr u )
-   [char] " parse  state @ if  postpone sliteral  then ; immediate 
+   [char] " parse  postpone sliteral ; immediate compile-only
 
 \ Definers
 
