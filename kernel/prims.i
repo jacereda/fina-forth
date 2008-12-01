@@ -318,8 +318,8 @@
                 PRIM(XTEND,34);
                 t0 = sizeof(tab) / sizeof(CELL);
                 while (t0--)
-                    if (tos == tab[t0])
-                       tos = tab[t0 + 1];
+                        if (tos == (CELL)tab[t0])
+                                tos = (CELL)tab[t0+1];
                 NEXT;
 
                 PRIM(MS, 298);

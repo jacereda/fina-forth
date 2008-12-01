@@ -32,7 +32,7 @@ static inline void loc(const char * p) {
 #define DUMPLOC
 #endif
 
-#define PRIM(x, n)  x: asm(".p2align 2\nXT_" #x ":"); { DUMPDECL(x); int unused
+#define PRIM(x, n)  x: asm("XT_" #x ":"); { DUMPDECL(x); int unused
 #define NEXTT goto **fpc++
 #define NEXT (void) unused; DUMPLOC } NEXTT
 #define PUSH *--dsp = tos
