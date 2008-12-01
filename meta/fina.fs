@@ -2,6 +2,10 @@
 value dict0 ( -- a-addr )
 \g Start of dictionary space
 
+h# abadcafe 
+value dicttop  ( -- a-addr )
+\g Holds upper dictionary limit
+
 \ USER VARIABLES
 \g User variable holding the signal handler for each task
 user sighandler  ( -- a-addr )
@@ -64,7 +68,7 @@ value get-current  ( -- wid )
 
 h# abadcafe 
 value memtop  ( -- a-addr )
-\g Holds upper dictionary limit
+\g Holds upper memory limit
 
 0 
 value lastname  ( -- a-addr )
@@ -714,9 +718,13 @@ p: d+  ( d1 d2 -- d3 )
 p: char+  ( c-addr1 -- c-addr2 )
    1+ ;  
 
+\g Is address within dictionary space?
+: dict?  ( c-addr -- flag )
+   dict0 dicttop within ;
+
 \g Check for dictionary overflow
 : ?dict  ( -- )
-   here pad u>= -8 ?throw ; 
+   here dict? 0= -8 ?throw ; 
 
 \g @see anscore
 p: cells  ( n1 -- n2 )
@@ -827,10 +835,6 @@ p: +!  ( x a-addr -- )
 create #order ( -- a-addr )
 0 , 
 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,  
-
-\g Is address within dictionary space?
-: dict?  ( c-addr -- flag )
-   dict0 memtop within ;
 
 \g  Go from name to execution token
 : name>xt  ( a-addr -- xt )
@@ -1164,6 +1168,7 @@ p: doto  ( x -- )
    dup sp0 !   [ /ds ]    literal - 
    [ /pad ]   literal - dup to pad
    [ /tib ]   literal - dup to tib
+   dup to dicttop
    drop
    10 base !
    xtof rx? (is) ekey?
