@@ -1,7 +1,7 @@
 : later r> r> 2>r ;
 : now 2r> r> 2>r >r ;
 
-1 [if]
+0 [if]
 : t1 later ." attrib1 " ;
 : t2 later ." attrib2 " ;
 :noname t1 t2 ." attribs: " ; execute cr
