@@ -24,9 +24,16 @@ o0 value ohere
    here to ohere 
    sdict0 to dict0  sdicttop to dicttop  shere to here ;
 
+: activate ( obj -- ) dup +order >o ;
+: deactivate previous odrop ;
 : { dup +order state @ if postpone literal postpone >o else >o then ; immediate
 : } previous state @ if postpone odrop else odrop then ; immediate
 : odefs get-current o> swap >o >o o@ set-current ;
+
+: (late) ( obj method len -- ) rot activate nfa doword deactivate ;
+: late ( object "method" -- ? ) 
+   parse-word postpone sliteral postpone (late) ; immediate compile-only
+
 
 >oarena wordlist 3 cells , oarena> constant object immediate
 
@@ -45,9 +52,8 @@ object { odefs
 : clone ( "name" -- ) cloned constant immediate ;
 : dump  self /object @ dump ;
 : .slots self [ expose-module private ] wordsin [ end-module ] ;
-: late ( "method" -- ? ) 
-   parse-word postpone sliteral postpone evaluate ; immediate compile-only
 : .attr ( "attr" -- ) @r+ dup xt>name .name ." : " execute @ . ;
 : name self begin cell- dup xt>name until xt>name ;
 : print name .name ." at " self . ." : " ;
 extended }
+: .obj late print ;
