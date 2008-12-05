@@ -1,4 +1,3 @@
-\ TODO: clone should be a method
 16 cells constant /ostack
 create ostack /ostack allot
 ostack /ostack + value otos
@@ -42,9 +41,9 @@ object { odefs
 : /object ( -- ) self cell+ cell+ ;
 : extend odefs ;
 : extended o> o> swap >o set-current ;
+: (member) ( size "name" -- ) create /object @ , /object +! does> @ self + ;
 : member ( size "name" -- ) 
-   >oarena dup allot oarena> 
-   create /object @ , /object +! does> @ self + ;
+   >oarena dup allot oarena> (member) ; 
 : cloned ( -- o )
    >oarena here
    /object self @ wordlist ! here over @ cell- cell- dup allot move 
@@ -55,6 +54,6 @@ object { odefs
 : .attr ( "attr" -- ) @r+ dup xt>name .name ." : " execute @ . ;
 : name self begin cell- dup xt>name until xt>name ;
 : print name .name ." at " self . ." : " ;
-: instance ( obj -- ) dup late clone late /object @ /object +! ;
+: instance ( obj "name" -- ) late cloned late /object @ (member) immediate ;
 extended }
 : .obj late print ;
