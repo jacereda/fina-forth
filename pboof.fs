@@ -24,8 +24,6 @@ o0 value ohere
    here to ohere 
    sdict0 to dict0  sdicttop to dicttop  shere to here ;
 
->oarena 0 , oarena>
-
 : { dup +order state @ if postpone literal postpone >o else >o then ; immediate
 : } previous state @ if postpone odrop else odrop then ; immediate
 : odefs get-current o> swap >o >o o@ set-current ;
@@ -34,7 +32,6 @@ o0 value ohere
 
 object { odefs
 : self o@ ;
-.s
 : /object self cell+ cell+ ;
 : extend odefs ;
 : extended o> o> swap >o set-current ;
@@ -43,7 +40,7 @@ object { odefs
    create /object @ , /object +! does> @ self + ;
 : cloned ( -- o )
    >oarena here
-   self /object self @ wordlist ! here over @ dup allot move 
+   /object self @ wordlist ! here over @ cell- cell- dup allot move 
    oarena> ;
 : clone ( "name" -- ) cloned constant immediate ;
 : dump  self /object @ dump ;
