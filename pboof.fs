@@ -24,12 +24,12 @@ o0 value ohere
    here to ohere 
    sdict0 to dict0  sdicttop to dicttop  shere to here ;
 
-: activate ( obj -- ) dup +order >o ;
-: deactivate previous odrop ;
 : { dup +order state @ if postpone literal postpone >o else >o then ; immediate
 : } previous state @ if postpone odrop else odrop then ; immediate
 : odefs get-current o> swap >o >o o@ set-current ;
 
+: activate ( obj -- ) dup +order >o ;
+: deactivate previous odrop ;
 : (late) ( obj method len -- ) rot activate nfa doword deactivate ;
 : late ( object "method" -- ? ) 
    parse-word postpone sliteral postpone (late) ; immediate compile-only
@@ -39,7 +39,7 @@ o0 value ohere
 
 object { odefs
 : self o@ ;
-: /object self cell+ cell+ ;
+: /object ( -- ) self cell+ cell+ ;
 : extend odefs ;
 : extended o> o> swap >o set-current ;
 : member ( size "name" -- ) 
@@ -55,5 +55,6 @@ object { odefs
 : .attr ( "attr" -- ) @r+ dup xt>name .name ." : " execute @ . ;
 : name self begin cell- dup xt>name until xt>name ;
 : print name .name ." at " self . ." : " ;
+: instance ( obj -- ) dup late clone late /object @ /object +! ;
 extended }
 : .obj late print ;
