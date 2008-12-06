@@ -32,6 +32,9 @@ o0 value ohere
    here to ohere 
    sdict0 to dict0  sdicttop to dicttop  shere to here ;
 
+:noname create >oarena wordlist 3 cells , oarena> , does> @ >o ; execute world
+get-current >o world o@ +order o@ set-current
+
 : activate o@ +order ;
 : deactivate previous ;
 : { ( o: obj -- obj ) activate ; immediate
@@ -40,16 +43,8 @@ o0 value ohere
 : extend get-current o> swap >o >o o@ set-current ;
 : extended  o> o> set-current >o ;
 : (late) ( len -- ) activate nfa doword deactivate ;
-: late ( "method" -- ? ) 
-   parse-word postpone sliteral postpone (late) ; immediate
-
-\ : allot ." Allocating " dup . ." at " here . cr allot ;
-\ : wordlist ." Wordlist at " here . cr wordlist ;
-
-:noname create >oarena wordlist 3 cells , oarena> , does> @ >o ; execute world
-world activate extend
-
-: self ( -- obj ) o@ ;
+: late ( "method" -- ) parse-word postpone sliteral postpone (late) ; immediate
+: self ( -- obj ) postpone o@ ; immediate
 : sizeof  self cell+ cell+ ;
 : member ( size "name" -- ) 
    >oarena dup allot oarena> 
@@ -69,12 +64,13 @@ world activate extend
    create immediate  sizeof @ , sizeof +!  
    deactivate odrop
    does> @ state @ if postpone doinst dup , then self + >o ;
-: .slots self [ expose-module private ] wordsin [ end-module ] ;
 : dump  self sizeof @ dump ;
 : .attr ( "attr" -- ) 
    odepth 1- spaces @r+ dup xt>name .name ." member at " 
    execute dup . ." : " @ . cr ;
 : print
    odepth 2 - spaces ." object at " self . ." :" cr .attr sizeof ;
-: .obj late print ;
 world { clone object }
+extended
+: {  postpone { ;
+}
