@@ -60,7 +60,7 @@ world activate extend
    oarena> ;
 : doobj @r+ >o ;
 : clone 
-   create immediate cloned , 
+   create immediate late cloned , 
    does> @ state @ if postpone doobj dup , then >o ;
 : doinst @r+ self + >o ;
 : instance ( "name" -- )
