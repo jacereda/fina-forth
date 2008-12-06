@@ -71,15 +71,9 @@ world activate extend
    does> @ state @ if postpone doinst dup , then self + >o ;
 : .slots self [ expose-module private ] wordsin [ end-module ] ;
 : dump  self /object @ dump ;
-0 value indent
-: +indent  indent + to indent ;
-: .indent indent spaces ;
 : .attr ( "attr" -- ) 
-   .indent  @r+ dup xt>name .name ." : " execute @ . cr ;
+   odepth spaces @r+ dup xt>name .name ." : " execute @ . cr ;
 : print
-   .indent  2 +indent
-   ." object at " self . ." :" cr
-   .attr /object
-   later   -2 +indent ;
+   odepth 1- spaces ." object at " self . ." :" cr .attr /object ;
 : .obj late print ;
 world { clone object }
