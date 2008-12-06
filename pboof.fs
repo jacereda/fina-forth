@@ -50,13 +50,13 @@ o0 value ohere
 world activate extend
 
 : self ( -- obj ) o@ ;
-: /object  self cell+ cell+ ;
+: sizeof  self cell+ cell+ ;
 : member ( size "name" -- ) 
    >oarena dup allot oarena> 
-   create /object @ , /object +! does> @ self + ; immediate
+   create sizeof @ , sizeof +! does> @ self + ; immediate
 : cloned
    >oarena here
-   /object self @ wordlist !  here over @ cell- cell- dup allot move 
+   sizeof self @ wordlist !  here over @ cell- cell- dup allot move 
    oarena> ;
 : doobj @r+ >o ;
 : clone 
@@ -64,16 +64,17 @@ world activate extend
    does> @ state @ if postpone doobj dup , then >o ;
 : doinst @r+ self + >o ;
 : instance ( "name" -- )
-   late cloned  >o /object @ odrop 
+   late cloned  >o sizeof @ odrop 
    get-current >o activate
-   create immediate  /object @ , /object +!  
+   create immediate  sizeof @ , sizeof +!  
    deactivate odrop
    does> @ state @ if postpone doinst dup , then self + >o ;
 : .slots self [ expose-module private ] wordsin [ end-module ] ;
-: dump  self /object @ dump ;
+: dump  self sizeof @ dump ;
 : .attr ( "attr" -- ) 
-   odepth spaces @r+ dup xt>name .name ." : " execute @ . cr ;
+   odepth 1- spaces @r+ dup xt>name .name ." member at " 
+   execute dup . ." : " @ . cr ;
 : print
-   odepth 1- spaces ." object at " self . ." :" cr .attr /object ;
+   odepth 2 - spaces ." object at " self . ." :" cr .attr sizeof ;
 : .obj late print ;
 world { clone object }
