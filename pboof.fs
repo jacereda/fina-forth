@@ -1,16 +1,25 @@
+require later.fs
+
 16 cells constant /ostack
-create ostack /ostack allot
-ostack /ostack + value otos
+create otop /ostack allot
+otop /ostack + constant obottom
+obottom value otos
 0 value active
 : >o otos cell- to otos  otos ! ;
 : odrop otos cell+ to otos ;
 : o@ otos @ ;
 : o> o@ odrop ;
+: odepth obottom otos - 1 cells / ;
+: o.s 
+   ." O: " odepth 0 <# [char] > hold #s [char] < hold #> type space
+   odepth 1+ 1 ?do obottom i cells - @ . loop
+   cr ;
 
 1024 16 * constant /oarena
 create o0 /oarena allot
 here constant otop
 o0 value ohere
+: osize ohere o0 - ;
 
 0 value sdict0
 0 value sdicttop
@@ -23,37 +32,54 @@ o0 value ohere
    here to ohere 
    sdict0 to dict0  sdicttop to dicttop  shere to here ;
 
-: { dup +order state @ if postpone literal postpone >o else >o then ; immediate
-: } previous state @ if postpone odrop else odrop then ; immediate
-: odefs get-current o> swap >o >o o@ set-current ;
+: activate o@ +order ;
+: deactivate previous ;
+: { ( o: obj -- obj ) activate ; immediate
+: } ( o: obj -- ) 
+   deactivate state @ if postpone odrop then odrop ; immediate
+: extend get-current o> swap >o >o o@ set-current ;
+: extended  o> o> set-current >o ;
+: (late) ( len -- ) activate nfa doword deactivate ;
+: late ( "method" -- ? ) 
+   parse-word postpone sliteral postpone (late) ; immediate
 
-: activate ( obj -- ) dup +order >o ;
-: deactivate previous odrop ;
-: (late) ( obj method len -- ) rot activate nfa doword deactivate ;
-: late ( object "method" -- ? ) 
-   parse-word postpone sliteral postpone (late) ; immediate compile-only
+\ : allot ." Allocating " dup . ." at " here . cr allot ;
+\ : wordlist ." Wordlist at " here . cr wordlist ;
 
+:noname create >oarena wordlist 3 cells , oarena> , does> @ >o ; execute world
+world activate extend
 
->oarena wordlist 3 cells , oarena> constant object immediate
-
-object { odefs
-: self o@ ;
-: /object ( -- ) self cell+ cell+ ;
-: extend odefs ;
-: extended o> o> swap >o set-current ;
-: (member) ( size "name" -- ) create /object @ , /object +! does> @ self + ;
+: self ( -- obj ) o@ ;
+: /object  self cell+ cell+ ;
 : member ( size "name" -- ) 
-   >oarena dup allot oarena> (member) ; 
-: cloned ( -- o )
+   >oarena dup allot oarena> 
+   create /object @ , /object +! does> @ self + ; immediate
+: cloned
    >oarena here
-   /object self @ wordlist ! here over @ cell- cell- dup allot move 
+   /object self @ wordlist !  here over @ cell- cell- dup allot move 
    oarena> ;
-: clone ( "name" -- ) cloned constant immediate ;
-: dump  self /object @ dump ;
+: doobj @r+ >o ;
+: clone 
+   create immediate cloned , 
+   does> @ state @ if postpone doobj dup , then >o ;
+: doinst @r+ self + >o ;
+: instance ( "name" -- )
+   late cloned  >o /object @ odrop 
+   get-current >o activate
+   create immediate  /object @ , /object +!  
+   deactivate odrop
+   does> @ state @ if postpone doinst dup , then self + >o ;
 : .slots self [ expose-module private ] wordsin [ end-module ] ;
-: .attr ( "attr" -- ) @r+ dup xt>name .name ." : " execute @ . ;
-: name self begin cell- dup xt>name until xt>name ;
-: print name .name ." at " self . ." : " ;
-: instance ( obj "name" -- ) late cloned late /object @ (member) immediate ;
-extended }
+: dump  self /object @ dump ;
+0 value indent
+: +indent  indent + to indent ;
+: .indent indent spaces ;
+: .attr ( "attr" -- ) 
+   .indent  @r+ dup xt>name .name ." : " execute @ . cr ;
+: print
+   .indent  2 +indent
+   ." object at " self . ." :" cr
+   .attr /object
+   later   -2 +indent ;
 : .obj late print ;
+world { clone object }
