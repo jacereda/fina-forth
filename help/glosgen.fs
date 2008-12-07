@@ -189,7 +189,7 @@ VARIABLE CHARPTR
    s" =======" r@ write-line throw
    s" ? " r@ write-file throw
    DUP BUILD-HLINE
-   OLDLINE CHAR+ OLDLINE C@ R@ WRITE-LINE THROW \ write header line.
+   OLDLINE COUNT -TRAILING R@ WRITE-LINE THROW \ write header line.
   THEN
   CELL+ @
   BEGIN
