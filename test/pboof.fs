@@ -1,10 +1,10 @@
-\ require test/tester.fs
-\ : {{ { ;
-\ : }} } ;
-: {{ ;
-: }} 2drop ;
-: -> ;
-require copboof.fs
+require test/tester.fs
+: {{ { ;
+: }} } ;
+\ : {{ ;
+\ : }} 2drop ;
+\ : -> ;
+require pboof.fs
 
 osize value lastosize
 : increased osize lastosize over to lastosize - ;
