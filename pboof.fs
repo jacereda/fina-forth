@@ -1,5 +1,3 @@
-require later.fs
-
 \ OBJECT STACK
 
 16 cells
@@ -123,17 +121,33 @@ world o@ +order o@ set-current
    sizeof here over @ cell- cell- dup allot move  \ Clone prototype data
    oarena> ;
 
+variable imp imp off
+: implicit imp on ;
+: explicit imp off ;
+
+: (implicit)  postpone { parse-word (late) postpone } ;
+
 \g Runtime for cloned objects
 : doobj @r+ >o ;
+
+: (expobj) 
+   state @ if postpone doobj dup , then >o ;
+: (impobj)
+   (expobj) (implicit) ;
 
 \g Clone active object by sending a late CLONED message
 : clone ( "name" -- )
    create immediate late cloned , 
    does> ( O: -- obj )
-   @ state @ if postpone doobj dup , then >o ;
+   @ imp @ if (impobj) else (expobj) then ;
 
 \g Runtime for instance members
 : doinst @r+ self + >o ;
+
+: (expinstance)
+   state @ if postpone doinst dup , then self + >o ;
+: (impinstance)
+   (expinstance) (implicit) ;
 
 \g Instance active object as member of the previously active object
 : instance ( "name" -- )
@@ -141,7 +155,7 @@ world o@ +order o@ set-current
    get-current >o activate
    create immediate  sizeof @ , sizeof +!  
    deactivate odrop
-   does> @ state @ if postpone doinst dup , then self + >o ;
+   does> @ imp @ if (impinstance) else (expinstance) then ;
 
 \g Dump object memory 
 : dump  self sizeof @ dump ;
