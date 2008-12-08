@@ -101,6 +101,7 @@ decimal
    r@ 's follower off
    assert( r@ active 0= )
    assert( r@ built )
+   assert( [ hex ] 33333333 [ decimal ] r@ 's follower ! true )
    rdrop ;
 
 : ,allot ( size fill -- )
