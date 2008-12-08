@@ -32,7 +32,12 @@ value otos
    o@ odrop ;
 
 \g Duplicate topmost object
-: odup o@ >o ;
+: odup ( O: obj -- obj )
+   o@ >o ;
+
+\g Pick item from object stack
+: opick ( u -- obj ) 
+   cells otos + @ ;
 
 \g Depth of object stack
 : odepth ( -- u )
@@ -41,8 +46,7 @@ value otos
 \g Print object stack
 : o.s
    ." O: " odepth 0 <# [char] > hold #s [char] < hold #> type space
-   odepth 1+ 1 ?do obottom i cells - @ . loop
-   cr ;
+   odepth 0 ?do i opick . loop cr ;
 
 \ OBJECT ARENA
 
