@@ -66,37 +66,30 @@ o0 value ohere                 \ Object arena pointer
 \ Extensible object: object being extended with additional members or methods
 
 \ Create the world, a wordlist and a sizeof field in the object arena
-\ and creates the world object
-:noname create >oarena wordlist 3 cells , oarena> , does> @ >o o@ +order ; 
-execute world ( O: -- obj )
-\g Push world object to object stack
+>oarena wordlist 3 cells , oarena> 
+constant (world)
 
-\ Save the current worldist to the object stack
-get-current >o 
 
 \ Push the world wordlist to the order stack and establish it as 
 \ current wordlist
-world o@ set-current
-
-variable imp imp off
-
+(world) >o o@ +order definitions
 
 \g Make the current object active
 : activate ( O: obj -- obj ) o@ +order ;
 
 \g Deactivate active object, the previously active object will become active
-: deactivate previous odrop ;
+: deactivate odrop previous definitions ;
 
 \g Deactivate active object, the previously active object will become active
 : done ( o: obj -- ) 
    deactivate state @ if postpone odrop then ; immediate
 
 \g Make current object extensible
-: extend ( O: obj -- obj ) 
-   get-current o> swap >o >o o@ set-current  imp @ if o@ >o activate then ;
+: extend ( O: obj -- obj )
+   o@ >o also definitions ;
 
 \g Restore previously extensible object
-: extended  imp @ if deactivate then  o> o> set-current >o ;
+: extended  deactivate ;
 
 \g Send late message to current object
 : (late) ( addr len --  O: obj -- ) nfa doword ;
@@ -122,32 +115,21 @@ variable imp imp off
    sizeof here over @ cell- cell- dup allot move  \ Clone prototype data
    oarena> ;
 
-: implicit imp on ;
-: explicit imp off ;
-
-: (implicit)  parse-word (late) postpone done ;
+: single  parse-word (late) postpone done ;
 
 \g Runtime for cloned objects
 : doobj @r+ >o ;
-
-: (expobj) 
-   state @ if postpone doobj dup , then >o activate ;
-: (impobj)
-   (expobj) (implicit) ;
 
 \g Clone active object by sending a late CLONED message
 : clone ( "name" -- )
    create immediate late cloned ,
    does> ( O: -- obj )
-   @ imp @ if (impobj) else (expobj) then ;
+   @ state @ if postpone doobj dup , then >o activate single ;
+
 
 \g Runtime for instance members
 : doinst @r+ self + >o ;
 
-: (expinstance)
-   state @ if postpone doinst dup , then self + >o activate ;
-: (impinstance)
-   (expinstance) (implicit) ;
 
 \g Instance active object as member of the previously active object
 : instance ( "name" -- )
@@ -155,7 +137,7 @@ variable imp imp off
    get-current >o activate
    create immediate  sizeof @ , sizeof +!  
    deactivate
-   does> @ imp @ if (impinstance) else (expinstance) then ;
+   does> @ state @ if postpone doinst dup , then self + >o activate single ;
 
 \g Dump object memory 
 : dump  self sizeof @ dump ;
@@ -169,13 +151,13 @@ variable imp imp off
 : print
    odepth 2 - spaces ." object at " self . ." :" cr .attr sizeof ;
 
-world 
-clone object
-\g Prototype object
-done
 
 extended
 
-done
+(world) +order
+: world (world) >o activate single ;
+previous
 
+world clone object
+\g Prototype object
 
