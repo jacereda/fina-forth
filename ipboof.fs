@@ -108,10 +108,10 @@ constant (world)
    sizeof here over @ cell- cell- dup allot move  \ Clone prototype data
    oarena> ;
 
-: single  parse-word (late) deactivate state @ if postpone odrop then ;
+: single  parse-word (late) deactivate ;
 
 \g Runtime for cloned objects
-: doobj @r+ >o ;
+: doobj @r+ >o @r+ execute odrop ;
 
 \g Clone active object by sending a late CLONED message
 : clone ( "name" -- )
@@ -120,7 +120,7 @@ constant (world)
    @ state @ if postpone doobj dup , then >o activate single ;
 
 \g Runtime for instance members
-: doinst @r+ o@ + >o ;
+: doinst @r+ o@ + >o @r+ execute odrop ;
 
 \g Instance active object as member of the previously active object
 : instance ( "name" -- )
