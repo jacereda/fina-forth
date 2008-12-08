@@ -48,6 +48,10 @@ value otos
    ." O: " odepth 0 <# [char] > hold #s [char] < hold #> type space
    odepth 0 ?do i opick . loop cr ;
 
+\g Print context information
+: .ctx
+   order o.s .s ;
+
 \ OBJECT ARENA
 
 1024 16 * constant /oarena     \ Size of object arena
