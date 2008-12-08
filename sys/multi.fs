@@ -53,23 +53,23 @@ assert( : active ( tid -- ) 's follower @  ; )
 decimal
 
 
-\g Stop current task and transfer control to the task of which
-\g 'status' USER variable is stored in 'follower' USER variable
-\g of current task.
+\g Stop current task and transfer control to the next task
 : pause  ( -- )
    rp@  \ This item will be consumed by READY
-   sp@ stacktop !  follower @ follower @ 's status >r ; compile-only  
+   sp@ stacktop !  follower @ dup 's status >r ; compile-only  
 
 : resume
    postpone rdrop postpone userp postpone ! ; immediate compile-only
 
+: pass resume follower @ dup 's status >r ; compile-only
+
 \g Status for sleeping tasks
 : sleeping
-   resume pause ;
+   pass ; compile-only
 
 \g Status for stopped tasks
 : stopped
-   resume pause ;
+   pass ; compile-only
 
 \g Status for ready tasks
 : ready
@@ -77,7 +77,7 @@ decimal
 
 \g Status for starting tasks
 : starting
-   resume sp0 @ sp! rp0 @ rp! ['] ready status ! ;
+   resume sp0 @ sp! rp0 @ rp! ['] ready status ! ; compile-only
 
 \g Stop current task
 : stop  ( -- )
@@ -150,5 +150,6 @@ lastname taskname !
 : .tasks
    cr ['] .task foreachtask ;
 
-export .tasks .task task: activate build kill awake sleep stop pause user
+export .tasks .task task: activate build kill awake sleep stop pause user 
+export 's status
 end-module
