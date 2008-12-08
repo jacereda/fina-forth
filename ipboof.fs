@@ -31,6 +31,9 @@ value otos
 : o> ( -- obj O: obj -- )
    o@ odrop ;
 
+\g Duplicate topmost object
+: odup o@ >o ;
+
 \g Depth of object stack
 : odepth ( -- u )
    obottom otos - 1 cells / ;
@@ -63,40 +66,41 @@ o0 value ohere                 \ Object arena pointer
 \ Some definitions:
 \ Current object: topmost object in object stack
 \ Active object: object that will receive subsequent messages
-\ Extensible object: object being extended with additional members or methods
 
-\ Create the world, a wordlist and a sizeof field in the object arena
+\ Create the bootstrap world, just a wordlist and a sizeof field in the object arena
 >oarena wordlist 3 cells , oarena> 
 constant (world)
 
 
-\ Push the world wordlist to the order stack and establish it as 
-\ current wordlist
+\ Push the bootstrap world to the object and order stacks and establish it as 
+\ current worldist, making it the active object
 (world) >o o@ +order definitions
 
-\g Make the current object active
-: activate ( O: obj -- obj ) o@ +order ;
+: (extend) ( O: obj -- obj )
+   o@ +order definitions ;
 
-\g Deactivate active object, the previously active object will become active
-: deactivate odrop previous definitions ;
+: (extended)  previous definitions ;
 
-\g Make current object extensible
+\g Make current object the active object
 : extend ( O: obj -- obj )
-   o@ >o also definitions ;
+   odup (extend) ;
 
-\g Restore previously extensible object
-: extended  deactivate ;
-
-\g Send late message to current object
-: (late) ( addr len --  O: obj -- ) nfa doword ;
+\g Restore previously active object
+: extended ( O: obj -- )
+   (extended) odrop ;
 
 \g Send late message to current object
-: late parse-word postpone sliteral postpone (late) ; immediate
+: (late) ( addr len --  O: obj -- ) (extend) nfa doword extended ;
+
+\g Send late message to current object
+: late ( "message" -- ?  runtime: ? -- ?  O: obj -- )
+   parse-word postpone sliteral postpone (late) ; immediate
 
 \g Address of current object size field
-: sizeof ( -- addr )  o@ cell+ cell+ ;
+: sizeof ( -- addr  O: obj -- obj )
+   o@ cell+ cell+ ;
 
-\g Create member in extensible object
+\g Create member in active object
 : member ( size "name" -- ) 
    >oarena dup allot oarena> 
    create sizeof @ , sizeof +! does> @ o@ + ; immediate
@@ -108,27 +112,25 @@ constant (world)
    sizeof here over @ cell- cell- dup allot move  \ Clone prototype data
    oarena> ;
 
-: single  parse-word (late) deactivate ;
+: single  parse-word (late) ;
 
 \g Runtime for cloned objects
 : doobj @r+ >o @r+ execute odrop ;
 
 \g Clone active object by sending a late CLONED message
-: clone ( "name" -- )
-   create immediate late cloned ,
-   does> ( O: -- obj )
-   @ state @ if postpone doobj dup , then >o activate single ;
+: clone ( "name" --  )
+   o@  extended create immediate  >o 
+   extend  late cloned ,
+   does> @ state @ if postpone doobj dup , then >o single ;
 
 \g Runtime for instance members
 : doinst @r+ o@ + >o @r+ execute odrop ;
 
 \g Instance active object as member of the previously active object
 : instance ( "name" -- )
-   late cloned drop sizeof @ 
-   get-current >o activate
-   create immediate  sizeof @ , sizeof +!  
-   deactivate
-   does> @ state @ if postpone doinst dup , then o@ + >o activate single ;
+   o@  sizeof @ extended create immediate sizeof @ , sizeof +!  >o
+   extend late cloned drop
+   does> @ state @ if postpone doinst dup , then o@ + >o single ;
 
 \g Dump object memory 
 : dump  o@ sizeof @ dump ;
@@ -145,9 +147,15 @@ constant (world)
 extended
 
 (world) +order
-: world (world) >o activate single ;
+: world (world) >o single ;
 previous
+
+
+\ OBJECT
+
+world extend
 
 world clone object
 \g Prototype object
 
+extended
