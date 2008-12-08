@@ -80,10 +80,6 @@ constant (world)
 \g Deactivate active object, the previously active object will become active
 : deactivate odrop previous definitions ;
 
-\g Deactivate active object, the previously active object will become active
-: done ( o: obj -- ) 
-   deactivate state @ if postpone odrop then ; immediate
-
 \g Make current object extensible
 : extend ( O: obj -- obj )
    o@ >o also definitions ;
@@ -97,25 +93,22 @@ constant (world)
 \g Send late message to current object
 : late parse-word postpone sliteral postpone (late) ; immediate
 
-\g Push current object to data stack
-: self ( -- obj  O: obj -- obj ) postpone o@ ; immediate
-
 \g Address of current object size field
-: sizeof ( -- addr )  self cell+ cell+ ;
+: sizeof ( -- addr )  o@ cell+ cell+ ;
 
 \g Create member in extensible object
 : member ( size "name" -- ) 
    >oarena dup allot oarena> 
-   create sizeof @ , sizeof +! does> @ self + ; immediate
+   create sizeof @ , sizeof +! does> @ o@ + ; immediate
 
 \g Clone active object
 : cloned ( -- clone  O: prototype -- prototype )
    >oarena here 
-   self @ wordlist !  \ Create wordlist and chain it to prototype wordlist
+   o@ @ wordlist !  \ Create wordlist and chain it to prototype wordlist
    sizeof here over @ cell- cell- dup allot move  \ Clone prototype data
    oarena> ;
 
-: single  parse-word (late) postpone done ;
+: single  parse-word (late) deactivate state @ if postpone odrop then ;
 
 \g Runtime for cloned objects
 : doobj @r+ >o ;
@@ -126,10 +119,8 @@ constant (world)
    does> ( O: -- obj )
    @ state @ if postpone doobj dup , then >o activate single ;
 
-
 \g Runtime for instance members
-: doinst @r+ self + >o ;
-
+: doinst @r+ o@ + >o ;
 
 \g Instance active object as member of the previously active object
 : instance ( "name" -- )
@@ -137,20 +128,19 @@ constant (world)
    get-current >o activate
    create immediate  sizeof @ , sizeof +!  
    deactivate
-   does> @ state @ if postpone doinst dup , then self + >o activate single ;
+   does> @ state @ if postpone doinst dup , then o@ + >o activate single ;
 
 \g Dump object memory 
-: dump  self sizeof @ dump ;
+: dump  o@ sizeof @ dump ;
 
 \g Print attribute
 : .attr ( "attr" -- )
    odepth 1- spaces @r+ dup xt>name .name ." member at " 
-   execute dup . ." : " @ . cr ;
+   execute dup 16 based . ." : " @ . cr ;
 
 \g Print object
 : print
-   odepth 2 - spaces ." object at " self . ." :" cr .attr sizeof ;
-
+   odepth 2 - spaces ." object at " o@ 16 based . ." :" cr .attr sizeof ;
 
 extended
 
