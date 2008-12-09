@@ -50,7 +50,7 @@ value otos
 
 \g Print context information
 : .ctx
-   order o.s .s ;
+   cr order o.s .s cr ;
 
 \ OBJECT ARENA
 
@@ -98,7 +98,7 @@ constant (world)
    (extended) odrop ;
 
 \g Send late message to current object
-: (late) ( addr len --  O: obj -- ) (extend) nfa doword extended ;
+: (late) ( addr len --  O: obj -- ) nfa doword ;
 
 \g Send late message to current object
 : late ( "message" -- ?  runtime: ? -- ?  O: obj -- )
@@ -115,33 +115,33 @@ constant (world)
 
 \g Clone active object
 : cloned ( -- clone  O: prototype -- prototype )
-   >oarena here 
+   >oarena here
    o@ @ wordlist !  \ Create wordlist and chain it to prototype wordlist
    sizeof here over @ cell- cell- dup allot move  \ Clone prototype data
-   oarena> ;
+   oarena> extended >o (extend) ;
 
-: single  parse-word (late) ;
+: single  (extend) parse-word (late) (extended) ;
 
 \g Runtime for cloned objects
 : doobj @r+ >o @r+ execute odrop ;
 
 \g Clone active object by sending a late CLONED message
 : clone ( "name" --  )
-   o@  extended create immediate  >o 
-   extend  late cloned ,
-   does> @ state @ if postpone doobj dup , then >o single ;
+   (extended) create immediate (extend)
+   late cloned o@ ,
+   does> @ state @ if postpone doobj dup , then >o single odrop ;
 
 \g Runtime for instance members
 : doinst @r+ o@ + >o @r+ execute odrop ;
 
 \g Instance active object as member of the previously active object
 : instance ( "name" -- )
-   o@  sizeof @ extended create immediate sizeof @ , sizeof +!  >o
-   extend late cloned drop
-   does> @ state @ if postpone doinst dup , then o@ + >o single ;
+   o@  sizeof @ extended create immediate sizeof @ , sizeof +!  >o (extend)
+   late cloned
+   does> @ state @ if postpone doinst dup , then o@ + >o single odrop ;
 
 \g Dump object memory 
-: dump  o@ sizeof @ dump ;
+\ : dump  o@ sizeof @ dump ;
 
 \g Print attribute
 : .attr ( "attr" -- )
@@ -155,7 +155,7 @@ constant (world)
 extended
 
 (world) +order
-: world (world) >o single ;
+: world (world) >o single odrop ;
 previous
 
 
