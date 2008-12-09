@@ -125,11 +125,13 @@ constant (world)
 \g Runtime for cloned objects
 : doobj @r+ >o @r+ execute odrop ;
 
-\g Clone active object by sending a late CLONED message
-: clone ( "name" --  )
-   (extended) create immediate (extend)
-   late cloned o@ ,
+: (clone) 
+   create immediate here 0 , 
    does> @ state @ if postpone doobj dup , then >o single odrop ;
+
+\g Clone active object by sending a late CLONED message
+:  clone ( "name" --  )
+   (extended) (clone) (extend)  late cloned  o@ swap ! ;
 
 \g Runtime for instance members
 : doinst @r+ o@ + >o @r+ execute odrop ;
