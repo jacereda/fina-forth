@@ -1,21 +1,24 @@
-64 64 64 task: mierda1
-64 64 64 task: mierda2
-64 64 64 task: mierda3
-64 64 64 task: mierda4
+64 64 64 task: t1
+64 64 64 task: t2
+64 64 64 task: t3
+64 64 64 task: t4
+64 64 64 task: t5
 
-mierda1 build 
-mierda2 build 
-mierda3 build 
-mierda4 build
+t1 build 
+t2 build 
+t3 build 
+t4 build
+t5 build
 hex
-:noname mierda1 activate 4 0 do i . pause loop stop ; execute
-:noname mierda2 activate 4 0 do i . pause loop stop ; execute
-:noname mierda3 activate 4 0 do i . pause loop stop ; execute
-:noname mierda4 activate 4 0 do i . pause loop stop ; execute
+:noname t1 activate 4 0 do i . pause loop stop ; execute
+:noname t2 activate 4 0 do i . pause loop stop ; execute
+:noname t3 activate 4 0 do i . pause loop stop ; execute
+:noname t4 activate 4 0 do i . pause loop stop ; execute
+:noname t5 activate stop begin pause again ; execute
 .tasks 
 :noname pause ; execute
-mierda3 sleep
-mierda4 kill
+t3 sleep
+t4 kill
 .tasks
 :noname 5 0 do .tasks pause loop cr ; execute
 
