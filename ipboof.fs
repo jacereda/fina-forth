@@ -136,11 +136,13 @@ constant (world)
 \g Runtime for instance members
 : doinst @r+ o@ + >o @r+ execute odrop ;
 
+: (instance)
+   create immediate sizeof @ , sizeof +!
+   does> @ state @ if postpone doinst dup , then o@ + >o single odrop ;
+
 \g Instance active object as member of the previously active object
 : instance ( "name" -- )
-   o@  sizeof @ extended create immediate sizeof @ , sizeof +!  >o (extend)
-   late cloned
-   does> @ state @ if postpone doinst dup , then o@ + >o single odrop ;
+   o@ sizeof @ extended (instance) >o (extend) late cloned ;
 
 \g Dump object memory 
 \ : dump  o@ sizeof @ dump ;
