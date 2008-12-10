@@ -1,8 +1,8 @@
+require pboof.fs
 require test/tester.fs
 \ : { ;
 \ : } 2drop ;
 \ : -> ;
-require ipboof.fs
 
 osize value lastosize
 : increased osize lastosize over to lastosize - ;
@@ -22,6 +22,7 @@ extended
 { increased -> 2 cells }
 
 v2 clone v3
+
 { increased -> 5 cells } 
 v3  extend
 1 cells member z  z off
@@ -29,12 +30,14 @@ v3  extend
 extended
 { increased -> 1 cells }
 
-object clone rect
+object clone rect 
 { increased -> 3 cells }
 rect extend
 v2 instance pos
 v2 instance dim
+
 100 dim x !  200 dim y !
+.ctx
 : print  print  pos print  dim print ;
 extended
 
