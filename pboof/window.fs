@@ -18,7 +18,7 @@ string instance title :noname s" no title" ; execute title set
 1 cells member up  ' drop up !
 1 cells member motion  ' drop motion !
 1 cells member close  ' drop close !
-1 cells member draw  ' noop is draw
+1 cells member draw  ' noop draw !
 
 task instance t  o@ t data !
 :noname ( win -- )
@@ -26,14 +26,15 @@ task instance t  o@ t data !
       handle @ aw awNextEvent ?dup if 
          dup cell+ swap @ cells handlers + @execute 
       else
-         draw
+         draw @execute
          handle @ aw awSwapBuffers
       then odrop ; t ticker !
 
 : open 
    title 0get  geom unpack  aw awOpen handle !
-   handle @ aw awPushCurrent  t run 
-;
+   handle @ aw awPushCurrent  t run ;
+
 : close
    t stop  handle @ aw awClose  handle off ;
+
 extended
