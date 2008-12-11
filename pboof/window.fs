@@ -37,4 +37,6 @@ task instance t  o@ t data !
 : close
    t stop  handle @ aw awClose  handle off ;
 
+: apply handle @ if close open then ;
+
 extended
