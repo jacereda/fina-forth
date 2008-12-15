@@ -68,4 +68,11 @@ rect instance yyy
 extended
 cr window2 print cr
 
+: .window ( obj -- )
+   as window print ;
+
+.ctx
+window2 self .window
+.ctx
+
 extended
