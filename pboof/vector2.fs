@@ -1,9 +1,9 @@
 object clone vector2
 vector2 extend
-1 cells member x  x off
+0 cells member xy
 1 cells member y  y off
-: pack ( x y -- ) x ! y ! ;
-: unpack ( -- x y ) x @ y @ ;
+1 cells member x  x off
+: pack ( x y -- ) xy 2! ;
+: unpack ( -- x y ) xy 2@ ;
 : -unpack ( -- -x -y ) x @ negate y @ negate ;
-: print  print  .attr x  .attr y ;
 extended
