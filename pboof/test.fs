@@ -14,6 +14,6 @@ include later.fs
 include glhelpers.fs
 
 include pboof/viewport.fs
-include pboof/glwindow.fs
+\ include pboof/glwindow.fs
 extended
 

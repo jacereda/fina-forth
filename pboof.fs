@@ -1,5 +1,7 @@
 \ OBJECT STACK
 
+expose-module private
+
 16 cells
 constant /ostack
 \g Size of object stack
@@ -48,9 +50,6 @@ value otos
    ." O: " odepth 0 <# [char] > hold #s [char] < hold #> type space
    odepth 0 ?do odepth 1- i - opick . loop cr ;
 
-\g Print context information
-: .ctx
-   cr order o.s .s cr ;
 
 \ OBJECT ARENA
 
@@ -82,21 +81,6 @@ o0 value ohere                 \ Object arena pointer
 : handler ( xt -- addr )
    ?dodefine ['] docreate = swap @ and ;
 
-\ WORLD
-
-\ Some definitions:
-\ Current object: topmost object in object stack
-\ Active object: object that will receive subsequent messages
-
-\ Create the bootstrap world, just a wordlist and a sizeof field 
-\ in the object arena
-:noname owordlist 3 cells o, ; execute constant (world)
-
-
-\ Push the bootstrap world to the object and order stacks and establish it as 
-\ current worldist, making it the active object
-(world) >o o@ +order definitions
-
 \ Add current object to order stack and set it as current wordlist
 : (extend) ( O: obj -- obj )
    o@ +order definitions ;
@@ -105,28 +89,12 @@ o0 value ohere                 \ Object arena pointer
 \ current wordlist
 : (extended)  previous definitions ;
 
-\g Make current object the active object
-: extend ( O: obj -- obj )
-   odup (extend) ;
-
-\g Restore previously active object
-: extended ( O: obj -- )
-   (extended) odrop ;
-
-\g Send late message to current object
-: (late) ( addr len --  O: obj -- ) nfa doword ;
-
-\g Send late message to current object
-: late ( "message" -- ?  runtime: ? -- ?  O: obj -- )
-   parse-word postpone sliteral postpone (late) ; immediate
-
 \g Address of current object size field
 : sizeof ( -- addr  O: obj -- obj )
    o@ cell+ cell+ ;
 
-\g Create member in active object
-: member ( size "name" -- ) 
-   dup oallot  create sizeof @ , sizeof +! does> @ o@ + ; immediate
+\g Send late message to current object
+: (late) ( addr len --  O: obj -- ) nfa doword ;
 
 \ Create wordlist and chain it to prototype wordlist
 : clonewl o@ @ owordlist ! ;
@@ -171,7 +139,7 @@ o0 value ohere                 \ Object arena pointer
    >r  r@ slotaddr  ohere  r> /slot dup oallot move ;
 
 : cloneins ( nfa -- )
-   slotaddr >o (extend) late cloned extended ;
+   slotaddr >o (extend) s" cloned" (late) (extended) odrop ;
 
 : cloneslot ( nfa -- )
    dup mbr? if clonembr else cloneins then ;
@@ -179,22 +147,14 @@ o0 value ohere                 \ Object arena pointer
 : cloneslots ( cloneaddr -- cloneaddr )
    ['] cloneslot forslots ;
 
-\g Clone active object
-: cloned ( -- O: prototype -- prototype )
-   ohere clonewl clonesz cloneslots extended >o (extend) ;
-
-: single  (extend) parse-word (late) (extended) ;
-
 \g Runtime for cloned objects
 : doobj @r+ >o @r+ execute odrop ;
+
+: single  (extend) parse-word (late) (extended) ;
 
 : (clone) 
    create immediate here 0 , 
    does> @ state @ if postpone doobj dup , then >o single odrop ;
-
-\g Clone active object by sending a late CLONED message
-:  clone ( "name" --  )
-   (extended) (clone) (extend)  late cloned  o@ swap ! ;
 
 \g Runtime for instance members
 : doinst @r+ o@ + >o @r+ execute odrop ;
@@ -203,34 +163,88 @@ o0 value ohere                 \ Object arena pointer
    create immediate sizeof @ , sizeof +!
    does> @ state @ if postpone doinst dup , then o@ + >o single odrop ;
 
-\g Instance active object as member of the previously active object
-: instance ( "name" -- )
-   o@ sizeof @ extended (instance) >o (extend) late cloned ;
-
-\g Dump object memory 
-\ : dump  o@ sizeof @ dump ;
-
 : .mbr ( nfa -- )
    ." member at " slotaddr dup 16 based . ." : " @ . cr ;
 
 : .ins ( nfa -- )
    slotaddr
    ." instance at " dup . cr
-   >o (extend) late print extended ;
+   >o (extend) s" print" (late) (extended) odrop ;
 
 : .slot ( nfa -- )
    odepth 1- spaces  dup .name dup mbr? if .mbr else .ins then ;
+
+\ WORLD
+
+\ Some definitions:
+\ Current object: topmost object in object stack
+\ Active object: object that will receive subsequent messages
+
+\ Create the bootstrap world, just a wordlist and a sizeof field 
+\ in the object arena
+:noname owordlist 3 cells o, ; execute constant (world)
+
+
+\ Push the bootstrap world to the object and order stacks and establish it as 
+\ current worldist, making it the active object
+(world) >o (extend)
+
+
+\g Make current object the active object
+: extend ( O: obj -- obj )
+   odup (extend) ;
+
+\g Restore previously active object
+: extended ( O: obj -- )
+   (extended) odrop ;
+
+\g Send late message to current object
+: late ( "message" -- ?  runtime: ? -- ?  O: obj -- )
+   parse-word postpone sliteral postpone (late) ; immediate
+
+\g Create member in active object
+: member ( size "name" -- ) 
+   dup oallot  create sizeof @ , sizeof +! does> @ o@ + ; immediate
+
+\g Clone active object
+: cloned ( -- O: prototype -- prototype )
+   ohere clonewl clonesz cloneslots extended >o (extend) ;
+
+\g Clone active object by sending a late CLONED message
+:  clone ( "name" --  )
+   (extended) (clone) (extend)  late cloned  o@ swap ! ;
+
+\g Instance active object as member of the previously active object
+: instance ( "name" -- )
+   o@ sizeof @ extended (instance) >o (extend) late cloned ;
+
+\g Dump object memory 
+: dump  o@ sizeof @ dump ;
 
 \g Print object
 : print
    odepth 2 - spaces ." object at " o@ 16 based . ." sized " sizeof @ . cr
    ['] .slot forslots ;
 
+\ Get current object pointer
+: self ( -- object)  o@ ;
+
+\ Evaluate method posing as object
+: as ( "object" method -- )
+   here 4 cells + postpone literal postpone ! ; immediate compile-only
+
+\g Print context information
+: .ctx
+   cr order o.s .s cr ;
+
 extended
 
 (world) +order
 : world (world) >o single odrop ;
 previous
+
+export world osize
+
 
 \ OBJECT
 
@@ -247,3 +261,6 @@ object instance ins  ' ins handler to inshandler
 extended
 
 extended
+
+end-module
+
