@@ -1,5 +1,5 @@
 \ OBJECT STACK
-
+require later.fs
 expose-module private
 
 16 cells
@@ -148,7 +148,7 @@ o0 value ohere                 \ Object arena pointer
    ['] cloneslot forslots ;
 
 \g Runtime for cloned objects
-: doobj @r+ >o @r+ execute odrop ;
+: doobj @r+ >o later odrop ;
 
 : single  (extend) parse-word (late) (extended) ;
 
@@ -157,7 +157,7 @@ o0 value ohere                 \ Object arena pointer
    does> @ state @ if postpone doobj dup , then >o single odrop ;
 
 \g Runtime for instance members
-: doinst @r+ o@ + >o @r+ execute odrop ;
+: doinst @r+ o@ + >o later odrop ;
 
 : (instance)
    create immediate sizeof @ , sizeof +!
