@@ -9,9 +9,7 @@ string instance name  :noname s" noname" name set ; execute
 : run  ( -- )
    data ticker tmp 2!
    tid @ build  
-   tid @ activate  
-   tmp 2@  begin  over @ over @execute  pause  again ;
-: stop
-   tid @ kill ;
+   tid @ activate
+   tmp 2@ begin  over @ over @execute  pause  again ;
 : cloned  cloned  newtask tid ! ;
 extended
