@@ -1,5 +1,5 @@
-object clone viewport
-viewport extend
+object clone glviewport
+glviewport extend
 rect instance geom
 : apply 
    geom unpack glViewport ?err ;
