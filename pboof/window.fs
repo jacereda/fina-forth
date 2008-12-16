@@ -20,6 +20,7 @@ string instance title :noname s" no title" ; execute title set
 1 cells member drawh  ' noop drawh !
 
 task instance t  self t data !
+t run
 
 vector2 instance mouse
 
@@ -37,20 +38,19 @@ vector2 instance mouse
       handle @ aw awSwapBuffers
    then ;
    
-:noname ( win -- )
-   as window (tick) ; t ticker !
+: ticker ( win -- )
+   as window (tick) ;
 
 : open
    title 0get  geom unpack  aw awOpen handle !
-   handle @ aw awPushCurrent  t run ;
+   handle @ aw awPushCurrent  ['] ticker t ticker ! ;
 
-: close
-   t stop  handle @ aw awClose  handle off ;
+: close  ['] drop t ticker !  handle @ aw awClose ;
 
 :noname drop close ; closeh !
 
 : apply handle @ if close open then ;
 
-: cloned cloned self t data ! ;
+: cloned cloned self t data ! t run ;
 
 extended
