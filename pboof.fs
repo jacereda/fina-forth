@@ -147,21 +147,25 @@ o0 value ohere                 \ Object arena pointer
 : cloneslots ( cloneaddr -- cloneaddr )
    ['] cloneslot forslots ;
 
+: /method odrop state @ if postpone odrop then ;
+
 \g Runtime for cloned objects
-: doobj @r+ >o later odrop ;
+: doobj @r+ >o ;
 
 : single  (extend) parse-word (late) (extended) ;
 
 : (clone) 
    create immediate here 0 , 
-   does> @ state @ if postpone doobj dup , then >o single odrop ;
+   does> @ state @ if postpone doobj dup , then 
+   >o single /method ;
 
 \g Runtime for instance members
-: doinst @r+ o@ + >o later odrop ;
+: doinst @r+ o@ + >o ;
 
 : (instance)
    create immediate sizeof @ , sizeof +!
-   does> @ state @ if postpone doinst dup , then o@ + >o single odrop ;
+   does> @ state @ if postpone doinst dup , then 
+   o@ + >o single /method ;
 
 : .mbr ( nfa -- )
    ." member at " slotaddr dup 16 based . ." : " @ . cr ;
