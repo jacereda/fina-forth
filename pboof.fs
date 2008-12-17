@@ -167,12 +167,15 @@ o0 value ohere                 \ Object arena pointer
    does> @ state @ if postpone doinst dup , then 
    o@ + >o single /method ;
 
+: .addr ( addr -- )
+   16 based . ;
+
 : .mbr ( nfa -- )
-   ." member at " slotaddr dup 16 based . ." : " @ . cr ;
+   ." member at " slotaddr dup .addr ." : " @ . cr ;
 
 : .ins ( nfa -- )
    slotaddr
-   ." instance at " dup . cr
+   ." instance at " dup .addr cr
    >o (extend) s" print" (late) (extended) odrop ;
 
 : .slot ( nfa -- )
@@ -227,7 +230,7 @@ o0 value ohere                 \ Object arena pointer
 
 \g Print object
 : print
-   odepth 2 - spaces ." object at " o@ 16 based . ." sized " sizeof @ . cr
+   odepth 2 - spaces ." object at " o@ .addr ." sized " sizeof @ . cr
    ['] .slot forslots ;
 
 \ Get current object pointer
