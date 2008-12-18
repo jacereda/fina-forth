@@ -9,11 +9,11 @@ osize value lastosize
 
 world extend
 
-{ osize -> 13 cells }
+{ osize -> 9 cells }
 { increased -> 0 cells }
 
 object clone v2
-{ increased -> 3 cells }
+{ increased -> 2 cells }
 v2 extend  
 1 cells member x  x off
 1 cells member y  y off
@@ -22,14 +22,14 @@ extended
 
 v2 clone v3
 
-{ increased -> 5 cells } 
+{ increased -> 4 cells } 
 v3  extend
 1 cells member z  z off
 extended
 { increased -> 1 cells }
 
 object clone rect 
-{ increased -> 3 cells }
+{ increased -> 2 cells }
 rect extend
 v2 instance pos
 v2 instance dim
@@ -37,15 +37,15 @@ v2 instance dim
 100 dim x !  200 dim y !
 extended
 
-{ increased -> 10 cells }
+{ increased -> 8 cells }
 
 object clone window
-{ increased -> 3 cells }
+{ increased -> 2 cells }
 window extend
 rect instance inner  300 inner dim x !  11 inner pos x ! 
 rect instance outer  400 outer dim y !  12 outer pos x ! 
 extended
-{ increased -> 26 cells }
+{ increased -> 20 cells }
 
 { rect pos x  window inner pos x = -> false }
 
@@ -71,8 +71,8 @@ cr window2 print cr
 : .window ( obj -- )
    as window print ;
 
-.ctx
 window2 self .window
+: t window2 inner pos print .ctx window2 print ;
+t
 .ctx
-
 extended
