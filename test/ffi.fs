@@ -1,3 +1,4 @@
+decimal
 library libc c
 
 libc sleep int (int) sleep
