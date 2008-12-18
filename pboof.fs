@@ -73,7 +73,7 @@ o0 value ohere                 \ Object arena pointer
 : o, ( u -- )                  \ Compile word in object arena
    >oarena , oarena> ;
 : owordlist ( -- addr )        \ Create wordlist in object arena
-   >oarena wordlist oarena> ;
+   ohere 0 o, ;
 
 -1 value mbrhandler 
 -1 value objhandler
@@ -91,7 +91,7 @@ o0 value ohere                 \ Object arena pointer
 
 \g Address of current object size field
 : sizeof ( -- addr  O: obj -- obj )
-   o@ cell+ cell+ ;
+   o@ cell+ ;
 
 \g Send late message to current object
 : (late) ( addr len --  O: obj -- ) nfa doword ;
@@ -189,7 +189,7 @@ o0 value ohere                 \ Object arena pointer
 
 \ Create the bootstrap world, just a wordlist and a sizeof field 
 \ in the object arena
-:noname owordlist 3 cells o, ; execute constant (world)
+:noname owordlist 2 cells o, ; execute constant (world)
 
 
 \ Push the bootstrap world to the object and order stacks and establish it as 
