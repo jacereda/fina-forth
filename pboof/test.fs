@@ -27,12 +27,15 @@ include pboof/string.fs
 include pboof/task.fs
 include pboof/window.fs
 include pboof/glwindow.fs
+include pboof/windowtask.fs
 include pboof/camera.fs
 include pboof/glcamera.fs
 
-window open
+window open 
+window push
 include pboof/glbuffer.fs
 include pboof/glvbuffer.fs
+window pop
 
 base c@ [if]
 : h, dup c, 8 rshift c, ;
@@ -40,6 +43,7 @@ base c@ [if]
 : h, dup 8 rshift c, dup c, ;
 [then]
 
+window push
 vbuffer bind 
 vbuffer data 
 vbuffer map 
@@ -47,8 +51,9 @@ vbuffer blob
 0 h, 0 h, 0 h,
 1 h, 0 h, 0 h,
 1 h, 1 h, 0 h,
-vbuffer /blob 2constant v 
+vbuffer /blob 2constant v
 vbuffer unmap
+window pop
 
 color4 clone fg  fx# 1 fx# 0 fx# 1 fx# 1 fg pack
 
