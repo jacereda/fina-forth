@@ -27,7 +27,7 @@
 \g @see ansstring 
 : search  ( c-addr1 u1 c-addr2 u2 -- c-addr3 u3 flag )
    2over bounds do 
-      2dup i swap same?  0= if 
+      2dup i swap same?  unless
          2drop + i swap over -  true unloop exit 
       then
    loop 2drop false ;

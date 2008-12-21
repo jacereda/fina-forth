@@ -57,7 +57,7 @@ here 1 c, 10 c, pad !
 
 \g @see ansfile
 : write-line ( c-addr u fileid -- ior )
-   >r r@ write-file ?dup 0= if newline r@ write-file then rdrop ;
+   >r r@ write-file ?dup unless newline r@ write-file then rdrop ;
 
 \g @see ansfile
 : create-file ( c-addr u fam -- fileid ior )

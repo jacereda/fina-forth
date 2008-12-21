@@ -140,7 +140,7 @@ lastname taskname !
 
 \ Pause when no key ready
 :noname
-   ekey? 0= if begin pause ekey? until then deferred ekey ; is ekey
+   ekey? unless begin pause ekey? until then deferred ekey ; is ekey
 
 \g Display task information
 : .task ( tid -- tid )

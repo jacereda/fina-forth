@@ -94,6 +94,8 @@ warnings off
 : if  ( -- a-addr 1 )
    postpone 0branch   fwmark ; immediate compile-only
 
+: unless postpone 0= postpone if ; immediate compile-only
+
 \g @see anscore
 : then ( a-addr 1 -- )
    fwresolve ; immediate compile-only
