@@ -17,9 +17,9 @@ expose-module private
 
 \ helper word for [else]
 : []handle
-   s" [if]"   2over icompare 0= if 2drop 1+ -1 exit then
-   s" [else]" 2over icompare 0= if 2drop 1- -1 exit then
-   s" [then]" 2over icompare 0= if 2drop 1- -1 exit then 
+   s" [if]"   2over icompare unless 2drop 1+ -1 exit then
+   s" [else]" 2over icompare unless 2drop 1- -1 exit then
+   s" [then]" 2over icompare unless 2drop 1- -1 exit then 
    2drop 0 ; 
 
 \g @see anstools
@@ -28,7 +28,7 @@ expose-module private
 
 \g @see anstools
 : [if] 
-   0= if postpone [else] then ; immediate
+   unless postpone [else] then ; immediate
 
 \g @see anstools
 : [then] ( -- )

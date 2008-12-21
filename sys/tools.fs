@@ -112,7 +112,7 @@ defer codesee
 : xtsee ( xt -- )
    dup (xtsee) xt>name dup 
    fimmed 0 > if ." immediate "  then   
-   /fcompo 0= if ." compile-only" then
+   /fcompo unless ." compile-only" then
    cr ;
 
 \g @see anstools

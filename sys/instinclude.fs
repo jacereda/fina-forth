@@ -8,7 +8,7 @@ libc 0realpath ptr ptr (ptr) realpath
 
 \g Determines existence of a file by opening it for read
 : file-exists? ( addr len -- flag )
-   r/o open-file 0= if close-file throw 1 then ;
+   r/o open-file unless close-file throw 1 then ;
 
 \g Returns absolute program name
 : progname ( -- addr len )
@@ -31,6 +31,6 @@ libc 0realpath ptr ptr (ptr) realpath
 
 \ If included file doesn't exist, we lookup in share dir
 :noname
-   2dup file-exists? 0= if >share then deferred inchook0 ; is inchook0
+   2dup file-exists? unless >share then deferred inchook0 ; is inchook0
 
 end-module
