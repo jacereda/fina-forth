@@ -40,7 +40,7 @@ create blkbuf 9 cells allot
    dup if dup @ 9 = else 1 then ;
 : (solve) ( addr -- addr|0 )
    dup end = if drop 0 exit then
-   validate 0= if exit then
+   validate unless exit then
    dup @ if \ Found a fixed number, skip it
          cell+ recurse back
    else \ Found a free number, try all the possibilities

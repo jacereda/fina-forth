@@ -48,7 +48,7 @@ create res 256 allot
 
 : cconstant ( "name" -- )
    bl parse inp place
-   inp find nip 0= if
+   inp find nip unless
       inp count cexpr res place
       s"  constant "  res append
       inp count res append
@@ -58,8 +58,8 @@ create res 256 allot
    then ;
 
 0 [if]
-cconstant GLUT_API_VERSION
-.( GLUT_API_VERSION: ) GLUT_API_VERSION . cr
+cconstant GL_INT
+.( GL_INT: ) GL_INT . cr
 cconstant GL_ONE
 .( GL_ONE: ) GL_ONE . cr
 [then]

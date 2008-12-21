@@ -845,7 +845,7 @@ create #order ( -- a-addr )
 
 \g Get name for colon definition
 : colname ( xt -- c-addr)
-   dup ?dodefine nip 0= if drop 0 exit then
+   dup ?dodefine nip unless drop 0 exit then
    >r r@ begin cell- dup name>xt r@ = over cell- @ link? and  until rdrop ;
 
 \g Get name for primitive definition   
@@ -873,7 +873,7 @@ create #order ( -- a-addr )
 
 : match? ( c-addr -- c-addr )
    dup namecount parsed @ = if 
-      parsed 2@ isame? 0= if dup to found then
+      parsed 2@ isame? unless dup to found then
    else drop then ;  
 
 \g Find word in wordlist, sets PARSED, result also stored in FOUND
@@ -1106,7 +1106,7 @@ bcreate exstr ,"  exception # "
          refill drop 
          xtof interpret catch .error! ?dup 0=
       while
-         state @ 0= if .prompt then
+         state @ unless .prompt then
       repeat
       .error sp0 @ sp!
    again ;
