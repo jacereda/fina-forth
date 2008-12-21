@@ -1,4 +1,4 @@
 : ce 
    s" marker ___" evaluate 
-   :noname begin parse-word dup while evaluate repeat 2drop postpone ; 
+   :noname 0 parse evaluate postpone ;
    execute s" ___" evaluate ;
