@@ -167,6 +167,14 @@ o0 value ohere                 \ Object arena pointer
    does> @ state @ if postpone doinst dup , then 
    o@ + >o single /method ;
 
+: doref @r+ o@ + @ >o ;
+
+: (reference)
+   dup o,
+   create immediate  sizeof @ , 1 cells sizeof +!
+   does> @ state @ if postpone doref dup , then
+   o@ + @ >o single /method ;
+
 : .addr ( addr -- )
    16 based . ;
 
@@ -224,6 +232,11 @@ o0 value ohere                 \ Object arena pointer
 \g Instance active object as member of the previously active object
 : instance ( "name" -- )
    o@ sizeof @ extended (instance) >o (extend) late cloned ;
+
+: reference ( "name" -- )
+   o@ extended (reference) >o (extend) ;
+
+: rto ' >body @ o@ + ! ;
 
 \g Dump object memory 
 : dump  o@ sizeof @ dump ;

@@ -75,4 +75,13 @@ window2 self .window
 : t window2 inner pos print .ctx window2 print ;
 t
 .ctx
+
+object clone reftest 
+reftest extend
+window reference w
+w print
+: test w print ;
+test
+extended
+
 extended
