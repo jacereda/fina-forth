@@ -75,6 +75,7 @@ o0 value ohere                 \ Object arena pointer
 : owordlist ( -- addr )        \ Create wordlist in object arena
    ohere 0 o, ;
 
+\ HELPERS
 -1 value mbrhandler 
 -1 value objhandler
 -1 value inshandler
@@ -236,7 +237,8 @@ o0 value ohere                 \ Object arena pointer
 : reference ( "name" -- )
    o@ extended (reference) >o (extend) ;
 
-: rto ' >body @ o@ + ! ;
+: dorto @r+ o@ + ! ;
+: rto postpone dorto ' >body @ , ; immediate compile-only
 
 \g Dump object memory 
 : dump  o@ sizeof @ dump ;
