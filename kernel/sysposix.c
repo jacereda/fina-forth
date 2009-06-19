@@ -170,9 +170,9 @@ void Sys_PutChar(unsigned c)
 {
         unsigned ret;
         ret = putchar(c);
-        assert(ret == c);
+	errnoThrow(ret != c);
         ret = fflush(stdout);
-        assert(ret == 0);
+	errnoThrow(ret != 0);
 }
 
 void Sys_MemMove(char * to, const char * from, unsigned bytes)
