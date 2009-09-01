@@ -294,7 +294,7 @@ XT_BL:
   .byte 3 ,117 ,109 ,43 
  .align 2
 _XT_UMPLUS:
- .long  0xdeadbeef,XT_UMPLUS
+ .long  -559038737,XT_UMPLUS
 
 
  .align 2
@@ -303,7 +303,7 @@ _XT_UMPLUS:
   .byte 3 ,97 ,110 ,100 
  .align 2
 _XT_AND:
- .long  0xdeadbeef,XT_AND
+ .long  -559038737,XT_AND
 
 
  .align 2
@@ -312,7 +312,7 @@ _XT_AND:
   .byte 2 ,50 ,42 
  .align 2
 _XT_TWOSTAR:
- .long  0xdeadbeef,XT_TWOSTAR
+ .long  -559038737,XT_TWOSTAR
 
 
  .align 2
@@ -321,7 +321,7 @@ _XT_TWOSTAR:
   .byte 2 ,50 ,47 
  .align 2
 _XT_TWOSLASH:
- .long  0xdeadbeef,XT_TWOSLASH
+ .long  -559038737,XT_TWOSLASH
 
 
  .align 2
@@ -330,7 +330,7 @@ _XT_TWOSLASH:
   .byte 3 ,120 ,111 ,114 
  .align 2
 _XT_XOR:
- .long  0xdeadbeef,XT_XOR
+ .long  -559038737,XT_XOR
 
 
  .align 2
@@ -339,7 +339,7 @@ _XT_XOR:
   .byte 2 ,111 ,114 
  .align 2
 _XT_OR:
- .long  0xdeadbeef,XT_OR
+ .long  -559038737,XT_OR
 
 
  .align 2
@@ -348,7 +348,7 @@ _XT_OR:
   .byte 2 ,48 ,60 
  .align 2
 _XT_ZEROLT:
- .long  0xdeadbeef,XT_ZEROLT
+ .long  -559038737,XT_ZEROLT
 
 
  .align 2
@@ -357,7 +357,7 @@ _XT_ZEROLT:
   .byte 2 ,48 ,61 
  .align 2
 _XT_ZEROEQUALS:
- .long  0xdeadbeef,XT_ZEROEQUALS
+ .long  -559038737,XT_ZEROEQUALS
 
 
  .align 2
@@ -366,7 +366,7 @@ _XT_ZEROEQUALS:
   .byte 3 ,114 ,120 ,63 
  .align 2
 _XT_RXQ:
- .long  0xdeadbeef,XT_RXQ
+ .long  -559038737,XT_RXQ
 
 
  .align 2
@@ -375,7 +375,7 @@ _XT_RXQ:
   .byte 3 ,114 ,120 ,64 
  .align 2
 _XT_RXFETCH:
- .long  0xdeadbeef,XT_RXFETCH
+ .long  -559038737,XT_RXFETCH
 
 
  .align 2
@@ -384,7 +384,7 @@ _XT_RXFETCH:
   .byte 3 ,116 ,120 ,63 
  .align 2
 _XT_TXQ:
- .long  0xdeadbeef,XT_TXQ
+ .long  -559038737,XT_TXQ
 
 
  .align 2
@@ -393,7 +393,7 @@ _XT_TXQ:
   .byte 3 ,116 ,120 ,33 
  .align 2
 _XT_TXSTORE:
- .long  0xdeadbeef,XT_TXSTORE
+ .long  -559038737,XT_TXSTORE
 
 
  .align 2
@@ -402,7 +402,7 @@ _XT_TXSTORE:
   .byte 4 ,100 ,114 ,111 ,112 
  .align 2
 _XT_DROP:
- .long  0xdeadbeef,XT_DROP
+ .long  -559038737,XT_DROP
 
 
  .align 2
@@ -411,7 +411,7 @@ _XT_DROP:
   .byte 3 ,100 ,117 ,112 
  .align 2
 _XT_DUP:
- .long  0xdeadbeef,XT_DUP
+ .long  -559038737,XT_DUP
 
 
  .align 2
@@ -420,7 +420,7 @@ _XT_DUP:
   .byte 4 ,111 ,118 ,101 ,114 
  .align 2
 _XT_OVER:
- .long  0xdeadbeef,XT_OVER
+ .long  -559038737,XT_OVER
 
 
  .align 2
@@ -429,7 +429,7 @@ _XT_OVER:
   .byte 4 ,115 ,119 ,97 ,112 
  .align 2
 _XT_SWAP:
- .long  0xdeadbeef,XT_SWAP
+ .long  -559038737,XT_SWAP
 
 
  .align 2
@@ -438,7 +438,7 @@ _XT_SWAP:
   .byte 3 ,114 ,112 ,64 
  .align 2
 _XT_RPFETCH:
- .long  0xdeadbeef,XT_RPFETCH
+ .long  -559038737,XT_RPFETCH
 
 
  .align 2
@@ -447,7 +447,7 @@ _XT_RPFETCH:
   .byte 3 ,114 ,112 ,33 
  .align 2
 _XT_RPSTORE:
- .long  0xdeadbeef,XT_RPSTORE
+ .long  -559038737,XT_RPSTORE
 
 
  .align 2
@@ -456,7 +456,7 @@ _XT_RPSTORE:
   .byte 3 ,115 ,112 ,64 
  .align 2
 _XT_SPFETCH:
- .long  0xdeadbeef,XT_SPFETCH
+ .long  -559038737,XT_SPFETCH
 
 
  .align 2
@@ -465,7 +465,7 @@ _XT_SPFETCH:
   .byte 3 ,115 ,112 ,33 
  .align 2
 _XT_SPSTORE:
- .long  0xdeadbeef,XT_SPSTORE
+ .long  -559038737,XT_SPSTORE
 
 
  .align 2
@@ -474,7 +474,7 @@ _XT_SPSTORE:
   .byte 1 ,33 
  .align 2
 _XT_STORE:
- .long  0xdeadbeef,XT_STORE
+ .long  -559038737,XT_STORE
 
 
  .align 2
@@ -483,7 +483,7 @@ _XT_STORE:
   .byte 1 ,64 
  .align 2
 _XT_FETCH:
- .long  0xdeadbeef,XT_FETCH
+ .long  -559038737,XT_FETCH
 
 
  .align 2
@@ -492,7 +492,7 @@ _XT_FETCH:
   .byte 2 ,99 ,33 
  .align 2
 _XT_CSTORE:
- .long  0xdeadbeef,XT_CSTORE
+ .long  -559038737,XT_CSTORE
 
 
  .align 2
@@ -501,7 +501,7 @@ _XT_CSTORE:
   .byte 2 ,99 ,64 
  .align 2
 _XT_CFETCH:
- .long  0xdeadbeef,XT_CFETCH
+ .long  -559038737,XT_CFETCH
 
 
  .align 2
@@ -510,7 +510,7 @@ _XT_CFETCH:
   .byte 4 ,109 ,111 ,118 ,101 
  .align 2
 _XT_MOVE:
- .long  0xdeadbeef,XT_MOVE
+ .long  -559038737,XT_MOVE
 
 
  .align 2
@@ -519,7 +519,7 @@ _XT_MOVE:
   .byte 6 ,105 ,115 ,97 ,109 ,101 ,63 
  .align 2
 _XT_ISAMEQ:
- .long  0xdeadbeef,XT_ISAMEQ
+ .long  -559038737,XT_ISAMEQ
 
 
  .align 2
@@ -528,7 +528,7 @@ _XT_ISAMEQ:
   .byte 5 ,115 ,97 ,109 ,101 ,63 
  .align 2
 _XT_SAMEQ:
- .long  0xdeadbeef,XT_SAMEQ
+ .long  -559038737,XT_SAMEQ
 
 
  .align 2
@@ -537,7 +537,7 @@ _XT_SAMEQ:
   .byte 7 ,101 ,120 ,101 ,99 ,117 ,116 ,101 
  .align 2
 _XT_EXECUTE:
- .long  0xdeadbeef,XT_EXECUTE
+ .long  -559038737,XT_EXECUTE
 
 
  .align 2
@@ -546,7 +546,7 @@ _XT_EXECUTE:
   .byte 7 ,101 ,110 ,100 ,116 ,105 ,99 ,107 
  .align 2
 _XT_ENDTICK:
- .long  0xdeadbeef,XT_ENDTICK
+ .long  -559038737,XT_ENDTICK
 
 
  .align 2
@@ -555,7 +555,7 @@ _XT_ENDTICK:
   .byte 3 ,98 ,121 ,101 
  .align 2
 _XT_BYE:
- .long  0xdeadbeef,XT_BYE
+ .long  -559038737,XT_BYE
 
 
  .align 2
@@ -564,7 +564,7 @@ _XT_BYE:
   .byte 9 ,63 ,100 ,111 ,100 ,101 ,102 ,105 ,110 ,101 
  .align 2
 _XT_QDODEFINE:
- .long  0xdeadbeef,XT_QDODEFINE
+ .long  -559038737,XT_QDODEFINE
 
 
  .align 2
@@ -573,7 +573,7 @@ _XT_QDODEFINE:
   .byte 3 ,120 ,116 ,44 
  .align 2
 _XT_XTCOMMA:
- .long  0xdeadbeef,XT_XTCOMMA
+ .long  -559038737,XT_XTCOMMA
 
 
  .align 2
@@ -582,7 +582,7 @@ _XT_XTCOMMA:
   .byte 2 ,109 ,115 
  .align 2
 _XT_MS:
- .long  0xdeadbeef,XT_MS
+ .long  -559038737,XT_MS
 
 
  .align 2
@@ -591,7 +591,7 @@ _XT_MS:
   .byte 9 ,116 ,105 ,109 ,101 ,38 ,100 ,97 ,116 ,101 
  .align 2
 _XT_TIMEANDDATE:
- .long  0xdeadbeef,XT_TIMEANDDATE
+ .long  -559038737,XT_TIMEANDDATE
 
 
  .align 2
@@ -600,7 +600,7 @@ _XT_TIMEANDDATE:
   .byte 40 ,100 ,111 ,99 ,114 ,101 ,97 ,116 ,101 
  .align 2
 _XT_DOCREATE:
- .long  0xdeadbeef,XT_DOCREATE
+ .long  -559038737,XT_DOCREATE
 
 
  .align 2
@@ -609,7 +609,7 @@ _XT_DOCREATE:
   .byte 37 ,100 ,111 ,108 ,105 ,116 
  .align 2
 _XT_DOLIT:
- .long  0xdeadbeef,XT_DOLIT
+ .long  -559038737,XT_DOLIT
 
 
  .align 2
@@ -618,7 +618,7 @@ _XT_DOLIT:
   .byte 38 ,100 ,111 ,117 ,115 ,101 ,114 
  .align 2
 _XT_DOUSER:
- .long  0xdeadbeef,XT_DOUSER
+ .long  -559038737,XT_DOUSER
 
 
  .align 2
@@ -627,7 +627,7 @@ _XT_DOUSER:
   .byte 37 ,100 ,111 ,118 ,97 ,114 
  .align 2
 _XT_DOVAR:
- .long  0xdeadbeef,XT_DOVAR
+ .long  -559038737,XT_DOVAR
 
 
  .align 2
@@ -636,7 +636,7 @@ _XT_DOVAR:
   .byte 39 ,100 ,111 ,99 ,111 ,110 ,115 ,116 
  .align 2
 _XT_DOCONST:
- .long  0xdeadbeef,XT_DOCONST
+ .long  -559038737,XT_DOCONST
 
 
  .align 2
@@ -645,7 +645,7 @@ _XT_DOCONST:
   .byte 39 ,100 ,111 ,118 ,97 ,108 ,117 ,101 
  .align 2
 _XT_DOVALUE:
- .long  0xdeadbeef,XT_DOVALUE
+ .long  -559038737,XT_DOVALUE
 
 
  .align 2
@@ -654,7 +654,7 @@ _XT_DOVALUE:
   .byte 38 ,100 ,111 ,108 ,105 ,115 ,116 
  .align 2
 _XT_DOLIST:
- .long  0xdeadbeef,XT_DOLIST
+ .long  -559038737,XT_DOLIST
 
 
  .align 2
@@ -663,7 +663,7 @@ _XT_DOLIST:
   .byte 38 ,100 ,111 ,108 ,111 ,111 ,112 
  .align 2
 _XT_DOLOOP:
- .long  0xdeadbeef,XT_DOLOOP
+ .long  -559038737,XT_DOLOOP
 
 
  .align 2
@@ -672,7 +672,7 @@ _XT_DOLOOP:
   .byte 39 ,100 ,111 ,43 ,108 ,111 ,111 ,112 
  .align 2
 _XT_DOPLUSLOOP:
- .long  0xdeadbeef,XT_DOPLUSLOOP
+ .long  -559038737,XT_DOPLUSLOOP
 
 
  .align 2
@@ -681,7 +681,7 @@ _XT_DOPLUSLOOP:
   .byte 38 ,100 ,111 ,110 ,101 ,120 ,116 
  .align 2
 _XT_DONEXT:
- .long  0xdeadbeef,XT_DONEXT
+ .long  -559038737,XT_DONEXT
 
 
  .align 2
@@ -690,7 +690,7 @@ _XT_DONEXT:
   .byte 39 ,48 ,98 ,114 ,97 ,110 ,99 ,104 
  .align 2
 _XT_ZEROBRANCH:
- .long  0xdeadbeef,XT_ZEROBRANCH
+ .long  -559038737,XT_ZEROBRANCH
 
 
  .align 2
@@ -699,7 +699,7 @@ _XT_ZEROBRANCH:
   .byte 38 ,98 ,114 ,97 ,110 ,99 ,104 
  .align 2
 _XT_BRANCH:
- .long  0xdeadbeef,XT_BRANCH
+ .long  -559038737,XT_BRANCH
 
 
  .align 2
@@ -708,7 +708,7 @@ _XT_BRANCH:
   .byte 36 ,101 ,120 ,105 ,116 
  .align 2
 _XT_EXIT:
- .long  0xdeadbeef,XT_EXIT
+ .long  -559038737,XT_EXIT
 
 
  .align 2
@@ -717,7 +717,7 @@ _XT_EXIT:
   .byte 33 ,105 
  .align 2
 _XT_I:
- .long  0xdeadbeef,XT_I
+ .long  -559038737,XT_I
 
 
  .align 2
@@ -726,7 +726,7 @@ _XT_I:
   .byte 34 ,62 ,114 
  .align 2
 _XT_GTR:
- .long  0xdeadbeef,XT_GTR
+ .long  -559038737,XT_GTR
 
 
  .align 2
@@ -735,7 +735,7 @@ _XT_GTR:
   .byte 34 ,114 ,62 
  .align 2
 _XT_RGT:
- .long  0xdeadbeef,XT_RGT
+ .long  -559038737,XT_RGT
 
 
  .align 2
@@ -744,7 +744,7 @@ _XT_RGT:
   .byte 34 ,114 ,64 
  .align 2
 _XT_RFETCH:
- .long  0xdeadbeef,XT_RFETCH
+ .long  -559038737,XT_RFETCH
 
 
  .align 2
@@ -753,7 +753,7 @@ _XT_RFETCH:
   .byte 8 ,97 ,108 ,108 ,111 ,99 ,97 ,116 ,101 
  .align 2
 _XT_ALLOCATE:
- .long  0xdeadbeef,XT_ALLOCATE
+ .long  -559038737,XT_ALLOCATE
 
 
  .align 2
@@ -762,7 +762,7 @@ _XT_ALLOCATE:
   .byte 4 ,102 ,114 ,101 ,101 
  .align 2
 _XT_FREE:
- .long  0xdeadbeef,XT_FREE
+ .long  -559038737,XT_FREE
 
 
  .align 2
@@ -771,7 +771,7 @@ _XT_FREE:
   .byte 6 ,114 ,101 ,115 ,105 ,122 ,101 
  .align 2
 _XT_RESIZE:
- .long  0xdeadbeef,XT_RESIZE
+ .long  -559038737,XT_RESIZE
 
 
  .align 2
@@ -780,7 +780,7 @@ _XT_RESIZE:
   .byte 5 ,111 ,112 ,101 ,110 ,102 
  .align 2
 _XT_OPENF:
- .long  0xdeadbeef,XT_OPENF
+ .long  -559038737,XT_OPENF
 
 
  .align 2
@@ -789,7 +789,7 @@ _XT_OPENF:
   .byte 6 ,99 ,108 ,111 ,115 ,101 ,102 
  .align 2
 _XT_CLOSEF:
- .long  0xdeadbeef,XT_CLOSEF
+ .long  -559038737,XT_CLOSEF
 
 
  .align 2
@@ -798,7 +798,7 @@ _XT_CLOSEF:
   .byte 5 ,114 ,101 ,97 ,100 ,102 
  .align 2
 _XT_READF:
- .long  0xdeadbeef,XT_READF
+ .long  -559038737,XT_READF
 
 
  .align 2
@@ -807,7 +807,7 @@ _XT_READF:
   .byte 6 ,119 ,114 ,105 ,116 ,101 ,102 
  .align 2
 _XT_WRITEF:
- .long  0xdeadbeef,XT_WRITEF
+ .long  -559038737,XT_WRITEF
 
 
  .align 2
@@ -816,7 +816,7 @@ _XT_WRITEF:
   .byte 5 ,109 ,109 ,97 ,112 ,102 
  .align 2
 _XT_MMAPF:
- .long  0xdeadbeef,XT_MMAPF
+ .long  -559038737,XT_MMAPF
 
 
  .align 2
@@ -825,7 +825,7 @@ _XT_MMAPF:
   .byte 5 ,115 ,105 ,122 ,101 ,102 
  .align 2
 _XT_SIZEF:
- .long  0xdeadbeef,XT_SIZEF
+ .long  -559038737,XT_SIZEF
 
 
  .align 2
@@ -834,7 +834,7 @@ _XT_SIZEF:
   .byte 5 ,115 ,101 ,101 ,107 ,102 
  .align 2
 _XT_SEEKF:
- .long  0xdeadbeef,XT_SEEKF
+ .long  -559038737,XT_SEEKF
 
 
  .align 2
@@ -843,7 +843,7 @@ _XT_SEEKF:
   .byte 5 ,116 ,101 ,108 ,108 ,102 
  .align 2
 _XT_TELLF:
- .long  0xdeadbeef,XT_TELLF
+ .long  -559038737,XT_TELLF
 
 
  .align 2
@@ -852,7 +852,7 @@ _XT_TELLF:
   .byte 5 ,108 ,105 ,110 ,101 ,102 
  .align 2
 _XT_LINEF:
- .long  0xdeadbeef,XT_LINEF
+ .long  -559038737,XT_LINEF
 
 
  .align 2
@@ -861,7 +861,7 @@ _XT_LINEF:
   .byte 7 ,100 ,101 ,108 ,101 ,116 ,101 ,102 
  .align 2
 _XT_DELETEF:
- .long  0xdeadbeef,XT_DELETEF
+ .long  -559038737,XT_DELETEF
 
 
  .align 2
@@ -870,7 +870,7 @@ _XT_DELETEF:
   .byte 5 ,115 ,116 ,97 ,116 ,102 
  .align 2
 _XT_STATF:
- .long  0xdeadbeef,XT_STATF
+ .long  -559038737,XT_STATF
 
 
  .align 2
@@ -879,7 +879,7 @@ _XT_STATF:
   .byte 4 ,114 ,101 ,110 ,102 
  .align 2
 _XT_RENF:
- .long  0xdeadbeef,XT_RENF
+ .long  -559038737,XT_RENF
 
 
  .align 2
@@ -888,7 +888,7 @@ _XT_RENF:
   .byte 6 ,116 ,114 ,117 ,110 ,99 ,102 
  .align 2
 _XT_TRUNCF:
- .long  0xdeadbeef,XT_TRUNCF
+ .long  -559038737,XT_TRUNCF
 
 
  .align 2
@@ -897,7 +897,7 @@ _XT_TRUNCF:
   .byte 6 ,102 ,108 ,117 ,115 ,104 ,102 
  .align 2
 _XT_FLUSHF:
- .long  0xdeadbeef,XT_FLUSHF
+ .long  -559038737,XT_FLUSHF
 
 
  .align 2
@@ -906,7 +906,7 @@ _XT_FLUSHF:
   .byte 8 ,102 ,120 ,62 ,102 ,108 ,111 ,97 ,116 
  .align 2
 _XT_FXGTFLOAT:
- .long  0xdeadbeef,XT_FXGTFLOAT
+ .long  -559038737,XT_FXGTFLOAT
 
 
  .align 2
@@ -915,7 +915,7 @@ _XT_FXGTFLOAT:
   .byte 8 ,102 ,108 ,111 ,97 ,116 ,62 ,102 ,120 
  .align 2
 _XT_FLOATGTFX:
- .long  0xdeadbeef,XT_FLOATGTFX
+ .long  -559038737,XT_FLOATGTFX
 
 
  .align 2
@@ -924,7 +924,7 @@ _XT_FLOATGTFX:
   .byte 9 ,102 ,120 ,62 ,100 ,111 ,117 ,98 ,108 ,101 
  .align 2
 _XT_FXGTDOUBLE:
- .long  0xdeadbeef,XT_FXGTDOUBLE
+ .long  -559038737,XT_FXGTDOUBLE
 
 
  .align 2
@@ -933,7 +933,7 @@ _XT_FXGTDOUBLE:
   .byte 9 ,100 ,111 ,117 ,98 ,108 ,101 ,62 ,102 ,120 
  .align 2
 _XT_DOUBLEGTFX:
- .long  0xdeadbeef,XT_DOUBLEGTFX
+ .long  -559038737,XT_DOUBLEGTFX
 
 
  .align 2
@@ -942,7 +942,7 @@ _XT_DOUBLEGTFX:
   .byte 6 ,102 ,102 ,112 ,114 ,101 ,112 
  .align 2
 _XT_FFPREP:
- .long  0xdeadbeef,XT_FFPREP
+ .long  -559038737,XT_FFPREP
 
 
  .align 2
@@ -951,7 +951,7 @@ _XT_FFPREP:
   .byte 6 ,102 ,102 ,99 ,97 ,108 ,108 
  .align 2
 _XT_FFCALL:
- .long  0xdeadbeef,XT_FFCALL
+ .long  -559038737,XT_FFCALL
 
 
  .align 2
@@ -960,7 +960,7 @@ _XT_FFCALL:
   .byte 6 ,102 ,102 ,99 ,108 ,111 ,115 
  .align 2
 _XT_FFCLOS:
- .long  0xdeadbeef,XT_FFCLOS
+ .long  -559038737,XT_FFCLOS
 
 
  .align 2
@@ -969,7 +969,7 @@ _XT_FFCLOS:
   .byte 6 ,102 ,102 ,118 ,111 ,105 ,100 
  .align 2
 _XT_FFVOID:
- .long  0xdeadbeef,XT_FFVOID
+ .long  -559038737,XT_FFVOID
 
 
  .align 2
@@ -978,7 +978,7 @@ _XT_FFVOID:
   .byte 5 ,102 ,102 ,105 ,110 ,116 
  .align 2
 _XT_FFINT:
- .long  0xdeadbeef,XT_FFINT
+ .long  -559038737,XT_FFINT
 
 
  .align 2
@@ -987,7 +987,7 @@ _XT_FFINT:
   .byte 7 ,102 ,102 ,102 ,108 ,111 ,97 ,116 
  .align 2
 _XT_FFFLOAT:
- .long  0xdeadbeef,XT_FFFLOAT
+ .long  -559038737,XT_FFFLOAT
 
 
  .align 2
@@ -996,7 +996,7 @@ _XT_FFFLOAT:
   .byte 8 ,102 ,102 ,100 ,111 ,117 ,98 ,108 ,101 
  .align 2
 _XT_FFDOUBLE:
- .long  0xdeadbeef,XT_FFDOUBLE
+ .long  -559038737,XT_FFDOUBLE
 
 
  .align 2
@@ -1005,7 +1005,7 @@ _XT_FFDOUBLE:
   .byte 5 ,102 ,102 ,112 ,116 ,114 
  .align 2
 _XT_FFPTR:
- .long  0xdeadbeef,XT_FFPTR
+ .long  -559038737,XT_FFPTR
 
 
  .align 2
@@ -1014,7 +1014,7 @@ _XT_FFPTR:
   .byte 7 ,102 ,102 ,105 ,110 ,116 ,54 ,52 
  .align 2
 _XT_FFINTSIXFOUR:
- .long  0xdeadbeef,XT_FFINTSIXFOUR
+ .long  -559038737,XT_FFINTSIXFOUR
 
 
  .align 2
@@ -1023,7 +1023,7 @@ _XT_FFINTSIXFOUR:
   .byte 6 ,100 ,108 ,111 ,112 ,101 ,110 
  .align 2
 _XT_DLOPEN:
- .long  0xdeadbeef,XT_DLOPEN
+ .long  -559038737,XT_DLOPEN
 
 
  .align 2
@@ -1032,7 +1032,7 @@ _XT_DLOPEN:
   .byte 5 ,100 ,108 ,115 ,121 ,109 
  .align 2
 _XT_DLSYM:
- .long  0xdeadbeef,XT_DLSYM
+ .long  -559038737,XT_DLSYM
 
 
  .align 2
@@ -1041,7 +1041,7 @@ _XT_DLSYM:
   .byte 4 ,97 ,114 ,103 ,99 
  .align 2
 _XT_ARGC:
- .long  0xdeadbeef,XT_ARGC
+ .long  -559038737,XT_ARGC
 
 
  .align 2
@@ -1050,7 +1050,7 @@ _XT_ARGC:
   .byte 4 ,97 ,114 ,103 ,118 
  .align 2
 _XT_ARGV:
- .long  0xdeadbeef,XT_ARGV
+ .long  -559038737,XT_ARGV
 
 
  .align 2
@@ -1059,7 +1059,7 @@ _XT_ARGV:
   .byte 5 ,120 ,116 ,101 ,110 ,100 
  .align 2
 _XT_XTEND:
- .long  0xdeadbeef,XT_XTEND
+ .long  -559038737,XT_XTEND
 
 
  .align 2
@@ -1068,7 +1068,7 @@ _XT_XTEND:
   .byte 4 ,110 ,111 ,111 ,112 
  .align 2
 _XT_NOOP:
- .long  0xdeadbeef,XT_NOOP
+ .long  -559038737,XT_NOOP
 
 
  .align 2
@@ -1223,7 +1223,7 @@ XT_SPACES:
   .byte 4 ,63 ,100 ,117 ,112 
  .align 2
 _XT_QDUP:
- .long  0xdeadbeef,XT_QDUP
+ .long  -559038737,XT_QDUP
 
 
  .align 2
@@ -1232,7 +1232,7 @@ _XT_QDUP:
   .byte 3 ,110 ,105 ,112 
  .align 2
 _XT_NIP:
- .long  0xdeadbeef,XT_NIP
+ .long  -559038737,XT_NIP
 
 
  .align 2
@@ -1241,7 +1241,7 @@ _XT_NIP:
   .byte 3 ,114 ,111 ,116 
  .align 2
 _XT_ROT:
- .long  0xdeadbeef,XT_ROT
+ .long  -559038737,XT_ROT
 
 
  .align 2
@@ -1250,7 +1250,7 @@ _XT_ROT:
   .byte 5 ,50 ,100 ,114 ,111 ,112 
  .align 2
 _XT_TWODROP:
- .long  0xdeadbeef,XT_TWODROP
+ .long  -559038737,XT_TWODROP
 
 
  .align 2
@@ -1259,7 +1259,7 @@ _XT_TWODROP:
   .byte 4 ,50 ,100 ,117 ,112 
  .align 2
 _XT_TWODUP:
- .long  0xdeadbeef,XT_TWODUP
+ .long  -559038737,XT_TWODUP
 
 
  .align 2
@@ -1268,7 +1268,7 @@ _XT_TWODUP:
   .byte 5 ,50 ,115 ,119 ,97 ,112 
  .align 2
 _XT_TWOSWAP:
- .long  0xdeadbeef,XT_TWOSWAP
+ .long  -559038737,XT_TWOSWAP
 
 
  .align 2
@@ -1277,7 +1277,7 @@ _XT_TWOSWAP:
   .byte 5 ,50 ,111 ,118 ,101 ,114 
  .align 2
 _XT_TWOOVER:
- .long  0xdeadbeef,XT_TWOOVER
+ .long  -559038737,XT_TWOOVER
 
 
  .align 2
@@ -1286,7 +1286,7 @@ _XT_TWOOVER:
   .byte 38 ,117 ,110 ,108 ,111 ,111 ,112 
  .align 2
 _XT_UNLOOP:
- .long  0xdeadbeef,XT_UNLOOP
+ .long  -559038737,XT_UNLOOP
 
 
  .align 2
@@ -1295,7 +1295,7 @@ _XT_UNLOOP:
   .byte 37 ,114 ,100 ,114 ,111 ,112 
  .align 2
 _XT_RDROP:
- .long  0xdeadbeef,XT_RDROP
+ .long  -559038737,XT_RDROP
 
 
  .align 2
@@ -1340,7 +1340,7 @@ XT_RDEPTH:
   .byte 4 ,112 ,105 ,99 ,107 
  .align 2
 _XT_PICK:
- .long  0xdeadbeef,XT_PICK
+ .long  -559038737,XT_PICK
 
 
  .align 2
@@ -1403,7 +1403,7 @@ XT_CATCH:
   .byte 1 ,43 
  .align 2
 _XT_PLUS:
- .long  0xdeadbeef,XT_PLUS
+ .long  -559038737,XT_PLUS
 
 
  .align 2
@@ -1412,7 +1412,7 @@ _XT_PLUS:
   .byte 2 ,49 ,43 
  .align 2
 _XT_ONEPLUS:
- .long  0xdeadbeef,XT_ONEPLUS
+ .long  -559038737,XT_ONEPLUS
 
 
  .align 2
@@ -1421,7 +1421,7 @@ _XT_ONEPLUS:
   .byte 2 ,49 ,45 
  .align 2
 _XT_ONEMINUS:
- .long  0xdeadbeef,XT_ONEMINUS
+ .long  -559038737,XT_ONEMINUS
 
 
  .align 2
@@ -1430,7 +1430,7 @@ _XT_ONEMINUS:
   .byte 6 ,105 ,110 ,118 ,101 ,114 ,116 
  .align 2
 _XT_INVERT:
- .long  0xdeadbeef,XT_INVERT
+ .long  -559038737,XT_INVERT
 
 
  .align 2
@@ -1439,7 +1439,7 @@ _XT_INVERT:
   .byte 6 ,110 ,101 ,103 ,97 ,116 ,101 
  .align 2
 _XT_NEGATE:
- .long  0xdeadbeef,XT_NEGATE
+ .long  -559038737,XT_NEGATE
 
 
  .align 2
@@ -1448,7 +1448,7 @@ _XT_NEGATE:
   .byte 1 ,45 
  .align 2
 _XT_MINUS:
- .long  0xdeadbeef,XT_MINUS
+ .long  -559038737,XT_MINUS
 
 
  .align 2
@@ -1457,7 +1457,7 @@ _XT_MINUS:
   .byte 33 ,106 
  .align 2
 _XT_J:
- .long  0xdeadbeef,XT_J
+ .long  -559038737,XT_J
 
 
  .align 2
@@ -1466,7 +1466,7 @@ _XT_J:
   .byte 3 ,48 ,60 ,62 
  .align 2
 _XT_ZEROLTGT:
- .long  0xdeadbeef,XT_ZEROLTGT
+ .long  -559038737,XT_ZEROLTGT
 
 
  .align 2
@@ -1475,7 +1475,7 @@ _XT_ZEROLTGT:
   .byte 1 ,60 
  .align 2
 _XT_LT:
- .long  0xdeadbeef,XT_LT
+ .long  -559038737,XT_LT
 
 
  .align 2
@@ -1484,7 +1484,7 @@ _XT_LT:
   .byte 2 ,117 ,60 
  .align 2
 _XT_ULT:
- .long  0xdeadbeef,XT_ULT
+ .long  -559038737,XT_ULT
 
 
  .align 2
@@ -1493,7 +1493,7 @@ _XT_ULT:
   .byte 1 ,62 
  .align 2
 _XT_GT:
- .long  0xdeadbeef,XT_GT
+ .long  -559038737,XT_GT
 
 
  .align 2
@@ -1520,7 +1520,7 @@ XT_UGTEQUALS:
   .byte 1 ,61 
  .align 2
 _XT_EQUALS:
- .long  0xdeadbeef,XT_EQUALS
+ .long  -559038737,XT_EQUALS
 
 
  .align 2
@@ -1529,7 +1529,7 @@ _XT_EQUALS:
   .byte 2 ,60 ,62 
  .align 2
 _XT_LTGT:
- .long  0xdeadbeef,XT_LTGT
+ .long  -559038737,XT_LTGT
 
 
  .align 2
@@ -1538,7 +1538,7 @@ _XT_LTGT:
   .byte 5 ,99 ,101 ,108 ,108 ,43 
  .align 2
 _XT_CELLPLUS:
- .long  0xdeadbeef,XT_CELLPLUS
+ .long  -559038737,XT_CELLPLUS
 
 
  .align 2
@@ -1547,7 +1547,7 @@ _XT_CELLPLUS:
   .byte 36 ,100 ,111 ,100 ,111 
  .align 2
 _XT_DODO:
- .long  0xdeadbeef,XT_DODO
+ .long  -559038737,XT_DODO
 
 
  .align 2
@@ -1574,7 +1574,7 @@ XT_DOQDO:
   .byte 3 ,97 ,98 ,115 
  .align 2
 _XT_ABS:
- .long  0xdeadbeef,XT_ABS
+ .long  -559038737,XT_ABS
 
 
  .align 2
@@ -1583,7 +1583,7 @@ _XT_ABS:
   .byte 6 ,108 ,115 ,104 ,105 ,102 ,116 
  .align 2
 _XT_LSHIFT:
- .long  0xdeadbeef,XT_LSHIFT
+ .long  -559038737,XT_LSHIFT
 
 
  .align 2
@@ -1601,7 +1601,7 @@ XT_ARSHIFT:
   .byte 6 ,114 ,115 ,104 ,105 ,102 ,116 
  .align 2
 _XT_RSHIFT:
- .long  0xdeadbeef,XT_RSHIFT
+ .long  -559038737,XT_RSHIFT
 
 
  .align 2
@@ -1610,7 +1610,7 @@ _XT_RSHIFT:
   .byte 3 ,109 ,97 ,120 
  .align 2
 _XT_MAX:
- .long  0xdeadbeef,XT_MAX
+ .long  -559038737,XT_MAX
 
 
  .align 2
@@ -1619,7 +1619,7 @@ _XT_MAX:
   .byte 3 ,109 ,105 ,110 
  .align 2
 _XT_MIN:
- .long  0xdeadbeef,XT_MIN
+ .long  -559038737,XT_MIN
 
 
  .align 2
@@ -1637,7 +1637,7 @@ XT_UMIN:
   .byte 3 ,117 ,109 ,42 
  .align 2
 _XT_UMSTAR:
- .long  0xdeadbeef,XT_UMSTAR
+ .long  -559038737,XT_UMSTAR
 
 
  .align 2
@@ -1646,7 +1646,7 @@ _XT_UMSTAR:
   .byte 7 ,100 ,110 ,101 ,103 ,97 ,116 ,101 
  .align 2
 _XT_DNEGATE:
- .long  0xdeadbeef,XT_DNEGATE
+ .long  -559038737,XT_DNEGATE
 
 
  .align 2
@@ -1655,7 +1655,7 @@ _XT_DNEGATE:
   .byte 2 ,109 ,42 
  .align 2
 _XT_MSTAR:
- .long  0xdeadbeef,XT_MSTAR
+ .long  -559038737,XT_MSTAR
 
 
  .align 2
@@ -1664,7 +1664,7 @@ _XT_MSTAR:
   .byte 1 ,42 
  .align 2
 _XT_STAR:
- .long  0xdeadbeef,XT_STAR
+ .long  -559038737,XT_STAR
 
 
  .align 2
@@ -1673,7 +1673,7 @@ _XT_STAR:
   .byte 6 ,117 ,109 ,47 ,109 ,111 ,100 
  .align 2
 _XT_UMSLASHMOD:
- .long  0xdeadbeef,XT_UMSLASHMOD
+ .long  -559038737,XT_UMSLASHMOD
 
 
  .align 2
@@ -1682,7 +1682,7 @@ _XT_UMSLASHMOD:
   .byte 3 ,115 ,62 ,100 
  .align 2
 _XT_SGTD:
- .long  0xdeadbeef,XT_SGTD
+ .long  -559038737,XT_SGTD
 
 
  .align 2
@@ -1691,7 +1691,7 @@ _XT_SGTD:
   .byte 6 ,119 ,105 ,116 ,104 ,105 ,110 
  .align 2
 _XT_WITHIN:
- .long  0xdeadbeef,XT_WITHIN
+ .long  -559038737,XT_WITHIN
 
 
  .align 2
@@ -1700,7 +1700,7 @@ _XT_WITHIN:
   .byte 2 ,100 ,43 
  .align 2
 _XT_DPLUS:
- .long  0xdeadbeef,XT_DPLUS
+ .long  -559038737,XT_DPLUS
 
 
  .align 2
@@ -1718,7 +1718,7 @@ XT_UNDERPLUS:
   .byte 5 ,99 ,104 ,97 ,114 ,43 
  .align 2
 _XT_CHARPLUS:
- .long  0xdeadbeef,XT_CHARPLUS
+ .long  -559038737,XT_CHARPLUS
 
 
  .align 2
@@ -1745,7 +1745,7 @@ XT_QDICT:
   .byte 5 ,99 ,101 ,108 ,108 ,115 
  .align 2
 _XT_CELLS:
- .long  0xdeadbeef,XT_CELLS
+ .long  -559038737,XT_CELLS
 
 
  .align 2
@@ -1754,7 +1754,7 @@ _XT_CELLS:
   .byte 5 ,99 ,101 ,108 ,108 ,45 
  .align 2
 _XT_CELLMINUS:
- .long  0xdeadbeef,XT_CELLMINUS
+ .long  -559038737,XT_CELLMINUS
 
 
  .align 2
@@ -1763,7 +1763,7 @@ _XT_CELLMINUS:
   .byte 2 ,50 ,33 
  .align 2
 _XT_TWOSTORE:
- .long  0xdeadbeef,XT_TWOSTORE
+ .long  -559038737,XT_TWOSTORE
 
 
  .align 2
@@ -1772,7 +1772,7 @@ _XT_TWOSTORE:
   .byte 2 ,50 ,64 
  .align 2
 _XT_TWOFETCH:
- .long  0xdeadbeef,XT_TWOFETCH
+ .long  -559038737,XT_TWOFETCH
 
 
  .align 2
@@ -1781,7 +1781,7 @@ _XT_TWOFETCH:
   .byte 7 ,97 ,108 ,105 ,103 ,110 ,101 ,100 
  .align 2
 _XT_ALIGNED:
- .long  0xdeadbeef,XT_ALIGNED
+ .long  -559038737,XT_ALIGNED
 
 
  .align 2
@@ -1808,7 +1808,7 @@ XT_MINUSROT:
   .byte 4 ,102 ,105 ,108 ,108 
  .align 2
 _XT_FILL:
- .long  0xdeadbeef,XT_FILL
+ .long  -559038737,XT_FILL
 
 
  .align 2
@@ -1817,7 +1817,7 @@ _XT_FILL:
   .byte 5 ,99 ,111 ,117 ,110 ,116 
  .align 2
 _XT_COUNT:
- .long  0xdeadbeef,XT_COUNT
+ .long  -559038737,XT_COUNT
 
 
  .align 2
@@ -1844,7 +1844,7 @@ XT_PLACE:
   .byte 2 ,43 ,33 
  .align 2
 _XT_PLUSSTORE:
- .long  0xdeadbeef,XT_PLUSSTORE
+ .long  -559038737,XT_PLUSSTORE
 
 
  .align 2
@@ -2525,7 +2525,7 @@ XT_SEMI:
   .byte 36 ,100 ,111 ,116 ,111 
  .align 2
 _XT_DOTO:
- .long  0xdeadbeef,XT_DOTO
+ .long  -559038737,XT_DOTO
 
 
  .align 2

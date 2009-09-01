@@ -179,7 +179,7 @@ variable underscore  underscore off
    /tcall size +! ;
 : prim>t ( -- )
    underscore on name>t underscore off
-   .cell ."  0xdeadbeef," lastname namecount xttype cr 
+   .cell ."  -559038737," lastname namecount xttype cr 
    2 tcells size +! ;
 
 :noname ; value type>t

@@ -61,7 +61,7 @@
                 
                 PRIM(UMPLUS,12);
                 *dsp += tos;
-                tos = (UCELL)*dsp < (UCELL)tos;
+                tos = ((UCELL)*dsp) < (UCELL)tos;
                 NEXT;
                 
                 PRIM(STORE,15);
