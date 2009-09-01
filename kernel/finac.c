@@ -1,6 +1,9 @@
 #include "fina.h"
 #include "arch.h"
 #include "sys.h"
+#include <sys/mman.h>
+
+typedef uintptr_t UCELL;
 
 #if defined(HAS_FFI)
 #include <dlfcn.h>
@@ -10,13 +13,12 @@
 // #define PROFILE_FORTH 1
 #define MAXSTR 512 // power of 2
 #define FLAG(x) ((x)? -1 : 0)
-
-#define POPLL  ll  = (((long long)tos) << 32) | *(unsigned*)dsp++; tos = *dsp++
-#define POPLL2 ll2 = (((long long)tos) << 32) | *(unsigned*)dsp++; tos = *dsp++
-#define POPULL ull = (((unsigned long long)tos) << 32) \
-                   | *(unsigned*)dsp++; tos = *dsp++
-#define PUSHLL *--dsp = tos; *--dsp = ll; tos = ll>>32
-#define PUSHULL *--dsp = tos; *--dsp = ull; tos = ull>>32
+#define CELLSHIFT (8*sizeof(CELL))
+#define POPLL  ll  = (((DCELL)tos) << CELLSHIFT) | *(UCELL*)dsp++; tos = *dsp++
+#define POPLL2 ll2 = (((DCELL)tos) << CELLSHIFT) | *(UCELL*)dsp++; tos = *dsp++
+#define POPULL ull = (((UDCELL)tos) << CELLSHIFT)| *(UCELL*)dsp++; tos = *dsp++
+#define PUSHLL *--dsp = tos; *--dsp = ll; tos = ll>>CELLSHIFT
+#define PUSHULL *--dsp = tos; *--dsp = ull; tos = ull>>CELLSHIFT
 
 #undef DEBUG
 #if defined(DEBUG)
@@ -111,21 +113,30 @@ static void closure(ffi_cif * cif, void * result, void ** args, void * xt)
 }
 #endif // HAS_FFI
 
-static inline unsigned CELL UMSlashMod(unsigned CELL * dd, 
-                                       unsigned CELL d, 
-                                       unsigned CELL * pmod)
+#if 0
+static inline UCELL UMStar(UCELL * rl, UCELL a, UCELL b) {
+	UDCELL res = a;
+	res *= b;
+	*rl = res;
+	return res >> CELLSHIFT;
+}
+#endif			   
+
+static inline UCELL UMSlashMod(UCELL * dd, 
+                               UCELL d, 
+                               UCELL * pmod)
 {
 #if 0
         *pmod = dd % d;
         return dd / d;
 #else
-        unsigned s = 8*sizeof(CELL)-1;
-        unsigned i = 8*sizeof(CELL);
-        unsigned h = dd[0];
-        unsigned l = dd[1];
+        UCELL s = CELLSHIFT-1;
+        UCELL i = CELLSHIFT;
+        UCELL h = dd[0];
+        UCELL l = dd[1];
         while (i--)
         {
-                unsigned t = (int)h >> s;
+                UCELL t = (CELL)h >> s;
                 h = (h << 1) | (l >> s);
                 l += l;
                 if ((h | t) >= d)
@@ -162,6 +173,9 @@ int FINA_Init(struct FINA_State * state, int argc, char ** argv)
         state->dsp = state->bootstrap_ds + FINA_BOOTSTRAP_STACK;
         state->rsp = state->bootstrap_rs + FINA_BOOTSTRAP_STACK;
         state->tos = 0;
+	CELL * start = state->fpc;
+	if (mprotect((void*)(-4096 & (uintptr_t)&Forth_Entry), 258*1024, PROT_READ+PROT_WRITE+PROT_EXEC))
+		perror("mprotect");
         return 0;
 }
 
@@ -220,8 +234,8 @@ int internalTick(struct FINA_State * state, int throw) {
         extern CELL Forth_Here;
         register CELL t0;
         CELL t1, t2, t3, t4, t5, t6, t7;
-        long long ll, ll2;
-        unsigned long long ull;
+        DCELL ll, ll2;
+        UDCELL ull;
         float f;
 	double d;
 	char str1[MAXSTR];

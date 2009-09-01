@@ -2,6 +2,7 @@ Import('env')
 ffienv = env.Clone()
 ffiarch = {
 	'i386' : 'X86',
+	'x64' : 'X86',
 	'powerpc' : 'POWERPC',
 	'mips': 'MIPS',
 }[ffienv['ARCH']]
@@ -19,6 +20,7 @@ ffienv.Append(CPPDEFINES=[
 ])
 ffiarchbase = {
 	'i386' : 'x86',
+	'x64' : 'x86',
 	'powerpc': 'powerpc',
 	'mips': 'mips',
 }[ffienv['ARCH']]
@@ -111,7 +113,7 @@ def gendict(arch, phase, kernel):
 		[kernel, src],
                 '${SOURCES[0]} < ${SOURCES[1]} > $TARGET')
 
-architectures = ['powerpc', 'mips', 'i386']
+architectures = ['powerpc', 'mips', 'i386', 'x64']
 
 for phase in range(3):
         ks = fenv.Command('kernel/kernel' + str(phase) + '.s', 

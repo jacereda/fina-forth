@@ -61,7 +61,7 @@
                 
                 PRIM(UMPLUS,12);
                 *dsp += tos;
-                tos = (unsigned)*dsp < (unsigned)tos;
+                tos = (UCELL)*dsp < (UCELL)tos;
                 NEXT;
                 
                 PRIM(STORE,15);
@@ -163,19 +163,19 @@
                 NEXT;
                 
                 PRIM(BRANCH,36);
-                fpc = (CELL*)(((char*)fpc) + *fpc);
+                fpc += fpc[0];
                 NEXT;
                 
                 PRIM(DONEXT, 116);
                 if (rsp[0]--)
-                        fpc = (CELL*)(((char*)fpc) + *fpc);
+                        fpc += fpc[0];
                 else
                         fpc++;
                 NEXT;
                 
                 PRIM(DOLOOP,37);
                 if (++rsp[0] != rsp[1])
-                        fpc = (CELL*)(((char*)fpc) + *fpc);
+                        fpc += fpc[0];
                 else
                         fpc++;
                 NEXT;
@@ -184,7 +184,7 @@
                 t0 = rsp[0] - rsp[1];
                 rsp[0] += tos;
                 if ((t0 ^ (t0 + tos)) >= 0 || (t0 ^ tos) >= 0)
-                        fpc = (CELL*)(((char*)fpc) + *fpc);
+                        fpc += fpc[0];
                 else
                         fpc++;
                 POP;
@@ -220,7 +220,7 @@
                 
                 PRIM(ZEROBRANCH,42);
                 if (tos == 0)
-                        fpc = (CELL*)(((char*)fpc) + *fpc);
+                        fpc +=  fpc[0];
                 else
                         fpc++;
                 POP;
@@ -256,14 +256,14 @@
                 
                 PRIM(CALL0,57);
                 CALLSAVE;
-                t1 = ((unsigned(*)())tos)();
+                t1 = ((UCELL(*)())tos)();
                 CALLREST;
                 tos = t1;
                 NEXT;
                 
                 PRIM(CALL1,58);
                 CALLSAVE;
-                t1 = ((unsigned(*)())tos)(dsp[0]);
+                t1 = ((UCELL(*)())tos)(dsp[0]);
                 CALLREST;
                 tos = t1;
                 dsp++;
@@ -271,7 +271,7 @@
                 
                 PRIM(CALL2,59);
                 CALLSAVE;
-                t1 = ((unsigned(*)())tos)(dsp[0], dsp[1]);
+                t1 = ((UCELL(*)())tos)(dsp[0], dsp[1]);
                 CALLREST;
                 tos = t1;
                 dsp += 2;
@@ -279,7 +279,7 @@
                 
                 PRIM(CALL3,60);
                 CALLSAVE;
-                t1 = ((unsigned(*)())tos)(dsp[0], dsp[1], dsp[2]);
+                t1 = ((UCELL(*)())tos)(dsp[0], dsp[1], dsp[2]);
                 CALLREST;
                 tos = t1;
                 dsp += 3;
@@ -287,7 +287,7 @@
                 
                 PRIM(CALL4,61);
                 CALLSAVE;
-                t1 = ((unsigned(*)())tos)(dsp[0], dsp[1], dsp[2], dsp[3]);
+                t1 = ((UCELL(*)())tos)(dsp[0], dsp[1], dsp[2], dsp[3]);
                 CALLREST;
                 tos = t1;
                 dsp += 4;

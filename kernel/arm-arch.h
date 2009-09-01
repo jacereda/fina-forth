@@ -6,7 +6,8 @@
 #define FPCREG //asm("%r6");
 #define DSPREG //asm("%r5");
 #define TOSREG //asm("%r4");
-
+typedef int64_t DCELL;
+typedef uint64_t UDCELL;
 
 static inline CELL * getlnk()
 {

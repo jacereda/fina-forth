@@ -2,6 +2,7 @@
 32        constant tcellbits
 8         constant /tcall
 
+: .cell ."  .long " ;
 : .call"
    s"  bal XT_" postpone sliteral postpone type
    [char] " parse postpone sliteral postpone type 

@@ -2,7 +2,9 @@
 #define FPCREG asm("%esi")
 #define RSPREG
 #define DSPREG asm("%edi") 
-#define TOSREG asm("%ecx")
+#define TOSREG asm("%edx")
+typedef int64_t DCELL;
+typedef uint64_t UDCELL;
 
 static inline CELL * getlnk()
 {
