@@ -6,17 +6,17 @@
                 
                 PRIM(UMSLASHMOD,67);
 #if 1
-                tos = UMSlashMod((unsigned CELL*)dsp, tos, 
-				 (unsigned CELL*)(dsp+1));
+                tos = UMSlashMod((UCELL*)dsp, tos, 
+				 (UCELL*)(dsp+1));
                 dsp++;
 #else
                 t0 = tos;
                 POP;
                 POPLL;
                 PUSH;
-                tos = ((unsigned long long)ll) % t0;
+                tos = ((UDCELL)ll) % t0;
                 PUSH;
-                tos = ((unsigned long long)ll) / t0;
+                tos = ((UDCELL)ll) / t0;
 #endif
                 NEXT;
                 
@@ -26,7 +26,7 @@
                 NEXT;
                 
                 PRIM(ULT, 69);
-                tos = FLAG(((unsigned)*dsp++) < (unsigned) tos);
+                tos = FLAG(((UCELL)*dsp++) < (UCELL) tos);
                 NEXT;
                 
                 PRIM(PLUS, 71);
@@ -148,19 +148,16 @@
                 NEXT;
                 
                 PRIM(WITHIN, 98);
-                tos = FLAG(((unsigned)dsp[1] - (unsigned)dsp[0]) 
-                           < ((unsigned)tos - (unsigned)dsp[0]));
+                tos = FLAG(((UCELL)dsp[1] - (UCELL)dsp[0]) 
+                           < ((UCELL)tos - (UCELL)dsp[0]));
                 dsp += 2;
                 NEXT;
                 
                 PRIM(UMSTAR, 99);
-                unsigned long long t0 = (unsigned)tos;
-                unsigned long long t1;
-                POP;
-                t1 = (unsigned)tos;
-                ull = t1 * t0;
-                POP;
-                PUSHULL;
+		UDCELL t0 = (UCELL)tos;
+		t0 *= (UCELL)dsp[0];
+		tos = t0 >> CELLSHIFT;
+		dsp[0] = t0;
                 NEXT;
                 
                 PRIM(DPLUS, 100);
@@ -187,7 +184,7 @@
                 NEXT;
                 
                 PRIM(RSHIFT, 105);
-                tos = ((unsigned)*dsp++) >> tos;
+                tos = ((UCELL)*dsp++) >> tos;
                 NEXT;
                 
                 PRIM(MAX, 106);

@@ -7,7 +7,8 @@
 #define LNKREG asm("%ra")
 #define CALLSAVE
 #define CALLREST
-
+typedef int64_t DCELL;
+typedef uint64_t UDCELL;
 
 static inline CELL * getlnk()
 {

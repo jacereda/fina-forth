@@ -1,4 +1,5 @@
-#define CELL long
+#include <stdint.h>
+typedef intptr_t CELL;
 #define FINA_BOOTSTRAP_STACK 16
 
 struct FINA_State {

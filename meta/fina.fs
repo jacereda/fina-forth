@@ -635,7 +635,7 @@ p: dodo  ( x1 x2 --  r: x1 x2 )
 
 \g Runtime for ?DO
 : do?do ( n1 n2 --  r: -- n2 n1 )
-   2dup = if 2drop r> dup @ + cell+ >r exit then
+   2dup = if 2drop r> dup @ cells + cell+ >r exit then
    r> rot >r swap >r cell+ >r ; compile-only 
 
 
@@ -1153,7 +1153,7 @@ p: doto  ( x -- )
 : s, ( c-addr u -- )
    here over char+ allot place ;
 
-: (is) @r+ [ /tcall cell+ ] literal + ! ;
+: (is) @r+ [ /tcall 1 tcells + ] literal + ! ;
 
 \ Initialization
 

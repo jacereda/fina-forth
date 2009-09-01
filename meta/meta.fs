@@ -71,7 +71,7 @@ variable options
       endcase
    loop ;
 : xttype ." XT_" asmtype ;
-: asm. ." 0x" 16 based repr type ;
+: asm. . ; \ ." 0x" 16 based repr type ;
 
 \ Metacompiler constants
 32 constant compo
@@ -94,7 +94,7 @@ variable size
    namecount type ;
 0 value link
 : .link ( -- , emit link field)
-   ."  .long " link if ." 1b" else ." 0" then cr  
+   .cell link if ." 1b" else ." 0" then cr  
    ." 1:" cr 
    link 1+ to link ;
 variable underscore  underscore off
@@ -112,7 +112,7 @@ variable underscore  underscore off
    lastname namecount nip 1+  taligned 1 tcells + size +! ;
 : body>t
    lastbody here = if exit then
-   ."  .long "
+   .cell
    lastbody begin 
       dup here <> 
    while 
@@ -133,11 +133,11 @@ variable underscore  underscore off
    +bytes ;
 : create>t ( -- )
    name>t .call" DOCREATE" cr
-   ."  .long XT_NOOP" cr body>t 
+   .cell ." XT_NOOP" cr body>t 
    /tcall 1 tcells + size +! ;
 : defer>t ( -- )
    name>t .call" DOCREATE" cr
-   ."  .long XT_FETCHEXECUTE" cr body>t 
+   .cell ."  XT_FETCHEXECUTE" cr body>t 
    /tcall 1 tcells + size +! ;
 : var>t ( -- ) 
    name>t .call" DOVAR" body>t 
@@ -157,7 +157,7 @@ variable underscore  underscore off
 : user>t ( -- )
    name>t
    .call" DOUSER"
-   ."  .long " nextuser asm. 
+   .cell nextuser asm. 
    /tcall 1 tcells + size +! ;
 
 :noname ( a-addr1 -- a-addr2 )
@@ -175,11 +175,11 @@ variable underscore  underscore off
 : col>t ( -- )
    name>t
    .call" DOLIST"
-   ."  .long " list>t 
+   .cell list>t 
    /tcall size +! ;
 : prim>t ( -- )
    underscore on name>t underscore off
-   ."  .long 0xdeadbeef," lastname namecount xttype cr 
+   .cell ."  0xdeadbeef," lastname namecount xttype cr 
    2 tcells size +! ;
 
 :noname ; value type>t
@@ -229,7 +229,7 @@ variable underscore  underscore off
 :' bye
    >t
    ."  .fill " /tdict size @ - .  ." ,1,0" cr
-   ."  .long 0xcacacaca" cr 
+   .cell ."  0xcacacaca" cr 
    .end bye ; 
 
 marker forget-previous

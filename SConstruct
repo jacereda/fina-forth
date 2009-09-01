@@ -37,10 +37,22 @@ def normalized_os():
 		ret = 'linux'
 	return ret
 
-env = Environment(ARCH=arch(), CC='gcc', OS=normalized_os())
+if ARGUMENTS.get('BUILD64',0):
+   tarch = 'x64'
+else:
+   tarch = arch()
+env = Environment(ARCH=tarch, CC='gcc', OS=normalized_os())
 #env['ENV']['PATH'] = os.environ['PATH']
 env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
+if ARGUMENTS.get('BUILD32',0):
+   env.Append(ASFLAGS='-arch i386')
+   env.Append(CCFLAGS='-m32')
+   env.Append(LINKFLAGS='-m32')
+if ARGUMENTS.get('BUILD64', 0):
+   env['BUILD64'] = 1
+   env.Append(CPPDEFINES=['X86_64'])
+
 env.Append(CPPDEFINES=['HAS_FILES', 'HAS_ALLOCATE', 'HAS_FIXED', 'HAS_FFI', 
 			'MORE_PRIMS'])
 gccmajor, gccminor, gccrev = gccversion()

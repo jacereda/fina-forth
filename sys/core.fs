@@ -76,15 +76,17 @@ warnings off
 : fwmark
    here  -1414673666 ,  1 ;
 
+: offset>rel 2/ 2/ ;
+
 \g Resolve backwards jump
 : bwresolve
    -1 <> -22 ?throw
-   here - , ;
+   here - offset>rel , ;
 
 \g Resolve forward jump
 : fwresolve
    1 <> -22 ?throw
-   here over - swap ! ;
+   here over - offset>rel swap ! ;
 
 \g @see anstools
 : ahead  ( -- a-addr 1 )
@@ -195,7 +197,7 @@ variable leaves
    @r+ execute @r+ swap foreach ; compile-only
 
 : resolvleave ( a-addr -- )
-   here over - swap ! ;
+   here over - offset>rel swap ! ;
 
 \g @see anscore
 : loop ( ct: dest -1  rt:  --  r: limit index --  | limit index+1 )

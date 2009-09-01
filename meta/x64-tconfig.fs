@@ -1,8 +1,8 @@
 
-32        constant tcellbits
+64        constant tcellbits
 8         constant /tcall
 
-: .cell ."  .long " ;
+: .cell ."  .quad " ;
 : .call" 
    s"  nop" postpone sliteral postpone type postpone cr
    s"  nop" postpone sliteral postpone type postpone cr
@@ -11,7 +11,7 @@
    [char] " parse postpone sliteral postpone type  
    postpone cr ; immediate
 
-: .align ."  .p2align 2" cr ;
+: .align ."  .p2align 3" cr ;
 
 : .init
    ."  .globl Forth_Entry " cr 
@@ -20,17 +20,17 @@
    ."  .globl _Forth_Entry " cr 
    ."  .globl _Forth_UserP" cr 
    ."  .globl _Forth_Here" cr 
-   ."  .data" cr
+   ."  .text" cr
    .align
    ."  .long 0xfeedbabe, 0xdeadbeef" cr
    ." _Forth_Entry:" cr
    ." Forth_Entry:" cr
-   ."  .long XT_COLD" cr
+   ."  .quad XT_COLD" cr
    ." _Forth_UserP:" cr
    ." Forth_UserP:" cr
-   ."  .long XT_USERP" cr
+   ."  .quad XT_USERP" cr
    ." _Forth_Here:" cr
    ." Forth_Here:" cr
-   ."  .long XT_HERE" cr ;
+   ."  .quad XT_HERE" cr ;
 
 : .end ;
