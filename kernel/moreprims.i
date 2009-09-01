@@ -139,7 +139,7 @@
                 
                 PRIM(SGTD, 96);
                 PUSH;
-                tos >>= 31;
+                tos >>= CELLSHIFT-1;
                 NEXT;
                 
                 PRIM(TWOFETCH, 97);
@@ -155,7 +155,7 @@
                 
                 PRIM(UMSTAR, 99);
 		UDCELL t0 = (UCELL)tos;
-		t0 *= (UCELL)dsp[0];
+		t0 *= ((UCELL*)dsp)[0];
 		tos = t0 >> CELLSHIFT;
 		dsp[0] = t0;
                 NEXT;

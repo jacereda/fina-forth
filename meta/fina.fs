@@ -839,7 +839,7 @@ create #order ( -- a-addr )
 \g  Go from name to execution token
 : name>xt  ( a-addr -- xt )
    namecount + aligned 
-   dup @ h# deadbeef = if cell+ @ then ;  
+   dup @ -559038737 = if cell+ @ then ;  
 
 : link? dup 0= swap dict? or ;
 

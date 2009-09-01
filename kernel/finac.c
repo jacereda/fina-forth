@@ -126,10 +126,6 @@ static inline UCELL UMSlashMod(UCELL * dd,
                                UCELL d, 
                                UCELL * pmod)
 {
-#if 0
-        *pmod = dd % d;
-        return dd / d;
-#else
         UCELL s = CELLSHIFT-1;
         UCELL i = CELLSHIFT;
         UCELL h = dd[0];
@@ -147,7 +143,6 @@ static inline UCELL UMSlashMod(UCELL * dd,
         }
         *pmod = h;
         return l;
-#endif
 }
 
 #define SAVEREGS do { \
@@ -174,7 +169,8 @@ int FINA_Init(struct FINA_State * state, int argc, char ** argv)
         state->rsp = state->bootstrap_rs + FINA_BOOTSTRAP_STACK;
         state->tos = 0;
 	CELL * start = state->fpc;
-	if (mprotect((void*)(-4096 & (uintptr_t)&Forth_Entry), 258*1024, PROT_READ+PROT_WRITE+PROT_EXEC))
+	if (mprotect((void*)(-4096 & (uintptr_t)&Forth_Entry), 
+		     258*1024, PROT_READ+PROT_WRITE+PROT_EXEC))
 		perror("mprotect");
         return 0;
 }

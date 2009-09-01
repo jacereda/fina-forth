@@ -1,9 +1,9 @@
 #define HAS_64BIT
 #define PRIMSATTR  
-#define FPCREG asm("%rsi")
-#define RSPREG
-#define DSPREG asm("%rdi") 
-#define TOSREG asm("%rdx")
+#define FPCREG asm("%r12")
+#define RSPREG asm("%r13")
+#define DSPREG asm("%r14") 
+#define TOSREG asm("%r15")
 typedef __int128_t DCELL;
 typedef __uint128_t UDCELL;
 static inline CELL * getlnk()
@@ -13,8 +13,8 @@ static inline CELL * getlnk()
         return res;
 }
 
-#define CALLSAVE SAVEREGS
-#define CALLREST RESTREGS
+#define CALLSAVE
+#define CALLREST
 
 static inline CELL arch_iscall(CELL xt)
 {

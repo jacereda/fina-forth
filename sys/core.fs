@@ -76,7 +76,7 @@ warnings off
 : fwmark
    here  -1414673666 ,  1 ;
 
-: offset>rel 2/ 2/ ;
+: offset>rel 2/ 2/ 1 cells 8 = rshift ;
 
 \g Resolve backwards jump
 : bwresolve
