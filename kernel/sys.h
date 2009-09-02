@@ -6,7 +6,7 @@ int Sys_Tick(struct FINA_State * state);
 unsigned Sys_Argc();
 char ** Sys_Argv();
 
-unsigned Sys_Throw();
+int Sys_Throw();
 
 // File support
 void * Sys_FileOpen(const char * name, unsigned mode);

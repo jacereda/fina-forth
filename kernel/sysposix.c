@@ -88,7 +88,6 @@ static void sighandler(int sig)
                 throw = -59;
         }
 	mysignal(sig, sighandler);
-	// printf("Got signal %d, throw %d\n", sig, throw);
         longjmp(jmpbuf, throw);
 }
 
@@ -196,7 +195,7 @@ void * Sys_FileOpen(const char * name, unsigned mode)
         return handle;
 }
 
-unsigned Sys_Throw()
+int Sys_Throw()
 {
         return throw;
 }
@@ -335,7 +334,6 @@ unsigned Sys_FileStat(const char * name)
 
 void Sys_FileRen(const char * old, const char * new)
 {
-        printf("renaming %s to %s\n", old, new);
         errnoThrow(rename(old, new));
 }
 
