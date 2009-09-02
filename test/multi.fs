@@ -1,8 +1,8 @@
-64 64 64 task: t1
-64 64 64 task: t2
-64 64 64 task: t3
-64 64 64 task: t4
-64 64 64 task: t5
+16 16 16 task: t1
+16 16 16 task: t2
+16 16 16 task: t3
+16 16 16 task: t4
+16 16 16 task: t5
 
 t1 build 
 t2 build 

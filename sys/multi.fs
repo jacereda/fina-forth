@@ -112,9 +112,9 @@ decimal
 : task: ( user_size ds_size rs_size "<spaces>name" --  rt: -- tid )
    [ hex ]
    create here 0 , >r 
-   033 ,allot here cell- dup r> ! >r
-   0AA ,allot here cell- r@ 's rp0 !
-   055 ,allot here cell- r@ 's sp0 !
+   cells 033 ,allot here cell- dup r> ! >r
+   cells 0AA ,allot here cell- r@ 's rp0 !
+   cells 055 ,allot here cell- r@ 's sp0 !
    [ decimal ]
    lastname r> 's taskname ! 
    does> @ ;

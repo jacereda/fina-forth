@@ -30,6 +30,6 @@ defer draw ' noop is draw
       pause
    again ;
 
-64 64 64 task: evtask
+16 16 16 task: evtask
 evtask build
 :noname evtask activate evloop ; execute
