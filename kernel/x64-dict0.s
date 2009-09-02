@@ -6,7 +6,7 @@
  .globl _Forth_Here
  .text
  .p2align 3
- .long 0xfeedbabe, 0xdeadbeef
+ .quad 0xfeedbabe, 0xdeadbeef
 _Forth_Entry:
 Forth_Entry:
  .quad XT_COLD
