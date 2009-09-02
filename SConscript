@@ -10,6 +10,7 @@ ffios = {
 	'netbsd' : '_FREEBSD',
 	'freebsd' : '_FREEBSD',
 	'openbsd' : '_FREEBSD',
+	'dragonfly' : '_FREEBSD',
 	'darwin' : '_DARWIN',
 	'linux' : '',
 }[ffienv['OS']]
@@ -30,6 +31,7 @@ ffiossrc = {
 	'freebsd' : 'freebsd.S',
 	'openbsd' : 'freebsd.S',
 	'netbsd' : 'freebsd.S',
+	'dragonfly' : 'freebsd.S',
 }[ffienv['OS']]
 if ffienv['ARCH'] == 'mips' and ffiossrc == 'freebsd.S':
    ffiossrc = 'o32.S'
