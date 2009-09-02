@@ -9,7 +9,7 @@ defer coldchain  ' noop is coldchain
    rp0 @ rp!  sp0 @ sp!  coldchain ; 'cold!
 
 : mark ( a1 -- a2 )
-   begin cell+ dup 2@ [ hex ] feedbabe.deadbeef [ decimal ]  d= until ;
+   begin cell+ dup 2@ [ hex ] deadbeef feedbabe [ decimal ]  d= until ;
 
 : hdrsize ( src -- size )
    dup mark swap - ;
