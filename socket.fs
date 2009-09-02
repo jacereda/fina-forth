@@ -7,8 +7,9 @@ libc connect int ptr int (ptr) connect
 
 create saddr 0 c, 2 c, 
 here 0 c, 0 c,
-here 0 , 0 , 0 ,
-here 
+here 0 c, 0 c, 0 c, 0 c,
+0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c,
+here
 saddr - constant /saddr
 constant addr
 constant port
@@ -22,10 +23,12 @@ constant port
    >r 2dup r> scan 2swap 2 pick - ;
 
 : >ip ( c-addr u -- ip )
-   gethostbyname 4 cells + @ @ @ ;
+   gethostbyname 1 cells 8 = if 3 else 4 then cells + @ @ @ ;
+
+: addr! sp@ cell+ swap 4 move drop ;
 
 : (open-tcp) ( c-addr u port -- filenum ior )
-   port bw! >ip addr !
+   port bw! >ip addr addr!
    2 1 0 socket dup saddr /saddr connect -38 and ;
 
 : >mode ( fam -- c-addr u)
