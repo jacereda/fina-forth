@@ -48,7 +48,8 @@ user stacktop  ( -- a-addr )
    drop found ;
 
 hex
-assert( : built ( tid -- ) 's follower @ 33333333 <> ; )
+assert( 1 cells 8 = [if] 3333333333333333 [else] 33333333 [then] value emptymarker )
+assert( : built ( tid -- ) 's follower @ emptymarker <> ; )
 assert( : active ( tid -- ) 's follower @  ; )
 decimal
 
@@ -101,7 +102,7 @@ decimal
    r@ 's follower off
    assert( r@ active 0= )
    assert( r@ built )
-   assert( [ hex ] 33333333 [ decimal ] r@ 's follower ! true )
+   assert( emptymarker r@ 's follower ! true )
    rdrop ;
 
 : ,allot ( size fill -- )
