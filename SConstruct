@@ -35,6 +35,8 @@ def normalized_os():
 		ret = 'freebsd'
 	if ret[0:5] == 'linux':
 		ret = 'linux'
+	if ret[0:9] == 'dragonfly':
+	   ret = 'dragonfly'
 	return ret
 
 if ARGUMENTS.get('BUILD64',0):
