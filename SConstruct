@@ -50,7 +50,7 @@ env.Append(LINKFLAGS='-g')
 if ARGUMENTS.get('BUILD64',0):
    env.Append(CPPDEFINES=['X86_64'])
 else:
-   if env['ARCH'] == 'i386':
+   if env['ARCH'] == 'i386' and env['OS'] == 'darwin':
       env.Append(ASFLAGS='-arch i386')
    env.Append(CCFLAGS='-m32')
    env.Append(LINKFLAGS='-m32')
