@@ -1,4 +1,3 @@
-
 \ Helpers
 : literal postpone literal ; immediate compile-only
 : under+ rot + swap ;
@@ -204,6 +203,8 @@ variable underscore  underscore off
    >t ?stack has-files if ['] prim>t else ['] noop then to type>t create ;
 :' mprim
    >t ?stack has-allocate if ['] prim>t else ['] noop then to type>t create ;
+: ffprim
+   >t ?stack has-ffi if ['] prim>t else ['] noop then to type>t create ;   
 :' bcreate
    >t ?stack ['] bytevar>t to type>t create ;
 :' defer
