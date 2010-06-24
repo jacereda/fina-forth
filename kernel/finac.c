@@ -1,12 +1,24 @@
 #include "fina.h"
 #include "arch.h"
 #include "sys.h"
-#include <sys/mman.h>
 
 typedef uintptr_t UCELL;
+#define FXSCALE 1000
 
 #if defined(HAS_FFI)
+#if defined(_WIN32)
+#include <windows.h>
+#define DL_LAZY 0
+static void * dlopen(const char * path, int mode) {
+  return LoadLibrary(path);
+}
+static void dlsym(void * l, const char * sym) {
+  return GetProcAddress(l, sym);
+}
+
+#else
 #include <dlfcn.h>
+#endif
 #include <ffi.h>
 #endif
 
@@ -162,16 +174,11 @@ static inline UCELL UMSlashMod(UCELL * dd,
 int FINA_Init(struct FINA_State * state, int argc, char ** argv)
 {
         extern CELL Forth_Entry;
-        Sys_Init(argc, argv);
-        
         state->fpc = (CELL*)(Forth_Entry + arch_callsize());
         state->dsp = state->bootstrap_ds + FINA_BOOTSTRAP_STACK;
         state->rsp = state->bootstrap_rs + FINA_BOOTSTRAP_STACK;
         state->tos = 0;
-	CELL * start = state->fpc;
-	if (mprotect((void*)(-4096 & (uintptr_t)&Forth_Entry), 
-		     258*1024, PROT_READ+PROT_WRITE+PROT_EXEC))
-		perror("mprotect");
+        Sys_Init(argc, argv);
         return 0;
 }
 
