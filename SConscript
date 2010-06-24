@@ -1,66 +1,12 @@
 Import('env')
-ffienv = env.Clone()
-ffiarch = {
-	'i386' : 'X86',
-	'x64' : 'X86',
-	'powerpc' : 'POWERPC',
-	'mips': 'MIPS',
-}[ffienv['ARCH']]
-ffios = {
-	'netbsd' : '_FREEBSD',
-	'freebsd' : '_FREEBSD',
-	'openbsd' : '_FREEBSD',
-	'dragonfly' : '_FREEBSD',
-	'darwin' : '_DARWIN',
-	'linux' : '',
-}[ffienv['OS']]
-ffienv.Append(CPPDEFINES=[
-	['TARGET', ffiarch + ffios],
-	[ffiarch + ffios, 1],
-	['HAVE_LONG_DOUBLE', 1],
-])
-ffiarchbase = {
-	'i386' : 'x86',
-	'x64' : 'x86',
-	'powerpc': 'powerpc',
-	'mips': 'mips',
-}[ffienv['ARCH']]
-ffiossrc = {
-	'darwin' : 'darwin.S',
-	'linux' : 'sysv.S ppc_closure.S',
-	'freebsd' : 'freebsd.S',
-	'openbsd' : 'freebsd.S',
-	'netbsd' : 'freebsd.S',
-	'dragonfly' : 'freebsd.S',
-}[ffienv['OS']]
-if ffienv['ARCH'] == 'mips' and ffiossrc == 'freebsd.S':
-   ffiossrc = 'o32.S'
-   ffienv.Append(CPPDEFINES=[['FFI_MIPS_O32', 1]])
-
-
-plat = ffiarchbase + '/ffi.c '
-for i in Split(ffiossrc):
-    plat += ffiarchbase + '/' + i + ' '
-fficpppath = [
-	'libs/libffi/include', 
-	'libs/libffi/src/',
-	'libs/libffi/src/' + ffiarchbase,
-	'libs/libffi/',
-]
-
-ffienv.Append(CPPPATH=fficpppath)
-
-ffienv.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
-	debug.c 
-	prep_cif.c 
-	types.c
-	closures.c
-''' + plat)])
-
-
 fenv = env.Clone()
-fenv.Append(CPPPATH=['obj'] + fficpppath)
-fenv.Append(CPPDEFINES=[[ffiarch + ffios, 1]])
+fenv.Append(CPPDEFINES=['HAS_FILES', 'HAS_ALLOCATE', 'HAS_FIXED', 'HAS_FFI', 
+			'MORE_PRIMS'])
+fenv.Append(CPPPATH=[
+	'obj',
+	'libs/libffi/include',
+	])
+#fenv.Append(CPPDEFINES=[[ffiarch + ffios, 1]])
 fenv.Append(LIBPATH=['.'])
 fenv.Append(LIBS=['ffi'])
 
@@ -115,8 +61,19 @@ def gendict(arch, phase, kernel):
 		[kernel, src],
                 '${SOURCES[0]} < ${SOURCES[1]} > $TARGET')
 
-architectures = ['powerpc', 'mips', 'i386', 'x64']
+def genbaredict(arch, kernel):
+        meta =  ['meta/' + arch + '-tconfig.fs'] + \
+                ['meta/' + i for i in Split("""
+		   tconfig-bare.fs host-fina.fs meta.fs fina.fs
+	        """)]
+	name = 'kernel/' + arch + '-baredict'
+	src = fenv.Command(name + '.fs', [kernel] + boot + meta,
+		'cat ${SOURCES[1:]} > $TARGET')
+        fenv.Default(fenv.Command(name + '.s', [kernel, src],
+                '${SOURCES[0]} < ${SOURCES[1]} > $TARGET'))
 
+architectures = ['powerpc', 'mips', 'i386', 'x64']
+k = None
 for phase in range(3):
         ks = fenv.Command('kernel/kernel' + str(phase) + '.s', 
                 ['finac.s', 'kernel/$ARCH-dict' + str(phase) + '.s'],
@@ -129,6 +86,8 @@ for phase in range(3):
 	                        'cat ${SOURCES[1:]} | $SOURCE'))
         for arch in architectures:
                 gendict(arch, phase+1, k)
+
+genbaredict('i386', k)
 
 for arch in architectures:
         fenv.Default(fenv.Command(arch + 'dummy', 
