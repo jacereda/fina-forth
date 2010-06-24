@@ -375,23 +375,23 @@ prim fx>double
 prim double>fx
 
 \g Prepare foreign function call
-prim ffprep 
+ffprim ffprep 
 
 \g Call to foreign function
-prim ffcall
+ffprim ffcall
 
 \g Prepare function closure
-prim ffclos
+ffprim ffclos
 
-prim ffvoid
-prim ffint
-prim fffloat
-prim ffdouble
-prim ffptr
-prim ffint64
+ffprim ffvoid
+ffprim ffint
+ffprim fffloat
+ffprim ffdouble
+ffprim ffptr
+ffprim ffint64
 
-prim dlopen
-prim dlsym
+ffprim dlopen
+ffprim dlsym
 
 \g Number of arguments in command line
 prim argc ( -- u )
