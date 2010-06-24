@@ -52,17 +52,17 @@ defer ret
    does> dup @ swap cell+ ffcall ;
 : link>fun 11 cells - ;
 
-: trylib
-   s" lib" pad place 2swap pad append pad append  pad count dlopen ;
+: trylib ( addr len suffix suffixlen prefix prefixlen -- handle)
+   pad place 2swap pad append pad append  pad count dlopen ;
 
 variable libs libs off
 
 : openlib ( addr len -- handle )
    0 >r
-   2dup s" " trylib r> or >r
-   2dup s" .dylib" trylib r> or >r
-   2dup s" .so" trylib r> or >r
-   2dup s" .so.6" trylib r> or >r   \ Special case for libc
+   2dup s" " s" " trylib r> or >r
+   2dup s" .dylib" s" lib" trylib r> or >r
+   2dup s" .so" s" lib" trylib r> or >r
+   2dup s" .so.6" s" lib" trylib r> or >r   \ Special case for libc
    2drop r>
    dup 0= abort" Unable to open library" ;
 
