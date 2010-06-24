@@ -1,12 +1,11 @@
 #include <stdio.h>
 #include "fina.h"
 #include "sys.h"
+#include <windows.h>
 
-unsigned char g_buf[] = {
-#include "boot.i"
-};
-unsigned g_curr = 0;
-unsigned g_bufsz = 0;
+static HANDLE g_in;
+static HANDLE g_out;
+static HANDLE g_heap;
 
 int Sys_Tick(struct FINA_State * state)
 {
@@ -15,8 +14,9 @@ int Sys_Tick(struct FINA_State * state)
 
 void Sys_Init(int argcc, char ** argvv)
 {
-	g_bufsz = __builtin_strlen(g_buf);
-	fflush(stdout);
+	g_in = GetStdHandle(STD_INPUT_HANDLE);
+	g_out = GetStdHandle(STD_OUTPUT_HANDLE);
+	g_heap = GetProcessHeap();
 }
 
 void Sys_End()
@@ -30,19 +30,17 @@ unsigned Sys_HasChar()
 
 unsigned Sys_GetChar() 
 {
-	unsigned ret;
-	if (g_curr < g_bufsz)
-		ret = g_buf[g_curr++];
-	else
-		ret = getchar();
-	fflush(stdout);
-	return ret;
+	unsigned char c = '\r';
+	DWORD read;
+	while (c == '\r')
+		ReadFile(g_in, &c, sizeof(c), &read, 0);
+	return c;
 }
 
-void Sys_PutChar(unsigned c)
+void Sys_PutChar(unsigned u)
 {
-	putchar(c);
-	fflush(stdout);
+	char c = u;
+	WriteFile(g_out, &c, 1, 0, 0);
 }
 
 void Sys_MemMove(char * to, const char * from, unsigned bytes)
@@ -174,15 +172,15 @@ void Sys_FileFlush(void * handle)
 
 void * Sys_MemAllocate(unsigned bytes)
 {
-	return 0;
+	return HeapAlloc(g_heap, 0, bytes);
 }
 
 unsigned Sys_MemFree(void * p)
 {
-	return 0;
+	return 0 != HeapFree(g_heap, 0, p);
 }
 
 void * Sys_MemResize(void * p, unsigned newsize)
 {
-	return 0;
+	return HeapReAlloc(g_heap, 0, p, newsize);
 }

@@ -18,7 +18,10 @@ def gccversion():
 
 
 def arch():
-	arch = shelloutput('uname -m')
+	if os.name == 'nt':
+		arch = 'i386'
+	else:
+		arch = shelloutput('uname -m')
 	if arch == 'ppc':
 		arch = 'powerpc'
 	if arch == 'i686':
@@ -43,7 +46,11 @@ if ARGUMENTS.get('BUILD64',0):
    tarch = 'x64'
 else:
    tarch = arch()
-env = Environment(ARCH=tarch, CC='gcc', OS=normalized_os())
+tools = []
+if os.name == 'nt':
+	tools = ['mingw']
+
+env = Environment(ARCH=tarch, TOOLS=['mingw'], OS=normalized_os())
 ring0 = ARGUMENTS.get('RING0', 0)
 if ring0:
    env.Tool('crossmingw', '.')
@@ -55,7 +62,7 @@ env.Append(LINKFLAGS='-g')
 if ARGUMENTS.get('BUILD64',0):
    env.Append(CPPDEFINES=['X86_64'])
 else:
-   if env['ARCH'] == 'i386' and not ring0:
+   if env['ARCH'] == 'i386' and env['OS'] == 'darwin' and not ring0:
       env.Append(ASFLAGS='-arch i386')
    env.Append(CCFLAGS='-m32')
    env.Append(LINKFLAGS='-m32')
@@ -90,6 +97,7 @@ def cat(env, target, source):
 	for src in source:
 		res += slurp(src)
 	barf(target[0], res)
+
 		
 cat = Builder(action=cat)
 
@@ -123,11 +131,17 @@ def basename(self, path):
 def outputfrom(self, cmd):
 	return shelloutput(cmd)
 
+def CppAsm(self, target, source):
+	cpp = self.Command(target + '.s', source, 
+			   '$CC $CCFLAGS $CPPFLAGS $_CPPDEFFLAGS $_CPPINCFLAGS -E -o $TARGET $SOURCE')
+	return self.Object(target, cpp)
+
 
 Environment.Glob = classmethod(myglob)
 Environment.Basename = classmethod(basename)
 Environment.OutputFrom = classmethod(outputfrom)
 
+env.AddMethod(CppAsm)
 env.SConscript('SConscript.ffi',
 		build_dir = 'obj', 
 		src_dir = '.', 

@@ -16,7 +16,7 @@ if fenv['OS'] == 'linux':
 for i in fenv.Glob('kernel/*.i'):
 	fenv.Tab(fenv.Basename(i[:-2]) + 'tab.it', i)
 
-fenv.Command('arch.h', 'kernel/$ARCH-arch.h', 'ln -sf ${SOURCE.abspath} $TARGET')
+fenv.Command('arch.h', 'kernel/$ARCH-arch.h', Copy('$TARGET', '${SOURCE.abspath}'))
 fenv.Asm('finac.s', 'kernel/finac.c')
 
 boot = ['sys/' + i for i in Split("""
@@ -55,8 +55,7 @@ def gendict(arch, phase, kernel):
 		   tconfig.fs host-fina.fs meta.fs fina.fs
 	        """)]
 	name = 'kernel/' + arch + '-dict' + str(phase)
-	src = fenv.Command(name + '.fs', [kernel] + boot + meta,
-		'cat ${SOURCES[1:]} > $TARGET')
+	src = fenv.Cat(name + '.fs', boot + meta)
         fenv.Command('kernel/' + arch + '-dict' + str(phase) + '.s', 
 		[kernel, src],
                 '${SOURCES[0]} < ${SOURCES[1]} > $TARGET')
@@ -67,19 +66,18 @@ def genbaredict(arch, kernel):
 		   tconfig-bare.fs host-fina.fs meta.fs fina.fs
 	        """)]
 	name = 'kernel/' + arch + '-baredict'
-	src = fenv.Command(name + '.fs', [kernel] + boot + meta,
-		'cat ${SOURCES[1:]} > $TARGET')
+	src = fenv.Cat(name + '.fs', boot + meta)
         fenv.Default(fenv.Command(name + '.s', [kernel, src],
                 '${SOURCES[0]} < ${SOURCES[1]} > $TARGET'))
 
 architectures = ['powerpc', 'mips', 'i386', 'x64']
 k = None
 for phase in range(3):
-        ks = fenv.Command('kernel/kernel' + str(phase) + '.s', 
-                ['finac.s', 'kernel/$ARCH-dict' + str(phase) + '.s'],
-                'cat $SOURCES > $TARGET')
+        ks = fenv.Cat('kernel/kernel' + str(phase) + '.s', 
+                ['finac.s', 'kernel/$ARCH-dict' + str(phase) + '.s'])
+
         k = fenv.Program('kernel' + str(phase), 
-                        [ks, 'kernel/sysposix.c', 'kernel/main.c'])
+                        [ks, 'kernel/sys${OS}.c', 'kernel/main.c'])
         if ARGUMENTS.get('test', 0):
                 fenv.Default(fenv.Command('dummy' + str(phase), 
 				[k] + kerneltests,
