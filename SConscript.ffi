@@ -38,24 +38,24 @@ if env['ARCH'] == 'mips' and ffiossrc == 'freebsd.S':
    ffiossrc = 'o32.S'
    env.Append(CPPDEFINES=[['FFI_MIPS_O32', 1]])
 
-
 plat = ffiarchbase + '/ffi.c '
-for i in Split(ffiossrc):
-    plat += ffiarchbase + '/' + i + ' '
 fficpppath = [
 	'libs/libffi/include', 
 	'libs/libffi/src/',
 	'libs/libffi/src/' + ffiarchbase,
 	'libs/libffi/',
 ]
-
 env.Append(CPPPATH=fficpppath)
+
+platasm = []
+for i in Split(ffiossrc):
+    platasm += env.CppAsm(i + '.o', 'libs/libffi/src/' + ffiarchbase + '/' + i)
 
 env.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
 	debug.c 
 	prep_cif.c 
 	types.c
 	closures.c
-''' + plat)])
+''' + plat)] + platasm)
 
 

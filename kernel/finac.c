@@ -12,7 +12,7 @@ typedef uintptr_t UCELL;
 static void * dlopen(const char * path, int mode) {
   return LoadLibrary(path);
 }
-static void dlsym(void * l, const char * sym) {
+static void * dlsym(void * l, const char * sym) {
   return GetProcAddress(l, sym);
 }
 
