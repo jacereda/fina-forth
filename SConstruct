@@ -44,19 +44,22 @@ if ARGUMENTS.get('BUILD64',0):
 else:
    tarch = arch()
 env = Environment(ARCH=tarch, CC='gcc', OS=normalized_os())
+ring0 = ARGUMENTS.get('RING0', 0)
+if ring0:
+   env.Tool('crossmingw', '.')
+   env['LINK'] = env['CC']
+   env['OS'] = 'win32'
 #env['ENV']['PATH'] = os.environ['PATH']
 env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
 if ARGUMENTS.get('BUILD64',0):
    env.Append(CPPDEFINES=['X86_64'])
 else:
-   if env['ARCH'] == 'i386' and env['OS'] == 'darwin':
+   if env['ARCH'] == 'i386' and not ring0:
       env.Append(ASFLAGS='-arch i386')
    env.Append(CCFLAGS='-m32')
    env.Append(LINKFLAGS='-m32')
 
-env.Append(CPPDEFINES=['HAS_FILES', 'HAS_ALLOCATE', 'HAS_FIXED', 'HAS_FFI', 
-			'MORE_PRIMS'])
 gccmajor, gccminor, gccrev = gccversion()
 if gccmajor < 3:
 	env.Append(CPPDEFINES=[['__LONG_LONG_MAX__', '9223372036854775807']])
@@ -102,7 +105,16 @@ Environment.Glob = classmethod(myglob)
 Environment.Basename = classmethod(basename)
 Environment.OutputFrom = classmethod(outputfrom)
 
-env.SConscript('SConscript', 
+env.SConscript('SConscript.ffi',
+		build_dir = 'obj', 
+		src_dir = '.', 
+		exports=['env'],
+		duplicate = 0)
+
+sc = 'SConscript'
+if ARGUMENTS.get('RING0', 0):
+   sc += '.ring0'
+env.SConscript(sc,
 		build_dir = 'obj', 
 		src_dir = '.', 
 		exports=['env'],
