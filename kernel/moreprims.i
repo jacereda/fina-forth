@@ -249,7 +249,7 @@
                 tos = FLAG(tos != *dsp++);
                 NEXT;
                 
-//                PRIM(SLASH, 123);
+//                PRIMXXX(SLASH, 123);
 //                tos = *dsp++ / tos;
 //                NEXT;
                 
