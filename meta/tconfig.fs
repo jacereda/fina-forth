@@ -9,6 +9,7 @@
 256 1024 * constant /tdict   \ Dictionary size
 
 \ These should be tweakable, but the sad truth is they aren't
+-1 constant has-ffi
 -1 constant has-files
 -1 constant has-allocate
 -1 constant more-prims
