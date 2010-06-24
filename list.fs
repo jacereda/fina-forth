@@ -50,7 +50,7 @@
 
 \g insert free node before linked
 : before ( free linked -- )
-   2dup pred succ!  2dup pred swap pred!  2dup pred!  swap 2dup succ! ;
+   2dup pred succ!  2dup pred swap pred!  2dup pred!  swap succ! ;
 
 \g remove node
 : remove ( node -- node )
