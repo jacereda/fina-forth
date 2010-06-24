@@ -7,4 +7,4 @@ create 0buffer 256 allot
 : 0s"
    [char] " parse state @ if 
       postpone 0sliteral 
-   else  0term  then ; immediate compile-only
+   else  0term  then ; immediate 
