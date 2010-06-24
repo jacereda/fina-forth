@@ -24,11 +24,11 @@
 		while(n--) { 
 			ffi_type * type = cif->arg_types[n];
 			if (type == &ffi_type_double) {
-				darg[n] = (*(int*)dsp) / 65536.;
+				darg[n] = (*(int*)dsp) / (double)FXSCALE;
 				parg = darg+n;
 				dsp++;
 			} else if (type == &ffi_type_float) {
-				farg[n] = (*(int*)dsp) / 65536.;
+				farg[n] = (*(int*)dsp) / (float)FXSCALE;
 				parg = farg+n;
 				dsp++;
 			} else if (type == &ffi_type_uint64) {
@@ -43,9 +43,9 @@
 		ffi_call(cif, FFI_FN(t0), ret, arg);
 		CALLREST;
 		if (rtype == &ffi_type_float)
-			tos = 65536 * *(float*)ret;
+			tos = FXSCALE * *(float*)ret;
 		else if (rtype == &ffi_type_double)
-			tos = 65536 * *(double*)ret;
+			tos = FXSCALE * *(double*)ret;
 		else if (rtype == &ffi_type_uint64)
 			*--dsp = ret[0], tos = ret[1];
 		else if (rtype != &ffi_type_void) 
@@ -98,7 +98,7 @@
         PRIM(DLOPEN, 1100);
         CALLSAVE;
         t1 = (CELL)dlopen(zstr(str1, (char*)dsp[0], tos), 
-#if defined(__NetBSD__)
+#if defined(__NetBSD__) || defined(_WIN32)
 	DL_LAZY
 #else
 	RTLD_GLOBAL|RTLD_NOW
