@@ -67,11 +67,18 @@ else:
 	env.Append(CCFLAGS='-fno-reorder-blocks')
 
 
-tab = Builder(action=
-   'install -d obj && cat $SOURCE' + \
-   ' | grep "^ *PRIM("' + \
-   ' | sed "s/PRIM(\(.*\),.*/\&\&\\1,/g" > obj/${TARGET.name} ',
-   source_scanner = CScan)
+def gentab(env, target, source):
+    s = open(str(source[0]))
+    sc = s.read()
+    res = ''
+    prims = sc.split('PRIM(')[1:]
+    for prim in prims:
+    	res += '&&' + prim.split(',')[0] + ',\n'
+    d = open(str(target[0]), 'w')
+    d.write(res)
+
+
+tab = Builder(action=gentab, source_scanner = CScan)
 
 asm = Builder(action=
    '$CC $CCFLAGS $CPPFLAGS $_CPPDEFFLAGS $_CPPINCFLAGS -S -o $TARGET $SOURCE',
