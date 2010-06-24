@@ -66,17 +66,32 @@ if gccmajor < 3:
 else:
 	env.Append(CCFLAGS='-fno-reorder-blocks')
 
+def slurp(f):
+	f = open(str(f))
+	res = f.read()
+	f.close()
+	return res
 
+
+def barf(f, contents):
+	f = open(str(f), 'w')
+	f.write(contents)
+	f.close
+	
 def gentab(env, target, source):
-    s = open(str(source[0]))
-    sc = s.read()
-    res = ''
-    prims = sc.split('PRIM(')[1:]
-    for prim in prims:
-    	res += '&&' + prim.split(',')[0] + ',\n'
-    d = open(str(target[0]), 'w')
-    d.write(res)
+	res = ''
+	prims = slurp(source[0]).split('PRIM(')[1:]
+	for prim in prims:
+		res += '&&' + prim.split(',')[0] + ',\n'
+	barf(target[0], res)
 
+def cat(env, target, source):
+	res = ''
+	for src in source:
+		res += slurp(src)
+	barf(target[0], res)
+		
+cat = Builder(action=cat)
 
 tab = Builder(action=gentab, source_scanner = CScan)
 
@@ -92,6 +107,7 @@ env.Append(BUILDERS = {
 	'Tab' : tab,
 	'Asm' : asm,
 	'Hlp' : hlp,
+	'Cat' : cat,
 })
 
 def myglob(self, pat):
