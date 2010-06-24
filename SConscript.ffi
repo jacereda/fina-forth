@@ -1,0 +1,61 @@
+Import('env')
+ffiarch = {
+	'i386' : 'X86',
+	'x64' : 'X86',
+	'powerpc' : 'POWERPC',
+	'mips': 'MIPS',
+}[env['ARCH']]
+ffios = {
+	'netbsd' : '_FREEBSD',
+	'freebsd' : '_FREEBSD',
+	'openbsd' : '_FREEBSD',
+	'dragonfly' : '_FREEBSD',
+	'darwin' : '_DARWIN',
+	'linux' : '',
+	'win32' : '',
+}[env['OS']]
+env.Append(CPPDEFINES=[
+	['TARGET', ffiarch + ffios],
+	[ffiarch + ffios, 1],
+	['HAVE_LONG_DOUBLE', 1],
+])
+ffiarchbase = {
+	'i386' : 'x86',
+	'x64' : 'x86',
+	'powerpc': 'powerpc',
+	'mips': 'mips',
+}[env['ARCH']]
+ffiossrc = {
+	'darwin' : 'darwin.S',
+	'linux' : 'sysv.S ppc_closure.S',
+	'freebsd' : 'freebsd.S',
+	'openbsd' : 'freebsd.S',
+	'netbsd' : 'freebsd.S',
+	'dragonfly' : 'freebsd.S',
+	'win32' : 'win32.S',
+}[env['OS']]
+if env['ARCH'] == 'mips' and ffiossrc == 'freebsd.S':
+   ffiossrc = 'o32.S'
+   env.Append(CPPDEFINES=[['FFI_MIPS_O32', 1]])
+
+
+plat = ffiarchbase + '/ffi.c '
+for i in Split(ffiossrc):
+    plat += ffiarchbase + '/' + i + ' '
+fficpppath = [
+	'libs/libffi/include', 
+	'libs/libffi/src/',
+	'libs/libffi/src/' + ffiarchbase,
+	'libs/libffi/',
+]
+
+env.Append(CPPPATH=fficpppath)
+
+env.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
+	debug.c 
+	prep_cif.c 
+	types.c
+	closures.c
+''' + plat)])
+
+
