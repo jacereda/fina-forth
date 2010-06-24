@@ -135,10 +135,15 @@ static void endTerm()
 
 void Sys_Init(int argcc, char ** argvv)
 {
+        extern CELL Forth_Entry;
         argc = argcc;
         argv = argvv;
         initTerm();
         initSignals();
+	if (mprotect((void*)(-4096 & (uintptr_t)&Forth_Entry), 
+		     258*1024, PROT_READ+PROT_WRITE+PROT_EXEC))
+		perror("mprotect");
+        return 0;
 }
 
 void Sys_End()
