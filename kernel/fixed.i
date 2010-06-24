@@ -2,7 +2,7 @@
                 PRIM(FXGTFLOAT, 260);
                 { 
 		t1 = tos;
-                f = t1 / 65536.0;
+                f = t1 / (float)FXSCALE;
 		__builtin_memcpy(&t1, &f, sizeof(CELL));
                 tos = t1;
                 NEXT;
@@ -12,7 +12,7 @@
                 {
                 t1 = tos;
 		__builtin_memcpy(&f, &t1, sizeof(CELL));
-		f *= 65536;
+		f *= FXSCALE;
 		tos = (CELL)f;
                 NEXT;
                 }
@@ -21,7 +21,7 @@
                 { 
                 d = tos;
 		POP;
-		d /= 65536.0;
+		d /= FXSCALE;
 		__builtin_memcpy(&ll, &d, 2 * sizeof(CELL));
                 PUSHLL;
                 NEXT;
@@ -31,7 +31,7 @@
                 {
                 POPLL;
 		__builtin_memcpy(&d, &ll, 2 * sizeof(CELL));
-		d *= 65536;
+		d *= FXSCALE;
 		PUSH;
 		tos = (CELL)d;
                 NEXT;
