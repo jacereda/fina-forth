@@ -1,3 +1,3 @@
-warnings on 
+warnings on
 save" obj/fina"
 bye
