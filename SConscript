@@ -103,7 +103,7 @@ fenv.Command('sys/build.fs', [k] + full[:-2],
 	'echo ": buildstr s\\" ' + \
 	fenv.OutputFrom('svnversion ' + str(Dir('#'))) + \
 	'\\" ;" > $TARGET')
-fsrc = fenv.Cat('finasrc.fs', full + ['save.fs'])
+fsrc = fenv.Cat('finasrc.fs', full + ['saveaux.fs'])
 f = fenv.Command('fina', [k, fsrc],
 	['$SOURCE < ${SOURCES[1]}', 'chmod 777 $TARGET'])
 
