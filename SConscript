@@ -72,12 +72,18 @@ def genbaredict(arch, kernel):
 
 architectures = ['powerpc', 'mips', 'i386', 'x64']
 k = None
+
+if fenv['OS'] == 'win32':
+   ksys = 'nt'
+else:  
+   ksys = 'posix'
+
 for phase in range(3):
         ks = fenv.Cat('kernel/kernel' + str(phase) + '.s', 
                 ['finac.s', 'kernel/$ARCH-dict' + str(phase) + '.s'])
 
         k = fenv.Program('kernel' + str(phase), 
-                        [ks, 'kernel/sys${OS}.c', 'kernel/main.c'])
+                        [ks, 'kernel/sys' + ksys + '.c', 'kernel/main.c'])
         if ARGUMENTS.get('test', 0):
                 fenv.Default(fenv.Command('dummy' + str(phase), 
 				[k] + kerneltests,
@@ -93,13 +99,12 @@ for arch in architectures:
                         Copy('kernel/' + arch + '-dict0.s', '$SOURCE')))
         
 
-fenv.Command('sys/build.fs', ['kernel2'] + full[:-2], 
+fenv.Command('sys/build.fs', [k] + full[:-2], 
 	'echo ": buildstr s\\" ' + \
 	fenv.OutputFrom('svnversion ' + str(Dir('#'))) + \
 	'\\" ;" > $TARGET')
-fsrc = fenv.Command('finasrc.fs', full,
-  'echo "`cat $SOURCES ` warnings on save\\" obj/fina\\" bye" > $TARGET')
-f = fenv.Command('fina', ['kernel2', fsrc],
+fsrc = fenv.Cat('finasrc.fs', full + ['save.fs'])
+f = fenv.Command('fina', [k, fsrc],
 	['$SOURCE < ${SOURCES[1]}', 'chmod 777 $TARGET'])
 
 if ARGUMENTS.get('test', 0):
