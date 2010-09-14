@@ -41,11 +41,11 @@ defer save-input  ( -- xn ... x1 n )
 
 \g Save n items to return stack
 : n>r ( n1 .. nn n -- )
-   0 begin 2dup <> while rot r> 2>r 1+ repeat drop r> swap >r >r ;
+   dup begin dup while rot r> 2>r 1- repeat drop r> 2>r ;
 
 \g Restore n items from return stack
 : nr> ( -- n1 .. nn n )
-   r> r> swap >r 0 begin 2dup <> while 2r> >r -rot 1+ repeat drop ;
+   2r> >r dup begin dup while 2r> >r -rot 1- repeat drop ;
 
 :noname source-id if  0  else  deferred refill  then ;
 
