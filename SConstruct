@@ -1,6 +1,7 @@
 import os
 import sys
 import glob
+import re
 
 def shelloutput(cmd):
         pipe = os.popen(cmd, 'r')
@@ -9,13 +10,8 @@ def shelloutput(cmd):
         return ret.strip()
 
 def gccversion():
-	out = shelloutput('gcc --version').split(' ')
-	if len(out) < 3:
-		ind = 0
-	else:
-		ind = 2
-	return map(int, out[ind].split('.'))
-
+	ver = re.search('\d*\.\d*\.\d*', shelloutput('gcc --version')).group(0)
+	return map(int, ver.split('.'))
 
 def arch():
 	if os.name == 'nt':
@@ -24,6 +20,8 @@ def arch():
 		arch = shelloutput('uname -m')
 	if arch == 'ppc':
 		arch = 'powerpc'
+	if arch == 'x86_64':
+	   	arch = 'x64'
 	if arch == 'i686':
 		arch = 'i386'
 	if arch == 'sgimips':
@@ -59,7 +57,7 @@ if ring0:
 #env['ENV']['PATH'] = os.environ['PATH']
 env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
-if ARGUMENTS.get('BUILD64',0):
+if tarch == 'x64':
    env.Append(CPPDEFINES=['X86_64'])
 else:
    if env['ARCH'] == 'i386' and env['OS'] == 'darwin' and not ring0:
