@@ -27,7 +27,11 @@ ffiarchbase = {
 }[env['ARCH']]
 ffiossrc = {
 	'darwin' : 'darwin.S',
-	'linux' : 'sysv.S ppc_closure.S',
+	'linux' : {
+		'powerpc' : 'sysv.S ppc_closure.S',
+		'i386' : 'sysv.S',
+		'x64' : 'unix64.S',
+		}[env['ARCH']],
 	'freebsd' : 'freebsd.S',
 	'openbsd' : 'freebsd.S',
 	'netbsd' : 'freebsd.S',
@@ -37,8 +41,11 @@ ffiossrc = {
 if env['ARCH'] == 'mips' and ffiossrc == 'freebsd.S':
    ffiossrc = 'o32.S'
    env.Append(CPPDEFINES=[['FFI_MIPS_O32', 1]])
+if ffiossrc == 'unix64.S':
+   plat = ffiarchbase + '/ffi64.c '	
+else:
+   plat = ffiarchbase + '/ffi.c '
 
-plat = ffiarchbase + '/ffi.c '
 fficpppath = [
 	'libs/libffi/include', 
 	'libs/libffi/src/',
@@ -49,7 +56,9 @@ env.Append(CPPPATH=fficpppath)
 
 platasm = []
 for i in Split(ffiossrc):
-    platasm += env.CppAsm(i + '.o', 'libs/libffi/src/' + ffiarchbase + '/' + i)
+    e = env.Clone()
+    e.Append(CPPDEFINES=[['LIBFFI_ASM', 1]])
+    platasm += e.CppAsm(i + '.o', 'libs/libffi/src/' + ffiarchbase + '/' + i)
 
 env.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
 	debug.c 
