@@ -26,6 +26,8 @@ def arch():
 		arch = 'i386'
 	if arch == 'sgimips':
 	   	arch = 'mips'
+	if ARGUMENTS.get('ARCH', 0):
+		arch = ARGUMENTS.get('ARCH')
 	return arch
 
 def normalized_os():
@@ -40,10 +42,7 @@ def normalized_os():
 	   ret = 'dragonfly'
 	return ret
 
-if ARGUMENTS.get('BUILD64',0):
-   tarch = 'x64'
-else:
-   tarch = arch()
+tarch = arch()
 tools = []
 if os.name == 'nt':
 	tools = ['mingw']
