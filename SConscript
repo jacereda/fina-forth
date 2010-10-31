@@ -70,7 +70,7 @@ def genbaredict(arch, kernel):
         fenv.Default(fenv.Command(name + '.s', [kernel, src],
                 '${SOURCES[0]} < ${SOURCES[1]} > $TARGET'))
 
-architectures = ['powerpc', 'mips', 'i386', 'x64']
+architectures = ['powerpc', 'mips', 'i386', 'x64', 'arm']
 k = None
 
 if fenv['OS'] == 'win32':
