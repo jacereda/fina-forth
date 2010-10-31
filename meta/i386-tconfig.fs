@@ -22,7 +22,7 @@
    ."  .globl _Forth_Here" cr 
    ."  .data" cr
    .align
-   ."  .long 0xfeedbabe, 0xdeadbeef" cr
+   ."  .long -17974594, -559038737" cr
    ." _Forth_Entry:" cr
    ." Forth_Entry:" cr
    ."  .long XT_COLD" cr

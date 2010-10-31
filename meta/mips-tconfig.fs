@@ -22,7 +22,7 @@
 
    ."  .data" cr
    .align
-   ."  .long 0xfeedbabe, 0xdeadbeef" cr
+   ."  .long -17974594, -559038737" cr
    ." Forth_Entry: .long XT_COLD" cr
    ." Forth_UserP: .long XT_USERP" cr
    ." Forth_Here: .long XT_HERE" cr ;

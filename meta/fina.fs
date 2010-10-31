@@ -2,7 +2,7 @@
 value dict0 ( -- a-addr )
 \g Start of dictionary space
 
-h# abadcafe 
+-1414673666
 value dicttop  ( -- a-addr )
 \g Holds upper dictionary limit
 
@@ -66,7 +66,7 @@ variable hasname?  ( -- a-addr )
 value get-current  ( -- wid )
 \g @see anssearch
 
-h# abadcafe 
+-1414673666 
 value memtop  ( -- a-addr )
 \g Holds upper memory limit
 
@@ -78,19 +78,19 @@ value lastname  ( -- a-addr )
 value lastxt  ( -- a-addr )
 \g Pointer to XT of last word
 
-h# abadcafe 
+-1414673666 
 value here  ( -- c-addr )
 \g @see anscore
 
-h# abadcafe 
+-1414673666 
 value source-id  ( -- 0 | -1 )
 \g @see anscore
 
-h# abadcafe 
+-1414673666 
 value pad  ( -- a-addr )
 \g @see anscore
 
-h# abadcafe 
+-1414673666 
 value tib  ( -- c-addr )
 \g @see anscore
 
@@ -1159,7 +1159,8 @@ p: doto  ( x -- )
 
 \g Startup word
 : cold ( -- )
-   xtof dict0 colname [ 6 cells ] literal - xtof dict0 [ /tcall ] literal + !
+   xtof dict0  begin cell- dup @ -17974594 = until 
+   xtof dict0 [ /tcall ] literal +  !
    xtof dummy2 colname to here
    dict0
    [ /tdict ] literal + dup to memtop  cell-

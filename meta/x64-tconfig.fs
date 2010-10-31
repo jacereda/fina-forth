@@ -22,7 +22,7 @@
    ."  .globl _Forth_Here" cr 
    ."  .text" cr
    .align
-   ."  .quad 0xfeedbabe, 0xdeadbeef" cr
+   ."  .quad -17974594, -559038737" cr
    ." _Forth_Entry:" cr
    ." Forth_Entry:" cr
    ."  .quad XT_COLD" cr
