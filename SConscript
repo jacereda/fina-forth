@@ -1,7 +1,8 @@
 Import('env')
 fenv = env.Clone()
-fenv.Append(CPPDEFINES=['HAS_FILES', 'HAS_ALLOCATE', 'HAS_FIXED', 'HAS_FFI', 
-			'MORE_PRIMS'])
+fenv.Append(CPPDEFINES=['BUILD_FILES', 'BUILD_ALLOCATE', 
+                        'BUILD_FIXED', 'BUILD_FFI', 
+			'BUILD_MOREPRIMS'])
 fenv.Append(CPPPATH=[
 	'obj',
 	'libs/libffi/include',
@@ -52,7 +53,7 @@ benchmarks = env.Glob('benchmarks/*.fs')
 def gendict(arch, phase, kernel):
         meta =  ['meta/' + arch + '-tconfig.fs'] + \
                 ['meta/' + i for i in Split("""
-		   tconfig.fs host-fina.fs meta.fs fina.fs
+		   tconfig.fs tconfig-full.fs host-fina.fs meta.fs fina.fs
 	        """)]
 	name = 'kernel/' + arch + '-dict' + str(phase)
 	src = fenv.Cat(name + '.fs', boot + meta)
@@ -63,7 +64,7 @@ def gendict(arch, phase, kernel):
 def genbaredict(arch, kernel):
         meta =  ['meta/' + arch + '-tconfig.fs'] + \
                 ['meta/' + i for i in Split("""
-		   tconfig-bare.fs host-fina.fs meta.fs fina.fs
+		   tconfig.fs tconfig-bare.fs host-fina.fs meta.fs fina.fs
 	        """)]
 	name = 'kernel/' + arch + '-baredict'
 	src = fenv.Cat(name + '.fs', boot + meta)

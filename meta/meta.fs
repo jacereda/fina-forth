@@ -199,11 +199,11 @@ variable underscore  underscore off
 : prim
    >t ?stack ['] prim>t to type>t create ;
 :' fprim
-   >t ?stack has-files if ['] prim>t else ['] noop then to type>t create ;
+   >t ?stack build-files if ['] prim>t else ['] noop then to type>t create ;
 :' mprim
-   >t ?stack has-allocate if ['] prim>t else ['] noop then to type>t create ;
+   >t ?stack build-allocate if ['] prim>t else ['] noop then to type>t create ;
 : ffprim
-   >t ?stack has-ffi if ['] prim>t else ['] noop then to type>t create ;   
+   >t ?stack build-ffi if ['] prim>t else ['] noop then to type>t create ;   
 :' bcreate
    >t ?stack ['] bytevar>t to type>t create ;
 :' defer
@@ -221,7 +221,7 @@ variable underscore  underscore off
 :' :
    >t ?stack ['] col>t to type>t :' ;
 :' p: 
-   >t ?stack more-prims if ['] prim>t else ['] col>t then to type>t :' ;
+   >t ?stack build-moreprims if ['] prim>t else ['] col>t then to type>t :' ;
 :' to postpone doto ; immediate compile-only
 
 :' ?throw ['] do?throw here 2 cells - ! ; immediate compile-only
@@ -230,7 +230,7 @@ variable underscore  underscore off
    >t
    ."  .fill " /tdict size @ - .  ." ,1,0" cr
    .cell ."  0xcacacaca" cr 
-   has-profile if
+   build-profile if
       ."  .globl Forth_Prof" cr
       ."  .globl _Forth_Prof" cr
       ." Forth_Prof:" cr

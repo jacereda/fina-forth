@@ -5,8 +5,8 @@
 typedef uintptr_t UCELL;
 #define FXSCALE 1000
 
-#if defined(HAS_FFI)
-#if defined(_WIN32)
+#if defined BUILD_FFI
+#if defined _WIN32
 #include <windows.h>
 #define DL_LAZY 0
 static void * dlopen(const char * path, int mode) {
@@ -32,7 +32,7 @@ static void * dlsym(void * l, const char * sym) {
 #define PUSHULL *--dsp = tos; *--dsp = ull; tos = ull>>CELLSHIFT
 
 #undef DEBUG
-#if defined(DEBUG)
+#if defined DEBUG
 static inline void loc(const char * p) {
   while (*p++)
     Sys_PutChar(p[-1]);
@@ -90,7 +90,7 @@ static inline CELL nCompare(CELL p1, CELL p2, CELL len)
 }
 
 
-#if defined(HAS_FILES)
+#if defined BUILD_FILES
 static inline char * zstr(char * res, const char * str, unsigned len)
 {
         len &= MAXSTR-1;
@@ -99,7 +99,7 @@ static inline char * zstr(char * res, const char * str, unsigned len)
 		res[len] = str[len];
         return res;
 }
-#endif  // HAS_FILES
+#endif  // BUILD_FILES
 
 static unsigned strLen(const char * str)
 {
@@ -108,7 +108,7 @@ static unsigned strLen(const char * str)
     return str - ostr - 1;
 }
 
-#if defined(HAS_FFI)
+#if defined BUILD_FFI
 static void closure(ffi_cif * cif, void * result, void ** args, void * xt)
 {
 	unsigned nargs = cif->nargs;
@@ -122,7 +122,7 @@ static void closure(ffi_cif * cif, void * result, void ** args, void * xt)
 	FINA_Tick(&state);
 	*(CELL*)result = state.tos;
 }
-#endif // HAS_FFI
+#endif // BUILD_FFI
 
 #if 0
 static inline UCELL UMStar(UCELL * rl, UCELL a, UCELL b) {
@@ -202,23 +202,23 @@ int internalTick(struct FINA_State * state, int throw) {
                 &&NOOP,
 #include "primstab.it"
 
-#if defined(MORE_PRIMS)
+#if defined BUILD_MOREPRIMS
 #include "moreprimstab.it"
 #endif
 
-#if defined(HAS_FILES)
+#if defined BUILD_FILES
 #include "filestab.it"
 #endif
 
-#if defined(HAS_ALLOCATE)
+#if defined BUILD_ALLOCATE
 #include "allocatetab.it"
 #endif
 
-#if defined(HAS_FIXED)
+#if defined BUILD_FIXED
 #include "fixedtab.it"
 #endif
 
-#if defined(HAS_FFI)
+#if defined BUILD_FFI
 #include "ffitab.it"
 #endif
 
@@ -229,7 +229,7 @@ int internalTick(struct FINA_State * state, int throw) {
         register CELL * fpc FPCREG;
         register CELL * dsp DSPREG;
         register CELL   tos TOSREG; 
-#if defined(LNKREG)
+#if defined LNKREG
 	volatile register CELL * lnk LNKREG;
 #endif
         int ret = 0xdeadbeef;
@@ -262,23 +262,23 @@ int internalTick(struct FINA_State * state, int throw) {
         
 #include "prims.i"
         
-#if defined(MORE_PRIMS)
+#if defined BUILD_MOREPRIMS
 #include "moreprims.i"
 #endif
         
-#if defined(HAS_FILES)
+#if defined BUILD_FILES
 #include "files.i"
 #endif
 
-#if defined(HAS_ALLOCATE)
+#if defined BUILD_ALLOCATE
 #include "allocate.i"
 #endif
 
-#if defined(HAS_FIXED)
+#if defined BUILD_FIXED
 #include "fixed.i"
 #endif
 
-#if defined(HAS_FFI)
+#if defined BUILD_FFI
 #include "ffi.i"
 #endif
 
