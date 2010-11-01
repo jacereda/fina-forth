@@ -846,20 +846,27 @@ create #order ( -- a-addr )
    namecount + aligned 
    dup @ -559038737 = if cell+ @ then ;  
 
+\g Convert address/count to loop limits
+: bounds  ( c-addr1 u -- c-addr2 c-addr3 )
+   over + swap ;  
+
 : link? dup 0= swap dict? or ;
+
+: name? ( xt addr -- flag)
+   >r r@ name>xt = r@ cell- @ link? and 
+   r> namecount 0 scan nip 0= and ;
 
 \g Get name for colon definition
 : colname ( xt -- c-addr)
    dup ?dodefine nip unless drop 0 exit then
-   >r r@ begin cell- dup name>xt r@ = over cell- @ link? and  until rdrop ;
+   dup -32 bounds do 
+      dup i name? if  drop i unloop exit  then 
+   -1 cells +loop 
+   drop 0 ;
 
 \g Get name for primitive definition   
 : primname ( xt -- c-addr)
    >r xtof cold colname  begin cell- @ dup name>xt r@ = until rdrop ;
-
-\g Convert address/count to loop limits
-: bounds  ( c-addr1 u -- c-addr2 c-addr3 )
-   over + swap ;  
 
 \g Apply xt to each word in wordlist
 : forwordsin ( wid xt -- )

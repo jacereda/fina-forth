@@ -22,7 +22,6 @@ static void * dlsym(void * l, const char * sym) {
 #include <ffi.h>
 #endif
 
-// #define PROFILE_FORTH 1
 #define MAXSTR 512 // power of 2
 #define FLAG(x) ((x)? -1 : 0)
 #define CELLSHIFT (8*sizeof(CELL))
