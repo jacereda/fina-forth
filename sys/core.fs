@@ -193,7 +193,7 @@ variable leaves
    rdrop rdrop ;
 
 \g Syntactic sugar for FOREACH
-: forall ( "list" "word" -- , azucar para foreach )
+: forall ( "list" "word" -- )
    @r+ execute @r+ swap foreach ; compile-only
 
 : resolvleave ( a-addr -- )
