@@ -34,8 +34,12 @@
                 PRIM(DOLIST,7);
                 RPUSH(fpc);
                 fpc = getlnk();
-#if defined(PROFILE_FORTH)
-                fpc[-2]++; // XXX No ira en pc
+#if defined(PROFILE)
+                {
+			extern CELL Forth_Prof, Forth_Entry;
+			fpc[(&Forth_Prof - &Forth_Entry)
+			    + 2 - arch_callsize() / sizeof(CELL)]++;
+		}
 #endif    
                 NEXT;
                 

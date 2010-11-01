@@ -79,13 +79,16 @@ variable options
 \ Target dictionary
 0 value tlastname
 
+: taligned ( u1 -- u2, align value to target cells )
+   1 tcells 1- + 1 tcells negate and ;
+
 variable size  
-5 tcells size ! \ For the header in tconfig.fs
+5 tcells size ! \ For the header in *-tconfig.fs
 
 : +body 
    here lastbody -  1 cells / tcells size +! ;
 : +bytes
-   align here lastbody - size +! ;
+   align here lastbody - taligned size +! ;
 
 : .name
    namecount type ;
@@ -95,8 +98,6 @@ variable size
    ." 1:" cr 
    link 1+ to link ;
 variable underscore  underscore off
-: taligned ( u1 -- u2, align value to target cells )
-   1 tcells 1- + 1 tcells negate and ;
 : name>t ( -- )
    .align
    .link 
@@ -229,7 +230,13 @@ variable underscore  underscore off
    >t
    ."  .fill " /tdict size @ - .  ." ,1,0" cr
    .cell ."  0xcacacaca" cr 
-   has-profile if ."  .fill " /tdict . ." ,1,0" cr then
+   has-profile if
+      ."  .globl Forth_Prof" cr
+      ."  .globl _Forth_Prof" cr
+      ." Forth_Prof:" cr
+      ." _Forth_Prof:" cr
+      ."  .fill " /tdict . ." ,1,0" cr 
+   then
    .end bye ; 
 
 marker forget-previous
