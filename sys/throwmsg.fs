@@ -1,6 +1,5 @@
 : ,"
    [char] " parse s, ;
-\ here over 1 chars + allot place ;
 
 here pad !
 ," xxx"
