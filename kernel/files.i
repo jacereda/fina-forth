@@ -1,5 +1,3 @@
-
-#if defined(HAS_FILES)
                 PRIM(OPENF, 200);
                 CALLSAVE;
                 t1 = (CELL)Sys_FileOpen(zstr(str1, (char*)dsp[1], dsp[0]), tos);
@@ -144,6 +142,3 @@
                 CALLREST;
                 tos = t1;
                 NEXT;
-                
-#endif  // HASFILES
-

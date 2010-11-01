@@ -44,6 +44,19 @@ To perform some benchmarks, build with:
 
 $ scons bench=1
 
+To compile a i386 version when the default compiler is 64 bits:
+
+$ scons arch=i386
+
+To force a x64 build when the architecture is reported as i386:
+
+$ scons arch=x64
+
+To compile a call profiling version (for using prof.fs), activate
+HAS-PROFILE in meta/tconfig.fs and build with:
+
+$ scons profile=1
+
 To clean the built files (~= make clean):
 
 $ scons -c
@@ -84,7 +97,7 @@ Compiling FINA with a dictionary size of 16 Mb will result in an
 executable of ~16800000 bytes, but the stripped executable compressed
 with gzexe will only take ~41000 bytes.
 
-The default dictionary size is set to 256 Kb. This and several other
+The default dictionary size is set to 64K cells. This and several other
 values can be tweaked in meta/tconfig.fs
 
 Wordlists have the following structure:

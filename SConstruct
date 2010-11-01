@@ -48,7 +48,7 @@ if os.name == 'nt':
 	tools = ['mingw']
 
 env = Environment(ARCH=tarch, TOOLS=['mingw'], OS=normalized_os())
-ring0 = ARGUMENTS.get('ring0', 0)
+ring0 = ARGUMENTS.get('ring0', False)
 if ring0:
    env.Tool('crossmingw', '.')
    env['LINK'] = env['CC']
@@ -149,7 +149,7 @@ env.SConscript('SConscript.ffi',
 		duplicate = 0)
 
 sc = 'SConscript'
-if ARGUMENTS.get('ring0', 0):
+if ring0:
    sc += '.ring0'
 env.SConscript(sc,
 		build_dir = 'obj', 
