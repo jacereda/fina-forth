@@ -26,8 +26,8 @@ def arch():
 		arch = 'i386'
 	if arch == 'sgimips':
 	   	arch = 'mips'
-	if ARGUMENTS.get('ARCH', 0):
-		arch = ARGUMENTS.get('ARCH')
+	if ARGUMENTS.get('arch', 0):
+		arch = ARGUMENTS.get('arch')
 	return arch
 
 def normalized_os():
@@ -48,7 +48,7 @@ if os.name == 'nt':
 	tools = ['mingw']
 
 env = Environment(ARCH=tarch, TOOLS=['mingw'], OS=normalized_os())
-ring0 = ARGUMENTS.get('RING0', 0)
+ring0 = ARGUMENTS.get('ring0', 0)
 if ring0:
    env.Tool('crossmingw', '.')
    env['LINK'] = env['CC']
@@ -63,6 +63,9 @@ else:
       env.Append(ASFLAGS='-arch i386')
    env.Append(CCFLAGS='-m32')
    env.Append(LINKFLAGS='-m32')
+
+if ARGUMENTS.get('profile', False):
+   env.Append(CPPDEFINES=['PROFILE'])
 
 gccmajor, gccminor, gccrev = gccversion()
 if gccmajor < 3:
@@ -146,7 +149,7 @@ env.SConscript('SConscript.ffi',
 		duplicate = 0)
 
 sc = 'SConscript'
-if ARGUMENTS.get('RING0', 0):
+if ARGUMENTS.get('ring0', 0):
    sc += '.ring0'
 env.SConscript(sc,
 		build_dir = 'obj', 
