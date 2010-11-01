@@ -4,6 +4,8 @@
  .globl _Forth_UserP
  .globl Forth_Here
  .globl _Forth_Here
+ .globl Forth_End
+ .globl _Forth_End
  .data
  .align 2
  .long -17974594, -559038737
@@ -2584,3 +2586,5 @@ XT_DUMMYTWO:
 
  .fill 251515 ,1,0
  .long  0xcacacaca
+_Forth_End:
+Forth_End:

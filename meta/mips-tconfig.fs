@@ -19,6 +19,7 @@
    ."  .globl Forth_Entry " cr 
    ."  .globl Forth_UserP" cr 
    ."  .globl Forth_Here" cr 
+   ."  .globl Forth_End" cr 
 
    ."  .data" cr
    .align
@@ -28,6 +29,7 @@
    ." Forth_Here: .long XT_HERE" cr ;
    
 : .end
+   ." Forth_End:" cr 
    ." .set reorder" cr
    ." .set at" cr
    ." .set macro" cr ;

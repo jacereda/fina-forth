@@ -16,6 +16,8 @@
    ."  .globl _Forth_UserP" cr 
    ."  .globl Forth_Here" cr 
    ."  .globl _Forth_Here" cr 
+   ."  .globl Forth_End" cr 
+   ."  .globl _Forth_End" cr 
 
    ."  .data" cr
    .align
@@ -30,6 +32,9 @@
    ." _Forth_Here:" cr
    ."  .long XT_HERE" cr ;
    
-: .end ;
+: .end 
+   ." _Forth_End:" cr
+   ." Forth_End:" cr ;
+
 
 
