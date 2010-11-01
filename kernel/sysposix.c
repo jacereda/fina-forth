@@ -4,6 +4,7 @@
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/vmparam.h>
 
 #include <assert.h>
 #include <errno.h>
@@ -133,17 +134,46 @@ static void endTerm()
         }
 }
 
+static uintptr_t end() {
+	extern CELL Forth_End;
+	return (uintptr_t) &Forth_End;
+}
+
+static uintptr_t start() {
+	extern CELL Forth_Entry;
+	return (uintptr_t) &Forth_Entry;
+}
+
+static unsigned pageshift() {
+	return 12;
+}
+
+static unsigned pagesize() {
+	return 1 << pageshift();
+}
+
+static uintptr_t page(uintptr_t addr) {
+	return addr >> pageshift();
+}
+
+static uintptr_t tosize(uintptr_t npages) {
+	return npages * pagesize();
+}
+
+static void * toaddr(uintptr_t page) {
+	return (void*)(page * pagesize());
+}
+
 void Sys_Init(int argcc, char ** argvv)
 {
-        extern CELL Forth_Entry;
         argc = argcc;
         argv = argvv;
         initTerm();
         initSignals();
-	if (mprotect((void*)(-4096 & (uintptr_t)&Forth_Entry), 
-		     258*1024, PROT_READ+PROT_WRITE+PROT_EXEC))
+	if (mprotect(toaddr(page(start())),
+		     tosize(page(end()) - page(start()) + 1),
+		     PROT_READ+PROT_WRITE+PROT_EXEC))
 		perror("mprotect");
-        return 0;
 }
 
 void Sys_End()

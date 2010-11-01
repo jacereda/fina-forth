@@ -77,8 +77,6 @@ variable options
 64 constant immed
 
 \ Target dictionary
-: tcells 
-   tcellbits 8 / * ;
 0 value tlastname
 
 variable size  
@@ -231,6 +229,7 @@ variable underscore  underscore off
    >t
    ."  .fill " /tdict size @ - .  ." ,1,0" cr
    .cell ."  0xcacacaca" cr 
+   has-profile if ."  .fill " /tdict . ." ,1,0" cr then
    .end bye ; 
 
 marker forget-previous

@@ -4,6 +4,7 @@
  .globl Forth_Entry 
  .globl Forth_UserP
  .globl Forth_Here
+ .globl Forth_End
  .data
  .balign 4
  .long -17974594, -559038737
@@ -2725,6 +2726,7 @@ XT_DUMMYTWO:
 
  .fill 251515 ,1,0
  .long  0xcacacaca
+Forth_End:
 .set reorder
 .set at
 .set macro
