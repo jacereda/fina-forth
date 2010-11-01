@@ -37,9 +37,6 @@ variable sourcevar ( -- a-addr )
 \g Double variable holding input buffer string
 0 ,
 
-variable hld  ( -- a-addr )
-\g Pointer to numeric output string
-
 variable userp  ( -- a-addr )
 \g User variables pointer
 
@@ -93,6 +90,14 @@ value pad  ( -- a-addr )
 -1414673666 
 value tib  ( -- c-addr )
 \g @see anscore
+
+-1414673666 
+value hld0  ( -- c-addr )
+\g Pointer to end of hold buffer
+
+-1414673666 
+value hld  ( -- a-addr )
+\g Pointer to numeric output string
 
 0 
 value found  ( -- a-addr )
@@ -927,11 +932,11 @@ bcreate redefstr ," redefined "
 
 \g @see anscore
 : hold   ( char -- )
-    -1 hld +!   hld @ c! ;  
+    hld 1- to hld   hld c! ;  
 
 \g @see anscore
 : <#   ( -- )
-   here [ /hld ] literal + hld ! ;   
+   hld0 to hld ;
 
 \g @see anscore
 : #  ( ud1 -- ud2 )
@@ -945,7 +950,7 @@ bcreate redefstr ," redefined "
 
 \g @see anscore
 : #>  ( xd -- a-addr u )
-   2drop hld @ here [ /hld ] literal + over - 1chars/ ;  
+   2drop hld hld0 over - 1chars/ ;  
 
 \g @see anscore
 : sign  ( n -- )
@@ -1169,6 +1174,7 @@ p: doto  ( x -- )
    dup sp0 !   [ /ds ]    literal - 
    [ /pad ]   literal - dup to pad
    [ /tib ]   literal - dup to tib
+   dup to hld0 [ /hld ]   literal -
    dup to dicttop
    drop
    10 base !
