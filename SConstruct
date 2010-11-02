@@ -151,6 +151,12 @@ env.SConscript('SConscript.ffi',
 sc = 'SConscript'
 if ring0:
    sc += '.ring0'
+env['files'] = ARGUMENTS.get('files', 1)
+env['allocate'] = ARGUMENTS.get('allocate', 1)
+env['fixed'] = ARGUMENTS.get('fixed', 1)
+env['ffi'] = ARGUMENTS.get('ffi', 1)
+env['moreprims'] = ARGUMENTS.get('moreprims', 1)
+env['profile'] = ARGUMENTS.get('profile', 1)
 env.SConscript(sc,
 		build_dir = 'obj', 
 		src_dir = '.', 

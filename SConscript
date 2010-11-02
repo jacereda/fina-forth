@@ -1,8 +1,14 @@
 Import('env')
 fenv = env.Clone()
-fenv.Append(CPPDEFINES=['BUILD_FILES', 'BUILD_ALLOCATE', 
-                        'BUILD_FIXED', 'BUILD_FFI', 
-			'BUILD_MOREPRIMS'])
+fenv.Append(CPPDEFINES=[
+      ['BUILD_FILES', fenv['files']],
+      ['BUILD_ALLOCATE', fenv['allocate']],
+      ['BUILD_FIXED', fenv['fixed']],
+      ['BUILD_FFI', fenv['ffi']],
+      ['BUILD_MOREPRIMS', fenv['moreprims']],
+      ['BUILD_PROFILE', fenv['profile']],
+       ])
+
 fenv.Append(CPPPATH=[
 	'obj',
 	'libs/libffi/include',
@@ -18,7 +24,7 @@ for i in fenv.Glob('kernel/*.i'):
 	fenv.Tab(fenv.Basename(i[:-2]) + 'tab.it', i)
 
 fenv.Command('arch.h', 'kernel/$ARCH-arch.h', Copy('$TARGET', '${SOURCE.abspath}'))
-fenv.Asm('finac.s', 'kernel/finac.c')
+fenv.Asm('finac.S', 'kernel/finac.c')
 
 boot = ['sys/' + i for i in Split("""
    core.fs defer.fs core2.fs throwmsg.fs based.fs
@@ -53,22 +59,22 @@ benchmarks = env.Glob('benchmarks/*.fs')
 def gendict(arch, phase, kernel):
         meta =  ['meta/' + arch + '-tconfig.fs'] + \
                 ['meta/' + i for i in Split("""
-		   tconfig.fs tconfig-full.fs host-fina.fs meta.fs fina.fs
+		   tconfig.fs host-fina.fs meta.fs fina.fs
 	        """)]
 	name = 'kernel/' + arch + '-dict' + str(phase)
 	src = fenv.Cat(name + '.fs', boot + meta)
-        fenv.Command('kernel/' + arch + '-dict' + str(phase) + '.s', 
+        fenv.Command('kernel/' + arch + '-dict' + str(phase) + '.S', 
 		[kernel, src],
                 '${SOURCES[0]} < ${SOURCES[1]} > $TARGET')
 
 def genbaredict(arch, kernel):
         meta =  ['meta/' + arch + '-tconfig.fs'] + \
                 ['meta/' + i for i in Split("""
-		   tconfig.fs tconfig-bare.fs host-fina.fs meta.fs fina.fs
+		   tconfig.fs host-fina.fs meta.fs fina.fs
 	        """)]
 	name = 'kernel/' + arch + '-baredict'
 	src = fenv.Cat(name + '.fs', boot + meta)
-        fenv.Default(fenv.Command(name + '.s', [kernel, src],
+        fenv.Default(fenv.Command(name + '.S', [kernel, src],
                 '${SOURCES[0]} < ${SOURCES[1]} > $TARGET'))
 
 architectures = ['powerpc', 'mips', 'i386', 'x64', 'arm']
@@ -80,8 +86,8 @@ else:
    ksys = 'posix'
 
 for phase in range(3):
-        ks = fenv.Cat('kernel/kernel' + str(phase) + '.s', 
-                ['finac.s', 'kernel/$ARCH-dict' + str(phase) + '.s'])
+        ks = fenv.Cat('kernel/kernel' + str(phase) + '.S', 
+                ['finac.S', 'kernel/$ARCH-dict' + str(phase) + '.S'])
 
         k = fenv.Program('kernel' + str(phase), 
                         [ks, 'kernel/sys' + ksys + '.c', 'kernel/main.c'])
@@ -96,8 +102,8 @@ genbaredict('i386', k)
 
 for arch in architectures:
         fenv.Default(fenv.Command(arch + 'dummy', 
-                        'kernel/' + arch + '-dict2.s', 
-                        Copy('kernel/' + arch + '-dict0.s', '$SOURCE')))
+                        'kernel/' + arch + '-dict2.S', 
+                        Copy('kernel/' + arch + '-dict0.S', '$SOURCE')))
         
 
 fenv.Command('sys/build.fs', [k] + full[:-2], 
