@@ -76,6 +76,7 @@ variable options
 32 constant compo
 64 constant immed
 
+
 \ Target dictionary
 0 value tlastname
 
@@ -169,7 +170,8 @@ variable underscore  underscore off
       cell>t
       dup here <> if ." ," then
    repeat drop
-   +body ;
+   +body cr ;
+
 : col>t ( -- )
    name>t
    .call" DOLIST"
@@ -180,64 +182,75 @@ variable underscore  underscore off
    .cell ."  -559038737," lastname namecount xttype cr 
    2 tcells size +! ;
 
+: both>t ( -- )
+   prim>t 
+   ." #else" cr 
+   col>t ;
+
 :noname ; value type>t
 
+0 value conditional
 
 : forgetit
-   s" forget-previous marker forget-previous" evaluate cr cr ;
+   s" forget-previous marker forget-previous" evaluate cr ;
 : >t
-   type>t execute forgetit ;
+   type>t execute
+   conditional if ." #endif" cr then 
+   forgetit false to conditional ;
 
 : ?stack
    depth abort" stack error" ;
 
 : constant' constant ;
-: :' : ;
 : to' postpone to ; 
 : value' value ;
 
+: cond ( c-addr len -- ) ." #if " type cr true to conditional ;
+
 : prim
    >t ?stack ['] prim>t to type>t create ;
-:' fprim
-   >t ?stack build-files if ['] prim>t else ['] noop then to type>t create ;
-:' mprim
-   >t ?stack build-allocate if ['] prim>t else ['] noop then to type>t create ;
+: fprim
+   prim s" BUILD_FILES" cond ;
+: mprim
+   prim s" BUILD_ALLOCATE" cond ;
 : ffprim
-   >t ?stack build-ffi if ['] prim>t else ['] noop then to type>t create ;   
-:' bcreate
+   prim s" BUILD_FFI" cond ;
+: p:
+   >t ?stack ['] both>t to type>t : s" BUILD_MOREPRIMS" cond ;
+: bcreate
    >t ?stack ['] bytevar>t to type>t create ;
-:' defer
+: defer
    >t ?stack ['] defer>t to type>t create 0 , ;
-:' create     
+: create     
    >t ?stack ['] create>t to type>t create ;
-:' user 
+: user 
    >t ?stack ['] user>t to type>t user ;
-:' variable
+: variable
    >t ['] var>t to type>t variable ;
-:' constant   
+: constant   
    >t ['] const>t to type>t constant ;
-:' value      
+: value      
    >t ['] val>t to type>t value ;
-:' :
-   >t ?stack ['] col>t to type>t :' ;
-:' p: 
-   >t ?stack build-moreprims if ['] prim>t else ['] col>t then to type>t :' ;
-:' to postpone doto ; immediate compile-only
 
-:' ?throw ['] do?throw here 2 cells - ! ; immediate compile-only
+: to postpone doto ; immediate compile-only
 
-:' bye
+: ?throw ['] do?throw here 2 cells - ! ; immediate compile-only
+
+: bye
    >t
    ."  .fill " /tdict size @ - .  ." ,1,0" cr
    .cell ."  0xcacacaca" cr 
-   build-profile if
+   ." #if BUILD_PROFILE" cr
       ."  .globl Forth_Prof" cr
       ."  .globl _Forth_Prof" cr
       ." Forth_Prof:" cr
       ." _Forth_Prof:" cr
       ."  .fill " /tdict . ." ,1,0" cr 
-   then
+   ." #endif" cr
    .end bye ; 
+
+: :
+   >t ?stack ['] col>t to type>t : ;
 
 marker forget-previous
 .init

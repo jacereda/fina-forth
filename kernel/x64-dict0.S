@@ -19,7 +19,6 @@ _Forth_Here:
 Forth_Here:
  .quad XT_HERE
 
-
  .p2align 3
  .quad 0
 1:
@@ -31,7 +30,6 @@ XT_DICTZERO:
  nop
  call XT_DOVALUE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -43,7 +41,6 @@ XT_DICTTOP:
  nop
  call XT_DOVALUE
  .quad -1414673666 
-
  .p2align 3
  .quad 1b
 1:
@@ -55,7 +52,6 @@ XT_SIGHANDLER:
  nop
  call XT_DOUSER
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -67,7 +63,6 @@ XT_THROWFRAME:
  nop
  call XT_DOUSER
  .quad -8 
-
  .p2align 3
  .quad 1b
 1:
@@ -79,7 +74,6 @@ XT_DPL:
  nop
  call XT_DOUSER
  .quad -16 
-
  .p2align 3
  .quad 1b
 1:
@@ -91,7 +85,6 @@ XT_SPZERO:
  nop
  call XT_DOUSER
  .quad -24 
-
  .p2align 3
  .quad 1b
 1:
@@ -103,7 +96,6 @@ XT_RPZERO:
  nop
  call XT_DOUSER
  .quad -32 
-
  .p2align 3
  .quad 1b
 1:
@@ -115,7 +107,6 @@ XT_TASKNAME:
  nop
  call XT_DOUSER
  .quad -40 
-
  .p2align 3
  .quad 1b
 1:
@@ -127,7 +118,6 @@ XT_PARSED:
  nop
  call XT_DOVAR
  .quad -559038737 ,0 
-
  .p2align 3
  .quad 1b
 1:
@@ -139,7 +129,6 @@ XT_SOURCEVAR:
  nop
  call XT_DOVAR
  .quad -559038737 ,0 
-
  .p2align 3
  .quad 1b
 1:
@@ -151,7 +140,6 @@ XT_USERP:
  nop
  call XT_DOVAR
  .quad -559038737 
-
  .p2align 3
  .quad 1b
 1:
@@ -163,7 +151,6 @@ XT_WARNINGS:
  nop
  call XT_DOVAR
  .quad -559038737 
-
  .p2align 3
  .quad 1b
 1:
@@ -175,7 +162,6 @@ XT_BASE:
  nop
  call XT_DOVAR
  .quad -559038737 
-
  .p2align 3
  .quad 1b
 1:
@@ -187,7 +173,6 @@ XT_GTIN:
  nop
  call XT_DOVAR
  .quad -559038737 
-
  .p2align 3
  .quad 1b
 1:
@@ -199,7 +184,6 @@ XT_SPAN:
  nop
  call XT_DOVAR
  .quad -559038737 
-
  .p2align 3
  .quad 1b
 1:
@@ -211,7 +195,6 @@ XT_STATE:
  nop
  call XT_DOVAR
  .quad -559038737 
-
  .p2align 3
  .quad 1b
 1:
@@ -223,7 +206,6 @@ XT_HASNAMEQ:
  nop
  call XT_DOVAR
  .quad -559038737 
-
  .p2align 3
  .quad 1b
 1:
@@ -235,7 +217,6 @@ XT_GETMINUSCURRENT:
  nop
  call XT_DOVALUE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -247,7 +228,6 @@ XT_MEMTOP:
  nop
  call XT_DOVALUE
  .quad -1414673666 
-
  .p2align 3
  .quad 1b
 1:
@@ -259,7 +239,6 @@ XT_LASTNAME:
  nop
  call XT_DOVALUE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -271,7 +250,6 @@ XT_LASTXT:
  nop
  call XT_DOVALUE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -283,7 +261,6 @@ XT_HERE:
  nop
  call XT_DOVALUE
  .quad -1414673666 
-
  .p2align 3
  .quad 1b
 1:
@@ -295,7 +272,6 @@ XT_SOURCEMINUSID:
  nop
  call XT_DOVALUE
  .quad -1414673666 
-
  .p2align 3
  .quad 1b
 1:
@@ -307,7 +283,6 @@ XT_PAD:
  nop
  call XT_DOVALUE
  .quad -1414673666 
-
  .p2align 3
  .quad 1b
 1:
@@ -319,7 +294,6 @@ XT_TIB:
  nop
  call XT_DOVALUE
  .quad -1414673666 
-
  .p2align 3
  .quad 1b
 1:
@@ -331,7 +305,6 @@ XT_HLDZERO:
  nop
  call XT_DOVALUE
  .quad -1414673666 
-
  .p2align 3
  .quad 1b
 1:
@@ -343,7 +316,6 @@ XT_HLD:
  nop
  call XT_DOVALUE
  .quad -1414673666 
-
  .p2align 3
  .quad 1b
 1:
@@ -355,7 +327,6 @@ XT_FOUND:
  nop
  call XT_DOVALUE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -367,7 +338,6 @@ XT_LASTUSER:
  nop
  call XT_DOVALUE
  .quad -48 ,0 ,0 
-
  .p2align 3
  .quad 1b
 1:
@@ -379,7 +349,6 @@ XT_FORTHMINUSWORDLIST:
  nop
  call XT_DOVALUE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -391,7 +360,6 @@ XT_BL:
  nop
  call XT_DOCONST
  .quad 32 
-
  .p2align 3
  .quad 1b
 1:
@@ -399,7 +367,6 @@ XT_BL:
  .p2align 3
 _XT_UMPLUS:
  .quad  -559038737,XT_UMPLUS
-
 
  .p2align 3
  .quad 1b
@@ -409,7 +376,6 @@ _XT_UMPLUS:
 _XT_AND:
  .quad  -559038737,XT_AND
 
-
  .p2align 3
  .quad 1b
 1:
@@ -417,7 +383,6 @@ _XT_AND:
  .p2align 3
 _XT_TWOSTAR:
  .quad  -559038737,XT_TWOSTAR
-
 
  .p2align 3
  .quad 1b
@@ -427,7 +392,6 @@ _XT_TWOSTAR:
 _XT_TWOSLASH:
  .quad  -559038737,XT_TWOSLASH
 
-
  .p2align 3
  .quad 1b
 1:
@@ -435,7 +399,6 @@ _XT_TWOSLASH:
  .p2align 3
 _XT_XOR:
  .quad  -559038737,XT_XOR
-
 
  .p2align 3
  .quad 1b
@@ -445,7 +408,6 @@ _XT_XOR:
 _XT_OR:
  .quad  -559038737,XT_OR
 
-
  .p2align 3
  .quad 1b
 1:
@@ -453,7 +415,6 @@ _XT_OR:
  .p2align 3
 _XT_ZEROLT:
  .quad  -559038737,XT_ZEROLT
-
 
  .p2align 3
  .quad 1b
@@ -463,7 +424,6 @@ _XT_ZEROLT:
 _XT_ZEROEQUALS:
  .quad  -559038737,XT_ZEROEQUALS
 
-
  .p2align 3
  .quad 1b
 1:
@@ -471,7 +431,6 @@ _XT_ZEROEQUALS:
  .p2align 3
 _XT_RXQ:
  .quad  -559038737,XT_RXQ
-
 
  .p2align 3
  .quad 1b
@@ -481,7 +440,6 @@ _XT_RXQ:
 _XT_RXFETCH:
  .quad  -559038737,XT_RXFETCH
 
-
  .p2align 3
  .quad 1b
 1:
@@ -489,7 +447,6 @@ _XT_RXFETCH:
  .p2align 3
 _XT_TXQ:
  .quad  -559038737,XT_TXQ
-
 
  .p2align 3
  .quad 1b
@@ -499,7 +456,6 @@ _XT_TXQ:
 _XT_TXSTORE:
  .quad  -559038737,XT_TXSTORE
 
-
  .p2align 3
  .quad 1b
 1:
@@ -507,7 +463,6 @@ _XT_TXSTORE:
  .p2align 3
 _XT_DROP:
  .quad  -559038737,XT_DROP
-
 
  .p2align 3
  .quad 1b
@@ -517,7 +472,6 @@ _XT_DROP:
 _XT_DUP:
  .quad  -559038737,XT_DUP
 
-
  .p2align 3
  .quad 1b
 1:
@@ -525,7 +479,6 @@ _XT_DUP:
  .p2align 3
 _XT_OVER:
  .quad  -559038737,XT_OVER
-
 
  .p2align 3
  .quad 1b
@@ -535,7 +488,6 @@ _XT_OVER:
 _XT_SWAP:
  .quad  -559038737,XT_SWAP
 
-
  .p2align 3
  .quad 1b
 1:
@@ -543,7 +495,6 @@ _XT_SWAP:
  .p2align 3
 _XT_RPFETCH:
  .quad  -559038737,XT_RPFETCH
-
 
  .p2align 3
  .quad 1b
@@ -553,7 +504,6 @@ _XT_RPFETCH:
 _XT_RPSTORE:
  .quad  -559038737,XT_RPSTORE
 
-
  .p2align 3
  .quad 1b
 1:
@@ -561,7 +511,6 @@ _XT_RPSTORE:
  .p2align 3
 _XT_SPFETCH:
  .quad  -559038737,XT_SPFETCH
-
 
  .p2align 3
  .quad 1b
@@ -571,7 +520,6 @@ _XT_SPFETCH:
 _XT_SPSTORE:
  .quad  -559038737,XT_SPSTORE
 
-
  .p2align 3
  .quad 1b
 1:
@@ -579,7 +527,6 @@ _XT_SPSTORE:
  .p2align 3
 _XT_STORE:
  .quad  -559038737,XT_STORE
-
 
  .p2align 3
  .quad 1b
@@ -589,7 +536,6 @@ _XT_STORE:
 _XT_FETCH:
  .quad  -559038737,XT_FETCH
 
-
  .p2align 3
  .quad 1b
 1:
@@ -597,7 +543,6 @@ _XT_FETCH:
  .p2align 3
 _XT_CSTORE:
  .quad  -559038737,XT_CSTORE
-
 
  .p2align 3
  .quad 1b
@@ -607,7 +552,6 @@ _XT_CSTORE:
 _XT_CFETCH:
  .quad  -559038737,XT_CFETCH
 
-
  .p2align 3
  .quad 1b
 1:
@@ -615,7 +559,6 @@ _XT_CFETCH:
  .p2align 3
 _XT_MOVE:
  .quad  -559038737,XT_MOVE
-
 
  .p2align 3
  .quad 1b
@@ -625,7 +568,6 @@ _XT_MOVE:
 _XT_ISAMEQ:
  .quad  -559038737,XT_ISAMEQ
 
-
  .p2align 3
  .quad 1b
 1:
@@ -633,7 +575,6 @@ _XT_ISAMEQ:
  .p2align 3
 _XT_SAMEQ:
  .quad  -559038737,XT_SAMEQ
-
 
  .p2align 3
  .quad 1b
@@ -643,7 +584,6 @@ _XT_SAMEQ:
 _XT_EXECUTE:
  .quad  -559038737,XT_EXECUTE
 
-
  .p2align 3
  .quad 1b
 1:
@@ -651,7 +591,6 @@ _XT_EXECUTE:
  .p2align 3
 _XT_ENDTICK:
  .quad  -559038737,XT_ENDTICK
-
 
  .p2align 3
  .quad 1b
@@ -661,7 +600,6 @@ _XT_ENDTICK:
 _XT_BYE:
  .quad  -559038737,XT_BYE
 
-
  .p2align 3
  .quad 1b
 1:
@@ -669,7 +607,6 @@ _XT_BYE:
  .p2align 3
 _XT_QDODEFINE:
  .quad  -559038737,XT_QDODEFINE
-
 
  .p2align 3
  .quad 1b
@@ -679,7 +616,6 @@ _XT_QDODEFINE:
 _XT_XTCOMMA:
  .quad  -559038737,XT_XTCOMMA
 
-
  .p2align 3
  .quad 1b
 1:
@@ -687,7 +623,6 @@ _XT_XTCOMMA:
  .p2align 3
 _XT_MS:
  .quad  -559038737,XT_MS
-
 
  .p2align 3
  .quad 1b
@@ -697,7 +632,6 @@ _XT_MS:
 _XT_TIMEANDDATE:
  .quad  -559038737,XT_TIMEANDDATE
 
-
  .p2align 3
  .quad 1b
 1:
@@ -705,7 +639,6 @@ _XT_TIMEANDDATE:
  .p2align 3
 _XT_DOCREATE:
  .quad  -559038737,XT_DOCREATE
-
 
  .p2align 3
  .quad 1b
@@ -715,7 +648,6 @@ _XT_DOCREATE:
 _XT_DOLIT:
  .quad  -559038737,XT_DOLIT
 
-
  .p2align 3
  .quad 1b
 1:
@@ -723,7 +655,6 @@ _XT_DOLIT:
  .p2align 3
 _XT_DOUSER:
  .quad  -559038737,XT_DOUSER
-
 
  .p2align 3
  .quad 1b
@@ -733,7 +664,6 @@ _XT_DOUSER:
 _XT_DOVAR:
  .quad  -559038737,XT_DOVAR
 
-
  .p2align 3
  .quad 1b
 1:
@@ -741,7 +671,6 @@ _XT_DOVAR:
  .p2align 3
 _XT_DOCONST:
  .quad  -559038737,XT_DOCONST
-
 
  .p2align 3
  .quad 1b
@@ -751,7 +680,6 @@ _XT_DOCONST:
 _XT_DOVALUE:
  .quad  -559038737,XT_DOVALUE
 
-
  .p2align 3
  .quad 1b
 1:
@@ -759,7 +687,6 @@ _XT_DOVALUE:
  .p2align 3
 _XT_DOLIST:
  .quad  -559038737,XT_DOLIST
-
 
  .p2align 3
  .quad 1b
@@ -769,7 +696,6 @@ _XT_DOLIST:
 _XT_DOLOOP:
  .quad  -559038737,XT_DOLOOP
 
-
  .p2align 3
  .quad 1b
 1:
@@ -777,7 +703,6 @@ _XT_DOLOOP:
  .p2align 3
 _XT_DOPLUSLOOP:
  .quad  -559038737,XT_DOPLUSLOOP
-
 
  .p2align 3
  .quad 1b
@@ -787,7 +712,6 @@ _XT_DOPLUSLOOP:
 _XT_DONEXT:
  .quad  -559038737,XT_DONEXT
 
-
  .p2align 3
  .quad 1b
 1:
@@ -795,7 +719,6 @@ _XT_DONEXT:
  .p2align 3
 _XT_ZEROBRANCH:
  .quad  -559038737,XT_ZEROBRANCH
-
 
  .p2align 3
  .quad 1b
@@ -805,7 +728,6 @@ _XT_ZEROBRANCH:
 _XT_BRANCH:
  .quad  -559038737,XT_BRANCH
 
-
  .p2align 3
  .quad 1b
 1:
@@ -813,7 +735,6 @@ _XT_BRANCH:
  .p2align 3
 _XT_EXIT:
  .quad  -559038737,XT_EXIT
-
 
  .p2align 3
  .quad 1b
@@ -823,7 +744,6 @@ _XT_EXIT:
 _XT_I:
  .quad  -559038737,XT_I
 
-
  .p2align 3
  .quad 1b
 1:
@@ -831,7 +751,6 @@ _XT_I:
  .p2align 3
 _XT_GTR:
  .quad  -559038737,XT_GTR
-
 
  .p2align 3
  .quad 1b
@@ -841,7 +760,6 @@ _XT_GTR:
 _XT_RGT:
  .quad  -559038737,XT_RGT
 
-
  .p2align 3
  .quad 1b
 1:
@@ -850,7 +768,7 @@ _XT_RGT:
 _XT_RFETCH:
  .quad  -559038737,XT_RFETCH
 
-
+#if BUILD_ALLOCATE
  .p2align 3
  .quad 1b
 1:
@@ -858,8 +776,9 @@ _XT_RFETCH:
  .p2align 3
 _XT_ALLOCATE:
  .quad  -559038737,XT_ALLOCATE
+#endif
 
-
+#if BUILD_ALLOCATE
  .p2align 3
  .quad 1b
 1:
@@ -867,8 +786,9 @@ _XT_ALLOCATE:
  .p2align 3
 _XT_FREE:
  .quad  -559038737,XT_FREE
+#endif
 
-
+#if BUILD_ALLOCATE
  .p2align 3
  .quad 1b
 1:
@@ -876,8 +796,9 @@ _XT_FREE:
  .p2align 3
 _XT_RESIZE:
  .quad  -559038737,XT_RESIZE
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -885,8 +806,9 @@ _XT_RESIZE:
  .p2align 3
 _XT_OPENF:
  .quad  -559038737,XT_OPENF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -894,8 +816,9 @@ _XT_OPENF:
  .p2align 3
 _XT_CLOSEF:
  .quad  -559038737,XT_CLOSEF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -903,8 +826,9 @@ _XT_CLOSEF:
  .p2align 3
 _XT_READF:
  .quad  -559038737,XT_READF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -912,8 +836,9 @@ _XT_READF:
  .p2align 3
 _XT_WRITEF:
  .quad  -559038737,XT_WRITEF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -921,8 +846,9 @@ _XT_WRITEF:
  .p2align 3
 _XT_MMAPF:
  .quad  -559038737,XT_MMAPF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -930,8 +856,9 @@ _XT_MMAPF:
  .p2align 3
 _XT_SIZEF:
  .quad  -559038737,XT_SIZEF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -939,8 +866,9 @@ _XT_SIZEF:
  .p2align 3
 _XT_SEEKF:
  .quad  -559038737,XT_SEEKF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -948,8 +876,9 @@ _XT_SEEKF:
  .p2align 3
 _XT_TELLF:
  .quad  -559038737,XT_TELLF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -957,8 +886,9 @@ _XT_TELLF:
  .p2align 3
 _XT_LINEF:
  .quad  -559038737,XT_LINEF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -966,8 +896,9 @@ _XT_LINEF:
  .p2align 3
 _XT_DELETEF:
  .quad  -559038737,XT_DELETEF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -975,8 +906,9 @@ _XT_DELETEF:
  .p2align 3
 _XT_STATF:
  .quad  -559038737,XT_STATF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -984,8 +916,9 @@ _XT_STATF:
  .p2align 3
 _XT_RENF:
  .quad  -559038737,XT_RENF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -993,8 +926,9 @@ _XT_RENF:
  .p2align 3
 _XT_TRUNCF:
  .quad  -559038737,XT_TRUNCF
+#endif
 
-
+#if BUILD_FILES
  .p2align 3
  .quad 1b
 1:
@@ -1002,7 +936,7 @@ _XT_TRUNCF:
  .p2align 3
 _XT_FLUSHF:
  .quad  -559038737,XT_FLUSHF
-
+#endif
 
  .p2align 3
  .quad 1b
@@ -1012,7 +946,6 @@ _XT_FLUSHF:
 _XT_FXGTFLOAT:
  .quad  -559038737,XT_FXGTFLOAT
 
-
  .p2align 3
  .quad 1b
 1:
@@ -1020,7 +953,6 @@ _XT_FXGTFLOAT:
  .p2align 3
 _XT_FLOATGTFX:
  .quad  -559038737,XT_FLOATGTFX
-
 
  .p2align 3
  .quad 1b
@@ -1030,7 +962,6 @@ _XT_FLOATGTFX:
 _XT_FXGTDOUBLE:
  .quad  -559038737,XT_FXGTDOUBLE
 
-
  .p2align 3
  .quad 1b
 1:
@@ -1039,7 +970,7 @@ _XT_FXGTDOUBLE:
 _XT_DOUBLEGTFX:
  .quad  -559038737,XT_DOUBLEGTFX
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1047,8 +978,9 @@ _XT_DOUBLEGTFX:
  .p2align 3
 _XT_FFPREP:
  .quad  -559038737,XT_FFPREP
+#endif
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1056,8 +988,9 @@ _XT_FFPREP:
  .p2align 3
 _XT_FFCALL:
  .quad  -559038737,XT_FFCALL
+#endif
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1065,8 +998,9 @@ _XT_FFCALL:
  .p2align 3
 _XT_FFCLOS:
  .quad  -559038737,XT_FFCLOS
+#endif
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1074,8 +1008,9 @@ _XT_FFCLOS:
  .p2align 3
 _XT_FFVOID:
  .quad  -559038737,XT_FFVOID
+#endif
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1083,8 +1018,9 @@ _XT_FFVOID:
  .p2align 3
 _XT_FFINT:
  .quad  -559038737,XT_FFINT
+#endif
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1092,8 +1028,9 @@ _XT_FFINT:
  .p2align 3
 _XT_FFFLOAT:
  .quad  -559038737,XT_FFFLOAT
+#endif
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1101,8 +1038,9 @@ _XT_FFFLOAT:
  .p2align 3
 _XT_FFDOUBLE:
  .quad  -559038737,XT_FFDOUBLE
+#endif
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1110,8 +1048,9 @@ _XT_FFDOUBLE:
  .p2align 3
 _XT_FFPTR:
  .quad  -559038737,XT_FFPTR
+#endif
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1119,8 +1058,9 @@ _XT_FFPTR:
  .p2align 3
 _XT_FFINTSIXFOUR:
  .quad  -559038737,XT_FFINTSIXFOUR
+#endif
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1128,8 +1068,9 @@ _XT_FFINTSIXFOUR:
  .p2align 3
 _XT_DLOPEN:
  .quad  -559038737,XT_DLOPEN
+#endif
 
-
+#if BUILD_FFI
  .p2align 3
  .quad 1b
 1:
@@ -1137,7 +1078,7 @@ _XT_DLOPEN:
  .p2align 3
 _XT_DLSYM:
  .quad  -559038737,XT_DLSYM
-
+#endif
 
  .p2align 3
  .quad 1b
@@ -1147,7 +1088,6 @@ _XT_DLSYM:
 _XT_ARGC:
  .quad  -559038737,XT_ARGC
 
-
  .p2align 3
  .quad 1b
 1:
@@ -1155,7 +1095,6 @@ _XT_ARGC:
  .p2align 3
 _XT_ARGV:
  .quad  -559038737,XT_ARGV
-
 
  .p2align 3
  .quad 1b
@@ -1165,7 +1104,6 @@ _XT_ARGV:
 _XT_XTEND:
  .quad  -559038737,XT_XTEND
 
-
  .p2align 3
  .quad 1b
 1:
@@ -1173,7 +1111,6 @@ _XT_XTEND:
  .p2align 3
 _XT_NOOP:
  .quad  -559038737,XT_NOOP
-
 
  .p2align 3
  .quad 1b
@@ -1188,7 +1125,6 @@ XT_DOTERROR:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -1202,7 +1138,6 @@ XT_DOTERRORSTORE:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -1216,7 +1151,6 @@ XT_INTERPRET:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -1230,7 +1164,6 @@ XT_KEYHANDLER:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -1244,7 +1177,6 @@ XT_REFILL:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -1270,7 +1202,6 @@ XT_EKEYQ:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -1284,7 +1215,6 @@ XT_EKEY:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -1298,7 +1228,6 @@ XT_EMITQ:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -1312,7 +1241,6 @@ XT_EMIT:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -1326,7 +1254,6 @@ XT_DOTPROMPT:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -1363,6 +1290,7 @@ XT_SPACES:
  call XT_DOLIST
  .quad XT_DOLIT,0 ,XT_MAX,XT_DOLIT,0 ,XT_DOQDO,4 ,XT_SPACE,XT_DOLOOP,-2 ,XT_UNLOOP,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1370,8 +1298,21 @@ XT_SPACES:
  .p2align 3
 _XT_QDUP:
  .quad  -559038737,XT_QDUP
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 4 ,63 ,100 ,117 ,112 
+ .p2align 3
+XT_QDUP:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DUP,XT_ZEROBRANCH,2 ,XT_DUP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1379,8 +1320,21 @@ _XT_QDUP:
  .p2align 3
 _XT_NIP:
  .quad  -559038737,XT_NIP
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 3 ,110 ,105 ,112 
+ .p2align 3
+XT_NIP:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_SWAP,XT_DROP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1388,8 +1342,21 @@ _XT_NIP:
  .p2align 3
 _XT_ROT:
  .quad  -559038737,XT_ROT
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 3 ,114 ,111 ,116 
+ .p2align 3
+XT_ROT:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_GTR,XT_SWAP,XT_RGT,XT_SWAP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1397,8 +1364,21 @@ _XT_ROT:
  .p2align 3
 _XT_TWODROP:
  .quad  -559038737,XT_TWODROP
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 5 ,50 ,100 ,114 ,111 ,112 
+ .p2align 3
+XT_TWODROP:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DROP,XT_DROP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1406,8 +1386,21 @@ _XT_TWODROP:
  .p2align 3
 _XT_TWODUP:
  .quad  -559038737,XT_TWODUP
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 4 ,50 ,100 ,117 ,112 
+ .p2align 3
+XT_TWODUP:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_OVER,XT_OVER,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1415,8 +1408,21 @@ _XT_TWODUP:
  .p2align 3
 _XT_TWOSWAP:
  .quad  -559038737,XT_TWOSWAP
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 5 ,50 ,115 ,119 ,97 ,112 
+ .p2align 3
+XT_TWOSWAP:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_ROT,XT_GTR,XT_ROT,XT_RGT,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1424,8 +1430,21 @@ _XT_TWOSWAP:
  .p2align 3
 _XT_TWOOVER:
  .quad  -559038737,XT_TWOOVER
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 5 ,50 ,111 ,118 ,101 ,114 
+ .p2align 3
+XT_TWOOVER:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_GTR,XT_GTR,XT_TWODUP,XT_RGT,XT_RGT,XT_TWOSWAP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1433,8 +1452,21 @@ _XT_TWOOVER:
  .p2align 3
 _XT_UNLOOP:
  .quad  -559038737,XT_UNLOOP
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 38 ,117 ,110 ,108 ,111 ,111 ,112 
+ .p2align 3
+XT_UNLOOP:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_RGT,XT_RGT,XT_RGT,XT_TWODROP,XT_GTR,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1442,7 +1474,19 @@ _XT_UNLOOP:
  .p2align 3
 _XT_RDROP:
  .quad  -559038737,XT_RDROP
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 37 ,114 ,100 ,114 ,111 ,112 
+ .p2align 3
+XT_RDROP:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_RGT,XT_RGT,XT_DROP,XT_GTR,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -1492,6 +1536,7 @@ XT_RDEPTH:
  call XT_DOLIST
  .quad XT_RPFETCH,XT_NEGATE,XT_RPZERO,XT_FETCH,XT_PLUS,XT_DOLIT,3 ,XT_ARSHIFT,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1499,7 +1544,19 @@ XT_RDEPTH:
  .p2align 3
 _XT_PICK:
  .quad  -559038737,XT_PICK
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 4 ,112 ,105 ,99 ,107 
+ .p2align 3
+XT_PICK:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DEPTH,XT_DUP,XT_DOLIT,2 ,XT_LT,XT_DOQTHROW,-4 ,XT_DOLIT,2 ,XT_MINUS,XT_OVER,XT_ULT,XT_DOQTHROW,-4 ,XT_ONEPLUS,XT_CELLS,XT_SPFETCH,XT_PLUS,XT_FETCH,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -1573,6 +1630,7 @@ XT_CATCH:
  call XT_DOLIST
  .quad XT_SPFETCH,XT_GTR,XT_THROWFRAME,XT_FETCH,XT_GTR,XT_RPFETCH,XT_THROWFRAME,XT_STORE,XT_EXECUTE,XT_RGT,XT_THROWFRAME,XT_STORE,XT_RDROP,XT_DOLIT,0 ,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1580,8 +1638,21 @@ XT_CATCH:
  .p2align 3
 _XT_PLUS:
  .quad  -559038737,XT_PLUS
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 1 ,43 
+ .p2align 3
+XT_PLUS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_UMPLUS,XT_DROP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1589,8 +1660,21 @@ _XT_PLUS:
  .p2align 3
 _XT_ONEPLUS:
  .quad  -559038737,XT_ONEPLUS
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 2 ,49 ,43 
+ .p2align 3
+XT_ONEPLUS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DOLIT,1 ,XT_PLUS,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1598,8 +1682,21 @@ _XT_ONEPLUS:
  .p2align 3
 _XT_ONEMINUS:
  .quad  -559038737,XT_ONEMINUS
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 2 ,49 ,45 
+ .p2align 3
+XT_ONEMINUS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DOLIT,-1 ,XT_PLUS,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1607,8 +1704,21 @@ _XT_ONEMINUS:
  .p2align 3
 _XT_INVERT:
  .quad  -559038737,XT_INVERT
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 6 ,105 ,110 ,118 ,101 ,114 ,116 
+ .p2align 3
+XT_INVERT:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DOLIT,-1 ,XT_XOR,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1616,8 +1726,21 @@ _XT_INVERT:
  .p2align 3
 _XT_NEGATE:
  .quad  -559038737,XT_NEGATE
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 6 ,110 ,101 ,103 ,97 ,116 ,101 
+ .p2align 3
+XT_NEGATE:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_INVERT,XT_ONEPLUS,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1625,8 +1748,21 @@ _XT_NEGATE:
  .p2align 3
 _XT_MINUS:
  .quad  -559038737,XT_MINUS
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 1 ,45 
+ .p2align 3
+XT_MINUS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_NEGATE,XT_PLUS,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1634,8 +1770,21 @@ _XT_MINUS:
  .p2align 3
 _XT_J:
  .quad  -559038737,XT_J
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 33 ,106 
+ .p2align 3
+XT_J:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_RPFETCH,XT_DOLIT,24 ,XT_PLUS,XT_FETCH,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1643,8 +1792,21 @@ _XT_J:
  .p2align 3
 _XT_ZEROLTGT:
  .quad  -559038737,XT_ZEROLTGT
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 3 ,48 ,60 ,62 
+ .p2align 3
+XT_ZEROLTGT:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_ZEROEQUALS,XT_ZEROEQUALS,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1652,8 +1814,21 @@ _XT_ZEROLTGT:
  .p2align 3
 _XT_LT:
  .quad  -559038737,XT_LT
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 1 ,60 
+ .p2align 3
+XT_LT:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_TWODUP,XT_XOR,XT_ZEROLT,XT_ZEROBRANCH,4 ,XT_DROP,XT_ZEROLT,XT_EXIT,XT_MINUS,XT_ZEROLT,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1661,8 +1836,21 @@ _XT_LT:
  .p2align 3
 _XT_ULT:
  .quad  -559038737,XT_ULT
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 2 ,117 ,60 
+ .p2align 3
+XT_ULT:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_TWODUP,XT_XOR,XT_ZEROLT,XT_ZEROBRANCH,4 ,XT_NIP,XT_ZEROLT,XT_EXIT,XT_MINUS,XT_ZEROLT,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1670,7 +1858,19 @@ _XT_ULT:
  .p2align 3
 _XT_GT:
  .quad  -559038737,XT_GT
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 1 ,62 
+ .p2align 3
+XT_GT:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_SWAP,XT_LT,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -1696,6 +1896,7 @@ XT_UGTEQUALS:
  call XT_DOLIST
  .quad XT_ULT,XT_ZEROEQUALS,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1703,8 +1904,21 @@ XT_UGTEQUALS:
  .p2align 3
 _XT_EQUALS:
  .quad  -559038737,XT_EQUALS
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 1 ,61 
+ .p2align 3
+XT_EQUALS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_XOR,XT_ZEROEQUALS,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1712,8 +1926,21 @@ _XT_EQUALS:
  .p2align 3
 _XT_LTGT:
  .quad  -559038737,XT_LTGT
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 2 ,60 ,62 
+ .p2align 3
+XT_LTGT:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_EQUALS,XT_ZEROEQUALS,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1721,8 +1948,21 @@ _XT_LTGT:
  .p2align 3
 _XT_CELLPLUS:
  .quad  -559038737,XT_CELLPLUS
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 5 ,99 ,101 ,108 ,108 ,43 
+ .p2align 3
+XT_CELLPLUS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DOLIT,8 ,XT_PLUS,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1730,7 +1970,19 @@ _XT_CELLPLUS:
  .p2align 3
 _XT_DODO:
  .quad  -559038737,XT_DODO
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 36 ,100 ,111 ,100 ,111 
+ .p2align 3
+XT_DODO:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_RGT,XT_ROT,XT_GTR,XT_SWAP,XT_GTR,XT_GTR,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -1756,6 +2008,7 @@ XT_DOQDO:
  call XT_DOLIST
  .quad XT_TWODUP,XT_EQUALS,XT_ZEROBRANCH,10 ,XT_TWODROP,XT_RGT,XT_DUP,XT_FETCH,XT_CELLS,XT_PLUS,XT_CELLPLUS,XT_GTR,XT_EXIT,XT_RGT,XT_ROT,XT_GTR,XT_SWAP,XT_GTR,XT_CELLPLUS,XT_GTR,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1763,8 +2016,21 @@ XT_DOQDO:
  .p2align 3
 _XT_ABS:
  .quad  -559038737,XT_ABS
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 3 ,97 ,98 ,115 
+ .p2align 3
+XT_ABS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DUP,XT_ZEROLT,XT_ZEROBRANCH,2 ,XT_NEGATE,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1772,7 +2038,19 @@ _XT_ABS:
  .p2align 3
 _XT_LSHIFT:
  .quad  -559038737,XT_LSHIFT
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 6 ,108 ,115 ,104 ,105 ,102 ,116 
+ .p2align 3
+XT_LSHIFT:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DOLIT,0 ,XT_DOQDO,4 ,XT_TWOSTAR,XT_DOLOOP,-2 ,XT_UNLOOP,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -1786,6 +2064,7 @@ XT_ARSHIFT:
  call XT_DOLIST
  .quad XT_DOLIT,0 ,XT_DOQDO,4 ,XT_TWOSLASH,XT_DOLOOP,-2 ,XT_UNLOOP,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1793,8 +2072,21 @@ XT_ARSHIFT:
  .p2align 3
 _XT_RSHIFT:
  .quad  -559038737,XT_RSHIFT
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 6 ,114 ,115 ,104 ,105 ,102 ,116 
+ .p2align 3
+XT_RSHIFT:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DOLIT,0 ,XT_DOQDO,7 ,XT_TWOSLASH,XT_DOLIT,2147483647 ,XT_AND,XT_DOLOOP,-5 ,XT_UNLOOP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1802,8 +2094,21 @@ _XT_RSHIFT:
  .p2align 3
 _XT_MAX:
  .quad  -559038737,XT_MAX
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 3 ,109 ,97 ,120 
+ .p2align 3
+XT_MAX:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_TWODUP,XT_LT,XT_ZEROBRANCH,2 ,XT_SWAP,XT_DROP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1811,7 +2116,19 @@ _XT_MAX:
  .p2align 3
 _XT_MIN:
  .quad  -559038737,XT_MIN
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 3 ,109 ,105 ,110 
+ .p2align 3
+XT_MIN:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_TWODUP,XT_GT,XT_ZEROBRANCH,2 ,XT_SWAP,XT_DROP,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -1825,6 +2142,7 @@ XT_UMIN:
  call XT_DOLIST
  .quad XT_TWODUP,XT_UGT,XT_ZEROBRANCH,2 ,XT_SWAP,XT_DROP,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1832,8 +2150,21 @@ XT_UMIN:
  .p2align 3
 _XT_UMSTAR:
  .quad  -559038737,XT_UMSTAR
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 3 ,117 ,109 ,42 
+ .p2align 3
+XT_UMSTAR:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DOLIT,0 ,XT_SWAP,XT_DOLIT,63 ,XT_DOFOR,XT_DUP,XT_UMPLUS,XT_GTR,XT_GTR,XT_DUP,XT_UMPLUS,XT_RGT,XT_PLUS,XT_RGT,XT_ZEROBRANCH,6 ,XT_GTR,XT_OVER,XT_UMPLUS,XT_RGT,XT_PLUS,XT_DONEXT,-17 ,XT_UNLOOP,XT_ROT,XT_DROP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1841,8 +2172,21 @@ _XT_UMSTAR:
  .p2align 3
 _XT_DNEGATE:
  .quad  -559038737,XT_DNEGATE
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 7 ,100 ,110 ,101 ,103 ,97 ,116 ,101 
+ .p2align 3
+XT_DNEGATE:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_INVERT,XT_GTR,XT_INVERT,XT_DOLIT,1 ,XT_UMPLUS,XT_RGT,XT_PLUS,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1850,8 +2194,21 @@ _XT_DNEGATE:
  .p2align 3
 _XT_MSTAR:
  .quad  -559038737,XT_MSTAR
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 2 ,109 ,42 
+ .p2align 3
+XT_MSTAR:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_TWODUP,XT_XOR,XT_ZEROLT,XT_GTR,XT_ABS,XT_SWAP,XT_ABS,XT_UMSTAR,XT_RGT,XT_ZEROBRANCH,2 ,XT_DNEGATE,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1859,8 +2216,21 @@ _XT_MSTAR:
  .p2align 3
 _XT_STAR:
  .quad  -559038737,XT_STAR
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 1 ,42 
+ .p2align 3
+XT_STAR:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_UMSTAR,XT_DROP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1868,8 +2238,21 @@ _XT_STAR:
  .p2align 3
 _XT_UMSLASHMOD:
  .quad  -559038737,XT_UMSLASHMOD
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 6 ,117 ,109 ,47 ,109 ,111 ,100 
+ .p2align 3
+XT_UMSLASHMOD:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_NEGATE,XT_DOLIT,63 ,XT_DOFOR,XT_GTR,XT_DUP,XT_UMPLUS,XT_GTR,XT_GTR,XT_DUP,XT_UMPLUS,XT_RGT,XT_PLUS,XT_DUP,XT_RGT,XT_RFETCH,XT_SWAP,XT_GTR,XT_UMPLUS,XT_RGT,XT_OR,XT_ZEROBRANCH,7 ,XT_GTR,XT_DROP,XT_ONEPLUS,XT_RGT,XT_BRANCH,2 ,XT_DROP,XT_RGT,XT_DONEXT,-28 ,XT_UNLOOP,XT_DROP,XT_SWAP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1877,8 +2260,21 @@ _XT_UMSLASHMOD:
  .p2align 3
 _XT_SGTD:
  .quad  -559038737,XT_SGTD
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 3 ,115 ,62 ,100 
+ .p2align 3
+XT_SGTD:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DUP,XT_ZEROLT,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1886,8 +2282,21 @@ _XT_SGTD:
  .p2align 3
 _XT_WITHIN:
  .quad  -559038737,XT_WITHIN
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 6 ,119 ,105 ,116 ,104 ,105 ,110 
+ .p2align 3
+XT_WITHIN:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_OVER,XT_MINUS,XT_GTR,XT_MINUS,XT_RGT,XT_ULT,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1895,7 +2304,19 @@ _XT_WITHIN:
  .p2align 3
 _XT_DPLUS:
  .quad  -559038737,XT_DPLUS
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 2 ,100 ,43 
+ .p2align 3
+XT_DPLUS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_GTR,XT_SWAP,XT_GTR,XT_UMPLUS,XT_RGT,XT_RGT,XT_PLUS,XT_PLUS,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -1909,6 +2330,7 @@ XT_UNDERPLUS:
  call XT_DOLIST
  .quad XT_ROT,XT_PLUS,XT_SWAP,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1916,7 +2338,19 @@ XT_UNDERPLUS:
  .p2align 3
 _XT_CHARPLUS:
  .quad  -559038737,XT_CHARPLUS
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 5 ,99 ,104 ,97 ,114 ,43 
+ .p2align 3
+XT_CHARPLUS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_ONEPLUS,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -1942,6 +2376,7 @@ XT_QDICT:
  call XT_DOLIST
  .quad XT_HERE,XT_DICTQ,XT_ZEROEQUALS,XT_DOQTHROW,-8 ,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1949,8 +2384,21 @@ XT_QDICT:
  .p2align 3
 _XT_CELLS:
  .quad  -559038737,XT_CELLS
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 5 ,99 ,101 ,108 ,108 ,115 
+ .p2align 3
+XT_CELLS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DOLIT,3 ,XT_LSHIFT,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1958,8 +2406,21 @@ _XT_CELLS:
  .p2align 3
 _XT_CELLMINUS:
  .quad  -559038737,XT_CELLMINUS
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 5 ,99 ,101 ,108 ,108 ,45 
+ .p2align 3
+XT_CELLMINUS:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DOLIT,-8 ,XT_PLUS,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1967,8 +2428,21 @@ _XT_CELLMINUS:
  .p2align 3
 _XT_TWOSTORE:
  .quad  -559038737,XT_TWOSTORE
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 2 ,50 ,33 
+ .p2align 3
+XT_TWOSTORE:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_SWAP,XT_OVER,XT_STORE,XT_CELLPLUS,XT_STORE,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1976,8 +2450,21 @@ _XT_TWOSTORE:
  .p2align 3
 _XT_TWOFETCH:
  .quad  -559038737,XT_TWOFETCH
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 2 ,50 ,64 
+ .p2align 3
+XT_TWOFETCH:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DUP,XT_CELLPLUS,XT_FETCH,XT_SWAP,XT_FETCH,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -1985,7 +2472,19 @@ _XT_TWOFETCH:
  .p2align 3
 _XT_ALIGNED:
  .quad  -559038737,XT_ALIGNED
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 7 ,97 ,108 ,105 ,103 ,110 ,101 ,100 
+ .p2align 3
+XT_ALIGNED:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DOLIT,7 ,XT_PLUS,XT_DOLIT,-8 ,XT_AND,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -2011,6 +2510,7 @@ XT_MINUSROT:
  call XT_DOLIST
  .quad XT_ROT,XT_ROT,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -2018,8 +2518,21 @@ XT_MINUSROT:
  .p2align 3
 _XT_FILL:
  .quad  -559038737,XT_FILL
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 4 ,102 ,105 ,108 ,108 
+ .p2align 3
+XT_FILL:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_MINUSROT,XT_DOLIT,0 ,XT_DOQDO,6 ,XT_TWODUP,XT_CSTORE,XT_CHARPLUS,XT_DOLOOP,-4 ,XT_UNLOOP,XT_TWODROP,XT_EXIT
+#endif
 
-
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -2027,7 +2540,19 @@ _XT_FILL:
  .p2align 3
 _XT_COUNT:
  .quad  -559038737,XT_COUNT
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 5 ,99 ,111 ,117 ,110 ,116 
+ .p2align 3
+XT_COUNT:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DUP,XT_CHARPLUS,XT_SWAP,XT_CFETCH,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -2053,6 +2578,7 @@ XT_PLACE:
  call XT_DOLIST
  .quad XT_OVER,XT_DOLIT,255 ,XT_UGTEQUALS,XT_DOQTHROW,-18 ,XT_OVER,XT_GTR,XT_ROT,XT_OVER,XT_ONEPLUS,XT_RGT,XT_MOVE,XT_CSTORE,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -2060,7 +2586,19 @@ XT_PLACE:
  .p2align 3
 _XT_PLUSSTORE:
  .quad  -559038737,XT_PLUSSTORE
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 2 ,43 ,33 
+ .p2align 3
+XT_PLUSSTORE:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_DUP,XT_FETCH,XT_UNDERPLUS,XT_STORE,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -2231,7 +2769,6 @@ XT_NUMBERORDER:
 
  .quad XT_NOOP
  .quad 0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 ,0 
-
  .p2align 3
  .quad 1b
 1:
@@ -2435,7 +2972,6 @@ XT_REDEFSTR:
  nop
  call XT_DOVAR
   .byte 10 ,114 ,101 ,100 ,101 ,102 ,105 ,110 ,101 ,100 ,32 
-
 
  .p2align 3
  .quad 1b
@@ -2642,7 +3178,6 @@ XT_COMPILECOMMA:
 
  .quad  XT_FETCHEXECUTE
  .quad 0 
-
  .p2align 3
  .quad 1b
 1:
@@ -2871,7 +3406,6 @@ XT_EXSTR:
  call XT_DOVAR
   .byte 13 ,32 ,101 ,120 ,99 ,101 ,112 ,116 ,105 ,111 ,110 ,32 ,35 ,32 
 
-
  .p2align 3
  .quad 1b
 1:
@@ -2931,7 +3465,6 @@ XT_DUMMYONE:
  nop
  call XT_DOVAR
  .quad -559038737 
-
  .p2align 3
  .quad 1b
 1:
@@ -2968,6 +3501,7 @@ XT_SEMI:
  call XT_DOLIST
  .quad XT_NIP,XT_ONEPLUS,XT_DOQTHROW,-22 ,XT_REVEAL,XT_LPARENCOMPILERPAREN,XT_EXIT,XT_LBRACKET,XT_EXIT
 
+#if BUILD_MOREPRIMS
  .p2align 3
  .quad 1b
 1:
@@ -2975,7 +3509,19 @@ XT_SEMI:
  .p2align 3
 _XT_DOTO:
  .quad  -559038737,XT_DOTO
-
+#else
+ .p2align 3
+ .quad 1b
+1:
+  .byte 36 ,100 ,111 ,116 ,111 
+ .p2align 3
+XT_DOTO:
+ nop
+ nop
+ nop
+ call XT_DOLIST
+ .quad XT_FETCHRPLUS,XT_DOLIT,8 ,XT_PLUS,XT_STORE,XT_EXIT
+#endif
 
  .p2align 3
  .quad 1b
@@ -3036,13 +3582,14 @@ XT_DUMMYTWO:
  nop
  call XT_DOVAR
  .quad -559038737 
-
- .fill 505592 ,1,0
+ .fill 501704 ,1,0
  .quad  0xcacacaca
+#if BUILD_PROFILE
  .globl Forth_Prof
  .globl _Forth_Prof
 Forth_Prof:
 _Forth_Prof:
  .fill 524288 ,1,0
+#endif
 _Forth_End:
 Forth_End:
