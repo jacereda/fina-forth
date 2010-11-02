@@ -5,7 +5,7 @@
 typedef uintptr_t UCELL;
 #define FXSCALE 1000
 
-#if defined BUILD_FFI
+#if BUILD_FFI
 #if defined _WIN32
 #include <windows.h>
 #define DL_LAZY 0
@@ -90,7 +90,7 @@ static inline CELL nCompare(CELL p1, CELL p2, CELL len)
 }
 
 
-#if defined BUILD_FILES
+#if BUILD_FILES
 static inline char * zstr(char * res, const char * str, unsigned len)
 {
         len &= MAXSTR-1;
@@ -108,7 +108,7 @@ static unsigned strLen(const char * str)
     return str - ostr - 1;
 }
 
-#if defined BUILD_FFI
+#if BUILD_FFI
 static void closure(ffi_cif * cif, void * result, void ** args, void * xt)
 {
 	unsigned nargs = cif->nargs;
@@ -202,23 +202,23 @@ int internalTick(struct FINA_State * state, int throw) {
                 &&NOOP,
 #include "primstab.it"
 
-#if defined BUILD_MOREPRIMS
+#if BUILD_MOREPRIMS
 #include "moreprimstab.it"
 #endif
 
-#if defined BUILD_FILES
+#if BUILD_FILES
 #include "filestab.it"
 #endif
 
-#if defined BUILD_ALLOCATE
+#if BUILD_ALLOCATE
 #include "allocatetab.it"
 #endif
 
-#if defined BUILD_FIXED
+#if BUILD_FIXED
 #include "fixedtab.it"
 #endif
 
-#if defined BUILD_FFI
+#if BUILD_FFI
 #include "ffitab.it"
 #endif
 
@@ -262,23 +262,23 @@ int internalTick(struct FINA_State * state, int throw) {
         
 #include "prims.i"
         
-#if defined BUILD_MOREPRIMS
+#if BUILD_MOREPRIMS
 #include "moreprims.i"
 #endif
         
-#if defined BUILD_FILES
+#if BUILD_FILES
 #include "files.i"
 #endif
 
-#if defined BUILD_ALLOCATE
+#if BUILD_ALLOCATE
 #include "allocate.i"
 #endif
 
-#if defined BUILD_FIXED
+#if BUILD_FIXED
 #include "fixed.i"
 #endif
 
-#if defined BUILD_FFI
+#if BUILD_FFI
 #include "ffi.i"
 #endif
 
