@@ -34,7 +34,7 @@
                 PRIM(DOLIST,7);
                 RPUSH(fpc);
                 fpc = getlnk();
-#if defined(PROFILE)
+#if BUILD_PROFILE
                 {
 			extern CELL Forth_Prof, Forth_Entry;
 			fpc[(&Forth_Prof - &Forth_Entry)
