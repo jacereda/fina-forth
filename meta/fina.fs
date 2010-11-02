@@ -368,16 +368,16 @@ fprim truncf  ( ud fileid -- ior )
 fprim flushf  ( fileid -- ior )
 
 \g Convert 16.16 fixed point integer to float
-prim fx>float
+fxprim fx>float
 
 \g Convert float to 16.16 fixed point integer
-prim float>fx
+fxprim float>fx
 
 \g Convert 16.16 fixed point integer to double
-prim fx>double
+fxprim fx>double
 
 \g Convert double to 16.16 fixed point integer
-prim double>fx
+fxprim double>fx
 
 \g Prepare foreign function call
 ffprim ffprep 

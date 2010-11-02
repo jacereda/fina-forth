@@ -85,11 +85,18 @@ variable options
 
 variable size  
 5 tcells size ! \ For the header in *-tconfig.fs
+variable fsize fsize off
+variable msize msize off
+variable ffsize ffsize off
+variable fxsize fxsize off
+variable psize psize off
+variable altpsize altpsize off
+size value selsize
 
 : +body 
-   here lastbody -  1 cells / tcells size +! ;
+   here lastbody -  1 cells / tcells selsize +! ;
 : +bytes
-   align here lastbody - taligned size +! ;
+   align here lastbody - taligned selsize +! ;
 
 : .name
    namecount type ;
@@ -108,7 +115,7 @@ variable underscore  underscore off
    .align
    underscore @ if [char] _ emit then 
    lastname namecount xttype ." :" cr 
-   lastname namecount nip 1+  taligned 1 tcells + size +! ;
+   lastname namecount nip 1+  taligned 1 tcells + selsize +! ;
 : body>t
    lastbody here = if exit then
    .cell
@@ -133,23 +140,23 @@ variable underscore  underscore off
 : create>t ( -- )
    name>t .call" DOCREATE" cr
    .cell ." XT_NOOP" cr body>t 
-   /tcall 1 tcells + size +! ;
+   /tcall 1 tcells + selsize +! ;
 : defer>t ( -- )
    name>t .call" DOCREATE" cr
    .cell ."  XT_FETCHEXECUTE" cr body>t 
-   /tcall 1 tcells + size +! ;
+   /tcall 1 tcells + selsize +! ;
 : var>t ( -- ) 
    name>t .call" DOVAR" body>t 
-   /tcall size +! ;
+   /tcall selsize +! ;
 : bytevar>t ( -- )
    name>t .call" DOVAR" ."   .byte " bytes>t 
-   /tcall size +! ;
+   /tcall selsize +! ;
 : val>t ( -- )
    name>t .call" DOVALUE" body>t
-   /tcall size +! ;
+   /tcall selsize +! ;
 : const>t ( -- )
    name>t .call" DOCONST" body>t
-   /tcall size +! ;
+   /tcall selsize +! ;
 
 0 tcells value useroffset
 : nextuser useroffset dup -1 tcells + to useroffset ;
@@ -157,7 +164,7 @@ variable underscore  underscore off
    name>t
    .call" DOUSER"
    .cell nextuser asm. 
-   /tcall 1 tcells + size +! ;
+   /tcall 1 tcells + selsize +! ;
 
 :noname ( a-addr1 -- a-addr2 )
    dup @ asm. cell+ ; is lit>t
@@ -176,15 +183,17 @@ variable underscore  underscore off
    name>t
    .call" DOLIST"
    .cell list>t 
-   /tcall size +! ;
+   /tcall selsize +! ;
 : prim>t ( -- )
    underscore on name>t underscore off
    .cell ."  -559038737," lastname namecount xttype cr 
-   2 tcells size +! ;
+   2 tcells selsize +! ;
 
 : both>t ( -- )
+   psize to selsize
    prim>t 
    ." #else" cr 
+   altpsize to selsize
    col>t ;
 
 :noname ; value type>t
@@ -196,7 +205,9 @@ variable underscore  underscore off
 : >t
    type>t execute
    conditional if ." #endif" cr then 
-   forgetit false to conditional ;
+   forgetit 
+   false to conditional 
+   size to selsize ;
 
 : ?stack
    depth abort" stack error" ;
@@ -205,18 +216,23 @@ variable underscore  underscore off
 : to' postpone to ; 
 : value' value ;
 
-: cond ( c-addr len -- ) ." #if " type cr true to conditional ;
+: cond ( c-addr len sizevar -- ) 
+   to selsize   
+   ." #if " type cr true to conditional ;
+
 
 : prim
    >t ?stack ['] prim>t to type>t create ;
 : fprim
-   prim s" BUILD_FILES" cond ;
+   prim s" BUILD_FILES" fsize cond ;
 : mprim
-   prim s" BUILD_ALLOCATE" cond ;
+   prim s" BUILD_ALLOCATE" msize cond ;
 : ffprim
-   prim s" BUILD_FFI" cond ;
+   prim s" BUILD_FFI" ffsize cond ;
+: fxprim
+   prim s" BUILD_FIXED" fxsize cond ;
 : p:
-   >t ?stack ['] both>t to type>t : s" BUILD_MOREPRIMS" cond ;
+   >t ?stack ['] both>t to type>t : s" BUILD_MOREPRIMS" 0 cond ;
 : bcreate
    >t ?stack ['] bytevar>t to type>t create ;
 : defer
@@ -238,7 +254,14 @@ variable underscore  underscore off
 
 : bye
    >t
-   ."  .fill " /tdict size @ - .  ." ,1,0" cr
+   ."  .fill " /tdict . ." -(" size @ .
+       ." + BUILD_MOREPRIMS*" psize @ .
+       ." + (1-BUILD_MOREPRIMS)*" altpsize @ .
+       ." + BUILD_FFI*" ffsize @ .
+       ." + BUILD_FIXED*" fxsize @ .
+       ." + BUILD_ALLOCATE*" msize @ .
+       ." + BUILD_FILES*" fsize @ .
+       ." ),1,0" cr
    .cell ."  0xcacacaca" cr 
    ." #if BUILD_PROFILE" cr
       ."  .globl Forth_Prof" cr

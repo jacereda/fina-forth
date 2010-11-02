@@ -845,6 +845,7 @@ _XT_FLUSHF:
  .long  -559038737,XT_FLUSHF
 #endif
 
+#if BUILD_FIXED
  .align 2
  .long 1b
 1:
@@ -852,7 +853,9 @@ _XT_FLUSHF:
  .align 2
 _XT_FXGTFLOAT:
  .long  -559038737,XT_FXGTFLOAT
+#endif
 
+#if BUILD_FIXED
  .align 2
  .long 1b
 1:
@@ -860,7 +863,9 @@ _XT_FXGTFLOAT:
  .align 2
 _XT_FLOATGTFX:
  .long  -559038737,XT_FLOATGTFX
+#endif
 
+#if BUILD_FIXED
  .align 2
  .long 1b
 1:
@@ -868,7 +873,9 @@ _XT_FLOATGTFX:
  .align 2
 _XT_FXGTDOUBLE:
  .long  -559038737,XT_FXGTDOUBLE
+#endif
 
+#if BUILD_FIXED
  .align 2
  .long 1b
 1:
@@ -876,6 +883,7 @@ _XT_FXGTDOUBLE:
  .align 2
 _XT_DOUBLEGTFX:
  .long  -559038737,XT_DOUBLEGTFX
+#endif
 
 #if BUILD_FFI
  .align 2
@@ -2994,7 +3002,7 @@ XT_COLD:
 XT_DUMMYTWO:
  bl XT_DOVAR
  .long -559038737 
- .fill 249940 ,1,0
+ .fill 262144 -(8636 + BUILD_MOREPRIMS*864 + (1-BUILD_MOREPRIMS)*2040 + BUILD_FFI*224 + BUILD_FIXED*96 + BUILD_ALLOCATE*64 + BUILD_FILES*280 ),1,0
  .long  0xcacacaca
 #if BUILD_PROFILE
  .globl Forth_Prof
