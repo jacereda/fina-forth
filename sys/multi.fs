@@ -6,7 +6,7 @@ expose-module private
 : user ( "<spaces>name" -- ) 
    head, ['] douser xt, drop
    lastuser ,  
-   lastuser -1 cells + to lastuser
+   lastuser 1- to lastuser
    linklast ;
 
 : ego userp @ ;
