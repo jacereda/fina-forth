@@ -20,8 +20,6 @@
     0= invert -24 and throw 2drop
     state @ if  postpone literal  then
     ; immediate
-: log2 
-   -1 swap begin dup while 2/ 1 under+ repeat drop ;
 : c+!  ( n addr -- )  
    >r r@  c@ +  r> c! ;
 : append ( str len addr -- )
@@ -260,25 +258,17 @@ variable underscore  underscore off
 
 : to postpone doto ; immediate compile-only
 
-: .end 
-   s" Forth_End" global cr ;
-
 : bye
    >t
-   ."  .fill " /tdict . ." -(" size @ .
-       ." + BUILD_MOREPRIMS*" psize @ .
-       ." + (1-BUILD_MOREPRIMS)*" altpsize @ .
-       ." + BUILD_FFI*" ffsize @ .
-       ." + BUILD_FIXED*" fxsize @ .
-       ." + BUILD_ALLOCATE*" msize @ .
-       ." + BUILD_FILES*" fsize @ .
-       ." ),1,0" cr
-   .cell ."  0xcacacaca" cr 
+   ."  .fill " /tdict . 
+   ." ,1,0" cr
+   .cell -892679478 . cr
    ." #if BUILD_PROFILE" cr
    s" Forth_Prof" global
-      ."  .fill " /tdict . ." ,1,0" cr 
+      ."  .fill " /tdict 2* . ." ,1,0" cr 
    ." #endif" cr
-   .end bye ; 
+   s" Forth_End" global cr 
+   bye ;
 
 : :
    >t ?stack ['] col>t to type>t : ;

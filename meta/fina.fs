@@ -114,18 +114,10 @@ value forth-wordlist  ( -- a-addr )
 \g @see anssearch
 
 
-
-\ SYSTEM CONSTANTS
+\ CONSTANTS
 32 
 constant bl  ( -- char )
 \g @see anscore
-
-
-1 tcells log2
-constant cellshift
-
-tcellbits
-constant cellbits
 
 \ PRIMITIVES
 
@@ -435,6 +427,10 @@ defer keyhandler ( buf buflen char -- buf buflen char | 0 )
 defer refill ( -- flag )
 
 \ COLON DEFINITIONS
+
+: cellshift 2 1 cells 2/ 2/ 2/ + ;
+
+: cellbits 8 cells ;
 
 \g Throw code if flag is true
 : ?throw  
@@ -1177,13 +1173,16 @@ p: doto  ( x -- )
 
 \g Startup word
 : cold ( -- )
-   xtof dict0  begin cell- dup @ -17974594 = until  to dict0
-   xtof dummy2 colname to here
-   dict0
-   [ /tdict ] literal + dup to memtop  cell-
-   dup userp ! [ /user ]  literal - \ must be initialized before rp0 and sp0
-   dup rp0 !   [ /rs ]    literal - 
-   dup sp0 !   [ /ds ]    literal - 
+   xtof dummy2 colname  to here
+   xtof dict0  
+   begin cell- dup @ -17974594 = until  to dict0
+   here [ /tdict ] literal + 
+   begin cell+ dup @ -892679478 = until  to memtop
+   memtop cell-
+   \ userp must be initialized before rp0 and sp0
+   dup userp ! [ /user ]  literal cells - 
+   dup rp0 !   [ /rs ]    literal cells - 
+   dup sp0 !   [ /ds ]    literal cells - 
    [ /pad ]   literal - dup to pad
    [ /tib ]   literal - dup to tib
    dup to hld0 [ /hld ]   literal -
