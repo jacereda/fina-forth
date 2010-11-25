@@ -86,7 +86,11 @@ expose-module private
    dup primxt? if  
       xtend  
    else  
-      nextxt if xt>name cell-  then  
+      nextxt if 
+         dup xt>name if 
+            xt>name cell-  
+         then
+      then
    then ;
 
 : type? ( addr <inline-doer> -- flag )
@@ -100,6 +104,7 @@ expose-module private
    dup type? doconst if ." constant " then
    dup type? douser if ." user " then
    dup type? dovalue if ." value " then
+   dup type? docreate if ." create " then
    dup primxt? if ." primitive " then
    drop ;
 
