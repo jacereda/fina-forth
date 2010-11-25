@@ -28,7 +28,7 @@
                 
                 PRIM(DOUSER,6);
                 PUSH;
-                tos = *userP() + *getlnk();
+                tos = *userP() + sizeof(CELL) * *getlnk();
                 NEXT;
                 
                 PRIM(DOLIST,7);

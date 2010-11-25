@@ -169,7 +169,7 @@ variable underscore  underscore off
    /tcall selsize +! ;
 
 0 tcells value useroffset
-: nextuser useroffset dup -1 tcells + to useroffset ;
+: nextuser useroffset dup 1- to useroffset ;
 : user>t ( -- )
    name>t
    .call ." DOUSER" cr
