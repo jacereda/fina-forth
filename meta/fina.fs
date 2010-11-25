@@ -121,6 +121,12 @@ constant bl  ( -- char )
 \g @see anscore
 
 
+1 tcells log2
+constant cellshift
+
+tcellbits
+constant cellbits
+
 \ PRIMITIVES
 
 \ arithmetic
@@ -430,11 +436,15 @@ defer refill ( -- flag )
 
 \ COLON DEFINITIONS
 
+\g Throw code if flag is true
+: ?throw  
+   and throw ;
+\ swap 0<> and throw ;
+
 \ I/O
 
 \g Execute content of a
 : @execute  ( a-addr -- i*x ) 
-  \ @ ?dup if execute then ; 
    @ execute ;
 
 \g @see ansfacility
@@ -514,10 +524,10 @@ p: rdrop  ( --  r: x -- )
 
 \g @see anscore
 : depth ( -- +n )
-   sp@ negate sp0 @ + [ 1 tcells log2 ] literal arshift ;
+   sp@ negate sp0 @ + cellshift arshift ;
 
 : rdepth ( -- +n )
-   rp@ negate rp0 @ + [ 1 tcells log2 ] literal arshift ;  
+   rp@ negate rp0 @ + cellshift arshift ;  
 
 \g @see anscore
 p: pick ( xu ... x1 x0 u -- xu ... x1 x0 xu )
@@ -548,10 +558,6 @@ p: pick ( xu ... x1 x0 u -- xu ... x1 x0 xu )
       r> swap >r sp!
       drop r>
    then ;  
-
-\g Runtime for ?throw
-: do?throw 
-   0<> @r+ and throw ; compile-only  
 
 \g @see ansexception
 : catch  ( i*x xt -- j*x 0 | i*x n )
@@ -591,7 +597,7 @@ p: -  ( n1|u1 n2|u2 -- n3|u3 )
 
 \g @see anscore
 p: j  ( -- n|u  r: n|u x1 x2 -- n|u x1 x2)
-   rp@ [ 3 tcells ] literal + @ ; compile-only 
+   rp@ 3 cells + @ ; compile-only 
 
 \ Comparisons
 \g @see anscore
@@ -628,7 +634,7 @@ p: <>  ( x1 x2 -- f )
 
 \g @see anscore
 p: cell+  ( a-addr1 -- a-addr2 )
-   [ 1 tcells ] literal + ;
+   1 cells + ;
 
 \g Runtime for DO
 p: dodo  ( x1 x2 --  r: x1 x2 ) 
@@ -676,7 +682,7 @@ p: min  ( n1 n2 -- n3 )
 
 \g @see anscore
 p: um*  ( u1 u2 -- ud )
-   0 swap [ tcellbits 1- ] literal for
+   0 swap cellbits 1- for
       dup um+ >r >r dup um+ r> + 
       r> if >r over um+ r> + then
    next rot drop ;  
@@ -695,7 +701,7 @@ p: *  ( n1|u1 n2|u2 -- n3|u3 )
 
 \g @see anscore
 p: um/mod  ( ud1 u1 -- u2 u3 )
-   negate [ tcellbits 1- ] literal for
+   negate cellbits 1- for
       >r dup um+ >r >r dup um+ r> + dup
       r> r@ swap >r um+ r> or 
       if >r drop 1+ r> else drop then r> 
@@ -733,11 +739,11 @@ p: char+  ( c-addr1 -- c-addr2 )
 
 \g @see anscore
 p: cells  ( n1 -- n2 )
-   [ 1 tcells log2 ] literal lshift ;  
+   cellshift lshift ;  
 
 \g Decrement by the size of a cell
 p: cell-  ( a-addr1 -- a-addr2 ) 
-   [ -1 tcells ] literal + ;
+   -1 cells + ;
 
 \g @see anscore
 p: 2!  ( x1 x2 a-addr -- )
@@ -749,7 +755,7 @@ p: 2@  ( a-addr -- x1 x2 )
 
 \g @see anscore
 p: aligned  ( addr -- a-addr )
-   [ 1 tcells 1- ] literal + [ -1 tcells ] literal and ;  
+   1 cells 1- +  -1 cells and ;
 
 \g @see anscore
 : align  ( -- )
@@ -786,7 +792,7 @@ p: +!  ( x a-addr -- )
 
 \g @see anscore
 : ,  ( x -- )
-   here !  [ 1 tcells ] literal allot ;  
+   here !  1 cells allot ;  
 
 \g Store 0 at address
 : off  ( a-addr -- ) 
@@ -1165,14 +1171,13 @@ p: doto  ( x -- )
 : s, ( c-addr u -- )
    here over char+ allot place ;
 
-: (is) @r+ [ /tcall 1 tcells + ] literal + ! ;
+: (is) @r+ ?dodefine drop cell+ ! ;
 
 \ Initialization
 
 \g Startup word
 : cold ( -- )
-   xtof dict0  begin cell- dup @ -17974594 = until 
-   xtof dict0 [ /tcall ] literal +  !
+   xtof dict0  begin cell- dup @ -17974594 = until  to dict0
    xtof dummy2 colname to here
    dict0
    [ /tdict ] literal + dup to memtop  cell-

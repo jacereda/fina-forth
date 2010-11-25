@@ -1,4 +1,14 @@
 \ Helpers
+: .call ."  ASMCALL XT_" ;
+: .cell ."  ASMCELL " ;
+: .align ."  ASMALIGN" cr ;
+: global 
+   ."  .globl " 2dup type cr
+   ."  .globl _" 2dup type cr
+   2dup type ." :" cr
+   ." _" 2dup type ." :" cr
+   2drop ;
+
 : literal postpone literal ; immediate compile-only
 : under+ rot + swap ;
 : 2>r postpone swap postpone >r postpone >r ; immediate compile-only
@@ -138,31 +148,31 @@ variable underscore  underscore off
    repeat drop cr 
    +bytes ;
 : create>t ( -- )
-   name>t .call" DOCREATE" cr
+   name>t .call ." DOCREATE" cr
    .cell ." XT_NOOP" cr body>t 
    /tcall 1 tcells + selsize +! ;
 : defer>t ( -- )
-   name>t .call" DOCREATE" cr
+   name>t .call ." DOCREATE" cr
    .cell ."  XT_FETCHEXECUTE" cr body>t 
    /tcall 1 tcells + selsize +! ;
 : var>t ( -- ) 
-   name>t .call" DOVAR" body>t 
+   name>t .call ." DOVAR" cr body>t 
    /tcall selsize +! ;
 : bytevar>t ( -- )
-   name>t .call" DOVAR" ."   .byte " bytes>t 
+   name>t .call ." DOVAR" cr ."   .byte " bytes>t 
    /tcall selsize +! ;
 : val>t ( -- )
-   name>t .call" DOVALUE" body>t
+   name>t .call ." DOVALUE" cr body>t
    /tcall selsize +! ;
 : const>t ( -- )
-   name>t .call" DOCONST" body>t
+   name>t .call ." DOCONST" cr body>t
    /tcall selsize +! ;
 
 0 tcells value useroffset
 : nextuser useroffset dup -1 tcells + to useroffset ;
 : user>t ( -- )
    name>t
-   .call" DOUSER"
+   .call ." DOUSER" cr
    .cell nextuser asm. 
    /tcall 1 tcells + selsize +! ;
 
@@ -181,7 +191,7 @@ variable underscore  underscore off
 
 : col>t ( -- )
    name>t
-   .call" DOLIST"
+   .call ." DOLIST" cr
    .cell list>t 
    /tcall selsize +! ;
 : prim>t ( -- )
@@ -250,7 +260,8 @@ variable underscore  underscore off
 
 : to postpone doto ; immediate compile-only
 
-: ?throw ['] do?throw here 2 cells - ! ; immediate compile-only
+: .end 
+   s" Forth_End" global cr ;
 
 : bye
    >t
@@ -264,10 +275,7 @@ variable underscore  underscore off
        ." ),1,0" cr
    .cell ."  0xcacacaca" cr 
    ." #if BUILD_PROFILE" cr
-      ."  .globl Forth_Prof" cr
-      ."  .globl _Forth_Prof" cr
-      ." Forth_Prof:" cr
-      ." _Forth_Prof:" cr
+   s" Forth_Prof" global
       ."  .fill " /tdict . ." ,1,0" cr 
    ." #endif" cr
    .end bye ; 
@@ -276,5 +284,14 @@ variable underscore  underscore off
    >t ?stack ['] col>t to type>t : ;
 
 marker forget-previous
-.init
+
+:noname
+   ."  .data" cr 
+   .init
+   .cell ." -17974594, -559038737" cr
+   s" Forth_Entry" global .cell ." XT_COLD" cr
+   s" Forth_UserP" global .cell ." XT_USERP" cr
+   s" Forth_Here" global .cell ." XT_HERE" cr 
+   ; execute
+
 

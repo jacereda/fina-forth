@@ -1,6 +1,27 @@
 Import('env')
 fenv = env.Clone()
 fenv.Append(CPPDEFINES=[
+      ['ASMCALL', {
+                'arm': '"bl"',
+                'i386': '"nop;nop;nop;call"',
+                'mips': '"bal"',
+                'powerpc': '"bl"',
+                'x64': '"nop;nop;nop;call"',
+                }[env['ARCH']]],
+      ['ASMCELL', {
+                'arm': '".long"',
+                'i386': '".long"',
+                'mips': '".long"',
+                'powerpc': '".long"',
+                'x64': '".quad"',
+                }[env['ARCH']]],
+      ['ASMALIGN', {
+                'arm': '".balign\ 4"',
+                'i386': '".p2align\ 2"',
+                'mips': '".balign\ 4"',
+                'powerpc': '".align\ 2"',
+                'x64': '".p2align\ 3"',
+                }[env['ARCH']]],
       ['BUILD_FILES', fenv['files']],
       ['BUILD_ALLOCATE', fenv['allocate']],
       ['BUILD_FIXED', fenv['fixed']],

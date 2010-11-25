@@ -58,14 +58,6 @@ warnings off
 : [']  ( "  xxx"" --  rt: -- xt )
    ' postpone literal ; immediate compile-only
 
-\ Exceptions
-
-\g Throw code if flag is true. Changes the runtime of the previous
-\g literal to DO?THROW. 
-\g Sample usage: "dup something <> -32 ?throw"
-: ?throw ( -- )
-   ['] do?throw here 2 cells - ! ; immediate compile-only
-
 \ Flow control
 
 \g Mark the start of a backwards jump
@@ -247,7 +239,8 @@ variable abort"msg  ( -- a-addr ) 0 ,
 
 \g @see anscore
 : create ( "<spaces>name" --  R: -- a-addr  )
-   head, ['] docreate xt, drop  ['] noop , linklast ;
+   head, here to lastxt  
+   ['] docreate xt, drop  ['] noop , linklast ;
 
 \g @see anscore
 : >body ( xt -- a-addr )
@@ -350,7 +343,7 @@ create env-wordlist here forth-wordlist cell+ ! 0 , 0 , 0 ,
 
 \g @see anssearch
 : search-wordlist ( c-addr u wid -- 0 | xt 1 | xt -1 )
-   nfain dup if dup fimmed  then ;
+   nfain dup if  dup name>xt swap fimmed  then ;
 
 \g @see anscore
 : environment? ( c-addr u -- false | i*x true )

@@ -26,7 +26,6 @@ defer lit>t defer ncell>t
    special+lit donext
    special+lit 0branch
    special+lit branch
-   special+lit do?throw
    special+xt (compile)
    special+xt xtof
    drop ncell>t ;
