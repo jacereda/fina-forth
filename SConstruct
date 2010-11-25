@@ -64,9 +64,6 @@ else:
    env.Append(CCFLAGS='-m32')
    env.Append(LINKFLAGS='-m32')
 
-if ARGUMENTS.get('profile', False):
-   env.Append(CPPDEFINES=['PROFILE'])
-
 gccmajor, gccminor, gccrev = gccversion()
 if gccmajor < 3:
 	env.Append(CPPDEFINES=[['__LONG_LONG_MAX__', '9223372036854775807']])
@@ -156,7 +153,7 @@ env['allocate'] = ARGUMENTS.get('allocate', 1)
 env['fixed'] = ARGUMENTS.get('fixed', 1)
 env['ffi'] = ARGUMENTS.get('ffi', 1)
 env['moreprims'] = ARGUMENTS.get('moreprims', 1)
-env['profile'] = ARGUMENTS.get('profile', 1)
+env['profile'] = ARGUMENTS.get('profile', 0)
 env.SConscript(sc,
 		build_dir = 'obj', 
 		src_dir = '.', 

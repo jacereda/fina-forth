@@ -84,7 +84,7 @@ def gendict(arch, phase, kernel):
 	        """)]
 	name = 'kernel/' + arch + '-dict' + str(phase)
 	src = fenv.Cat(name + '.fs', boot + meta)
-        fenv.Command('kernel/' + arch + '-dict' + str(phase) + '.S', 
+        fenv.Command('kernel/dict%s.S' % phase,
 		[kernel, src],
                 '${SOURCES[0]} < ${SOURCES[1]} > $TARGET')
 
@@ -108,7 +108,7 @@ else:
 
 for phase in range(3):
         ks = fenv.Cat('kernel/kernel' + str(phase) + '.S', 
-                ['finac.S', 'kernel/$ARCH-dict' + str(phase) + '.S'])
+                ['finac.S', 'kernel/dict' + str(phase) + '.S'])
 
         k = fenv.Program('kernel' + str(phase), 
                         [ks, 'kernel/sys' + ksys + '.c', 'kernel/main.c'])
@@ -116,15 +116,13 @@ for phase in range(3):
                 fenv.Default(fenv.Command('dummy' + str(phase), 
 				[k] + kerneltests,
 	                        'cat ${SOURCES[1:]} | $SOURCE'))
-        for arch in architectures:
-                gendict(arch, phase+1, k)
+        gendict(fenv['ARCH'], phase+1, k)
 
 genbaredict('i386', k)
 
-for arch in architectures:
-        fenv.Default(fenv.Command(arch + 'dummy', 
-                        'kernel/' + arch + '-dict2.S', 
-                        Copy('kernel/' + arch + '-dict0.S', '$SOURCE')))
+fenv.Default(fenv.Command('dummy', 
+                          'kernel/dict2.S', 
+                         Copy('kernel/dict0.S', '$SOURCE')))
         
 
 fenv.Command('sys/build.fs', [k] + full[:-2], 
