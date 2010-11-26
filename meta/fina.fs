@@ -662,7 +662,7 @@ p: lshift  ( x1 u -- x2 )
 
 \g @see anscore
 p: rshift  ( x1 u -- x2 )
-   0 ?do 2/ [ -1 1 rshift ] literal and loop ;  
+   >r r@ arshift 1 cellbits r> - lshift 1- and ;
 
 \g @see anscore
 p: max  ( n1 n2 -- n3 )
