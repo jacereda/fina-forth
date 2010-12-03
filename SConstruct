@@ -61,9 +61,11 @@ env.Append(LINKFLAGS='-g')
 if tarch == 'x64':
    env.Append(CPPDEFINES=['X86_64'])
 else:
-   if env['ARCH'] == 'i386' and env['OS'] == 'darwin' and not ring0:
+   if tarch == 'i386' and env['OS'] == 'darwin' and not ring0:
       env.Append(ASFLAGS='-arch i386')
-   env.Append(CCFLAGS='-m32')
+   if tarch == 'i386' and env['OS'] == 'linux':
+      env.Replace(AS='as --32')
+   env.Append(CPPFLAGS='-m32')
    env.Append(LINKFLAGS='-m32')
 
 gccmajor, gccminor, gccrev = gccversion()
