@@ -1,0 +1,102 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module a32 - Adler32 Algorithm - Forth Foundation Library</title>
+</head>
+<body>
+<h2>a32 - Adler32 Algorithm</h2>
+<h3>Module Description</h3>
+<p>The a32 module implements the Adler32 algorithm.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Adler32 Structure</h4>
+<dl>
+<dt><a name="word1"><b>a32%</b>	( -- n )</dt>
+<dd>Get the required space for an Adler32 variable</dd>
+</dl>
+<h4>Adler32 variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>a32-init</b>	( a32 -- )</dt>
+<dd>Initialise the Adler32 variable</dd>
+<dt><a name="word3"><b>a32-create</b>	( "&lt;spaces&gt;name" -- ; -- a32 )</dt>
+<dd>Create a named Adler32 variable in the dictionary</dd>
+<dt><a name="word4"><b>a32-new</b>	( -- a32 )</dt>
+<dd>Create a new Adler32 variable on the heap</dd>
+<dt><a name="word5"><b>a32-free</b>	( a32 -- )</dt>
+<dd>Free the Adler32 variable from the heap</dd>
+</dl>
+<h4>Member word</h4>
+<dl>
+<dt><a name="word6"><b>a32-length@</b>	( a32 -- u )</dt>
+<dd>Get the length of the sum</dd>
+</dl>
+<h4>Adler32 words</h4>
+<dl>
+<dt><a name="word7"><b>a32-reset</b>	( a32 -- )</dt>
+<dd>Reset the Adler32 state</dd>
+<dt><a name="word8"><b>a32-update</b>	( c-addr u a32 -- )</dt>
+<dd>Update the Adler32 with more data c-addr u</dd>
+<dt><a name="word9"><b>a32-finish</b>	( a32 -- u )</dt>
+<dd>Finish the Adler32 calculation, return the result u</dd>
+<dt><a name="word10"><b>a32^combine</b>	( a32 a32 -- u )</dt>
+<dd>Combine the twee Addler32 sums and return the combined sum u</dd>
+<dt><a name="word11"><b>a32+to-string</b>	( u -- c-addr u )</dt>
+<dd>Convert the Adler32 result to a string, using the pictured output area</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word12"><b>a32-dump</b>	( a32 -- )</dt>
+<dd>Dump the Adler32 variable</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/a32.fs
+
+
+\ Create an Adler32 variable ad1 in the dictionary
+
+a32-create ad1
+
+\ Update the variable with data
+
+s" The quick brown fox jumps over the lazy dog" ad1 a32-update
+
+\ Finish the Adler32 calculation resulting in unsigned 32 bit word
+\ on the stack representing the value
+
+ad1 a32-finish
+
+\ Convert the value to a hex string and print
+
+a32+to-string type cr
+
+
+
+\ Create an Adler32 variable on the heap
+
+a32-new value ad2
+
+\ Update the variable with multiple data
+
+s" The quick brown fox " ad2 a32-update
+s" jumps over the lazy dog" ad2 a32-update
+
+\ Finish the calculation
+
+ad2 a32-finish
+
+\ Convert the value to a hex string and print
+
+a32+to-string type cr
+
+\ Free the variable from the heap
+
+ad2 a32-free
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

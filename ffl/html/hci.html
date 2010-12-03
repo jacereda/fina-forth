@@ -1,0 +1,134 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module hci - Hash Cell Table Iterator - Forth Foundation Library</title>
+</head>
+<body>
+<h2>hci - Hash Cell Table Iterator</h2>
+<h3>Module Description</h3>
+<p>The hci module implements an iterator on the hash cell table [hct].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Iterator structure</h4>
+<dl>
+<dt><a name="word1"><b>hci%</b>	( -- n )</dt>
+<dd>Get the required space for a hash cell table iterator</dd>
+</dl>
+<h4>Iterator creation, initialisation and destruction words</h4>
+<dl>
+<dt><a name="word2"><b>hci-init</b>	( hct hci -- )</dt>
+<dd>Initialise the iterator with a hash table</dd>
+<dt><a name="word3"><b>hci-create</b>	( hct "&lt;spaces&gt;name" -- ; -- hci )</dt>
+<dd>Create a named iterator in the dictionary on the hash table hct</dd>
+<dt><a name="word4"><b>hci-new</b>	( hct -- hci )</dt>
+<dd>Create an iterator on the heap on the hash table hct</dd>
+<dt><a name="word5"><b>hci-free</b>	( hci -- )</dt>
+<dd>Free the iterator from heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word6"><b>hci-get</b>	( hci -- false | x true )</dt>
+<dd>Get the cell data x from the current record</dd>
+<dt><a name="word7"><b>hci-key</b>	( hci -- c-addr u )</dt>
+<dd>Get the key from the current record</dd>
+<dt><a name="word8"><b>hci-set</b>	( x hci -- )</dt>
+<dd>Set the cell data x in the current record</dd>
+</dl>
+<h4>Iterator words</h4>
+<dl>
+<dt><a name="word9"><b>hci-first</b>	( hci -- x true | false )</dt>
+<dd>Move the iterator to the first record, return the cell data of this record</dd>
+<dt><a name="word10"><b>hci-next</b>	( hci -- x true | false )</dt>
+<dd>Move the iterator to the next record, return the cell data from this record</dd>
+<dt><a name="word11"><b>hci-move</b>	( x hci -- flag )</dt>
+<dd>Move the iterator to the next record with the cell data x, return success</dd>
+<dt><a name="word12"><b>hci-first?</b>	( hci -- flag )</dt>
+<dd>Check if the iterator is on the first record</dd>
+<dt><a name="word13"><b>hci-last?</b>	( hci -- flag )</dt>
+<dd>Check if the iterator is on the last record</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word14"><b>hci-dump</b>	( hci -- )</dt>
+<dd>Dump the iterator</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/hct.fs
+include ffl/hci.fs
+
+\ Example: store mountain heights in a hash table
+
+
+\ Create the hash table in the dictionary with an initial size of 10
+
+10 hct-create height-table
+
+
+\ Add the mountains (in meters)
+
+8300 s" mount everest" height-table hct-insert
+4819 s" mont blanc"    height-table hct-insert
+5642 s" mount elbrus"  height-table hct-insert
+
+\ Get a mountain height
+
+s" mount everest" height-table hct-get [IF]
+  .( Mount everest: ) . cr
+[ELSE]
+  .( Unknown mountain) cr
+[THEN]
+
+s" vaalserberg" height-table hct-get [IF]
+  .( Vaalserberg: ) . cr
+[ELSE]
+  .( Unknown mountain) cr
+[THEN]
+
+
+\ Word for printing the mountain height
+
+: height-emit ( n c-addr u -- = height key )
+  type ."  -&gt; " . cr
+;
+
+
+\ Print all mountain heights
+
+' height-emit height-table hct-execute            \ Execute the word height-emit for all entries in the hash table
+
+
+
+\ Example hash table iterator
+
+\ Create the hash table iterator in the dictionary
+
+height-table hci-create height-iter               \ Create an iterator named height-iter on the height-table hash table
+
+\ Moving the iterator
+
+height-iter hci-first                         \ Move the iterator to the first record
+[IF]                                          \ If record exists Then ..
+  height-iter hci-key type                    \   Type the key ..
+  .(  =&gt; )
+  .                                           \   .. and the value
+  cr
+[THEN]
+
+8300 height-iter hci-move                     \ Move the iterator to the mountain with a height of 8300
+[IF]                                          \ If mountain exists Then ..
+  height-iter hci-key type                    \   Type the name ..
+  .(  =&gt; )
+  height-iter hci-get drop .                  \   .. and the height
+  cr
+[ELSE]
+  .( No mountain found with a height of 8300) cr  
+[THEN]
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

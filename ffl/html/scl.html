@@ -1,0 +1,97 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module scl - Single Linked Cell List - Forth Foundation Library</title>
+</head>
+<body>
+<h2>scl - Single Linked Cell List</h2>
+<h3>Module Description</h3>
+<p>The scl module implements a single linked list that can store cell wide data.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>List structure</h4>
+<dl>
+<dt><a name="word1"><b>scl%</b>	( -- n )</dt>
+<dd>Get the required space for a scl variable</dd>
+</dl>
+<h4>List creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>scl-init</b>	( scl -- )</dt>
+<dd>Initialise the scl list</dd>
+<dt><a name="word3"><b>scl-(free)</b>	( scl -- )</dt>
+<dd>Free the nodes from the heap</dd>
+<dt><a name="word4"><b>scl-create</b>	( "&lt;spaces&gt;name" -- ; -- scl )</dt>
+<dd>Create a named scl list in the dictionary</dd>
+<dt><a name="word5"><b>scl-new</b>	( -- scl )</dt>
+<dd>Create a new scl list on the heap</dd>
+<dt><a name="word6"><b>scl-free</b>	( scl -- )</dt>
+<dd>Free the list from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word7"><b>scl-empty?</b>	( scl -- flag )</dt>
+<dd>Check for an empty list</dd>
+<dt><a name="word8"><b>scl-length@</b>	( scl -- u )</dt>
+<dd>Get the number of nodes in the list</dd>
+<dt><a name="word9"><b>scl-compare!</b>	( xt scl -- )</dt>
+<dd>Set the compare execution token for sorting the list</dd>
+<dt><a name="word10"><b>scl-compare@</b>	( scl -- xt )</dt>
+<dd>Get the compare execution token for sorting the list</dd>
+</dl>
+<h4>List words</h4>
+<dl>
+<dt><a name="word11"><b>scl-clear</b>	( scl -- )</dt>
+<dd>Delete all nodes from the list</dd>
+<dt><a name="word12"><b>scl-append</b>	( x scl -- )</dt>
+<dd>Append the cell data x in the list</dd>
+<dt><a name="word13"><b>scl-prepend</b>	( x scl -- )</dt>
+<dd>Prepend the cell data x in the list</dd>
+</dl>
+<h4>Index words</h4>
+<dl>
+<dt><a name="word14"><b>scl-index?</b>	( n scl -- flag )</dt>
+<dd>Check if the index n is valid for the list</dd>
+<dt><a name="word15"><b>scl-set</b>	( x n scl -- )</dt>
+<dd>Set the cell data x in the nth node in the list</dd>
+<dt><a name="word16"><b>scl-get</b>	( n scl -- x )</dt>
+<dd>Get the cell data x from the nth node in the list</dd>
+<dt><a name="word17"><b>scl-insert</b>	( x n scl -- )</dt>
+<dd>Insert cell data x at the nth node in the list</dd>
+<dt><a name="word18"><b>scl-delete</b>	( n scl -- x )</dt>
+<dd>Delete the nth node from the list, return the cell data from the deleted node</dd>
+</dl>
+<h4>Special words</h4>
+<dl>
+<dt><a name="word19"><b>scl-count</b>	( x scl -- u )</dt>
+<dd>Count the number of occurrences of the cell data x in the list</dd>
+<dt><a name="word20"><b>scl-execute</b>	( i*x xt scl -- j*x )</dt>
+<dd>Execute xt for every cell data in list</dd>
+<dt><a name="word21"><b>scl-reverse</b>	( scl -- )</dt>
+<dd>Reverse or mirror the list</dd>
+</dl>
+<h4>Search words</h4>
+<dl>
+<dt><a name="word22"><b>scl-find</b>	( x scl -- n )</dt>
+<dd>Find the first index for cell data x in the list, -1 for not found</dd>
+<dt><a name="word23"><b>scl-has?</b>	( x scl -- flag )</dt>
+<dd>Check if the cell data x is present in the list</dd>
+<dt><a name="word24"><b>scl-remove</b>	( x scl -- flag )</dt>
+<dd>Remove the first occurrence of the cell data x from the list, return success</dd>
+</dl>
+<h4>Sort words</h4>
+<dl>
+<dt><a name="word25"><b>scl-insert-sorted</b>	( x scl -- )</dt>
+<dd>Insert the cell data x sorted in the list</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word26"><b>scl-dump</b>	( scl -- )</dt>
+<dd>Dump the list</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

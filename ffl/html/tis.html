@@ -1,0 +1,241 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module tis - Text input stream - Forth Foundation Library</title>
+</head>
+<body>
+<h2>tis - Text input stream</h2>
+<h3>Module Description</h3>
+<p>The tis module implements a text input stream. It extends the str module,
+so all words from the str module, can be used on the tis data structure.
+There are seven basic methods: fetch = fetch the data, the stream pointer
+is not updated; next = after a fetch, the stream pointer is updated; seek
+= move the stream pointer; match = try to match data, if there is a match,
+the stream pointer is updated, read = read data, if data is returned then
+the stream pointer is updated; scan = scan for data, if the data is found
+then the leading text is returned and the stream pointer is moved after
+the scanned data; skip = move the stream pointer after the skipped data.
+<pre>
+  Stack usage reader word: x -- c-addr u | 0 = Return read data c-addr u or 0 for no more
+</pre>
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Input stream structure</h4>
+<dl>
+<dt><a name="word1"><b>tis%</b>	( -- n )</dt>
+<dd>Get the required space for a tis variable</dd>
+</dl>
+<h4>Input stream creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>tis-init</b>	( tis -- )</dt>
+<dd>Initialise the empty input stream</dd>
+<dt><a name="word3"><b>tis-create</b>	( "&lt;spaces&gt;name" -- ; -- tis )</dt>
+<dd>Create a named input stream in the dictionary</dd>
+<dt><a name="word4"><b>tis-new</b>	( -- tis )</dt>
+<dd>Create a new input stream on the heap</dd>
+<dt><a name="word5"><b>tis-(free)</b>	( tis -- )</dt>
+<dd>Free the internal, private variables from the heap</dd>
+<dt><a name="word6"><b>tis-free</b>	( tis -- )</dt>
+<dd>Free the input stream from the heap</dd>
+</dl>
+<h4>Seek and tell words: position in the stream</h4>
+<dl>
+<dt><a name="word7"><b>tis-pntr@</b>	( tis -- u )</dt>
+<dd>Get the stream pointer</dd>
+<dt><a name="word8"><b>tis-pntr!</b>	( n tis -- flag )</dt>
+<dd>Set the stream pointer from start {&gt;=0} or from end {&lt;0}</dd>
+<dt><a name="word9"><b>tis-pntr+!</b>	( n tis -- flag )</dt>
+<dd>Add the offset u to the stream pointer</dd>
+</dl>
+<h4>Reader words</h4>
+<dl>
+<dt><a name="word10"><b>tis-set-reader</b>	( x xt tis -- )</dt>
+<dd>Initialise the stream for reading using the reader callback xt and its data x</dd>
+<dt><a name="word11"><b>tis-read-more</b>	( tis -- flag )</dt>
+<dd>Read more data from the reader</dd>
+</dl>
+<h4>String words</h4>
+<dl>
+<dt><a name="word12"><b>tis-reset</b>	( tis -- )</dt>
+<dd>Reset the input stream for reading from string</dd>
+<dt><a name="word13"><b>tis-set</b>	( c-addr u tis -- )</dt>
+<dd>Initialise the stream for reading from a string</dd>
+<dt><a name="word14"><b>tis-get</b>	( tis -- 0 | addr u )</dt>
+<dd>Get the remaining characters from the stream, stream pointer is not changed</dd>
+</dl>
+<h4>Stream words</h4>
+<dl>
+<dt><a name="word15"><b>tis-eof?</b>	( tis -- flag )</dt>
+<dd>Check if the end of the stream is reached</dd>
+<dt><a name="word16"><b>tis-reduce</b>	( tis -- )</dt>
+<dd>Reduce the stream size</dd>
+</dl>
+<h4>Fetch and next words</h4>
+<dl>
+<dt><a name="word17"><b>tis-fetch-char</b>	( tis -- false | char true )</dt>
+<dd>Fetch the next character from the stream</dd>
+<dt><a name="word18"><b>tis-next-char</b>	( tis -- )</dt>
+<dd>Move the stream pointer one character after fetch-char</dd>
+<dt><a name="word19"><b>tis-fetch-chars</b>	( n tis -- 0 | addr u )</dt>
+<dd>Fetch maximum of n next characters from the stream</dd>
+<dt><a name="word20"><b>tis-next-chars</b>	( n tis -- )</dt>
+<dd>Move the stream pointer n characters after fetch-chars</dd>
+</dl>
+<h4>Match words: check for starting data</h4>
+<dl>
+<dt><a name="word21"><b>tis-imatch-char</b>	( char tis -- flag )</dt>
+<dd>Match case-insensitive a character</dd>
+<dt><a name="word22"><b>tis-cmatch-char</b>	( char tis -- flag )</dt>
+<dd>Match case-sensitive a character</dd>
+<dt><a name="word23"><b>tis-cmatch-chars</b>	( c-addr u tis -- false | char true )</dt>
+<dd>Match one of the characters in the string case-sensitive</dd>
+<dt><a name="word24"><b>tis-cmatch-string</b>	( c-addr u tis -- flag )</dt>
+<dd>Match case-sensitive a string</dd>
+<dt><a name="word25"><b>tis-imatch-string</b>	( c-addr u tis -- flag )</dt>
+<dd>Match case-insensitive a string</dd>
+<dt><a name="word26"><b>tis-match-set</b>	( chs tis - false | char true )</dt>
+<dd>Match one of the characters in the set</dd>
+</dl>
+<h4>Read data words</h4>
+<dl>
+<dt><a name="word27"><b>tis-read-char</b>	( tis -- false | char true )</dt>
+<dd>Read character from the stream</dd>
+<dt><a name="word28"><b>tis-read-all</b>	( tis -- 0 | c-addr u )</dt>
+<dd>Read all remaining characters from the stream</dd>
+<dt><a name="word29"><b>tis-read-string</b>	( n tis -- 0 | c-addr u )</dt>
+<dd>Read n characters from the stream</dd>
+<dt><a name="word30"><b>tis-read-line</b>	( tis -- 0 | c-addr u )</dt>
+<dd>Read characters till cr and/or lf</dd>
+<dt><a name="word31"><b>tis-read-number</b>	( tis -- false | n true )</dt>
+<dd>Read a cell number in the current base from the stream</dd>
+<dt><a name="word32"><b>tis-read-double</b>	( tis -- false | d true )</dt>
+<dd>Read a double value in the current base from the stream</dd>
+</dl>
+<h4>Scan words: look for data in the stream</h4>
+<dl>
+<dt><a name="word33"><b>tis-scan-char</b>	( char tis -- false | c-addr u true )</dt>
+<dd>Read characters till the char</dd>
+<dt><a name="word34"><b>tis-scan-chars</b>	( c-addr1 n1 tis -- false | c-addr2 u2 char true )</dt>
+<dd>Read characters till one of characters in c-addr1 u1</dd>
+<dt><a name="word35"><b>tis-scan-string</b>	( c-addr1 n2 tis -- false | c-addr1 u2 true )</dt>
+<dd>Read characters till the string c-addr1 n1</dd>
+<dt><a name="word36"><b>tis-iscan-string</b>	( c-addr1 n1 tis -- false | c-addr2 u2 true )</dt>
+<dd>Read characters till the string c-addr1 n1 [case insensitive]</dd>
+<dt><a name="word37"><b>tis-scan-set</b>	( chs tis - false | c-addr u char true )</dt>
+<dd>Read characters till one of the characters in the set chs</dd>
+</dl>
+<h4>Skip words: skip data in the stream</h4>
+<dl>
+<dt><a name="word38"><b>tis-skip-spaces</b>	( tis -- n )</dt>
+<dd>Skip whitespace in the stream, return the number of skipped whitespace characters</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word39"><b>tis-dump</b>	( tis -- )</dt>
+<dd>Dump the text input stream</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/tis.fs
+
+
+\ Example 1: Use the text input stream with a string of text
+
+
+\ Create an text input stream in the dictionary
+
+tis-create tis1
+
+
+\ Fill the stream with a string
+
+s" This is a special test string" tis1 tis-set
+
+
+\ Match the start of the string
+
+char t tis1 tis-imatch-char [IF]            \ Match the start of the string with a t (case insensitive)
+  .( The string starts with a t or T.) cr
+[THEN]
+  
+s" his i" tis1 tis-cmatch-string [IF]
+  .( After that the string starts with his.)  cr \ After matching the t, the string 'his i' is matched
+[THEN]
+
+
+\ Read in the string
+
+tis1 tis-read-char [IF]
+  .( Next character: ) emit cr                \ The next character is read (e.g. s)
+[THEN]
+
+.( Next five characters: )
+5 tis1 tis-read-string type cr                \ The next five characters are read (e.g. ' a sp')
+
+
+\ Scan for string
+
+s" test" tis1 tis-scan-string [IF]
+  .( String till 'test': ) type cr            \ Return the skipped text (e.g. 'ecial ')
+[THEN]
+
+
+\ Skip spaces
+
+.( Skipped spaces: )
+tis1 tis-skip-spaces . cr                     \ Skip spaces and return the number of skipped spaces (e.g. 1)
+  
+
+
+\ Example 2: Use the text input stream with a reader
+
+\ Create a text input stream on the heap
+
+tis-new value tis2
+
+
+\ Setup the reader callback word
+
+: tis-reader ( fileid -- c-addr u | 0 )
+  pad 64 rot read-file throw
+  dup IF
+    pad swap
+  THEN
+;
+
+s" index.html" r/o open-file throw dup  ' tis-reader   tis2 tis-set-reader   \ Setup a reader with a file
+
+
+\ Scan with the reader 
+: show-links   ( -- = example: Type all links in html file )
+  ." Links:" cr
+  BEGIN
+    true
+    s" &lt;a HREF=" tis2 tis-iscan-string IF        \ Look for '&lt;a HREF=', case insensitive, save lookup result
+      2drop                                      \ No interest in leading string
+      0=
+      [char] &gt; tis2 tis-scan-char IF             \ Look for '&gt;'
+        type cr                                  \ Type leading string = link
+      THEN
+    THEN
+  UNTIL
+;
+
+show-links
+
+\ Done, close the file
+
+close-file throw
+
+\ Free the stream from the heap
+
+tis2 tis-free
+
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

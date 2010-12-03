@@ -1,0 +1,44 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module scn - Single Linked Cell Node - Forth Foundation Library</title>
+</head>
+<body>
+<h2>scn - Single Linked Cell Node</h2>
+<h3>Module Description</h3>
+<p>The scn module implements a node in the single linked list [scl].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Node structure</h4>
+<dl>
+<dt><a name="word1"><b>scn%</b>	( -- n )</dt>
+<dd>Get the required space for a scn node</dd>
+</dl>
+<h4>Node creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>scn-init</b>	( x scn -- )</dt>
+<dd>Initialise the node with cell data x</dd>
+<dt><a name="word3"><b>scn-new</b>	( x -- scn )</dt>
+<dd>Create a new node on the heap with cell data x</dd>
+<dt><a name="word4"><b>scn-free</b>	( scn -- )</dt>
+<dd>Free the node from the heap</dd>
+</dl>
+<h4>Members words</h4>
+<dl>
+<dt><a name="word5"><b>scn-cell@</b>	( scn -- x )</dt>
+<dd>Get the cell data x from the node</dd>
+<dt><a name="word6"><b>scn-cell!</b>	( x scn -- )</dt>
+<dd>Set the cell data x in the node</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word7"><b>scn-dump</b>	( scn -- )</dt>
+<dd>Dump the node</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

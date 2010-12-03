@@ -1,0 +1,203 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module bni - Generic binary tree iterator - Forth Foundation Library</title>
+</head>
+<body>
+<h2>bni - Generic binary tree iterator</h2>
+<h3>Module Description</h3>
+<p>The bni module implements an iterator on the generic binary tree [bnt].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Iterator Structure</h4>
+<dl>
+<dt><a name="word1"><b>bni%</b>	( -- n )</dt>
+<dd>Get the required space for a bni variable</dd>
+</dl>
+<h4>Iterator creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>bni-init</b>	( bnt bni -- )</dt>
+<dd>Initialise the iterator with a binary tree</dd>
+<dt><a name="word3"><b>bni-create</b>	( bnt "&lt;spaces&gt;name" -- ; -- bni )</dt>
+<dd>Create a named iterator in the dictionary with a binary tree</dd>
+<dt><a name="word4"><b>bni-new</b>	( bnt -- bni )</dt>
+<dd>Create an iterator on the heap with a binary tree</dd>
+<dt><a name="word5"><b>bni-free</b>	( bni -- )</dt>
+<dd>Free the iterator from the heap</dd>
+</dl>
+<h4>Iterator words</h4>
+<dl>
+<dt><a name="word6"><b>bni-get</b>	( bni -- bnn | nil )</dt>
+<dd>Get the current node from the iterator</dd>
+<dt><a name="word7"><b>bni-key</b>	( bni -- false | x true )</dt>
+<dd>Get the key x from the current node</dd>
+<dt><a name="word8"><b>bni-first</b>	( bni -- bnn | nil )</dt>
+<dd>Move the iterator to the first node, return this node</dd>
+<dt><a name="word9"><b>bni-next</b>	( bni -- bnn | nil )</dt>
+<dd>Move the iterator to the next node, return this node</dd>
+<dt><a name="word10"><b>bni-prev</b>	( bni -- bnn | nil )</dt>
+<dd>Move the iterator to the previous node, return this node</dd>
+<dt><a name="word11"><b>bni-last</b>	( bni -- bnn | nil )</dt>
+<dd>Move the iterator to the last node, return this node</dd>
+<dt><a name="word12"><b>bni-first?</b>	( bni -- flag )</dt>
+<dd>Check if the iterator is on the first node</dd>
+<dt><a name="word13"><b>bni-last?</b>	( bni -- flag )</dt>
+<dd>Check if the iterator is on the last node</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word14"><b>bni-dump</b>	( bni -- )</dt>
+<dd>Dump the iterator variable</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/bnt.fs
+include ffl/bni.fs
+include ffl/str.fs
+
+
+\ Example: store mountain positions in a binary tree
+
+
+\ Create the generic binary tree in the dictionary
+
+bnt-create mountains
+
+
+\ Setup the compare word for comparing the mountain names
+
+: mount-compare  ( str str - n = Compare the two mountain names )
+  str^ccompare
+;
+
+' mount-compare mountains bnt-compare!
+
+
+\ Extend the generic binary tree node with mountain positions fields
+
+begin-structure mount%
+  bnn%
+  +field   mount&gt;node        \ Mountain structure extends the bnn structure
+  ffield:  mount&gt;lng         \ Longitude position
+  ffield:  mount&gt;lat         \ Latitude position
+end-structure
+
+
+\ Create the allocation word for the extended structure
+
+: mount-new    ( F: r1 r2 -- ; x bnn1 -- bnn2 = Create a new mountain position variable with position r1 r2, name c-addr u and parent bnn1 )
+  mount% allocate throw             \ Allocate the mountain variable
+  &gt;r
+  r@ mount&gt;node bnn-init            \ Initialise the binary tree node
+  r@ mount&gt;lng f!                   \ Save the longitude position
+  r@ mount&gt;lat f!                   \ Save the latitude position
+  r&gt;
+;
+
+ 
+  
+\ Add the mountain positions to the binary tree; the key is the mountain name in a (unique) dynamic string
+
+27.98E0 86.92E0  ' mount-new  str-new dup s" mount everest" rot str-set  mountains bnt-insert [IF]
+  .( Mountain:) bnn-key@ str-get type .(  added to the tree.) cr
+[ELSE]
+  .( Mountain was not unique in tree) cr drop fdrop fdrop 
+[THEN]
+
+45.92E0  6.92E0  ' mount-new  str-new dup s" mont blanc" rot str-set   mountains bnt-insert [IF]
+  .( Mountain:) bnn-key@ str-get type .(  added to the tree.) cr
+[ELSE]
+  .( Mountain was not unique in tree) cr drop fdrop fdrop
+[THEN]
+
+43.35E0 42.43E0 ' mount-new   str-new dup s" mount elbrus" rot str-set  mountains bnt-insert [IF]
+  .( Mountain:) bnn-key@ str-get type .(  added to the tree.) cr
+[ELSE]
+  .( Mountain was not unique in tree) cr drop fdrop fdrop
+[THEN]
+
+
+\ Find a mountain in the binary tree
+
+str-new value mount-name
+
+s" mont blanc" mount-name str-set
+
+mount-name mountains bnt-get [IF]
+  .( Mount:)      dup bnn-key@ str-get type 
+  .(  latitude:)  dup mount&gt;lat f@ f. 
+  .(  longitude:)     mount&gt;lng f@ f. cr
+[ELSE]
+  .( Mount:) mount-name str-get type .(  not in tree.) cr
+[THEN]
+
+
+s" vaalserberg" mount-name str-set
+
+mount-name mountains bnt-get [IF]
+  .( Mount:)      dup bnn-key@ str-get type 
+  .(  latitude:)  dup mount&gt;lat f@ f. 
+  .(  longitude:)     mount&gt;lng f@ f. cr
+[ELSE]
+  .( Mount:) mount-name str-get type .(  not in tree.) cr
+[THEN] 
+
+
+\ Word for printing the mountain positions
+
+: mount-emit ( mount -- = Print mountain )
+  dup bnn-key@ str-get type ."  --&gt; "
+  dup mount&gt;lat f@ f. ." - "
+      mount&gt;lng f@ f. cr
+;
+
+
+\ Print all mountain positions
+
+' mount-emit mountains bnt-execute       \ Execute the word mount-emit for all entries in the tree
+
+
+\ Example mountains iterator
+
+\ Create the tree iterator in the dictionary
+
+mountains bni-create mount-iter          \ Create an iterator named mount-iter on the mountains tree
+
+\ Moving the iterator
+
+mount-iter bni-first nil&lt;&gt;? [IF]
+  .( First mount:) dup bnn-key@ str-get type 
+  .(  latitude:)   dup mount&gt;lat f@ f. 
+  .(  longitude:)      mount&gt;lng f@ f. cr
+[ELSE]
+  .( No first mountain.) cr
+[THEN]
+
+mount-iter bni-last nil&lt;&gt;? [IF]
+  .( Last mount:) dup bnn-key@ str-get type 
+  .(  latitude:)  dup mount&gt;lat f@ f. 
+  .(  longitude:)     mount&gt;lng f@ f. cr
+[ELSE]
+  .( No last mountain.) cr
+[THEN]
+
+
+\ Word for freeing the tree node 
+
+: mount-free     ( mount -- = Free the node in the tree )
+  dup bnn-key@ str-free
+  
+  free throw
+;
+
+\ Cleanup the tree
+
+' mount-free mountains bnt-clear
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

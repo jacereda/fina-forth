@@ -1,0 +1,94 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module sh2 - SHA-256 module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>sh2 - SHA-256 module</h2>
+<h3>Module Description</h3>
+<p>The sh2 module implements the SHA-256 algorithm.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>SHA-256 structure</h4>
+<dl>
+<dt><a name="word1"><b>sh2%</b>	( -- n )</dt>
+<dd>Get the required space for a sha2 variable</dd>
+</dl>
+<h4>SHA-256 variable creation, initialisation and cleanup</h4>
+<dl>
+<dt><a name="word2"><b>sh2-init</b>	( sh2 -- )</dt>
+<dd>Initialise the sh2 variable</dd>
+<dt><a name="word3"><b>sh2-create</b>	( "&lt;spaces&gt;name" -- ; -- sh2 )</dt>
+<dd>Create a named SHA-256 variable in the dictionary</dd>
+<dt><a name="word4"><b>sh2-new</b>	( -- sh2 )</dt>
+<dd>Create a new SHA-256 variable on the heap</dd>
+<dt><a name="word5"><b>sh2-free</b>	( sh2 -- )</dt>
+<dd>Free the SHA-256 variable from the heap</dd>
+</dl>
+<h4>SHA-256 words</h4>
+<dl>
+<dt><a name="word6"><b>sh2-reset</b>	( sh2 -- )</dt>
+<dd>Reset the SHA-256 state</dd>
+<dt><a name="word7"><b>sh2-update</b>	( c-addr u sh2 -- )</dt>
+<dd>Update the SHA-256 with more data c-addr u</dd>
+<dt><a name="word8"><b>sh2-finish</b>	( sh2 -- u1 u2 u3 u4 u5 u6 u7 u8 )</dt>
+<dd>Finish the SHA-256 calculation, return the result</dd>
+<dt><a name="word9"><b>sh2+to-string</b>	( u1 u2 u3 u4 u5 u6 u7 u8 -- c-addr u )</dt>
+<dd>Convert SHA-256 result to the string c-addr u, using the pictured output area</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word10"><b>sh2-dump</b>	( sh2 -- )</dt>
+<dd>Dump the sh2 variable</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/sh2.fs
+
+\ Create a SHA-256 variable sh1 in the dictionary
+
+sh2-create sh1
+
+\ Update the variable with data
+
+s" The quick brown fox jumps over the lazy dog" sh1 sh2-update
+
+\ Finish the SHA-256 calculation resulting in 8 unsigned 32 bit words
+\ on the stack representing the hash value
+
+sh1 sh2-finish
+
+\ Convert the hash value to a hex string and print
+
+sh2+to-string type cr
+
+
+
+\ Create a SHA-256 variable on the heap
+
+sh2-new value sh2
+
+\ Update the variable with multiple data
+
+s" The quick brown fox " sh2 sh2-update
+s" jumps over the lazy dog" sh2 sh2-update
+
+\ Finish the calculation
+
+sh2 sh2-finish
+
+\ Convert the hash value to a hex string and print
+
+sh2+to-string type cr
+
+\ Free the variable from the heap
+
+sh2 sh2-free
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

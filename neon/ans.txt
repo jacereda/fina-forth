@@ -1,0 +1,36 @@
+ans.txt 
+Version 0.2 alpha release 8/14/96
+Andrew McKewan
+mckewan@austin.finnigan.com
+
+This program requires the following ANS Standard word sets:
+
+CORE
+     all
+
+CORE EXT
+     :NONAME ?DO ERASE CASE OF ENDOF ENDCASE
+     TRUE FALSE HEX NIP PARSE PICK TO TUCK U> VALUE \
+
+EXCEPTION (optional)
+     CATCH THROW
+
+FILE (ability to load text files)
+     INCLUDED
+
+MEMORY ALLOCATION (optional)
+     ALLOCATE FREE RESIZE
+
+TOOLS
+     DUMP (optional)
+
+TOOLS EXT
+     [IF] [ELSE] [THEN]
+
+The words from the EXCEPTION and MEMORY ALLOCATION word sets are 
+optional and will conditionally compiled using [IF] [ELSE] and [THEN].
+
+No FILE words are used, but the source is distributed in text files so 
+the system must have the ability to load text files or convert the 
+source to blocks.
+

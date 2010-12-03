@@ -1,0 +1,130 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module hnn - Generic Hash Table Node - Forth Foundation Library</title>
+</head>
+<body>
+<h2>hnn - Generic Hash Table Node</h2>
+<h3>Module Description</h3>
+<p>The hnn module implements a generic node in the hash table [hnt].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Hash table node structure</h4>
+<dl>
+<dt><a name="word1"><b>hnn%</b>	( -- n )</dt>
+<dd>Get the required space for a hnn node</dd>
+</dl>
+<h4>Node creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>hnn-init</b>	( c-addr u u2 hnn -- )</dt>
+<dd>Initialise the node with the key c-addr u and hash u2</dd>
+<dt><a name="word3"><b>hnn-(free)</b>	( hnn -- )</dt>
+<dd>Free the key from the heap</dd>
+<dt><a name="word4"><b>hnn-new</b>	( c-addr u u2 -- hnn )</dt>
+<dd>Create a new node on the heap with the key c-addr u and hash u2</dd>
+<dt><a name="word5"><b>hnn-free</b>	( hnn -- )</dt>
+<dd>Free the node from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word6"><b>hnn-key@</b>	( hnn -- c-addr u )</dt>
+<dd>Get the key from the node</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word7"><b>hnn-dump</b>	( hnn -- )</dt>
+<dd>Dump the node</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/hnt.fs
+include ffl/hni.fs
+
+
+\ Example: store scientific constants in a hash table
+
+\ Extend the base node with a float for storing the value of the constant
+
+begin-structure sc%
+  hnn%
+  +field  sc&gt;ht                      \ Node extends the base node
+  ffield: sc&gt;value                   \ Value of constant
+end-structure
+
+
+\ Create the hash table in the dictionary with an initial size of 10
+
+10 hnt-create sc-table
+
+
+\ Word for adding the value
+
+: sc-add ( r c-addr u -- = value key )
+  2dup sc-table hnt-search                     \ Search if the key is already present in the hash table
+  dup nil&lt;&gt; IF                                 \ If the key is already present Then
+    nip nip nip                                \   Remove the key and hash value from stack
+    sc&gt;value f!                                \   Update the node in the hash table with the value
+  ELSE                                         \ Else
+    drop                                       \   Drop nil
+    sc% allocate throw                         \   Allocate a new sc% node
+    &gt;r
+    r@ hnn-init                                \   Initialise the new sc% node with the key and hash
+    r@ sc&gt;value f!                             \   Save the value in the node
+    r&gt; sc-table hnt-insert                     \   Store the sc% node in the hash table
+  THEN
+;
+
+
+\ Add the constants
+
+3.14158E+0 s" pi"     sc-add
+2.71828E+0 s" euler"  sc-add
+1.61803E+0 s" golden" sc-add
+
+\ Word for printing the scientific constant
+
+: sc-emit ( sc% -- )
+  dup hnn-key@ type ."  -&gt; " sc&gt;value f@ f. cr
+;
+
+
+\ Print all scientific constants
+
+' sc-emit sc-table hnt-execute                \ Execute the word sc-emit for all entries in the hash table
+
+
+\ Example hash table iterator
+
+\ Create the hash table iterator in the dictionary
+
+sc-table hni-create sc-iter                   \ Create an iterator named sc-iter on the sc-table hash table
+
+\ Moving the iterator
+
+sc-iter hni-first                             \ Move the iterator to the first record
+nil&lt;&gt; [IF]                                    \ If record exists Then ..
+  sc-iter hni-key type                        \   Type the key ..
+  .(  =&gt; )
+  sc-iter hni-get sc&gt;value f@ f.              \   .. and the value
+  cr
+[THEN]
+
+sc-iter hni-next                              \ Move the iterator to the next record
+nil&lt;&gt; [IF]                                    \ If record exists Then ..
+  sc-iter hni-key type                        \   Type the key ..
+  .(  =&gt; )
+  sc-iter hni-get sc&gt;value f@ f.              \   .. and the value
+  cr
+[ELSE]
+  .( No next record in the hash table) cr  
+[THEN]
+
+
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

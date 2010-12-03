@@ -1,0 +1,59 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module tmr - Timer module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>tmr - Timer module</h2>
+<h3>Module Description</h3>
+<p>The tmr module implements a poll able interval timer. Due to the fact that
+the ANS standard does not define a way to fetch milliseconds, this module
+has a environmental dependency.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Timer structure</h4>
+<dl>
+<dt><a name="word1"><b>tmr%</b>	( - n )</dt>
+<dd>Get the required space for the timer variable</dd>
+</dl>
+<h4>Timer variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>tmr-init</b>	( u tmr -- )</dt>
+<dd>Initialise the timer with timeout u</dd>
+<dt><a name="word3"><b>tmr-create</b>	( u "&lt;spaces&gt;name" -- ; -- tmr )</dt>
+<dd>Create a named timer variable in the dictionary with timeout u</dd>
+<dt><a name="word4"><b>tmr-new</b>	( u -- tmr )</dt>
+<dd>Create a new timer variable on the heap with timeout u</dd>
+<dt><a name="word5"><b>tmr-free</b>	( tmr -- )</dt>
+<dd>Free the timer from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word6"><b>tmr-timeout@</b>	( tmr -- u )</dt>
+<dd>Get the timeout value from the timer</dd>
+<dt><a name="word7"><b>tmr-timer@</b>	( tmr -- u )</dt>
+<dd>Get the running time u from the timer in ms, after last [re]start, expired? or wait</dd>
+</dl>
+<h4>Timer words</h4>
+<dl>
+<dt><a name="word8"><b>tmr-start</b>	( u tmr -- )</dt>
+<dd>Start the timer with a timeout value u</dd>
+<dt><a name="word9"><b>tmr-restart</b>	( tmr -- )</dt>
+<dd>Restart the timer with the current timeout value</dd>
+<dt><a name="word10"><b>tmr-expired?</b>	( tmr -- flag )</dt>
+<dd>Check if the timer is expired, if so the timer is restarted</dd>
+<dt><a name="word11"><b>tmr-wait</b>	( tmr -- )</dt>
+<dd>Wait till the timer expires and restart the timer</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word12"><b>tmr-dump</b>	( tmr -- )</dt>
+<dd>Dump the tmr state</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module dcn - Double Linked Cell List Node - Forth Foundation Library</title>
+</head>
+<body>
+<h2>dcn - Double Linked Cell List Node</h2>
+<h3>Module Description</h3>
+<p>The dcn module implements a node in a dcl list.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Node structure</h4>
+<dl>
+<dt><a name="word1"><b>dcn%</b>	( -- n )</dt>
+<dd>Get the required space for a dcn node</dd>
+</dl>
+<h4>Node creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>dcn-init</b>	( x dcn -- )</dt>
+<dd>Initialise the node with data x</dd>
+<dt><a name="word3"><b>dcn-new</b>	( x -- dcn )</dt>
+<dd>Create a new node on the heap with data x</dd>
+<dt><a name="word4"><b>dcn-free</b>	( dcn -- )</dt>
+<dd>Free the node from the heap</dd>
+</dl>
+<h4>Members words</h4>
+<dl>
+<dt><a name="word5"><b>dcn-cell@</b>	( dcn -- x )</dt>
+<dd>Get the cell data x from the node</dd>
+<dt><a name="word6"><b>dcn-cell!</b>	( x dcn -- )</dt>
+<dd>Set the cell data x in the node</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word7"><b>dcn-dump</b>	( dcn -- )</dt>
+<dd>Dump the node</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

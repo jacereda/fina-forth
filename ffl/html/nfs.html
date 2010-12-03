@@ -1,0 +1,75 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module nfs - Non-deterministic finite automata state - Forth Foundation Library</title>
+</head>
+<body>
+<h2>nfs - Non-deterministic finite automata state</h2>
+<h3>Module Description</h3>
+<p>The nfs module implements a state in a non-deterministic finite automata.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>State structure</h4>
+<dl>
+<dt><a name="word1"><b>nfs%</b>	( -- n )</dt>
+<dd>Get the required space for a nfs state</dd>
+</dl>
+<h4>State types</h4>
+<dl>
+<dt><a name="word2"><b>nfs.char</b>	( -- n )</dt>
+<dd>State type char, data = char</dd>
+<dt><a name="word3"><b>nfs.any</b>	( -- n )</dt>
+<dd>State type any, no data</dd>
+<dt><a name="word4"><b>nfs.class</b>	( -- n )</dt>
+<dd>State type class, data = chs</dd>
+<dt><a name="word5"><b>nfs.lparen</b>	( -- n )</dt>
+<dd>State type left paren, data = paren level</dd>
+<dt><a name="word6"><b>nfs.rparen</b>	( -- n )</dt>
+<dd>State type right paren, data = paren level</dd>
+<dt><a name="word7"><b>nfs.split</b>	( -- n )</dt>
+<dd>State type split, no data</dd>
+<dt><a name="word8"><b>nfs.match</b>	( -- n )</dt>
+<dd>State type match, no data</dd>
+</dl>
+<h4>State creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word9"><b>nfs-init</b>	( x n1 n2 nfs -- )</dt>
+<dd>Initialise the nfs state with data x, type n1 and id n2</dd>
+<dt><a name="word10"><b>nfs-new</b>	( x n1 n2 -- nfs )</dt>
+<dd>Create a new nfs state on the heap with data x, type n1 and id n2</dd>
+<dt><a name="word11"><b>nfs-free</b>	( nfs -- )</dt>
+<dd>Free the state from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word12"><b>nfs-id@</b>	( nfs -- n )</dt>
+<dd>Get the id of the state</dd>
+<dt><a name="word13"><b>nfs-type@</b>	( nfs -- n )</dt>
+<dd>Get the type of the state</dd>
+<dt><a name="word14"><b>nfs-data@</b>	( nfs -- x )</dt>
+<dd>Get the optional data of the state</dd>
+<dt><a name="word15"><b>nfs-out1!</b>	( nfs1 nfs2 -- )</dt>
+<dd>Set out1 in the nfs2 state to the nfs1 state</dd>
+<dt><a name="word16"><b>nfs-out1@</b>	( nfs1 -- nfs2 )</dt>
+<dd>Get the out1 state of the nfs1 state</dd>
+<dt><a name="word17"><b>nfs-out2!</b>	( nfs1 nfs2 -- )</dt>
+<dd>Set out2 in the nfs2 state to the nfs1 state</dd>
+<dt><a name="word18"><b>nfs-out2@</b>	( nfs1 -- nfs2 )</dt>
+<dd>Get the out2 nfs state of nfs1 state</dd>
+<dt><a name="word19"><b>nfs-visit!</b>	( n nfs -- )</dt>
+<dd>Set the visit number [0&gt;=]</dd>
+<dt><a name="word20"><b>nfs-visit@</b>	( nfs -- n )</dt>
+<dd>Get the visit number</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word21"><b>nfs-dump</b>	( nfs -- )</dt>
+<dd>Dump the nfs state</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

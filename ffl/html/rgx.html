@@ -1,0 +1,149 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module rgx - Regular expressions - Forth Foundation Library</title>
+</head>
+<body>
+<h2>rgx - Regular expressions</h2>
+<h3>Module Description</h3>
+<p>The rgx module implements regular expressions. It supports words for
+compiling and matching regular expressions. The module uses the [nfe]
+module for the actual expression building and matching.
+<pre>
+
+    This module uses the following syntax:
+     .   Match any char [incl. newline]     *   Match zero or more
+     +   Match one or more                  ?   Match zero or one
+     |   Match alternatives                 []  Class
+     ()  Group or subexpression
+
+    Backslash characters:
+     \.  Character .                       \*   Character *
+     \+  Character +                       \?   Character ?
+     \|  Character |                       \\   Backslash
+     \[  Character [
+
+     \r  Carriage return                   \n   Line feed
+     \t  Horizontal tab                    \e   Escape
+
+     \d  Digits class: [0-9]               \D   No digits: [^0-9]
+     \w  Word class: [0-9a-zA-Z_]          \W   No word: [^0-9a-zA-Z_]
+     \s  Whitespace                        \S   No whitespace
+
+     All other backslash characters simply return the trailing character,
+     but this can change in future versions.
+
+     Classes:
+      [abc]  - match a or b or c
+      [^abc] - match everything except a or b or c
+      [a-z]  - match a or b or .. z
+      [-abc] - match - or a or b or c
+      []abc] - match ] or a or b or c
+      [\d\n] - match digit or line feed
+
+     Backslash characters in classes:
+      \r  Carriage return                \n    Line feed
+      \t  Horizontal tab                 \e    Escape
+      \]  Character ]                    \-    Character -
+      \d  Digits class: [0-9]            \w    Word class: [0-9a-zA-Z_]
+      \s  Whitespace
+
+     All other backslash characters simply return the trailing character,
+     but this can change in future versions.
+</pre>
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Regular expression structure</h4>
+<dl>
+<dt><a name="word1"><b>rgx%</b>	( -- n )</dt>
+<dd>Get the required space for a rgx variable</dd>
+</dl>
+<h4>Regular expression creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>rgx-init</b>	( rgx -- )</dt>
+<dd>Initialise the regular expression</dd>
+<dt><a name="word3"><b>rgx-create</b>	( "&lt;spaces&gt;name" -- ; -- rgx )</dt>
+<dd>Create a named regular expression in the dictionary</dd>
+<dt><a name="word4"><b>rgx-new</b>	( -- rgx )</dt>
+<dd>Create a new regular expression on the heap</dd>
+<dt><a name="word5"><b>rgx-free</b>	( rgx -- )</dt>
+<dd>Free the regular expression from the heap</dd>
+</dl>
+<h4>Regular expression words</h4>
+<dl>
+<dt><a name="word6"><b>rgx-compile</b>	( c-addr u rgx -- true | n false )</dt>
+<dd>Compile a pattern as regular expression, return success and optional the error offset n</dd>
+<dt><a name="word7"><b>rgx-cmatch?</b>	( c-addr u rgx -- flag )</dt>
+<dd>Match case-sensitive a string with the regular expression, return match result</dd>
+<dt><a name="word8"><b>rgx-imatch?</b>	( c-addr u rgx -- flag )</dt>
+<dd>Match case-insensitive a string with the regular expression, return match result</dd>
+<dt><a name="word9"><b>rgx-csearch</b>	( c-addr u rgx -- n )</dt>
+<dd>Search case-sensitive in a string for the first match of the regular expression, return offset in string, or -1 for not found</dd>
+<dt><a name="word10"><b>rgx-isearch</b>	( c-addr u rgx -- n:index )</dt>
+<dd>Search case-insensitive in a string for the first match of the regular expression, return offset in string, or -1 if not found</dd>
+<dt><a name="word11"><b>rgx-result</b>	( n rgx -- n1 n2 )</dt>
+<dd>Get the match result of the nth grouping, return match start n2 and end n1</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word12"><b>rgx-dump</b>	( rgx -- )</dt>
+<dd>Dump the regular expression</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/rgx.fs
+
+\ Create a regular expression variable rgx1 
+
+rgx-create rgx1
+
+\ Compile a regular expression and check the result
+
+s" ((a*)b)*" rgx1 rgx-compile [IF] 
+  .( Expression successful compiled) cr
+[ELSE]
+  .( Compilation failed on position:) . cr
+[THEN]
+
+\ Match case sensitive a test string
+ 
+s" abb" rgx1 rgx-cmatch? [IF]
+  .( Test string matched) cr
+[ELSE]
+  .( No match) cr  
+[THEN]
+
+
+
+\ Create a regular expression variable on the heap
+ 
+rgx-new value rgx2
+
+\ Compile a regular expression for matching a float number
+
+s" [-+\s]?\d+(\.\d+)?" rgx2 rgx-compile [IF]
+  .( Expression successful compiled) cr
+[ELSE]
+  .( Compilation failed on position:) . cr
+[THEN]
+
+\ Match a float number
+
+s" -12.47" rgx2 rgx-cmatch? [IF]
+  .( Float number matched) cr
+[ELSE]
+  .( No match) cr
+[THEN]
+
+\ Free the variable from the heap
+
+rgx2 rgx-free
+
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

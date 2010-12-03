@@ -1,0 +1,323 @@
+
+Object-Oriented Programming in ANS Forth
+
+This article describes the use and implementation of an object-oriented extension to Forth. The extension follows the syntax in Yerk and Mops but is implemented in ANS Standard Forth.
+
+Why I am doing this
+
+When I first began programming in Forth for Windows NT, I became aware of the huge amount of complexity in the environment. In looking for a way to tame this complexity, I studied the object-oriented Forth design in Yerk. Yerk is the Macintosh Forth system that was formerly marketed as a commercial product under the name Neon. It implemented an environment that allowed you to write object-oriented programs for the Macintosh.
+
+While much of Yerk was Macintosh-specific, the underlying class/object/message ideas were quite general. I ported these to Win32Forth, a public-domain Forth system for Windows NT and Windows 95.
+
+However, in both Yerk and Win32Forth, much of the core system is written in assembly language and is very machine-specific. Additionally, both systems modified the outer interpreter to adapt to the new syntax.
+
+What I hope to accomplish here is to provide any ANS Forth System the ability to use the object-oriented syntax and programming style in these platform-specific systems. In doing so, I have sacrificed some performance and a few of the features.
+
+Object-Oriented Concepts
+
+
+The object-oriented model closely follows Smalltalk. I will first describe the names used in this model: Objects, Classes, Messages, Methods, Selectors, Instance Variables and Inheritance.
+
+Objects are the entities that are used to build programs. Objects contain private data that is not accessible from outside the object. The only way to communicate with an object is by sending it a message.
+
+A Message consists of a selector (a name) and arguments. When an object receives the message, it executes a corresponding method. The arguments and results of this method are passed on the Forth stack.
+
+A Class is a template for creating objects. Classes describe the instance variables and methods for the object. Once a class is defined, you can make many object from that same class. Each object has its own copy of the instance variables, but share the method code.
+
+Instance variables are the private data belonging to an object. Instance variable can be accessed in the methods of the object, but are not visible outside the object. Instance variables are themselves objects with their own private data and public methods.
+
+Methods are the code that is executed in response to a message. They are similar to normal colon definitions but use a special syntax using the words :M and ;M. You can put any Forth code inside a method including sending messages to other objects.
+
+Inheritance allows you to define a class as a subclass of another class called the superclass. This new class "inherits" all of the instance variables and methods from the superclass. You can then add instance variable and methods to the new class. This can greatly decrease the amount of code you have to write if you design the class hierarchy carefully.
+
+How to Define a Class
+
+This example of a Point class illustrates the basic syntax used to define a class:
+
+    :Class Point  <Super Object
+
+      Var x
+      Var y
+
+      :M Get:  ( -- x y )  Get: x  Get: y  ;M
+      :M Put:  ( x y -- )  Put: y  Put: x  ;M
+
+      :M Print:  ( -- )  Get: self  SWAP  ." x = " .   ." y = " .  ;M
+
+:M ClassInit:   1 Put: x  2 Put: y  ;M
+
+;Class
+
+The class Point inherits from the class Object. Object is the root of all classes and defines some common behavior (such as getting the address of an object or getting its class) but does not have any instance variables. All classes must inherit from a superclass.
+
+Next we define two instance variables, x and y. Both of these are instances of class Var. Var is a basic cell-sized class similar to a Forth variable. It has methods Get: and Put: to fetch and store its data.
+
+The Get: and Put: methods of class Point access its data as a pair of integers. They are implemented by sending Get: and Put: messages to the instance variables. Print: prints out the x and y coordinates.
+
+ClassInit: is a special initialization method. Whenever an object is created, the system sends it a ClassInit: message. This allows the object to perform any initialization functions. Here we initialize the variables x and y to a preset value. Whenever a point is created, it will be initialized to these values. This is similar to a constructor in C++.
+
+Not all classes need a ClassInit: method. If a class does not define the ClassInit: method, there is one in class Object that does nothing. 
+
+Creating an Instance of a Class
+
+Now we have defined the Point class, let's create a point:
+
+    Point myPoint
+
+As you can see, Point is a defining word. It creates a Forth definition called "myPoint." Let's see what it contains:
+
+    Print: myPoint
+
+This should print the text "x = 1 y = 2" on the screen. You can see that the new point has been initialized with the ClassInit: message.
+
+Now we can modify myPoint and we should see the new value:
+
+    3 4 Put: myPoint
+    Print: myPoint
+
+Notice that in the definition of Point, we created two instance variables of class Var. The object defining words are "class smart" and will create instance variables if used inside a class and global objects if used outside of a class.
+
+Sending Message to Yourself
+
+In the definition of Print: we used the phrase "Get: self." Here we are sending the Get: message to ourselves. Self is a name that refers to the current object. The compiler will compile a call to Point's Get: method. Similarly, we could have defined ClassInit: like this:
+
+:M ClassInit:   1 2 Put: self  ;M
+
+This is a common factoring technique in Forth and is equally applicable here.
+
+Creating a Subclass
+
+Let's say we wanted an object like myPoint, but that printed itself in a different format.
+
+    :Class NewPoint  <Super Point
+
+        :M Print:  ( -- )  Get: self  SWAP  0 .R ." @" .  ;M
+
+    ;Class
+
+A subclass inherits all of the instance variables of its superclass, and can add new instance variables and methods of its own, or override methods defined in the superclass. Now lets try it out:
+
+    NewPoint myNewPoint
+
+    Print: myNewPoint
+
+This will print "1@2" which is the Smalltalk way of printing points. We have changed the Print: method but have inherited all of the other behavior of a Point.
+
+Sending Message to Your Superclass
+
+In some cases, we do not want to replace a method but just add something to it. Here's a class that always prints its value on a new line:
+
+    :Class CrPoint  <Super NewPoint
+
+        :M Print:  ( -- )  CR  Print: super  ;M
+
+    ;Class
+
+    CrPoint myCrPoint
+    Print: myCrPoint
+
+When we use the phrase "Print: super" we are telling the compiler to send the print message that was defined in our superclass.
+
+Indexed Instance Variables
+
+Class Point had two named instance variables, "x" and "y."  The type and number of named instance variables is fixed when the class is defined. Objects may also contain indexed instance variables. These are accessed via a zero-based index. Each object may define a different number of indexed index variables. The size of each variable is defined in the class header by the word <Indexed.
+
+    :Class Array  <Super Object  CELL <Indexed
+
+        At:  ( index -- value )  (At)  ;M
+        To:  ( value index -- )  (To)  ;M
+
+    ;Class
+
+We have declared that an Array will have indexed instance variables that are each CELL bytes wide. To define an array, put the number of elements before the class name:
+
+    10 Array myArray
+
+This will define an Array with 10 elements, numbered from 0 to 9. We can access the array data with the At: and To: methods:
+
+    4 At: myArray .
+
+    64 2 To: myArray
+ 
+Indexed instance variables allow the creation of arrays, lists and other collections.
+
+Early vs. Late Binding
+
+In these examples, you may have been thinking "all of this message sending must be taking a lot of time." In order to execute a method, an object must look up the message in its class, and then its superclass, until it is found.
+
+But if the class of the object is known at compile time, the compiler does the lookup then and compiles the execution token of the method. This is called "early binding." There is still some overhead with calling a method, but it is quite small. In all of the code we have seen so far, the compiler will do early binding.
+
+There are cases when you do want the lookup to occur at runtime. This is called "late binding." An example of this is when you have a Forth variable that will contain a pointer to an object, yet the class of the object is not known until runtime. The syntax for this is:
+
+    VARIABLE objPtr   myPoint objPtr !
+
+    Print: [ objPtr @ ]
+
+The expression within the brackets must produce an object address. The compiler recognized the brackets and will do the message lookup at runtime.
+
+(Don't worry, I haven't redefined "[" or "]". When a message selector recognizes the left bracket, it uses PARSE and EVALUATE to compile the intermediate code and then compiles a late-bound message send. This also works in interpret state.)
+
+Class Binding	(Dave Boulton called this "promiscuous binding.")
+
+Class binding is an optimization that allows us to get the performance of early binding when we have object pointers or objects that are passed on the stack. If we use a selector with a class name, the compiler will early bind the method, assuming that an object of that class is on the stack. So if we write a word to print a point like this,
+
+    : .Point  ( aPoint -- )   Print: Point ;
+
+    objPtr @ .Point
+
+it will early bind the call. If you pass anything other that a Point, you will not get the expected result (It will print the first two cells of the object, no matter what they are). This is an optimization technique that should be used with care until a program is fully debugged.
+
+Creating Objects on the Heap
+
+If a system has dynamic memory allocation, the programmer may want to create objects on the heap at runtime. This may be the case, for instance, if the programmer does not know how many objects will be created by the user of the application.
+
+The syntax for creating an object on the heap is:
+
+    Heap> Point objPtr !
+
+Heap> will return the address of the new point, which can be kept on the stack or stored in a variable. To release the point and free its memory, we use:
+
+    objPtr @ Release
+
+Before the memory is freed, the object will receive a Release: message. It can then do any cleanup necessary (like releasing other instance variables). This is similar to a C++ destructor.
+
+Implementation
+
+The address of the current object is stored in the value ^base. (In a native system, this would be a good use for a processor register.)
+
+The only time you can use ^base is inside of a method. Whenever a method is called, ^base is saved and loaded with the address of the object being sent the message. When the method exits, ^base is restored.
+
+Class Structure
+
+All offsets and sizes are in Forth cells.
+
+Offset  Size   Name    Description
+
+   0     8     MFA     Method dictionary (8-way hashed list)
+   8     1     IFA     Linked-list of instance variables
+   9     1     DFA     Data length of named instance variables
+  10     1     XFA     Width of indexed instance variables
+  11     1     SFA     Superclass pointer
+  12     1     TAG     Class tag field
+  13     1     USR     User-defined field
+
+The first 8 cells are an 8-way hashed list of methods. Three bits from the method selector are used to determine which list the method may be in. This cuts down search time for late-bound messages.
+
+The IFA field is a linked list of named instance variables. The last two entries in this list are always "self" and "super."
+
+The DFA field contains the length of the named instance variables for an object.
+
+The XFA field actually serves a dual role. For classes with indexed instance variables it contains the width of each element. For non-indexed classes this field is usually zero. A special value of -1 is a flag for general classes (see below).
+
+The TAG field contains a special value that helps the compiler determine if a structure really represents a class. In native implementations, a unique code field is used to identify classes, but this is not available in ANS Forth.
+
+The USR field is not used by the compiler but is reserved for a programmer's use. In the future I may extend this concept of "class variables" to allow adding to the class structure. This field is used in a Windows implementation to store a list of window messages the class will respond to.
+
+Object Structure
+
+Offset   Size    Description
+
+   0       1     Pointer to object's class
+   1      DFA    Named instance variable data
+  DFA+1    1     Number of indexed instance variables (if indexed)
+  DFA+2    ?     Indexed instance variables (if indexed)
+
+The first field of a global or heap-based object is a pointer to the object's class. This allows us to do late binding. Normally, the class field is not stored for an instance variable. This saves space and is not usually needed because the compiler knows the class of the instance variable and the instance variable is not visible outside of the class definition. For indexed classes, the class pointer is always stored because the class contains information needed to locate the indexed data. Also, the programmer may mark a class as "general" so that the class pointer is always stored. This is needed in cases where the object sends itself late-bound messages (i.e. msg: [ self ]).
+
+When an object executes, it returns the address of the first named instance variable. This is what we refer to when we mean the "object address." This field contains the named instance variable data. Since instance variables are themselves objects, this structure can be nested indefinitely.
+
+Objects with indexed instance variables have two more fields. The indexed header contains the number of indexed instance variables. The width of the indexed variables is stored in the class structure which is why we must always store a class pointer for indexed objects.
+
+Following the indexed header is the indexed data. The size of this area is the product of the indexed width and the number of elements. There are primitives defined to access this data area.
+
+Instance Variable Structure
+
+Offset  Size   Name     Description
+
+   0      1    link     points to link of next ivar in chain
+   1      1    name     hash value of name
+   2      1    class    pointer to class
+   3      1    offset   offset in object to start of ivar data
+   4      1    #elem    number of elements (indexed ivars only)
+
+The link field points to the next instance variable in the class. The head of this list is the IFA field in the class. When a new class is created, all the class fields are copied from the superclass and so the new class starts with all of the instance variables and methods from the superclass.
+
+The name field is a hash value computed from the name of the instance variable. This could be stored as a string with a space and compile-time penalty. But with a good 32-bit hash function collisions are not common. In any event, the compiler will abort if you use a name that collides with a previous name. You can rename your instance variable or improve the hash function.
+
+Following the name is a pointer to the class of the instance variable. The compiler will always early-bind messages sent to instance variables.
+
+The offset field contains the offset of this instance variable within the object. When sending a message to an object, this offset is added to the current object address.
+
+If the instance variable is indexed, the number of elements is stored next. This field is not used for non-indexed classes.
+
+Unlike objects, instance variables are not names in the Forth dictionary. Correspondingly, you cannot execute them to get their address. You can only send them messages. If you need an address, you can use the Addr: method defined in class Object.
+
+Method Structure
+
+Methods are stored in an 8-way linked-list from the MFA field. Each method is identified by a 32-bit selector which is the parameter field address of the message selector.
+
+Offset  Size   Description
+
+   0     1     Link to next method
+   1     1     Selector
+   2     1     Method execution token
+
+The code for a method is created with the Forth word :NONAME. In this implementation it contains no special prolog or epilog code. When the method executes, the current object will be in ^base. Method execution is done by the following word that saves the current object pointer and loads it from the stack, calls the method, and then restores the object pointer.
+
+: EXECUTE-METHOD  ( ^obj xt -- )
+    ^base >R   SWAP TO ^base   EXECUTE   R> TO ^base ;
+
+When a method is compiled into a definition, the object and execution token are compiled as literals followed by EXECUTE-METHOD.
+
+This represents the overhead for calling a method over a normal colon definition. (This was one of the concessions I made to ANS Forth. In the native versions, a fast code word at the start and end of a method performed a similar action, making the overhead negligible.)
+
+When a message is sent to an instance variable, the method execution token and variable offset are compiled as a literals followed by EXECUTE-IVAR:
+
+: EXECUTE-IVAR  ( xt offset -- )
+	^base >R  ^base + TO ^base  EXECUTE  R> TO ^base ;
+
+An optimization is made if the offset is zero (for messages to self and super and the first named instance variable). Since we do not need to change ^base we just compile the execution token directly.
+
+Selectors are Special Words
+
+In the Yerk implementation, the interpreter was changed (by vectoring FIND) so that it automatically recognized words ending in ":" as a message to an object. It computed a hash value from the message name and used this as the selector. This kept the dictionary small.
+
+In ANS Forth, there is no way to modify the interpreter (short of writing a new one). It has also been argued whether this is a "good thing" anyway. 
+
+In this implementation, messages selectors are immediate Forth words. They are created automatically the first time they are used in a method definition. Since they are unique words, we use the parameter field of the word as the selector.
+
+When the selector executes it compiles or executes code to send a message to the object that follows. If used inside a class, it first looks to see if the word is one of the named instance variables. If not, it sees if it is a valid object. Lastly it sees if it is a class name and does class binding.
+
+Yerk also allowed sending messages to values and local variables and automatically compiled late-bound calls. In ANS Forth, we cannot tell anything about these words from their execution token, so this feature is not implemented. We can achieve the same effect by using explicit late binding:
+
+    Message: [ aValue ]
+
+Object Initialization
+
+When an object is created, it must be initialized. The memory for the object is cleared to zero and the class pointer and indexed header are set up. Then each of the named instance variables is initialized.
+
+This is done with the recursive word ITRAV. It takes the address of an instance variable structure and an offset and follows the chain, initializing each of the named instance variables in the class and sending it a ClassInit: message. As it goes it recursively initializes that instance variable's instance variables, and so on.
+
+Finally, the object is sent a ClassInit: message. This same process is followed when an object is created from the heap.
+
+Example Classes
+
+I have implemented some simple classes to serve as a basis for your own class library. These classes have similar names and methods to the predefined classes in Yerk and Mops. The code for the class implementation and sample classes is available from the Fig ftp site:
+
+    ftp://ftp.forth.org/pub/Forth/ANS/CLASS01.ZIP
+
+Conclusions
+
+For me, the primary benefit of using objects is in managing complexity. Objects are little bundles of data that understand and act on messages sent by other parts of the program. By keeping the implementation details inside the object, it appears simpler to the rest of the program. Inheritance can help reduce the amount of code you have to write. If a mature class library is available, you can often find needed functionallity already there.
+
+If the Forth community could agree on a object-oriented model, we could begin to assemble an object-oriented Forth library similar to the Forth Scientific Library project headed by Skip Carter, code and tools that all Forth programmers can share. That project had not been possible before the ANS standardization of floating-point in Forth.
+
+Unfortunately, there are many different ways to add objects to Forth. Just look at the number of articles on object-oriented programming that have appeared in Forth Dimensions over the past ten years. Because Forth is so easy (and fun) to modify and extend, everybody ends up doing it their own (different) way.
+
+
+Andrew McKewan
+mckewan@austin.finnigan.com
+
+Class.txt	- 9 -	08/09/96
+
+
