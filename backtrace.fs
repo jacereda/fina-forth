@@ -1,5 +1,6 @@
+
 : probablename ( xt -- name )
-    dup xt? if 
+    dup dict? if 
         begin dup xt>name 0= while cell- repeat xt>name 
     else
 	s" h# " pad place  16 based repr pad append  pad
