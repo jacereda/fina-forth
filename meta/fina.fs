@@ -536,10 +536,13 @@ p: pick ( xu ... x1 x0 u -- xu ... x1 x0 xu )
    2 - over u< -4 ?throw 
    1+ cells rp@ + @ ;  
 
+\g Print number as <number>, used in .s and .backtrace
+: .depth ( u -- )
+   0 <# [char] > hold #s [char] < hold #> type space ;
+
 \g @see anstools
 : .s
-   depth 0 <# [char] > hold #s [char] < hold #> type space
-   depth dup 0 ?do dup pick . 1- loop drop cr ;
+   depth .depth  depth dup 0 ?do dup pick . 1- loop drop cr ;
 : .rs
    rdepth . 4 spaces
    rdepth 0 ?do i rpick . loop cr ;  
