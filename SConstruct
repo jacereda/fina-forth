@@ -20,6 +20,8 @@ def arch():
 		arch = shelloutput('uname -m')
 	if arch == 'ppc':
 		arch = 'powerpc'
+	if arch == 'amd64':
+	   	arch = 'x64'
 	if arch == 'x86_64':
 	   	arch = 'x64'
 	if arch == 'i686':
