@@ -126,7 +126,7 @@ fenv.Default(fenv.Command('dummy',
 
 fenv.Command('sys/build.fs', [k] + full[:-2], 
 	'echo ": buildstr s\\" ' + \
-	fenv.OutputFrom('svnversion ' + str(Dir('#'))) + \
+	fenv.OutputFrom('hg id -i') + \
 	'\\" ;" > $TARGET')
 fsrc = fenv.Cat('finasrc.fs', full + ['saveaux.fs'])
 f = fenv.Command('fina', [k, fsrc],
