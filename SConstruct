@@ -134,11 +134,30 @@ def CppAsm(self, target, source):
 	return self.Object(target, cpp)
 
 
+prefix = ARGUMENTS.get('prefix', '#./inst')
+if prefix[-1] != '/':
+	prefix += '/'
+
+def Ins(self, where, what):
+    return self.Default(self.Install(prefix + where, what))
+
+def Run(self, files):
+    env.Default(env.Command('dummyrun', files, 
+    			str(Dir(prefix)) + '/bin/fina $SOURCES'))
+
+def TimedRun(self, file):
+    env.Default(env.Command('dummy' + file, file, 
+		     'time ' + str(Dir(prefix)) \
+		     	   + '/bin/fina $SOURCE -e "main bye"'))
+
 Environment.Glob = classmethod(myglob)
 Environment.Basename = classmethod(basename)
 Environment.OutputFrom = classmethod(outputfrom)
 
 env.AddMethod(CppAsm)
+env.AddMethod(Ins)
+env.AddMethod(Run)
+env.AddMethod(TimedRun)
 env.SConscript('SConscript.ffi',
 		build_dir = 'obj', 
 		src_dir = '.', 
@@ -154,6 +173,7 @@ env['fixed'] = ARGUMENTS.get('fixed', 1)
 env['ffi'] = ARGUMENTS.get('ffi', 1)
 env['moreprims'] = ARGUMENTS.get('moreprims', 1)
 env['profile'] = ARGUMENTS.get('profile', 0)
+
 env.SConscript(sc,
 		build_dir = 'obj', 
 		src_dir = '.', 

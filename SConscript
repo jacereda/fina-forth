@@ -98,7 +98,6 @@ def genbaredict(arch, kernel):
         fenv.Default(fenv.Command(name + '.S', [kernel, src],
                 '${SOURCES[0]} < ${SOURCES[1]} > $TARGET'))
 
-architectures = ['powerpc', 'mips', 'i386', 'x64', 'arm']
 k = None
 
 if fenv['OS'] == 'win32':
@@ -147,26 +146,30 @@ toc = env.Command('toc.help', [f] + allhelp,
 
 
 # Installation rules
-prefix = str(Dir(ARGUMENTS.get('prefix', '#inst')))
-if prefix[-1] != '/':
-	prefix += '/'
-env.Default(env.Install(prefix + 'bin', f))
-env.Default(env.Install(prefix + 'share/fina', env.Glob('*.fs')))
-env.Default(env.Install(prefix + 'share/fina/test', tests))
-env.Default(env.Install(prefix + 'share/fina/benchmarks', benchmarks))
-env.Default(env.Install(prefix + 'share/fina/help', [toc] + allhelp + anshelp))
-env.Default(env.Install(prefix + 'share/doc/fina', Split("""
+env.Ins('bin', f)
+env.Ins('share/fina', env.Glob('*.fs'))
+env.Ins('share/fina/test', tests)
+env.Ins('share/fina/benchmarks', benchmarks)
+env.Ins('share/fina/help', [toc] + allhelp + anshelp)
+env.Ins('share/doc/fina', Split("""
   README AUTHORS LICENSE
-""")))
+"""))
+
+# FFL installation
+env.Ins('share/fina/ffl', 'ffl/engines/fina/config.fs')
+env.Ins('share/fina/ffl', env.Glob('ffl/ffl/*.fs'))
+#env.Ins('share/fina/test', env.Glob('ffl/test/*.fs'))
+env.Ins('share/doc/fina/ffl', ['ffl/' + i for i in Split('''
+AUTHORS COPYING ChangeLog NEWS README
+''')])
+env.Ins('share/doc/fina/ffl/html', env.Glob('ffl/html/*.html'))
 
 # Check installation
 if ARGUMENTS.get('check', 0):
-	env.Default(env.Command('dummy' + i, tests,
-                                prefix + 'bin/fina $SOURCES'))
+   env.Run(tests)
 
 # Benchmarks
 if ARGUMENTS.get('bench', 0):
     for i in benchmarks:
-        env.Default(env.Command('dummy' + i , i,
-                'time ' + prefix + 'bin/fina $SOURCE -e "main bye"'))
+        env.TimedRun(i)
 
