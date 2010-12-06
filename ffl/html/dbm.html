@@ -1,0 +1,91 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module dbm - dbm interface - Forth Foundation Library</title>
+</head>
+<body>
+<h2>dbm - dbm interface</h2>
+<h3>Module Description</h3>
+<p>The dbm module implements a dbm database. It implements words to open,
+fetch, write, iterate and close a dbm database file. The database file is
+compatible with the samba's TDB database. Due to the absence of file
+locking and mmap words in the ANS standard, there is no locking or mmap
+support for the TDB database. There is also no support for endian
+conversion. The in memory dbm is supported.
+See [http://sourceforge.net/projects/tdb/ tdb's home] for more info.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>dbm structure</h4>
+<dl>
+<dt><a name="word1"><b>dbm%</b>	( -- n )</dt>
+<dd>Get the required space for a dbm variable</dd>
+</dl>
+<h4>Database variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>dbm-init</b>	( dbm -- )</dt>
+<dd>Initialise the dbm variable</dd>
+<dt><a name="word3"><b>dbm-(free)</b>	( dbm -- )</dt>
+<dd>Free the private dynamic variables from the heap</dd>
+<dt><a name="word4"><b>dbm-create</b>	( "&lt;spaces&gt;name" -- ; -- dbm )</dt>
+<dd>Create a dbm variable in the dictionary</dd>
+<dt><a name="word5"><b>dbm-new</b>	( n -- car )</dt>
+<dd>Allocate a dbm variable on the heap</dd>
+<dt><a name="word6"><b>dbm-free</b>	( car -- )</dt>
+<dd>Free the dbm variable from the heap</dd>
+</dl>
+<h4>Module words</h4>
+<dl>
+<dt><a name="word7"><b>dbm+hash</b>	( c-addr u -- +n )</dt>
+<dd>Calculate the hash used in the dbm files</dd>
+</dl>
+<h4>Dbm open constants</h4>
+<dl>
+<dt><a name="word8"><b>dbm.default</b>	( -- n )</dt>
+<dd>Open flag: Default open mode</dd>
+<dt><a name="word9"><b>dbm.clear</b>	( -- n )</dt>
+<dd>Open flag: Clear an existing database</dd>
+<dt><a name="word10"><b>dbm.internal</b>	( -- n )</dt>
+<dd>Open flag: Build database in memory</dd>
+</dl>
+<h4>Dbm store constants</h4>
+<dl>
+<dt><a name="word11"><b>dbm.replace</b>	( -- n )</dt>
+<dd>Store flag for replace data, also if key is already present</dd>
+<dt><a name="word12"><b>dbm.insert</b>	( -- n )</dt>
+<dd>Store flag for only inserting data, error if key is already present</dd>
+<dt><a name="word13"><b>dbm.modify</b>	( -- n )</dt>
+<dd>Store flag for only modifing data, no increase of data allowed</dd>
+</dl>
+<h4>Database words</h4>
+<dl>
+<dt><a name="word14"><b>dbm-open</b>	( c-addr u +n1 n2 dbm -- ior )</dt>
+<dd>Open or create a dbm file with name c-addr u, block size n1 and flags n2</dd>
+<dt><a name="word15"><b>dbm-fetch</b>	( c-addr u dbm -- c-addr u ior )</dt>
+<dd>Fetch data from the dbm file with key c-addr u</dd>
+<dt><a name="word16"><b>dbm-exist</b>	( c-addr u dbm -- flag ior )</dt>
+<dd>Check if the key c-addr u exists in the dbm file</dd>
+<dt><a name="word17"><b>dbm-store</b>	( c-addr1 u1 c-addr2 u2 n dbm -- ior )</dt>
+<dd>Store data in the dbm file with key c-addr2 u2, data c-addr1 u1 and flags n</dd>
+<dt><a name="word18"><b>dbm-delete</b>	( c-addr u dbm -- flag ior )</dt>
+<dd>Delete the key c-addr u from the dbm file</dd>
+<dt><a name="word19"><b>dbm-first-key</b>	( dmb -- c-addr u ior )</dt>
+<dd>Get the first key from the dbm file</dd>
+<dt><a name="word20"><b>dbm-next-key</b>	( dbm -- c-addr u ior )</dt>
+<dd>Get the next key from the dbm file</dd>
+<dt><a name="word21"><b>dbm-close</b>	( dbm -- ior )</dt>
+<dd>Close the dbm file</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word22"><b>dbm-dump-freelist</b>	( dbm -- )</dt>
+<dd>Dump the freelist</dd>
+<dt><a name="word23"><b>dbm-dump</b>	( dbm -- )</dt>
+<dd>Dump the dbm variable</dd>
+</dl>
+<hr>
+<div align="center">generated 28-Mar-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

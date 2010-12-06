@@ -1,0 +1,103 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module snl - Generic Single Linked List - Forth Foundation Library</title>
+</head>
+<body>
+<h2>snl - Generic Single Linked List</h2>
+<h3>Module Description</h3>
+<p>The snl module implements a single linked list that can store variable size
+nodes. It is the base module for more specialized modules, for example the
+single linked cell list [scl] module.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>List structure</h4>
+<dl>
+<dt><a name="word1"><b>snl%</b>	( -- n )</dt>
+<dd>Get the required space for a snl variable</dd>
+</dl>
+<h4>List creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>snl-init</b>	( snl -- )</dt>
+<dd>Initialise the snl list</dd>
+<dt><a name="word3"><b>snl-(free)</b>	( xt scl -- )</dt>
+<dd>Free the nodes from the heap using xt</dd>
+<dt><a name="word4"><b>snl-create</b>	( "&lt;spaces&gt;name" -- ; -- snl )</dt>
+<dd>Create a named snl list in the dictionary</dd>
+<dt><a name="word5"><b>snl-new</b>	( -- snl )</dt>
+<dd>Create a new snl list on the heap</dd>
+<dt><a name="word6"><b>snl-free</b>	( snl -- )</dt>
+<dd>Free the list from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word7"><b>snl-length@</b>	( snl -- u )</dt>
+<dd>Get the number of nodes in the list</dd>
+<dt><a name="word8"><b>snl-empty?</b>	( snl -- flag )</dt>
+<dd>Check for an empty list</dd>
+<dt><a name="word9"><b>snl-first@</b>	( snl -- snn | nil )</dt>
+<dd>Get the first node from the list</dd>
+<dt><a name="word10"><b>snl-last@</b>	( snl -- snn | nil )</dt>
+<dd>Get the last node from the list</dd>
+</dl>
+<h4>List words</h4>
+<dl>
+<dt><a name="word11"><b>snl-append</b>	( snn snl -- )</dt>
+<dd>Append the node snn to the list</dd>
+<dt><a name="word12"><b>snl-prepend</b>	( snn snl -- )</dt>
+<dd>Prepend the node snn in the list</dd>
+<dt><a name="word13"><b>snl-insert-after</b>	( snn1 snn2 snl -- )</dt>
+<dd>Insert the node snn1 after the reference node snn2 in the list</dd>
+<dt><a name="word14"><b>snl-remove-first</b>	( snl -- snn | nil )</dt>
+<dd>Remove the first node from the list, return the removed node</dd>
+<dt><a name="word15"><b>snl-remove-after</b>	( snn1 snl -- snn2 | nil )</dt>
+<dd>Remove the node after the reference node snn1 from the list, return the removed node</dd>
+</dl>
+<h4>Index words</h4>
+<dl>
+<dt><a name="word16"><b>snl-index?</b>	( n snl -- flag )</dt>
+<dd>Check if the index n is valid in the list</dd>
+<dt><a name="word17"><b>snl-get</b>	( n snl -- snn )</dt>
+<dd>Get the nth node from the list</dd>
+<dt><a name="word18"><b>snl-insert</b>	( snn n snl -- )</dt>
+<dd>Insert a node before the nth node in the list</dd>
+<dt><a name="word19"><b>snl-delete</b>	( n snl -- snn )</dt>
+<dd>Delete the nth node from the list, return the deleted node</dd>
+</dl>
+<h4>LIFO words</h4>
+<dl>
+<dt><a name="word20"><b>snl-push</b>	( snn snl -- )</dt>
+<dd>Push the node snn at the top of the stack [= start of the list]</dd>
+<dt><a name="word21"><b>snl-pop</b>	( snl -- snn | nil )</dt>
+<dd>Pop the node at the top of the stack [= start of the list], return the popped node</dd>
+<dt><a name="word22"><b>snl-tos</b>	( snl -- snn | nil )</dt>
+<dd>Get the node at the top of the stack [= start of the list], return this node</dd>
+</dl>
+<h4>FIFO words</h4>
+<dl>
+<dt><a name="word23"><b>snl-enqueue</b>	( snn snl -- )</dt>
+<dd>Enqueue the node snn at the start of the queue [=end of the list]</dd>
+<dt><a name="word24"><b>snl-dequeue</b>	( snl -- snn | nil )</dt>
+<dd>Dequeue the node at the end of the queue [= start of the list], return this node</dd>
+</dl>
+<h4>Special words</h4>
+<dl>
+<dt><a name="word25"><b>snl-execute</b>	( i*x xt snl -- j*x )</dt>
+<dd>Execute xt for every node in list</dd>
+<dt><a name="word26"><b>snl-execute?</b>	( i*x xt snl -- j*x flag )</dt>
+<dd>Execute xt for every node in the list until xt returns true</dd>
+<dt><a name="word27"><b>snl-reverse</b>	( snl -- )</dt>
+<dd>Reverse or mirror the list</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word28"><b>snl-dump</b>	( snl -- )</dt>
+<dd>Dump the list</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

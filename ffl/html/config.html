@@ -1,0 +1,121 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module config - Forth system specific words - Forth Foundation Library</title>
+</head>
+<body>
+<h2>config - Forth system specific words</h2>
+<h3>Module Description</h3>
+<p>The config module contains the extension and missing words for a forth system.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>System Settings</h4>
+<dl>
+<dt><a name="word1"><b>end-of-line</b>	( -- c-addr )</dt>
+<dd>Counted string for the end of line for the current system</dd>
+<dt><a name="word2"><b>#bits/byte</b>	( -- n )</dt>
+<dd>Number of bits in a byte</dd>
+<dt><a name="word3"><b>#bits/char</b>	( -- n )</dt>
+<dd>Number of bits in a char</dd>
+<dt><a name="word4"><b>#bits/cell</b>	( -- n )</dt>
+<dd>Number of bits in a cell</dd>
+<dt><a name="word5"><b>bigendian?</b>	( -- flag )</dt>
+<dd>Check for bigendian hardware</dd>
+</dl>
+<h4>Extension words</h4>
+<dl>
+<dt><a name="word6"><b>ms@</b>	( -- u )</dt>
+<dd>Fetch milliseconds timer</dd>
+<dt><a name="word7"><b>max-ms@</b>	( -- u )</dt>
+<dd>Maximum value of the milliseconds timer</dd>
+<dt><a name="word8"><b>#args</b>	( -- n )</dt>
+<dd>Get the number of command line arguments</dd>
+<dt><a name="word9"><b>arg@</b>	( n -- c-addr u )</dt>
+<dd>Get the nth command line argument</dd>
+<dt><a name="word10"><b>lroll</b>	( u1 u2 -- u3 )</dt>
+<dd>Rotate u1 u2 bits to the left</dd>
+<dt><a name="word11"><b>rroll</b>	( u1 u2 -- u3 )</dt>
+<dd>Rotate u1 u2 bits to the right</dd>
+<dt><a name="word12"><b>0!</b>	( a-addr -- )</dt>
+<dd>Set address to zero</dd>
+<dt><a name="word13"><b>nil!</b>	( a-addr -- )</dt>
+<dd>Set address to nil</dd>
+<dt><a name="word14"><b>nil=</b>	( addr -- flag )</dt>
+<dd>Check for nil</dd>
+<dt><a name="word15"><b>nil<></b>	( addr -- flag )</dt>
+<dd>Check for unequal to nil</dd>
+<dt><a name="word16"><b>nil<>?</b>	( addr -- false | addr true )</dt>
+<dd>If addr is nil, then return false, else return address with true</dd>
+<dt><a name="word17"><b>?free</b>	( addr -- ior )</dt>
+<dd>Free the address if not nil</dd>
+<dt><a name="word18"><b>1+!</b>	( a-addr -- )</dt>
+<dd>Increase contents of address by 1</dd>
+<dt><a name="word19"><b>1-!</b>	( a-addr -- )</dt>
+<dd>Decrease contents of address by 1</dd>
+<dt><a name="word20"><b>@!</b>	( x1 a-addr -- x2 )</dt>
+<dd>First fetch the contents x2 and then store value x1</dd>
+<dt><a name="word21"><b>icompare</b>	( c-addr1 u1 c-addr2 u2 -- n )</dt>
+<dd>Compare case-insensitive two strings and return the result [-1,0,1]</dd>
+<dt><a name="word22"><b><=></b>	( n1 n2 -- n )</dt>
+<dd>Compare the two numbers and return the compare result [-1,0,1]</dd>
+<dt><a name="word23"><b>index2offset</b>	( n1 n2 -- n3 )</dt>
+<dd>Convert the index n1 range [-n2..n2&gt; into offset n3 range [0..n2&gt;, negative values of n1 downward length n2</dd>
+<dt><a name="word24"><b>r'@</b>	( R: x1 x2 -- x1 x2; -- x1 )</dt>
+<dd>Fetch the second cell on the return stack</dd>
+<dt><a name="word25"><b><w@</b>	( w-addr -- n )</dt>
+<dd>Fetch a word, 16 bit, sign extend</dd>
+<dt><a name="word26"><b><l@</b>	( l-addr -- n )</dt>
+<dd>Fetch a long word, 32 bit, sign extend</dd>
+</dl>
+<h4>Float extension constants</h4>
+<dl>
+<dt><a name="word27"><b>0e+0</b>	( F: -- r )</dt>
+<dd>Float constant 0.0</dd>
+<dt><a name="word28"><b>1e+0</b>	( F: -- r )</dt>
+<dd>Float constant 1.0</dd>
+<dt><a name="word29"><b>2e+0</b>	( F: -- r )</dt>
+<dd>Float constant 2.0</dd>
+</dl>
+<h4>Float extension words</h4>
+<dl>
+<dt><a name="word30"><b>f-rot</b>	( F: r1 r2 r3 -- r3 r1 r2 )</dt>
+<dd>Rotate counter clockwise three floats</dd>
+<dt><a name="word31"><b>f2dup</b>	( F: r1 r2 -- r1 r2 r1 r2 )</dt>
+<dd>Duplicate two floats</dd>
+<dt><a name="word32"><b>f>r</b>	( F: r -- ; R: -- r )</dt>
+<dd>Push float on the return stack</dd>
+<dt><a name="word33"><b>fr></b>	( F: -- r ; R: r -- )</dt>
+<dd>Pop float from the return stack</dd>
+<dt><a name="word34"><b>fr@</b>	( F: -- r ; R: r -- r )</dt>
+<dd>Get float from top of return stack</dd>
+</dl>
+<h4>Exceptions</h4>
+<dl>
+<dt><a name="word35"><b>exp-index-out-of-range</b>	( -- n )</dt>
+<dd>Index out of range exception number</dd>
+<dt><a name="word36"><b>exp-invalid-state</b>	( -- n )</dt>
+<dd>Invalid state exception number</dd>
+<dt><a name="word37"><b>exp-no-data</b>	( -- n )</dt>
+<dd>No data available exception number</dd>
+<dt><a name="word38"><b>exp-invalid-parameters</b>	( -- n )</dt>
+<dd>Invalid parameters on stack</dd>
+<dt><a name="word39"><b>exp-wrong-file-type</b>	( -- n )</dt>
+<dd>Wrong file type</dd>
+<dt><a name="word40"><b>exp-wrong-file-version</b>	( -- n )</dt>
+<dd>Wrong file version</dd>
+<dt><a name="word41"><b>exp-wrong-file-data</b>	( -- n )</dt>
+<dd>Wrong file data</dd>
+<dt><a name="word42"><b>exp-wrong-checksum</b>	( -- n )</dt>
+<dd>Wrong checksum</dd>
+<dt><a name="word43"><b>exp-wrong-length</b>	( -- n )</dt>
+<dd>Wrong length</dd>
+<dt><a name="word44"><b>exp-invalid-data</b>	( -- n )</dt>
+<dd>Invalid data exception number</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

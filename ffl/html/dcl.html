@@ -1,0 +1,97 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module dcl - Double Linked Cell List - Forth Foundation Library</title>
+</head>
+<body>
+<h2>dcl - Double Linked Cell List</h2>
+<h3>Module Description</h3>
+<p>The dcl module implements a double linked list that can store cell wide data.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>List structure</h4>
+<dl>
+<dt><a name="word1"><b>dcl%</b>	( -- n )</dt>
+<dd>Get the required space for a dcl variable</dd>
+</dl>
+<h4>List creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>dcl-init</b>	( dcl -- )</dt>
+<dd>Initialise the dcl list</dd>
+<dt><a name="word3"><b>dcl-(free)</b>	( dnl -- )</dt>
+<dd>Free the nodes from the heap</dd>
+<dt><a name="word4"><b>dcl-create</b>	( "&lt;spaces&gt;name" -- ; -- dcl )</dt>
+<dd>Create a named dcl list in the dictionary</dd>
+<dt><a name="word5"><b>dcl-new</b>	( -- dcl )</dt>
+<dd>Create a new dcl list on the heap</dd>
+<dt><a name="word6"><b>dcl-free</b>	( dcl -- )</dt>
+<dd>Free the list from the heap, including the nodes</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word7"><b>dcl-empty?</b>	( dcl -- flag )</dt>
+<dd>Check for empty list</dd>
+<dt><a name="word8"><b>dcl-length@</b>	( dcl -- u )</dt>
+<dd>Get the number of nodes in the list</dd>
+<dt><a name="word9"><b>dcl-compare!</b>	( xt dcl -- )</dt>
+<dd>Set the compare execution token for sorting the list</dd>
+<dt><a name="word10"><b>dcl-compare@</b>	( dcl -- xt )</dt>
+<dd>Get the compare execution token for sorting the list</dd>
+</dl>
+<h4>List words</h4>
+<dl>
+<dt><a name="word11"><b>dcl-clear</b>	( dnl -- )</dt>
+<dd>Delete all nodes from the list</dd>
+<dt><a name="word12"><b>dcl-append</b>	( x dcl -- )</dt>
+<dd>Append the cell data x in the list</dd>
+<dt><a name="word13"><b>dcl-prepend</b>	( x dcl -- )</dt>
+<dd>Prepend the cell data x in the list</dd>
+</dl>
+<h4>Index words</h4>
+<dl>
+<dt><a name="word14"><b>dcl-index?</b>	( n dcl -- flag )</dt>
+<dd>Check if the index n is valid for the list</dd>
+<dt><a name="word15"><b>dcl-set</b>	( x n dcl -- )</dt>
+<dd>Set the cell data x in the nth node in the list</dd>
+<dt><a name="word16"><b>dcl-get</b>	( n dcl -- x )</dt>
+<dd>Get the cell data x from the nth node from the list</dd>
+<dt><a name="word17"><b>dcl-insert</b>	( x n dcl -- )</dt>
+<dd>Insert cell data x at the nth node in the list</dd>
+<dt><a name="word18"><b>dcl-delete</b>	( n dcl -- x )</dt>
+<dd>Delete the nth node from the list, return the cell data x</dd>
+</dl>
+<h4>Special words</h4>
+<dl>
+<dt><a name="word19"><b>dcl-count</b>	( x dcl -- u )</dt>
+<dd>Count the number of occurrences of the cell data x in the list</dd>
+<dt><a name="word20"><b>dcl-execute</b>	( i*x xt dcl -- j*x )</dt>
+<dd>Execute xt for every cell data in list</dd>
+<dt><a name="word21"><b>dcl-reverse</b>	( dcl -- )</dt>
+<dd>Reverse or mirror the list</dd>
+</dl>
+<h4>Search words</h4>
+<dl>
+<dt><a name="word22"><b>dcl-find</b>	( x dcl -- n )</dt>
+<dd>Find the first index for the cell data x in the list, -1 for not found</dd>
+<dt><a name="word23"><b>dcl-has?</b>	( x dcl -- flag )</dt>
+<dd>Check if the cell data x is present in the list</dd>
+<dt><a name="word24"><b>dcl-remove</b>	( x dcl -- flag )</dt>
+<dd>Remove the first occurrence of the cell data x from the list, return success</dd>
+</dl>
+<h4>Sort words</h4>
+<dl>
+<dt><a name="word25"><b>dcl-insert-sorted</b>	( x dcl -- )</dt>
+<dd>Insert the cell data x sorted in the list</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word26"><b>dcl-dump</b>	( dcl -- )</dt>
+<dd>Dump the list</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

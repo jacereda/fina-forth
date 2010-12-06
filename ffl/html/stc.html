@@ -1,0 +1,53 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module stc - ANS Structure module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>stc - ANS Structure module</h2>
+<h3>Module Description</h3>
+<p>The stc module implements ANS structures.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>ANS Structure syntax words</h4>
+<dl>
+<dt><a name="word1"><b>begin-structure</b>	( "&lt;spaces&gt;name" -- structure-sys ; -- n )</dt>
+<dd>Start definition of a named structure, return the structure size</dd>
+<dt><a name="word2"><b>end-structure</b>	( structure-sys -- )</dt>
+<dd>End a structure definition</dd>
+</dl>
+<h4>ANS field definition words</h4>
+<dl>
+<dt><a name="word3"><b>+field</b>	( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of size n bytes, return the field address</dd>
+<dt><a name="word4"><b>cfield:</b>	( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of 1 char, return the field address</dd>
+<dt><a name="word5"><b>field:</b>	( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of 1 cell, return the field address</dd>
+<dt><a name="word6"><b>dfield:</b>	( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of 1 double, return the field address</dd>
+<dt><a name="word7"><b>ffield:</b>	( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of 1 float, return the field address</dd>
+<dt><a name="word8"><b>sffield:</b>	( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of 1 single float, return the field address</dd>
+<dt><a name="word9"><b>dffield:</b>	( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of 1 double float, return the field address</dd>
+</dl>
+<h4>Array field definition words</h4>
+<dl>
+<dt><a name="word10"><b>cfields:</b>	( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of n chars, return the field address</dd>
+<dt><a name="word11"><b>fields:</b>	( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of n cells, return the field address</dd>
+<dt><a name="word12"><b>dfields:</b>	( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of n doubles, return the field address</dd>
+<dt><a name="word13"><b>ffields:</b>	( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field of n floats, return the field address</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

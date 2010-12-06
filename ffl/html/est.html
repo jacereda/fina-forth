@@ -1,0 +1,48 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module est - String with escaped characters - Forth Foundation Library</title>
+</head>
+<body>
+<h2>est - String with escaped characters</h2>
+<h3>Module Description</h3>
+<p>The est module implements a string with escaped characters. The code is
+inspired by the proposal for escaped strings by Stephen Pelc and Peter
+Knaggs. The following conversion characters are translated:
+<pre>
+\a  - bel = ascii 7
+\b  - backspace = ascii 8
+\e  - escape = ascii 27
+\f  - formfeed = ascii 12
+\l  - linefeed = ascii 10
+\m  - cr/lf = ascii 13,10
+\n  - new line
+\q  - quote = ascii 34
+\r  - cr = ascii 13
+\t  - ht = ascii 9
+\v  - vt = ascii 11
+\z  - nul = ascii 0
+\"  - quote = ascii 34
+xhh - hex digit
+\\  - backslash
+</pre>
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>String words</h4>
+<dl>
+<dt><a name="word1"><b>parse-esc</b>	( c-addr1 u1 c-addr2 -- c-addr3 u3 )</dt>
+<dd>Parse the escaped character in string c-addr1 u1, store the result in string c-addr2 and return the remaining string c-addr3 u3</dd>
+<dt><a name="word2"><b>parse\"</b>	( "ccc&lt;quote&gt;" -- c-addr u )</dt>
+<dd>Parse the input stream for a escaped string</dd>
+<dt><a name="word3"><b>s\"</b>	( "ccc&lt;quote&gt;" -- c-addr u )</dt>
+<dd>Create a string with escaped characters</dd>
+<dt><a name="word4"><b>,\"</b>	( "ccc&lt;quote&gt;" -- )</dt>
+<dd>Store a string with escaped characters in the dictionary</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

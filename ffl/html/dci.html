@@ -1,0 +1,65 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module dci - Double Linked Cell List Iterator - Forth Foundation Library</title>
+</head>
+<body>
+<h2>dci - Double Linked Cell List Iterator</h2>
+<h3>Module Description</h3>
+<p>The dci module implements an iterator on the double linked cell list [dcl].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Iterator structure</h4>
+<dl>
+<dt><a name="word1"><b>dci%</b>	( -- n )</dt>
+<dd>Get the required space for a dci variable</dd>
+</dl>
+<h4>Iterator creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>dci-init</b>	( dcl dci -- )</dt>
+<dd>Initialise the iterator with a dcl list</dd>
+<dt><a name="word3"><b>dci-create</b>	( dcl "&lt;spaces&gt;name" -- ; -- dci )</dt>
+<dd>Create a named iterator in the dictionary with a dcl list</dd>
+<dt><a name="word4"><b>dci-new</b>	( dcl -- dci )</dt>
+<dd>Create an iterator on the heap with a dcl list</dd>
+<dt><a name="word5"><b>dci-free</b>	( dci -- )</dt>
+<dd>Free the iterator from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word6"><b>dci-get</b>	( dci -- x true | false )</dt>
+<dd>Get the cell data x from the current record</dd>
+<dt><a name="word7"><b>dci-set</b>	( x dci -- )</dt>
+<dd>Set the cell data x for the current record</dd>
+</dl>
+<h4>Iterator words</h4>
+<dl>
+<dt><a name="word8"><b>dci-first</b>	( dci -- x true | false )</dt>
+<dd>Move the iterator to the first record, return the cell data x</dd>
+<dt><a name="word9"><b>dci-next</b>	( dci -- x true | false )</dt>
+<dd>Move the iterator to the next record, return the cell data x</dd>
+<dt><a name="word10"><b>dci-prev</b>	( dci -- x true | false )</dt>
+<dd>Move the iterator to the previous record, return the cell data x</dd>
+<dt><a name="word11"><b>dci-last</b>	( dci -- x true | false )</dt>
+<dd>Move the iterator to the last record, return the cell data x</dd>
+<dt><a name="word12"><b>dci-move</b>	( x dci -- false )</dt>
+<dd>Move the iterator to the next record with the cell data x</dd>
+<dt><a name="word13"><b>dci-first?</b>	( dci -- flag )</dt>
+<dd>Check if the iterator is on the first record</dd>
+<dt><a name="word14"><b>dci-last?</b>	( dci -- flag )</dt>
+<dd>Check if the iterator is on the last record</dd>
+<dt><a name="word15"><b>dci-insert-after</b>	( x dci -- )</dt>
+<dd>Insert the cell data x after the current record</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word16"><b>dci-dump</b>	( dci -- )</dt>
+<dd>Dump the iterator</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

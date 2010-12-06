@@ -1,0 +1,146 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module zif - gzip file reader - Forth Foundation Library</title>
+</head>
+<body>
+<h2>zif - gzip file reader</h2>
+<h3>Module Description</h3>
+<p>The zif module implements a gzip file reader. See [gzf] for the gzip
+file header information.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>zif structure</h4>
+<dl>
+<dt><a name="word1"><b>zif%</b>	( -- n )</dt>
+<dd>Get the required space for a zif variable</dd>
+</dl>
+<h4>gzip file reader variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>zif-init</b>	( zif -- )</dt>
+<dd>Initialise the gzip file reader variable</dd>
+<dt><a name="word3"><b>zif-(free)</b>	( zif -- )</dt>
+<dd>Free the internal, private variables from the heap</dd>
+<dt><a name="word4"><b>zif-create</b>	( "&lt;spaces&gt;name" -- ; -- zif )</dt>
+<dd>Create a named gzip file reader variable in the dictionary</dd>
+<dt><a name="word5"><b>zif-new</b>	( -- zif )</dt>
+<dd>Create a new gzip file reader variable on the heap</dd>
+<dt><a name="word6"><b>zif-free</b>	( zif -- )</dt>
+<dd>Free the variable from the heap</dd>
+</dl>
+<h4>Module words</h4>
+<dl>
+<dt><a name="word7"><b>zif+input-size!</b>	( u -- )</dt>
+<dd>Set the default input buffer size (default 2kb, min. 1kb)</dd>
+<dt><a name="word8"><b>zif+input-size@</b>	( -- u )</dt>
+<dd>Get the default input buffer size</dd>
+<dt><a name="word9"><b>zif+output-size!</b>	( u -- )</dt>
+<dd>Set the default output buffer size (default 64kb+4kb, min. 64kb+4kb)</dd>
+<dt><a name="word10"><b>zif+output-size@</b>	( -- u )</dt>
+<dd>Get the default output buffer size</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word11"><b>zif-gzf@</b>	( zif -- gzf )</dt>
+<dd>Get the reference to the gzip file header info after zif-read-header</dd>
+</dl>
+<h4>File words</h4>
+<dl>
+<dt><a name="word12"><b>zif-open-file</b>	( c-addr u zif -- ior )</dt>
+<dd>Open an existing gzip file for reading with name c-addr u</dd>
+<dt><a name="word13"><b>zif-read-header</b>	( zif -- ior )</dt>
+<dd>Read the (next) header from the gzip file</dd>
+<dt><a name="word14"><b>zif-read-file</b>	( c-addr1 u1 zif -- u2 ior )</dt>
+<dd>Read/decompress maximum u1 bytes from the file and store those at c-addr1, return the actual read bytes</dd>
+<dt><a name="word15"><b>zif-close-file</b>	( zif -- ior )</dt>
+<dd>Close the file</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word16"><b>zif-dump</b>	( zif -- )</dt>
+<dd>Dump the variable</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/zif.fs
+
+\ Convert gzips modification time to a string
+
+include ffl/dos.fs
+
+dtm-create gzf-dtm
+tos-create gzf-tos
+
+: mtime-to-str ( u1 -- c-addr u2 = Convert gzips mtime u1 to the string c-addr u2 )
+  0 dtm.unix-epoch gzf-dtm dtm-set-with-seconds  \ Calculate the date/time
+  gzf-dtm s" %c" gzf-tos dos-write-format        \ Format the date/time string
+  gzf-tos str-get                                \ Get the string
+;
+
+
+\ Copy contents gzip file to another file
+
+: copy-to-file     ( c-addr u zif -- ior = Copy contents )
+  &gt;r
+  r/w create-file throw           \ Create the destination file
+  BEGIN                           \ Zolang data in gzip file Do
+    pad 80 r@ zif-read-file
+    dup 0= IF
+      over 0&gt;
+    ELSE
+      false
+    THEN
+  WHILE
+    drop
+    over pad -rot write-file throw  \  Write data in file
+  REPEAT
+  nip
+  swap close-file throw
+  rdrop
+;
+
+
+\ Example: Read a gzip file and save the result in a file
+
+\ Create the gzip file reader variable
+
+zif-new value zif1
+
+s" gzipped.gz"  zif1 zif-open-file ?dup 0= [IF]
+  .( gzipped.gz succesfully opened) cr
+
+  \ Read the header info
+  zif1 zif-read-header ?dup 0= [IF]
+    
+    \ Get the header info
+    zif1 zif-gzf@
+    .( Text file         : ) dup gzf-text@ . cr
+    .( Operating system  : ) dup gzf-os@ . cr
+    .( Modification time : ) dup gzf-mtime@ mtime-to-str type cr
+    .( Name              : ) dup gzf-name@ type cr
+    .( Comment           : ) dup gzf-comment@ type cr
+    
+    gzf-name@ zif1 copy-to-file ?dup 0= [IF]
+      .( Gzip file is succesfully inflated.) cr
+    [ELSE]
+      .( Error during inflation: ) . cr
+    [THEN]
+  [THEN]
+  
+  zif1 zif-close-file drop
+[ELSE]
+  .( Error opening gzipped.gz:) . cr
+[THEN]
+
+\ Free the zif variable from the heap
+
+zif1 zif-free
+
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

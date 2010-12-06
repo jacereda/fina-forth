@@ -1,0 +1,63 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module nct - n-Tree cell module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>nct - n-Tree cell module</h2>
+<h3>Module Description</h3>
+<p>The nct module implements a n-Tree that can store cell size data. It extends
+the base n-Tree module, with cell based words. For adding and removing cells
+to and from the tree, use the iterator [nci].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Tree structure</h4>
+<dl>
+<dt><a name="word1"><b>nct%</b>	( -- n )</dt>
+<dd>Get the required space for a nct variable</dd>
+</dl>
+<h4>Tree creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>nct-init</b>	( nct -- )</dt>
+<dd>Initialise the tree</dd>
+<dt><a name="word3"><b>nct-(free)</b>	( nct -- )</dt>
+<dd>Free the nodes in the tree</dd>
+<dt><a name="word4"><b>nct-create</b>	( "&lt;spaces&gt;name" -- ; -- nct )</dt>
+<dd>Create a named n-tree in the dictionary</dd>
+<dt><a name="word5"><b>nct-new</b>	( -- nct )</dt>
+<dd>Create a new n-tree on the heap</dd>
+<dt><a name="word6"><b>nct-free</b>	( nct -- )</dt>
+<dd>Free the tree from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word7"><b>nct-length@</b>	( nct -- u )</dt>
+<dd>Get the number of nodes in the tree</dd>
+<dt><a name="word8"><b>nct-empty?</b>	( nct -- flag )</dt>
+<dd>Check for empty tree</dd>
+</dl>
+<h4>Tree words</h4>
+<dl>
+<dt><a name="word9"><b>nct-clear</b>	( nct -- )</dt>
+<dd>Delete all nodes from the tree</dd>
+<dt><a name="word10"><b>nct-execute</b>	( i*x xt nct -- j*x )</dt>
+<dd>Execute xt for every node in tree</dd>
+<dt><a name="word11"><b>nct-execute?</b>	( i*x xt nct -- j*x flag )</dt>
+<dd>Execute xt for every node in the tree until xt returns true</dd>
+<dt><a name="word12"><b>nct-count</b>	( x nct -- u )</dt>
+<dd>Count the number of the occurrences of the cell data x in the tree</dd>
+<dt><a name="word13"><b>nct-has?</b>	( x nct -- flag )</dt>
+<dd>Check if the cell data x is present in the tree</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word14"><b>nct-dump</b>	( nct -- )</dt>
+<dd>Dump the tree</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

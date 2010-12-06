@@ -1,0 +1,44 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module snn - Generic Single Linked List Node - Forth Foundation Library</title>
+</head>
+<body>
+<h2>snn - Generic Single Linked List Node</h2>
+<h3>Module Description</h3>
+<p>The snn module implements a node in a generic single linked list [snl].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Node structure</h4>
+<dl>
+<dt><a name="word1"><b>snn%</b>	( - n )</dt>
+<dd>Get the required space for a snn node</dd>
+</dl>
+<h4>Node creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>snn-init</b>	( snn -- )</dt>
+<dd>Initialise the node</dd>
+<dt><a name="word3"><b>snn-new</b>	( -- snn )</dt>
+<dd>Create a new node on the heap</dd>
+<dt><a name="word4"><b>snn-free</b>	( snn -- )</dt>
+<dd>Free the node from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word5"><b>snn-next@</b>	( snn1 -- snn2 )</dt>
+<dd>Get the next node snn2 from the node snn1</dd>
+<dt><a name="word6"><b>snn-next!</b>	( snn1 snn2 -- )</dt>
+<dd>Set for the node snn1 the next node to snn2</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word7"><b>snn-dump</b>	( snn -- )</dt>
+<dd>Dump the single list node</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

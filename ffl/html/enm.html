@@ -1,0 +1,71 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module enm - Enumerations - Forth Foundation Library</title>
+</head>
+<body>
+<h2>enm - Enumerations</h2>
+<h3>Module Description</h3>
+<p>The enm module implements simple enumerations.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Enumerations syntax words</h4>
+<dl>
+<dt><a name="word1"><b>begin-enumeration</b>	( -- enum-sys )</dt>
+<dd>Start an enumeration definition, the first enumeration will start from 0</dd>
+<dt><a name="word2"><b>end-enumeration</b>	( enum-sys -- )</dt>
+<dd>End an enumeration definition</dd>
+</dl>
+<h4>Enumeration definition words</h4>
+<dl>
+<dt><a name="word3"><b>enum:</b>	( enum-sys "&lt;spaces&gt;name" -- enum-sys ;  -- n )</dt>
+<dd>Define an enumeration, increment for the next enumeration, return the enum value</dd>
+<dt><a name="word4"><b>>enum:</b>	( enum-sys n "&lt;spaces&gt;name" -- enum-sys ; -- n )</dt>
+<dd>Define an enumeration starting with n, return the enum value</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/enm.fs
+
+
+\ Example: number names
+
+begin-enumeration
+  enum: zero            \ Default: an enum start with 0
+  enum: one
+  enum: two
+  enum: three
+  enum: four
+  enum: five
+end-enumeration
+
+.( Enum zero: ) zero . .(  and three: ) three . cr
+
+
+\ Example: month names
+
+begin-enumeration
+  1
+  &gt;enum: january        \ Start this enumeration with 1
+  enum:  february
+  enum:  march
+  enum:  april
+  enum:  may
+  enum:  june
+  enum:  july
+  enum:  august
+  enum:  september
+  enum:  october
+  enum:  november
+  enum:  december
+end-enumeration
+
+.( January: ) january . .( and december: ) december . cr
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module dom - XML Document Object Model - Forth Foundation Library</title>
+</head>
+<body>
+<h2>dom - XML Document Object Model</h2>
+<h3>Module Description</h3>
+<p>The dom module implements a simplified XML Document Object Model. The
+module reads a XML source into a tree of nodes. The tree can then be
+iterated and modified. After modification the tree can be written to a
+XML destination. As with every DOM implementation the tree will use a
+lot of memory for large XML documents. Keep in mind that tree
+modifications checks are limited. DTDs are not stored in the tree.
+Depending on the node type the following stack state is expected by
+dom-set, dom-append-node, dom-insert-node-before and
+dom-insert-node-after:
+{{
+dom.element:   -- c-addr u              = Tag name
+dom.attribute: -- c-addr1 u1 c-addr2 u2 = Attribute name c-addr1 u1 and value c-addr2 u2
+dom.text:      -- c-addr u              = Normal xml text
+dom.cdata:     -- c-addr u              = CDATA section text
+dom.pi:        -- c-addr u              = Proc. instr. target c-addr u
+dom.comment:   -- c-addr n              = Comment
+dom.document:  --                       = Document root
+</pre>
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>XML node types</h4>
+<dl>
+<dt><a name="word1"><b>dom.not-used</b>	( -- n )</dt>
+<dd>DOM node: Not used</dd>
+<dt><a name="word2"><b>dom.element</b>	( -- n )</dt>
+<dd>DOM node: Tag</dd>
+<dt><a name="word3"><b>dom.attribute</b>	( -- n )</dt>
+<dd>DOM node: Attribute</dd>
+<dt><a name="word4"><b>dom.text</b>	( -- n )</dt>
+<dd>DOM node: Text</dd>
+<dt><a name="word5"><b>dom.cdata</b>	( -- n )</dt>
+<dd>DOM node: CDATA</dd>
+<dt><a name="word6"><b>dom.entity-ref</b>	( -- n )</dt>
+<dd>DOM node: Entity reference [not used]</dd>
+<dt><a name="word7"><b>dom.entity</b>	( -- n )</dt>
+<dd>DOM node: Entitiy [not used]</dd>
+<dt><a name="word8"><b>dom.pi</b>	( -- n )</dt>
+<dd>DOM node: Processing Instruction</dd>
+<dt><a name="word9"><b>dom.comment</b>	( -- n )</dt>
+<dd>DOM node: Comment</dd>
+<dt><a name="word10"><b>dom.document</b>	( -- n )</dt>
+<dd>DOM node: Start document</dd>
+<dt><a name="word11"><b>dom.doc-type</b>	( -- n )</dt>
+<dd>DOM node: Document type [not used]</dd>
+<dt><a name="word12"><b>dom.doc-fragment</b>	( -- n )</dt>
+<dd>DOM node: Document fragment [not used]</dd>
+<dt><a name="word13"><b>dom.notation</b>	( -- n )</dt>
+<dd>DOM node: Notation [not used]</dd>
+</dl>
+<h4>DOM structure</h4>
+<dl>
+<dt><a name="word14"><b>dom%</b>	( -- n )</dt>
+<dd>Get the required space for a dom variable</dd>
+</dl>
+<h4>DOM creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word15"><b>dom-init</b>	( dom -- )</dt>
+<dd>Initialise the DOM</dd>
+<dt><a name="word16"><b>dom-(free)</b>	( dom -- )</dt>
+<dd>Free the internal, private variables from the heap</dd>
+<dt><a name="word17"><b>dom-create</b>	( "&lt;spaces&gt;name" -- ; -- dom )</dt>
+<dd>Create a named DOM in the dictionary</dd>
+<dt><a name="word18"><b>dom-new</b>	( -- dom )</dt>
+<dd>Create a new DOM on the heap</dd>
+<dt><a name="word19"><b>dom-free</b>	( dom -- )</dt>
+<dd>Free the DOM from the heap</dd>
+</dl>
+<h4>Iterating the DOM tree</h4>
+<dl>
+<dt><a name="word20"><b>dom-get</b>	( dom -- n true | false )</dt>
+<dd>Get the xml node type of the current node</dd>
+<dt><a name="word21"><b>dom-get-type</b>	( dom -- n )</dt>
+<dd>Get the xml node type of the current node</dd>
+<dt><a name="word22"><b>dom-get-name</b>	( dom -- c-addr u )</dt>
+<dd>Get the name from the current node</dd>
+<dt><a name="word23"><b>dom-get-value</b>	( dom -- c-addr u )</dt>
+<dd>Get the value from the current node</dd>
+<dt><a name="word24"><b>dom-document</b>	( dom -- true | false )</dt>
+<dd>Move the iterator to the document [=root] node</dd>
+<dt><a name="word25"><b>dom-document?</b>	( dom -- flag )</dt>
+<dd>Check if the current node is the document [=root] node</dd>
+<dt><a name="word26"><b>dom-parent</b>	( dom -- n true | false )</dt>
+<dd>Move the iterator to the parent node, return the xml type of this node</dd>
+<dt><a name="word27"><b>dom-children</b>	( dom -- n )</dt>
+<dd>Return the number of children for the current node</dd>
+<dt><a name="word28"><b>dom-children?</b>	( dom -- flag )</dt>
+<dd>Check if the current node has children</dd>
+<dt><a name="word29"><b>dom-child</b>	( dom -- n true | false )</dt>
+<dd>Move the iterator to the first child node, return the xml type of this node</dd>
+<dt><a name="word30"><b>dom-first</b>	( dom -- n true | false )</dt>
+<dd>Move the iterator to the first sibling node, return the xml type of this node</dd>
+<dt><a name="word31"><b>dom-first?</b>	( dom -- flag )</dt>
+<dd>Check if the current node is the first sibling node</dd>
+<dt><a name="word32"><b>dom-next</b>	( dom -- n true | false )</dt>
+<dd>Move the iterator to the next sibling node, return the xml type of this node</dd>
+<dt><a name="word33"><b>dom-prev</b>	( dom -- n true | false )</dt>
+<dd>Move the iterator to the previous sibling node, return the xml type of this node</dd>
+<dt><a name="word34"><b>dom-last</b>	( dom -- n true | false )</dt>
+<dd>Move the iterator to the last sibling node, return the xml type of this node</dd>
+<dt><a name="word35"><b>dom-last?</b>	( dom -- flag )</dt>
+<dd>Check if the current node is the last sibling node</dd>
+</dl>
+<h4>Modifying the DOM tree</h4>
+<dl>
+<dt><a name="word36"><b>dom-set</b>	( i*x dom -- )</dt>
+<dd>Update the current node</dd>
+<dt><a name="word37"><b>dom-append-node</b>	( i*x n dom -- )</dt>
+<dd>Append a node to the current node, exception if not allowed, iterator is moved to the new node</dd>
+<dt><a name="word38"><b>dom-insert-node-before</b>	( i*x n dom -- )</dt>
+<dd>Insert a node before the current node, exception if not allowed</dd>
+<dt><a name="word39"><b>dom-insert-node-after</b>	( i*x n -- )</dt>
+<dd>Insert a node after the current node, exception if not allowed</dd>
+<dt><a name="word40"><b>dom-remove</b>	( dom -- flag )</dt>
+<dd>Remove the current sibling node without children from the tree, iterator is moved to the next, previous or parent node, return the removed node</dd>
+</dl>
+<h4>Reading the DOM tree</h4>
+<dl>
+<dt><a name="word41"><b>dom-read-string</b>	( c-addr u flag1 dom -- flag2 )</dt>
+<dd>Read xml source from the string c-addr u into the dom tree, flag1 indicates whitespace stripping, throw exception if tree is not empty, return success in flag2</dd>
+<dt><a name="word42"><b>dom-read-reader</b>	( x xt flag1 dom -- flag2 )</dt>
+<dd>Read xml source with the reader xt with its state x into the dom tree, flag1 indicates whitespace stripping, throw exception if tree is not empty, return success in flag2</dd>
+</dl>
+<h4>Writing the DOM tree</h4>
+<dl>
+<dt><a name="word43"><b>dom-write-string</b>	( dom -- c-addr u true | false )</dt>
+<dd>Write the tree to xml returning a string c-addr u if successful</dd>
+<dt><a name="word44"><b>dom-write-writer</b>	( x xt dom -- flag )</dt>
+<dd>Write the tree to xml using writer xt and its data x, flag indicate success</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word45"><b>dom-dump</b>	( dom - )</dt>
+<dd>Dump the DOM tree</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/dom.fs
+
+
+\ Example 1: Read xml from file, iterate and write to string
+
+
+\ Create the xml-dom in the dictionary
+
+dom-create dom1
+
+
+\ Setup a file reader for the dom
+
+: dom-reader   ( file-id -- c-addr u | 0 = Read the next chunk of the file )
+  pad 64 rot read-file throw
+  dup IF
+    pad swap
+  THEN
+;
+
+
+\ Open the source xml file
+
+s" test.xml" r/o open-file throw value dom.input 
+
+
+\ Read the test.xml file with the dom-reader in the dom, leading and trailing whitespace is skipped
+
+dom.input ' dom-reader true dom1 dom-read-reader [IF]
+  .( XML File is successfully read ) cr
+[ELSE]
+  .( XML File is not correct ) cr
+[THEN]
+
+
+\ Iterate in the dom the xml-document, start with the root
+
+dom1 dom-document [IF]
+  .( Iterate the start of the xml document ) cr
+[ELSE]
+  .( No document start ?? ) cr
+[THEN]
+
+
+\ Move the iterator to the first child of the xml-document
+
+dom1 dom-child [IF]
+  dup dom.attribute = [IF]
+    drop
+    .( Attribute with name: ) dom1 dom-get-name type .(  and value: ) dom1 dom-get-value type cr
+  [ELSE]
+    dup dom.element = [IF]
+      drop
+      .( Tag with name: ) dom1 dom-get-name type .(  and value: ) dom1 dom-get-value type cr
+    [ELSE]
+      dup dom.comment = [IF]
+        drop
+        .( Comment with value: ) dom1 dom-get-value type cr
+      [ELSE]
+        dup dom.text = [IF]
+          drop
+          .( Text with value: ) dom1 dom-get-value type cr
+        [ELSE]
+          dom.pi = [IF]
+            .( Processing instruction with name: ) dom1 dom-get-name type .(  and value: ) dom1 dom-get-value type cr
+          [ELSE]
+            .( Perhaps a CDATA section ?) cr
+          [THEN]
+        [THEN]
+      [THEN]
+    [THEN]
+  [THEN]
+[ELSE]
+  .( xml document has no children.) cr
+[THEN]
+
+
+\ Move the iterator to the next child of the xml-document
+
+dom1 dom-next [IF]
+  dup dom.attribute = [IF]
+    drop
+    .( Attribute with name: ) dom1 dom-get-name type .(  and value: ) dom1 dom-get-value type cr
+  [ELSE]
+    dup dom.element = [IF]
+      drop
+      .( Tag with name: ) dom1 dom-get-name type .(  and value: ) dom1 dom-get-value type cr
+    [ELSE]
+      dup dom.comment = [IF]
+        drop
+        .( Comment with value: ) dom1 dom-get-value type cr
+      [ELSE]
+        dup dom.text = [IF]
+          drop
+          .( Text with value: ) dom1 dom-get-value type cr
+        [ELSE]
+          dom.pi = [IF]
+            .( Processing instruction with name: ) dom1 dom-get-name type .(  and value: ) dom1 dom-get-value type cr
+          [ELSE]
+            .( Perhaps a CDATA section ?) cr
+          [THEN]
+        [THEN]
+      [THEN]
+    [THEN]
+  [THEN]
+[ELSE]
+  .( xml document has no more children.) cr
+[THEN]
+
+
+\ Write the xml
+
+dom1 dom-write-string [IF]
+  .( xml document: ) type cr
+[ELSE]
+  .( Problems writing the xml document.)  cr
+[THEN]
+[THEN]
+
+
+
+\ Example 2:  Read xml from string and write to a file
+
+
+\ Create the xml-dom on the heap
+
+dom-new value dom2
+
+
+\ Read xml from a string, skipping any leading and trailing whitespace
+
+s" &lt;?xml version='1.1'?&gt;  &lt;!-- test --&gt;  &lt;car&gt;  &lt;color&gt;  blue  &lt;/color&gt;  &lt;/car&gt;" true dom2 dom-read-string [IF] 
+  .( XML is sucessfully read.) cr
+[ELSE]
+  .( XML was not correct.) cr
+[THEN]
+
+
+\ Write the xml-dom to a file using a writer
+
+: dom-writer  ( c-addr u file-id -- flag = Write the xml using a writer )
+  write-file throw
+  true
+;
+
+
+\ Open the file for the writer
+
+s" out.xml" w/o create-file throw value dom.output
+
+
+\ Write the xml-dom to the writer
+
+dom.output ' dom-writer dom2 dom-write-writer [IF]
+  .( XML is successfully written.) cr
+[ELSE]
+  .( Problems writing the xml-dom.) cr
+[THEN]
+
+
+\ Free the dom from the heap
+
+dom2 dom-free
+
+
+\ Example 3: build a xml document from scratch using the xml-dom
+
+
+\ Create the xml-dom on the heap
+
+dom-new value dom3
+
+
+\ Start with the root, the xml-document
+
+dom.document dom3 dom-append-node
+
+
+\ Add the version attribute to the xml-document
+
+s" version" s" 1.0" dom.attribute dom3 dom-append-node
+
+
+\ Move back to the xml-document and add a tag
+
+dom3 dom-parent 2drop
+s" tag" dom.element dom3 dom-append-node
+
+
+\ Add text to the element
+
+s" hello" dom.text dom3 dom-append-node
+
+
+\ Write the xml to a string
+
+dom3 dom-write-string [IF]
+  .( XML successfully written: ) type cr
+[ELSE]
+  .( Problems...) cr
+[THEN]
+
+
+\ Free the dom from the heap
+
+dom3 dom-free
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

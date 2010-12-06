@@ -1,0 +1,1617 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Words index - Forth Foundation Library</title>
+</head>
+<body>
+<h2>Words index</h2>
+<a href="config.html#word8" title="Get the number of command line arguments">#args</a> ( -- n )<br>
+<a href="config.html#word2" title="Number of bits in a byte">#bits/byte</a> ( -- n )<br>
+<a href="config.html#word4" title="Number of bits in a cell">#bits/cell</a> ( -- n )<br>
+<a href="config.html#word3" title="Number of bits in a char">#bits/char</a> ( -- n )<br>
+<a href="stt.html#word2" title="Parse ccc delimited by double quote and place the string as counted string in the stringtable">+"</a> ( "ccc&lt;quote&gt;" -- )<br>
+<a href="stc.html#word3" title="Create a structure field of size n bytes, return the field address">+field</a> ( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="est.html#word4" title="Store a string with escaped characters in the dictionary">,\"</a> ( "ccc&lt;quote&gt;" -- )<br>
+<a href="config.html#word12" title="Set address to zero">0!</a> ( a-addr -- )<br>
+<a href="config.html#word27" title="Float constant 0.0">0e+0</a> ( F: -- r )<br>
+<a href="config.html#word18" title="Increase contents of address by 1">1+!</a> ( a-addr -- )<br>
+<a href="config.html#word19" title="Decrease contents of address by 1">1-!</a> ( a-addr -- )<br>
+<a href="config.html#word28" title="Float constant 1.0">1e+0</a> ( F: -- r )<br>
+<a href="config.html#word29" title="Float constant 2.0">2e+0</a> ( F: -- r )<br>
+<a href="config.html#word22" title="Compare the two numbers and return the compare result [-1,0,1]"><=></a> ( n1 n2 -- n )<br>
+<a href="config.html#word26" title="Fetch a long word, 32 bit, sign extend"><l@</a> ( l-addr -- n )<br>
+<a href="fwt.html#word12" title="Fetch a long word, 32 bit, sign extend"><l@</a> ( l-addr -- n )<br>
+<a href="config.html#word25" title="Fetch a word, 16 bit, sign extend"><w@</a> ( w-addr -- n )<br>
+<a href="fwt.html#word6" title="Fetch a word, 16 bit, sign extend"><w@</a> ( w-addr -- n )<br>
+<a href="enm.html#word4" title="Define an enumeration starting with n, return the enum value">>enum:</a> ( enum-sys n "&lt;spaces&gt;name" -- enum-sys ; -- n )<br>
+<a href="tst.html#word7" title="Check for zero value on stack">?0</a> ( x -- )<br>
+<a href="tst.html#word5" title="Check for a signed double on stack">?d</a> ( d1 d2 -- )<br>
+<a href="tst.html#word10" title="Check for false value on stack">?false</a> ( flag -- )<br>
+<a href="config.html#word17" title="Free the address if not nil">?free</a> ( addr -- ior )<br>
+<a href="tst.html#word8" title="Check for nil value on stack">?nil</a> ( addr -- )<br>
+<a href="tst.html#word11" title="Check for float value on stack">?r</a> ( r1 r2 -- )<br>
+<a href="tst.html#word3" title="Check for signed value on stack">?s</a> ( n1 n2 -- )<br>
+<a href="tst.html#word12" title="Check for a string on the stack">?str</a> ( c-addr1 u1 c-addr2 u2 -- )<br>
+<a href="tst.html#word9" title="Check for true value on stack">?true</a> ( flag -- )<br>
+<a href="tst.html#word4" title="Check for unsigned value on stack">?u</a> ( u1 u2 -- )<br>
+<a href="tst.html#word6" title="Check for an unsigned double on stack">?ud</a> ( ud1 ud2 -- )<br>
+<a href="config.html#word20" title="First fetch the contents x2 and then store value x1">@!</a> ( x1 a-addr -- x2 )<br>
+<a href="a32.html#word1" title="Get the required space for an Adler32 variable">a32%</a> ( -- n )<br>
+<a href="a32.html#word11" title="Convert the Adler32 result to a string, using the pictured output area">a32+to-string</a> ( u -- c-addr u )<br>
+<a href="a32.html#word3" title="Create a named Adler32 variable in the dictionary">a32-create</a> ( "&lt;spaces&gt;name" -- ; -- a32 )<br>
+<a href="a32.html#word12" title="Dump the Adler32 variable">a32-dump</a> ( a32 -- )<br>
+<a href="a32.html#word9" title="Finish the Adler32 calculation, return the result u">a32-finish</a> ( a32 -- u )<br>
+<a href="a32.html#word5" title="Free the Adler32 variable from the heap">a32-free</a> ( a32 -- )<br>
+<a href="a32.html#word2" title="Initialise the Adler32 variable">a32-init</a> ( a32 -- )<br>
+<a href="a32.html#word6" title="Get the length of the sum">a32-length@</a> ( a32 -- u )<br>
+<a href="a32.html#word4" title="Create a new Adler32 variable on the heap">a32-new</a> ( -- a32 )<br>
+<a href="a32.html#word7" title="Reset the Adler32 state">a32-reset</a> ( a32 -- )<br>
+<a href="a32.html#word8" title="Update the Adler32 with more data c-addr u">a32-update</a> ( c-addr u a32 -- )<br>
+<a href="a32.html#word10" title="Combine the twee Addler32 sums and return the combined sum u">a32^combine</a> ( a32 a32 -- u )<br>
+<a href="acn.html#word1" title="Get the required space for an acn node">acn%</a> ( -- n )<br>
+<a href="acn.html#word5" title="Dump the node">acn-dump</a> ( acn -- )<br>
+<a href="acn.html#word4" title="Free the node from the heap">acn-free</a> ( acn -- )<br>
+<a href="acn.html#word2" title="Initialise the node acn2 with the parent acn1, key x2 and data x1">acn-init</a> ( x1 x2 acn1 acn2 -- )<br>
+<a href="acn.html#word3" title="Create a new node acn2 on the heap with parent acn1, key x2 and data x1">acn-new</a> ( x1 x2 acn1 -- acn2 )<br>
+<a href="act.html#word1" title="Get the required space for an act variable">act%</a> ( -- n )<br>
+<a href="act.html#word3" title="Free the nodes from the heap">act-(free)</a> ( act -- )<br>
+<a href="act.html#word11" title="Delete all nodes in the tree">act-clear</a> ( act -- )<br>
+<a href="act.html#word10" title="Set the compare execution token for comparing keys">act-compare!</a> ( xt act -- )<br>
+<a href="act.html#word9" title="Get the compare execution token for comparing keys">act-compare@</a> ( act -- xt )<br>
+<a href="act.html#word4" title="Create a named tree in the dictionary">act-create</a> ( "&lt;spaces&gt;name" -- ; -- act )<br>
+<a href="act.html#word13" title="Delete key x1 from the tree, return the data x2 if found">act-delete</a> ( x1 act -- false | x2 true )<br>
+<a href="act.html#word18" title="Dump the tree variable">act-dump</a> ( act -- )<br>
+<a href="act.html#word8" title="Check for an empty tree">act-empty?</a> ( act -- flag )<br>
+<a href="act.html#word16" title="Execute xt for every key and data in the tree">act-execute</a> ( i*x xt act -- i*x )<br>
+<a href="act.html#word17" title="Execute xt for every key and data in the tree until xt returns true">act-execute?</a> ( i*x xt bct -- j*x flag )<br>
+<a href="act.html#word6" title="Free the tree from the heap">act-free</a> ( act -- )<br>
+<a href="act.html#word14" title="Get the data x2 related to key x1 from the tree">act-get</a> ( x1 act -- false | x2 true )<br>
+<a href="act.html#word15" title="Check if the key x1 is present in the tree">act-has?</a> ( x1 act -- flag )<br>
+<a href="act.html#word2" title="Initialise the act tree">act-init</a> ( act -- )<br>
+<a href="act.html#word12" title="Insert data x1 with key x2 in the tree">act-insert</a> ( x1 x2 act -- )<br>
+<a href="act.html#word7" title="Get the number of elements in the tree">act-length@</a> ( act -- u )<br>
+<a href="act.html#word5" title="Create a new tree on the heap">act-new</a> ( -- act )<br>
+<a href="arg.html#word7" title="Get the required space for an argument parser variable">arg%</a> ( -- n )<br>
+<a href="arg.html#word9" title="Free the internal, private variables from the heap">arg-(free)</a> ( arg -- )<br>
+<a href="arg.html#word16" title="Add the default help option">arg-add-help-option</a> ( arg -- )<br>
+<a href="arg.html#word15" title="Add an option to the parser with the short option char, the long option c-addr1 u1, the description c-addr2 u2, the switch flag and the identifier n [id=4..]">arg-add-option</a> ( char c-addr1 u1 c-addr2 u2 flag n arg -- )<br>
+<a href="arg.html#word17" title="Add the default version option">arg-add-version-option</a> ( arg -- )<br>
+<a href="arg.html#word10" title="Create a named parser in the dictionary with the program name c-addr1 u1, the usage c-addr2 u2, the version c-addr3 u3 and general info c-addr4 u4">arg-create</a> ( c-addr1 u1 c-addr2 u2 c-addr3 u3 c-addr4 u4 "&lt;spaces&gt;name" -- ; -- arg )<br>
+<a href="arg.html#word12" title="Free the parser from the heap">arg-free</a> ( arg -- )<br>
+<a href="arg.html#word8" title="Initialise the parser with the program name c-addr1 u1, the usage c-addr2 u2, the version c-addr3 u3 and general info c-addr4 u4">arg-init</a> ( c-addr1 u1 c-addr2 u2 c-addr3 u3 c-addr4 u4 arg -- )<br>
+<a href="arg.html#word11" title="Create a new parser on the heap with the program name c-addr1 u1, the usage c-addr2 u2, the version c-addr3 u3 and general info c-addr4 u4">arg-new</a> ( c-addr1 u1  c-addr2 u2 c-addr3 u3 c-addr4 u4 -- arg )<br>
+<a href="arg.html#word18" title="Parse the next command line argument, return the option identifier and optional the parameter">arg-parse</a> ( arg -- c-addr u n | n )<br>
+<a href="arg.html#word14" title="Print the help info">arg-print-help</a> ( arg -- )<br>
+<a href="arg.html#word13" title="Print the version info">arg-print-version</a> ( arg -- )<br>
+<a href="arg.html#word1" title="Value with the number of columns for parser output [def. 79]">arg.cols</a> ( -- n )<br>
+<a href="arg.html#word5" title="Done parsing">arg.done</a> ( -- n )<br>
+<a href="arg.html#word6" title="Error in option">arg.error</a> ( -- n )<br>
+<a href="arg.html#word3" title="Help option">arg.help-option</a> ( -- n )<br>
+<a href="arg.html#word4" title="Non option">arg.non-option</a> ( -- n )<br>
+<a href="arg.html#word2" title="Version option">arg.version-option</a> ( -- n )<br>
+<a href="config.html#word9" title="Get the nth command line argument">arg@</a> ( n -- c-addr u )<br>
+<a href="b64.html#word2" title="Decode the string c-addr1 u1 using str, resulting in c-addr2 u2 in str, throws exp-invalid-data for characters out of range">b64-decode</a> ( c-addr1 u1 str -- c-addr2 u2 )<br>
+<a href="b64.html#word1" title="Encode the string c-addr u with str, resulting in c-addr2 u2 in str">b64-encode</a> ( c-addr1 u1 str -- c-addr2 u2 )<br>
+<a href="bar.html#word1" title="Get the required space for a bar variable">bar%</a> ( -- n )<br>
+<a href="bar.html#word3" title="Free the internal data from the heap">bar-(free)</a> ( bar -- )<br>
+<a href="bar.html#word26" title="Count the number of bits set in the array">bar-count</a> ( bar -- u )<br>
+<a href="bar.html#word25" title="Count the number of bits set in a range in the array, starting from the n2th bit, n1 bits long">bar-count-bits</a> ( +n1 n2 bar -- u )<br>
+<a href="bar.html#word4" title="Create a bit array in the dictionary with length n">bar-create</a> ( +n "&lt;spaces&gt;name" -- ; -- bar )<br>
+<a href="bar.html#word28" title="Dump the bit array">bar-dump</a> ( bar -- )<br>
+<a href="bar.html#word27" title="Execute xt for every bit in the array">bar-execute</a> ( i*x xt bar -- j*x )<br>
+<a href="bar.html#word6" title="Free the array from the heap">bar-free</a> ( bar -- )<br>
+<a href="bar.html#word24" title="Check if the nth bit is set">bar-get-bit</a> ( n bar -- flag )<br>
+<a href="bar.html#word8" title="Check if the index n is valid in the array">bar-index?</a> ( n bar -- flag )<br>
+<a href="bar.html#word2" title="Initialise the array with length n">bar-init</a> ( +n bar -- )<br>
+<a href="bar.html#word23" title="Invert all bits in the array">bar-invert</a> ( bar -- )<br>
+<a href="bar.html#word21" title="Invert the nth bit">bar-invert-bit</a> ( n bar -- )<br>
+<a href="bar.html#word22" title="Invert a range of bits in the array, starting from the nth bit, u bits long">bar-invert-bits</a> ( u n bar -- )<br>
+<a href="bar.html#word7" title="Get the number of bits in the array">bar-length@</a> ( bar -- +n )<br>
+<a href="bar.html#word5" title="Create a bit array on the heap with length n">bar-new</a> ( n -- bar )<br>
+<a href="bar.html#word20" title="Reset all bits in the array">bar-reset</a> ( bar -- )<br>
+<a href="bar.html#word17" title="Reset the nth bit">bar-reset-bit</a> ( n bar -- )<br>
+<a href="bar.html#word18" title="Reset a range of bits in the array, starting from the nth bit, u bits long">bar-reset-bits</a> ( u n bar -- )<br>
+<a href="bar.html#word19" title="Reset n1 till nuth bits in the array">bar-reset-list</a> ( nu .. n1 u bar -- )<br>
+<a href="bar.html#word16" title="Set all bits in the array">bar-set</a> ( bar -- )<br>
+<a href="bar.html#word13" title="Set the nth bit in the array">bar-set-bit</a> ( n bar -- )<br>
+<a href="bar.html#word14" title="Set a range of bits in the array, starting from the nth bit, u bits long">bar-set-bits</a> ( u n bar -- )<br>
+<a href="bar.html#word15" title="Set n1 till nuth bits in the array">bar-set-list</a> ( nu .. n1 u bar -- )<br>
+<a href="bar.html#word11" title="AND the bit arrays bar1 and bar2 and store the result in bar2">bar^and</a> ( bar1 bar2 -- )<br>
+<a href="bar.html#word9" title="Move bar1 into bar2">bar^move</a> ( bar1 bar2 -- )<br>
+<a href="bar.html#word10" title="OR the bit arrays bar1 and bar2 and store the result in bar2">bar^or</a> ( bar1 bar2 -- )<br>
+<a href="bar.html#word12" title="XOR the bit arrays bar1 and bar2 and store the result in bar2">bar^xor</a> ( bar1 bar2 -- )<br>
+<a href="bci.html#word1" title="Get the required space for a bci variable">bci%</a> ( -- n )<br>
+<a href="bci.html#word3" title="Create a named iterator in the dictionary with a binary tree">bci-create</a> ( bct "&lt;spaces&gt;name" -- ; -- bci )<br>
+<a href="bci.html#word16" title="Dump the iterator variable">bci-dump</a> ( bci -- )<br>
+<a href="bci.html#word9" title="Move the iterator to the first node, return the cell data x">bci-first</a> ( bci -- x true | false )<br>
+<a href="bci.html#word14" title="Check if the iterator is on the first node">bci-first?</a> ( bci -- flag )<br>
+<a href="bci.html#word5" title="Free the iterator from the heap">bci-free</a> ( bci -- )<br>
+<a href="bci.html#word6" title="Get the cell data x from the current node">bci-get</a> ( bci -- false | x true )<br>
+<a href="bci.html#word2" title="Initialise the iterator with a binary tree">bci-init</a> ( bct bci -- )<br>
+<a href="bci.html#word7" title="Get the key x from the current node">bci-key</a> ( bci -- false | x true )<br>
+<a href="bci.html#word13" title="Move the iterator to the last node, return the cell data x">bci-last</a> ( bci -- x true | false )<br>
+<a href="bci.html#word15" title="Check if the iterator is on the last node">bci-last?</a> ( bci -- flag )<br>
+<a href="bci.html#word11" title="Move the iterator to the next node with the cell data x">bci-move</a> ( x bci -- flag )<br>
+<a href="bci.html#word4" title="Create an iterator on the heap with a binary tree">bci-new</a> ( bct -- bci )<br>
+<a href="bci.html#word10" title="Move the iterator to the next node, return the cell data x">bci-next</a> ( bci -- x true | false )<br>
+<a href="bci.html#word12" title="Move the iterator to the previous node, return the cell data x">bci-prev</a> ( bci -- x true | false )<br>
+<a href="bci.html#word8" title="Set the cell data x for the current node">bci-set</a> ( x bci -- )<br>
+<a href="bcn.html#word1" title="Get the required space for a bcn node">bcn%</a> ( -- n )<br>
+<a href="bcn.html#word6" title="Get the right node from the node bcn1">bcn-cell!</a> ( bcn1 -- bcn2 )<br>
+<a href="bcn.html#word5" title="Get the left node from the node bcn1">bcn-cell@</a> ( bcn1 -- bcn2 )<br>
+<a href="bcn.html#word7" title="Dump the node">bcn-dump</a> ( bcn -- )<br>
+<a href="bcn.html#word4" title="Free the node from the heap">bcn-free</a> ( bcn -- )<br>
+<a href="bcn.html#word2" title="Initialise the node bcn2 with the parent bcn1, key x2 and data x1">bcn-init</a> ( x1 x2 bcn1 bcn2 -- )<br>
+<a href="bcn.html#word3" title="Create a new node on the heap with the parent bcn1, key x2 and data x1">bcn-new</a> ( x1 x2 bcn1 -- bcn2 )<br>
+<a href="bct.html#word1" title="Get the required space for a bct variable">bct%</a> ( -- n )<br>
+<a href="bct.html#word3" title="Free the nodes from the heap">bct-(free)</a> ( bct -- )<br>
+<a href="bct.html#word11" title="Delete all nodes in the tree">bct-clear</a> ( bct -- )<br>
+<a href="bct.html#word10" title="Set the compare execution token for comparing keys">bct-compare!</a> ( xt bct -- )<br>
+<a href="bct.html#word9" title="Get the compare execution token for comparing keys">bct-compare@</a> ( bct -- xt )<br>
+<a href="bct.html#word4" title="Create a named binary tree in the dictionary">bct-create</a> ( "&lt;spaces&gt;name" -- ; -- bct )<br>
+<a href="bct.html#word13" title="Delete key x1 from the tree, return the cell data x2">bct-delete</a> ( x1 bct -- false | x2 true )<br>
+<a href="bct.html#word18" title="Dump the tree node structure">bct-dump</a> ( bct -- )<br>
+<a href="bct.html#word8" title="Check for an empty tree">bct-empty?</a> ( bct -- flag )<br>
+<a href="bct.html#word16" title="Execute xt for every key and data in the tree">bct-execute</a> ( i*x xt bct -- j*x )<br>
+<a href="bct.html#word17" title="Execute xt for every key and data in the tree until xt returns true">bct-execute?</a> ( i*x xt bct -- j*x flag )<br>
+<a href="bct.html#word6" title="Free the tree node from the heap">bct-free</a> ( bct -- )<br>
+<a href="bct.html#word14" title="Get the data x2 related to key x1 from the tree">bct-get</a> ( x1 bct -- false | x2 true )<br>
+<a href="bct.html#word15" title="Check if the key x1 is present in the tree">bct-has?</a> ( x1 bct -- flag )<br>
+<a href="bct.html#word2" title="Initialise the tree">bct-init</a> ( bct -- )<br>
+<a href="bct.html#word12" title="Insert data x1 with key x2 in the tree">bct-insert</a> ( x1 x2 bct -- )<br>
+<a href="bct.html#word7" title="Get the number of elements in the tree">bct-length@</a> ( bct -- u )<br>
+<a href="bct.html#word5" title="Create a new binary tree on the heap">bct-new</a> ( -- bct )<br>
+<a href="enm.html#word1" title="Start an enumeration definition, the first enumeration will start from 0">begin-enumeration</a> ( -- enum-sys )<br>
+<a href="stt.html#word1" title="Start a named stringtable definition; return the nth string">begin-stringtable</a> ( "&lt;spaces&gt;name" -- stringtable-sys ; n -- c-addr u )<br>
+<a href="stc.html#word1" title="Start definition of a named structure, return the structure size">begin-structure</a> ( "&lt;spaces&gt;name" -- structure-sys ; -- n )<br>
+<a href="config.html#word5" title="Check for bigendian hardware">bigendian?</a> ( -- flag )<br>
+<a href="bis.html#word1" title="Get the required space for a bis variable">bis%</a> ( -- n )<br>
+<a href="bis.html#word9" title="Start reading bytes, dropping the not-byte-aligned bits">bis-bits>bytes</a> ( bis -- )<br>
+<a href="bis.html#word11" title="Start reading bits from the stream">bis-bytes>bits</a> ( bis -- )<br>
+<a href="bis.html#word3" title="Create a named bit input stream variable in the dictionary">bis-create</a> ( "&lt;spaces&gt;name" -- ; -- bis )<br>
+<a href="bis.html#word16" title="Dump the bit input stream">bis-dump</a> ( bis -- )<br>
+<a href="bis.html#word13" title="Fetch u1 bits from the buffer and return the value">bis-fetch-bits</a> ( u1 bis -- u2 )<br>
+<a href="bis.html#word5" title="Free the bit input stream variable from the heap">bis-free</a> ( bis -- )<br>
+<a href="bis.html#word7" title="Get the data string from the input stream">bis-get</a> ( bis -- c-addr u )<br>
+<a href="bis.html#word15" title="Get a single bit u from the buffer">bis-get-bit</a> ( bis -- false | u true )<br>
+<a href="bis.html#word2" title="Initialise the bit input stream variable">bis-init</a> ( bis -- )<br>
+<a href="bis.html#word12" title="Check if there are n bits from the stream available in the buffer">bis-need-bits</a> ( n bis -- flag )<br>
+<a href="bis.html#word4" title="Create a new bit input stream variable on the heap">bis-new</a> ( -- bis )<br>
+<a href="bis.html#word14" title="Set n bits processed in the buffer">bis-next-bits</a> ( n bis -- )<br>
+<a href="bis.html#word10" title="Try reading n1 bytes via the buffer from the stream, return the read number, n1 <= #bytes/cell">bis-read-bytes</a> ( n1 bis -- false | n2 true )<br>
+<a href="bis.html#word8" title="Reset the input buffer, not the input stream">bis-reset</a> ( bis -- )<br>
+<a href="bis.html#word6" title="Set the data string for the input stream">bis-set</a> ( c-addr u bis -- )<br>
+<a href="bni.html#word1" title="Get the required space for a bni variable">bni%</a> ( -- n )<br>
+<a href="bni.html#word3" title="Create a named iterator in the dictionary with a binary tree">bni-create</a> ( bnt "&lt;spaces&gt;name" -- ; -- bni )<br>
+<a href="bni.html#word14" title="Dump the iterator variable">bni-dump</a> ( bni -- )<br>
+<a href="bni.html#word8" title="Move the iterator to the first node, return this node">bni-first</a> ( bni -- bnn | nil )<br>
+<a href="bni.html#word12" title="Check if the iterator is on the first node">bni-first?</a> ( bni -- flag )<br>
+<a href="bni.html#word5" title="Free the iterator from the heap">bni-free</a> ( bni -- )<br>
+<a href="bni.html#word6" title="Get the current node from the iterator">bni-get</a> ( bni -- bnn | nil )<br>
+<a href="bni.html#word2" title="Initialise the iterator with a binary tree">bni-init</a> ( bnt bni -- )<br>
+<a href="bni.html#word7" title="Get the key x from the current node">bni-key</a> ( bni -- false | x true )<br>
+<a href="bni.html#word11" title="Move the iterator to the last node, return this node">bni-last</a> ( bni -- bnn | nil )<br>
+<a href="bni.html#word13" title="Check if the iterator is on the last node">bni-last?</a> ( bni -- flag )<br>
+<a href="bni.html#word4" title="Create an iterator on the heap with a binary tree">bni-new</a> ( bnt -- bni )<br>
+<a href="bni.html#word9" title="Move the iterator to the next node, return this node">bni-next</a> ( bni -- bnn | nil )<br>
+<a href="bni.html#word10" title="Move the iterator to the previous node, return this node">bni-prev</a> ( bni -- bnn | nil )<br>
+<a href="bnn.html#word1" title="Get the required space for a bnn node">bnn%</a> ( -- n )<br>
+<a href="bnn.html#word6" title="Dump the node">bnn-dump</a> ( bnn -- )<br>
+<a href="bnn.html#word4" title="Free the node from the heap">bnn-free</a> ( bnn -- )<br>
+<a href="bnn.html#word2" title="Initialise the node bnn2 with parent bnn1 and key x">bnn-init</a> ( x bnn1 bnn2 -- )<br>
+<a href="bnn.html#word5" title="Get the key from the node">bnn-key@</a> ( bnn -- x )<br>
+<a href="bnn.html#word3" title="Create a new node on the heap with parent bnn1 and key x">bnn-new</a> ( x bnn1 -- bnn2 )<br>
+<a href="bnt.html#word1" title="Get the required space for a bnt variable">bnt%</a> ( -- n )<br>
+<a href="bnt.html#word3" title="Free the nodes from the heap using xt">bnt-(free)</a> ( xt bnt -- )<br>
+<a href="bnt.html#word11" title="Delete all nodes in the tree using word xt">bnt-clear</a> ( xt bnt -- )<br>
+<a href="bnt.html#word10" title="Set the compare execution token for comparing keys">bnt-compare!</a> ( xt bnt -- )<br>
+<a href="bnt.html#word9" title="Get the compare execution token for comparing keys">bnt-compare@</a> ( bnt -- xt )<br>
+<a href="bnt.html#word4" title="Create a named binary tree in the dictionary">bnt-create</a> ( "&lt;spaces&gt;name" -- ; -- bnt )<br>
+<a href="bnt.html#word13" title="Delete key x from the tree, return the deleted node">bnt-delete</a> ( x bnt -- false | bnn true )<br>
+<a href="bnt.html#word18" title="Dump the tree node structure">bnt-dump</a> ( bnt -- )<br>
+<a href="bnt.html#word8" title="Check for an empty tree">bnt-empty?</a> ( bnt -- flag )<br>
+<a href="bnt.html#word16" title="Execute xt for every node in the tree">bnt-execute</a> ( i*x xt bnt -- j*x )<br>
+<a href="bnt.html#word17" title="Execute xt for every node in the tree until xt returns true">bnt-execute?</a> ( i*x xt bnt -- j*x flag )<br>
+<a href="bnt.html#word6" title="Free the tree node from the heap">bnt-free</a> ( bnt -- )<br>
+<a href="bnt.html#word14" title="Get the node related to key x from the tree">bnt-get</a> ( x bnt -- false | bnn true )<br>
+<a href="bnt.html#word15" title="Check if the key x1 is present in the tree">bnt-has?</a> ( x1 bnt -- flag )<br>
+<a href="bnt.html#word2" title="Initialise the tree">bnt-init</a> ( bnt -- )<br>
+<a href="bnt.html#word12" title="Insert a new unique node in the tree with key x, creation word xt and optional parameters">bnt-insert</a> ( i*x xt x bct -- bnn1 true | i*x bnn2 false )<br>
+<a href="bnt.html#word7" title="Get the number of elements in the tree">bnt-length@</a> ( bnt -- u )<br>
+<a href="bnt.html#word5" title="Create a new binary tree on the heap">bnt-new</a> ( -- bnt )<br>
+<a href="car.html#word1" title="Get the required space for a car variable">car%</a> ( -- n )<br>
+<a href="car.html#word13" title="Set the initial extra space allocated during resizing of the array">car+extra!</a> ( u -- )<br>
+<a href="car.html#word12" title="Get the initial extra space allocated during resizing of the array">car+extra@</a> ( -- u )<br>
+<a href="car.html#word3" title="Free the internal data from the heap">car-(free)</a> ( car -- )<br>
+<a href="car.html#word19" title="Append the cell value at the end of the array">car-append</a> ( x car -- )<br>
+<a href="car.html#word16" title="Clear the array">car-clear</a> ( car -- )<br>
+<a href="car.html#word15" title="Set the compare execution token for sorting the array">car-compare!</a> ( xt car -- )<br>
+<a href="car.html#word14" title="Get the compare execution token for sorting the array">car-compare@</a> ( car -- xt )<br>
+<a href="car.html#word32" title="Count the number of occurrences of a cell value x in the array">car-count</a> ( x car -- u )<br>
+<a href="car.html#word4" title="Create a cell array in the dictionary with an initial length n">car-create</a> ( n "&lt;spaces&gt;name" -- ; -- car )<br>
+<a href="car.html#word22" title="Delete the cell value at the nth position, return the previous cell value x">car-delete</a> ( n car -- x )<br>
+<a href="car.html#word31" title="Dequeue the cell value from the end of the array, exception if array is empty">car-dequeue</a> ( car -- x )<br>
+<a href="car.html#word36" title="Dump the cell array variable">car-dump</a> ( car -- )<br>
+<a href="car.html#word30" title="Enqueue the cell value x at the start of the array">car-enqueue</a> ( x car -- )<br>
+<a href="car.html#word35" title="Execute the execution token for every cell in the array">car-execute</a> ( i*x xt car -- j*x )<br>
+<a href="car.html#word11" title="Set the extra space allocated during resizing of the array">car-extra!</a> ( u car -- )<br>
+<a href="car.html#word10" title="Get the extra space allocated during resizing of the array">car-extra@</a> ( car -- u )<br>
+<a href="car.html#word33" title="Find the offset first occurrence of the cell value x in the array, -1 if not found">car-find</a> ( x car -- n )<br>
+<a href="car.html#word24" title="Find the cell value x in the already sorted array using binary search, return offset and success">car-find-sorted</a> ( x car -- n flag )<br>
+<a href="car.html#word6" title="Free the array from the heap">car-free</a> ( car -- )<br>
+<a href="car.html#word18" title="Get the cell value from the nth element">car-get</a> ( n car -- x )<br>
+<a href="car.html#word25" title="Check if the cell value x is present in an already sorted array">car-has-sorted?</a> ( x car -- flag )<br>
+<a href="car.html#word34" title="Check if a cell value x is present in the array">car-has?</a> ( x car -- flag )<br>
+<a href="car.html#word8" title="Check if the index n is valid in the array">car-index?</a> ( n car -- flag )<br>
+<a href="car.html#word2" title="Initialise the array with an initial length n">car-init</a> ( +n car -- )<br>
+<a href="car.html#word21" title="Insert the cell value x at the nth element">car-insert</a> ( x n car -- )<br>
+<a href="car.html#word26" title="Insert the cell value x sorted in an already sorted array">car-insert-sorted</a> ( x car -- )<br>
+<a href="car.html#word7" title="Get the number of elements in the array">car-length@</a> ( car -- u )<br>
+<a href="car.html#word5" title="Create a cell array with an initial length n on the heap">car-new</a> ( n -- car )<br>
+<a href="car.html#word29" title="Pop the cell value from the end of the array, exception if array is empty">car-pop</a> ( car -- x )<br>
+<a href="car.html#word20" title="Prepend the cell value at the start of the array">car-prepend</a> ( x car -- )<br>
+<a href="car.html#word28" title="Push the cell value x at the end of the array">car-push</a> ( x car -- )<br>
+<a href="car.html#word17" title="Set the cell value x at the nth element">car-set</a> ( x n car -- )<br>
+<a href="car.html#word9" title="Insure the size of the array">car-size!</a> ( +n car -- )<br>
+<a href="car.html#word23" title="Sort the array using the compare execution token using heap sort">car-sort</a> ( car -- )<br>
+<a href="car.html#word27" title="Get the cell value at the end of the array, exception if array is empty">car-tos</a> ( car -- x )<br>
+<a href="cbf.html#word1" title="Get the required space for a cbf variable">cbf%</a> ( -- n )<br>
+<a href="cbf.html#word12" title="Set the initial number of extra elements allocated during resizing of the buffer">cbf+extra!</a> ( u -- )<br>
+<a href="cbf.html#word11" title="Get the initial number of extra elements allocated during resizing of the buffer">cbf+extra@</a> ( -- u )<br>
+<a href="cbf.html#word3" title="Free the internal data from the heap">cbf-(free)</a> ( cbf -- )<br>
+<a href="cbf.html#word14" title="Set the store word xt1 and the fetch word x2 for the buffer">cbf-access!</a> ( xt1 xt2 cbf -- )<br>
+<a href="cbf.html#word13" title="Get the store word xt1 and the fetch word xt2 for the buffer">cbf-access@</a> ( cbf -- xt1 xt2 )<br>
+<a href="cbf.html#word24" title="Clear the buffer">cbf-clear</a> ( cbf -- )<br>
+<a href="cbf.html#word4" title="Create a circular buffer in the dictionary with element size n1 and initial length n2">cbf-create</a> ( +n1 +n2 "&lt;spaces&gt;name" -- ; -- cbf )<br>
+<a href="cbf.html#word20" title="Dequeue one element from the buffer, optional using the fetch word">cbf-dequeue</a> ( cbf -- i*x | addr true | false )<br>
+<a href="cbf.html#word25" title="Dump the circular buffer variable">cbf-dump</a> ( cbf -- )<br>
+<a href="cbf.html#word19" title="Enqueue one element in the buffer, optional using the store word">cbf-enqueue</a> ( i*x | addr cbf -- )<br>
+<a href="cbf.html#word9" title="Set the number of extra elements allocated during resizing of the buffer">cbf-extra!</a> ( u cbf -- )<br>
+<a href="cbf.html#word8" title="Get the number of extra elements allocated during resizing of the buffer">cbf-extra@</a> ( cbf -- u )<br>
+<a href="cbf.html#word16" title="Fetch maximum u1 elements from the buffer in addr, return the actual number of elements u2">cbf-fetch</a> ( addr u1 cbf -- u2 )<br>
+<a href="cbf.html#word6" title="Free the circular buffer from the heap">cbf-free</a> ( cbf -- )<br>
+<a href="cbf.html#word17" title="Get maximum u1 elements from the buffer in addr, return the actual number of elements u2">cbf-get</a> ( addr u1 cbf -- u2 )<br>
+<a href="cbf.html#word2" title="Initialise the buffer with element size n1 and initial length n2">cbf-init</a> ( +n1 +n2 cbf -- )<br>
+<a href="cbf.html#word7" title="Get the number of elements in the buffer">cbf-length@</a> ( cbf -- u )<br>
+<a href="cbf.html#word5" title="Create a circular buffer with element size n1 and initial length n2 on the heap">cbf-new</a> ( +n1 +n2 -- cbf )<br>
+<a href="cbf.html#word23" title="Pop one element from the buffer, optional using the fetch word">cbf-pop</a> ( cbf -- i*x | addr true | false )<br>
+<a href="cbf.html#word22" title="Push one element in the buffer, optional using the store word">cbf-push</a> ( i*x | addr cbf -- )<br>
+<a href="cbf.html#word15" title="Set u elements, starting from addr in the buffer, resize if necessary">cbf-set</a> ( addr u cbf -- )<br>
+<a href="cbf.html#word10" title="Insure the size of the buffer">cbf-size!</a> ( +n cbf -- )<br>
+<a href="cbf.html#word18" title="Skip maximum u1 elements from the buffer, return the actual skipped elements u2">cbf-skip</a> ( +n1 cbf -- +n2 )<br>
+<a href="cbf.html#word21" title="Fetch the top element, optional using the fetch word">cbf-tos</a> ( cbf -- i*x | addr true | false )<br>
+<a href="stc.html#word4" title="Create a structure field of 1 char, return the field address">cfield:</a> ( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="stc.html#word10" title="Create a structure field of n chars, return the field address">cfields:</a> ( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="chr.html#word40" title="Check for an alphanumeric character">chr-alnum?</a> ( char -- flag )<br>
+<a href="chr.html#word38" title="Check for an alphabetic character">chr-alpha?</a> ( char -- flag )<br>
+<a href="chr.html#word41" title="Check for an ascii character">chr-ascii?</a> ( char -- flag )<br>
+<a href="chr.html#word53" title="Convert the character to a digit according the current base">chr-base</a> ( char -- false | u true )<br>
+<a href="chr.html#word42" title="Check for a blank character, space or tab">chr-blank?</a> ( char -- flag )<br>
+<a href="chr.html#word43" title="Check for a control character, 0 till 31">chr-cntrl?</a> ( char -- flag )<br>
+<a href="chr.html#word39" title="Check for a decimal digit character">chr-digit?</a> ( char -- flag )<br>
+<a href="chr.html#word44" title="Check for a printable character except space">chr-graph?</a> ( char -- flag )<br>
+<a href="chr.html#word48" title="Check for a hexadecimal character">chr-hexdigit?</a> ( char -- flag )<br>
+<a href="chr.html#word52" title="Convert char1 to lowercase">chr-lower</a> ( char1 -- char2 )<br>
+<a href="chr.html#word36" title="Check for a lowercase alphabetic character">chr-lower?</a> ( char -- flag )<br>
+<a href="chr.html#word49" title="Check for an octal character">chr-octdigit?</a> ( char -- flag )<br>
+<a href="chr.html#word45" title="Check for a printable character including space">chr-print?</a> ( char -- flag )<br>
+<a href="chr.html#word46" title="Check for a printable character, but not a space or alphanumeric character">chr-punct?</a> ( char -- flag )<br>
+<a href="chr.html#word35" title="Check if char1 is in the range [char2..char3]">chr-range?</a> ( char1 char2 char3 -- flag )<br>
+<a href="chr.html#word47" title="Check for a white-space: space, lf, vt, ff, cr">chr-space?</a> ( char -- flag )<br>
+<a href="chr.html#word50" title="Check if the character is in the string">chr-string?</a> ( c-addr u char -- flag )<br>
+<a href="chr.html#word51" title="Convert char1 to uppercase">chr-upper</a> ( char1 -- char2 )<br>
+<a href="chr.html#word37" title="Check for an uppercase alphabetic character">chr-upper?</a> ( char -- flag )<br>
+<a href="chr.html#word7" title="the ack character">chr.ack</a> ( -- char )<br>
+<a href="chr.html#word8" title="the bel character">chr.bel</a> ( -- char )<br>
+<a href="chr.html#word9" title="the backspace character">chr.bs</a> ( -- char )<br>
+<a href="chr.html#word25" title="the cancel character">chr.can</a> ( -- char )<br>
+<a href="chr.html#word14" title="the carriage return character">chr.cr</a> ( -- char )<br>
+<a href="chr.html#word18" title="the dc1 character">chr.dc1</a> ( -- char )<br>
+<a href="chr.html#word19" title="the dc2 character">chr.dc2</a> ( -- char )<br>
+<a href="chr.html#word20" title="the dc3 character">chr.dc3</a> ( -- char )<br>
+<a href="chr.html#word21" title="the dc4 character">chr.dc4</a> ( -- char )<br>
+<a href="chr.html#word34" title="the delete character">chr.del</a> ( -- char )<br>
+<a href="chr.html#word17" title="the dle character">chr.dle</a> ( -- char )<br>
+<a href="chr.html#word26" title="the em character">chr.em</a> ( -- char )<br>
+<a href="chr.html#word6" title="the enq character">chr.enq</a> ( -- char )<br>
+<a href="chr.html#word5" title="the eot character">chr.eot</a> ( -- char )<br>
+<a href="chr.html#word28" title="the escape character">chr.esc</a> ( -- char )<br>
+<a href="chr.html#word24" title="the etc character">chr.etb</a> ( -- char )<br>
+<a href="chr.html#word4" title="the etx character">chr.etx</a> ( -- char )<br>
+<a href="chr.html#word13" title="the formfeed character">chr.ff</a> ( -- char )<br>
+<a href="chr.html#word29" title="the fs character">chr.fs</a> ( -- char )<br>
+<a href="chr.html#word30" title="the gs character">chr.gs</a> ( -- char )<br>
+<a href="chr.html#word10" title="the horz. tab character">chr.ht</a> ( -- char )<br>
+<a href="chr.html#word11" title="the line feed character">chr.lf</a> ( -- char )<br>
+<a href="chr.html#word22" title="the nak character">chr.nak</a> ( -- char )<br>
+<a href="chr.html#word1" title="the null character">chr.nul</a> ( -- char )<br>
+<a href="chr.html#word31" title="the rs character">chr.rs</a> ( -- char )<br>
+<a href="chr.html#word16" title="the si character">chr.si</a> ( -- char )<br>
+<a href="chr.html#word15" title="the sm character">chr.sm</a> ( -- char )<br>
+<a href="chr.html#word2" title="the soh character">chr.soh</a> ( -- char )<br>
+<a href="chr.html#word33" title="the space character">chr.sp</a> ( -- char )<br>
+<a href="chr.html#word3" title="the stx character">chr.stx</a> ( -- char )<br>
+<a href="chr.html#word27" title="the sub character">chr.sub</a> ( -- char )<br>
+<a href="chr.html#word23" title="the syn character">chr.syn</a> ( -- char )<br>
+<a href="chr.html#word32" title="the us character">chr.us</a> ( -- char )<br>
+<a href="chr.html#word12" title="the vert. tab character">chr.vt</a> ( -- char )<br>
+<a href="chs.html#word1" title="Get the required space for a chs variable">chs%</a> ( -- n )<br>
+<a href="chs.html#word47" title="Check if the character is in the set">chs-char?</a> ( char chs -- flag )<br>
+<a href="chs.html#word3" title="Create a named character set in the dictionary">chs-create</a> ( "&lt;spaces&gt;name" -- ; -- chs )<br>
+<a href="chs.html#word49" title="Dump the chs state">chs-dump</a> ( chs -- )<br>
+<a href="chs.html#word48" title="Execute xt for every character in the set">chs-execute</a> ( i*x xt chs -- j*x )<br>
+<a href="chs.html#word5" title="Free the set from the heap">chs-free</a> ( chs -- )<br>
+<a href="chs.html#word2" title="Initialise the set">chs-init</a> ( chs -- )<br>
+<a href="chs.html#word12" title="Invert all characters in the set">chs-invert</a> ( chs -- )<br>
+<a href="chs.html#word4" title="Create a new character set on the heap">chs-new</a> ( -- chs )<br>
+<a href="chs.html#word11" title="Reset all characters in the set">chs-reset</a> ( chs -- )<br>
+<a href="chs.html#word30" title="Reset the alnum class in the set">chs-reset-alnum</a> ( chs -- )<br>
+<a href="chs.html#word26" title="Reset the alpha class in the set">chs-reset-alpha</a> ( chs -- )<br>
+<a href="chs.html#word36" title="Reset the blank class in the set">chs-reset-blank</a> ( chs -- )<br>
+<a href="chs.html#word14" title="Reset the character in the set">chs-reset-char</a> ( char chs -- )<br>
+<a href="chs.html#word16" title="Reset the character range [char2..char1] in the set">chs-reset-chars</a> ( char1 char2 chs -- )<br>
+<a href="chs.html#word40" title="Reset the cntrl class in the set">chs-reset-cntrl</a> ( chs -- )<br>
+<a href="chs.html#word28" title="Reset the digit class in the set">chs-reset-digit</a> ( chs -- )<br>
+<a href="chs.html#word42" title="Reset the graph class in the set">chs-reset-graph</a> ( chs -- )<br>
+<a href="chs.html#word20" title="Reset the characters char1 till charu in the set">chs-reset-list</a> ( charu .. char1 u chs -- )<br>
+<a href="chs.html#word24" title="Reset the lower class in the set">chs-reset-lower</a> ( chs -- )<br>
+<a href="chs.html#word44" title="Reset the print class in the set">chs-reset-print</a> ( chs -- )<br>
+<a href="chs.html#word34" title="Reset the punct class in the set">chs-reset-punct</a> ( chs -- )<br>
+<a href="chs.html#word38" title="Reset the space class in the set">chs-reset-space</a> ( chs -- )<br>
+<a href="chs.html#word18" title="Reset the characters in the string in the set">chs-reset-string</a> ( c-addr u chs -- )<br>
+<a href="chs.html#word22" title="Reset the upper class in the set">chs-reset-upper</a> ( chs -- )<br>
+<a href="chs.html#word46" title="Reset the word class in the set">chs-reset-word</a> ( chs -- )<br>
+<a href="chs.html#word32" title="Reset the xdigit class in the set">chs-reset-xdigit</a> ( chs -- )<br>
+<a href="chs.html#word10" title="Set all characters in the set">chs-set</a> ( chs -- )<br>
+<a href="chs.html#word29" title="Set the alnum class in the set">chs-set-alnum</a> ( chs -- )<br>
+<a href="chs.html#word25" title="Set the alpha class in the set">chs-set-alpha</a> ( chs -- )<br>
+<a href="chs.html#word35" title="Set the blank class in the set">chs-set-blank</a> ( chs -- )<br>
+<a href="chs.html#word13" title="Set the character in the set">chs-set-char</a> ( char chs -- )<br>
+<a href="chs.html#word15" title="Set the character range [char2..char1] in the set">chs-set-chars</a> ( char1 char2 chs -- )<br>
+<a href="chs.html#word39" title="Set the cntrl class in the set">chs-set-cntrl</a> ( chs -- )<br>
+<a href="chs.html#word27" title="Set the digit class in the set">chs-set-digit</a> ( chs -- )<br>
+<a href="chs.html#word41" title="Set the graph class in the set">chs-set-graph</a> ( chs -- )<br>
+<a href="chs.html#word19" title="Set the characters char1 till charu in the set">chs-set-list</a> ( charu .. char1 u chs -- )<br>
+<a href="chs.html#word23" title="Set the lower  class in the set">chs-set-lower</a> ( chs -- )<br>
+<a href="chs.html#word43" title="Set the print class in the set">chs-set-print</a> ( chs -- )<br>
+<a href="chs.html#word33" title="Set the punct class in the set">chs-set-punct</a> ( chs -- )<br>
+<a href="chs.html#word37" title="Set the space class in the set">chs-set-space</a> ( chs -- )<br>
+<a href="chs.html#word17" title="Set the characters in the string in the set">chs-set-string</a> ( c-addr u chs -- )<br>
+<a href="chs.html#word21" title="Set the upper class in the set">chs-set-upper</a> ( chs -- )<br>
+<a href="chs.html#word45" title="Set the word class in the set">chs-set-word</a> ( chs -- )<br>
+<a href="chs.html#word31" title="Set the xdigit class in the set">chs-set-xdigit</a> ( chs -- )<br>
+<a href="chs.html#word8" title="AND the sets chs1 with chs2 and store the result in chs2">chs^and</a> ( chs1 chs2 -- )<br>
+<a href="chs.html#word6" title="Move chs1 in chs2">chs^move</a> ( chs1 chs2 -- )<br>
+<a href="chs.html#word7" title="OR the sets chs1 with chs2 and store the result in chs2">chs^or</a> ( chs1 chs2 -- )<br>
+<a href="chs.html#word9" title="XOR the sets chs1 with chs2 and store the result in chs2">chs^xor</a> ( chs1 chs2 -- )<br>
+<a href="cpx.html#word1" title="Get the required space for a cpx variable">cpx%</a> ( -- n )<br>
+<a href="cpx.html#word14" title="Calculate the modulus of the complex number r1+jr2">cpx+abs</a> ( F: r1 r2 -- r3 )<br>
+<a href="cpx.html#word22" title="Calculate the inverse trigonometric function cosine for the complex number r1+jr2">cpx+acos</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word28" title="Calculate the inverse hyperbolic function cosine for the complex number r1+jr2">cpx+acosh</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word6" title="Add the complex number r1+jr2 to r3+jr4">cpx+add</a> ( F: r1 r2 r3 r4 -- r5 r6 )<br>
+<a href="cpx.html#word21" title="Calculate the inverse trigonometric function sine for the complex number r1+jr2">cpx+asin</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word27" title="Calculate the inverse hyperbolic function sine for the complex number r1+jr2">cpx+asinh</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word23" title="Calculate the inverse trigonometric function tangent for the complex number r1+jr2">cpx+atan</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word29" title="Calculate the inverse hyperbolic function tangent for the complex number r1+jr2">cpx+atanh</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word12" title="Conjugate the complex number r1+jr2">cpx+conj</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word19" title="Calculate the trigonometric functions cosine for the complex number r1+jr2">cpx+cos</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word25" title="Calculate the hyperbolic function cosine for the complex number r1+jr2">cpx+cosh</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word11" title="Divide the complex number r3+jr4 by number r1+jr2">cpx+div</a> ( F: r1 r2 r3 r4 -- r5 r6 )<br>
+<a href="cpx.html#word33" title="Check if the complex numbers r1+jr2 and r3+jr4 are [true] equal">cpx+equal?</a> ( F: r1 r2 r3 r4 -- ; -- flag )<br>
+<a href="cpx.html#word16" title="Calculate the exponent function for the complex number r1+jr2">cpx+exp</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word32" title="Convert the polar radius r1, theta r2 to complex number r3+jr4">cpx+from-polar</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word10" title="Multiply the complex number r1+jr2 with the imaginary number r3">cpx+imul</a> ( F: r1 r2 r3 -- r4 r5 )<br>
+<a href="cpx.html#word17" title="Calculate the natural logarithm for the complex number r1+jr2">cpx+ln</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word8" title="Multiply the complex numbers r1+jr2 with r3+jr4">cpx+mul</a> ( F: r1 r2 r3 r4 -- r5 r6 )<br>
+<a href="cpx.html#word13" title="Calculate the square of the modulus of the complex number r1+jr2">cpx+nrm</a> ( F: r1 r2 -- r3 )<br>
+<a href="cpx.html#word9" title="Multiply the complex number r1+jr2 with the real number r3">cpx+rmul</a> ( F: r1 r2 r3 -- r4 r5 )<br>
+<a href="cpx.html#word18" title="Calculate the trigonometric functions sine for the complex number r1+jr2">cpx+sin</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word24" title="Calculate the hyperbolic function sine for the complex number r1+jr2">cpx+sinh</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word15" title="Calculate the square root for the complex number r1+jr2">cpx+sqrt</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word7" title="Subtract the complex number r1+jr2 from the number r3+jr4">cpx+sub</a> ( F: r1 r2 r3 r4 -- r5 r6 )<br>
+<a href="cpx.html#word20" title="Calculate the trigonometric functions tangent for the complex number r1+jr2">cpx+tan</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word26" title="Calculate the hyperbolic function tangent for the complex number r1+jr2">cpx+tanh</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word31" title="Convert the complex number r1+jr2 to polar notation with radius r3 and theta r4">cpx+to-polar</a> ( F: r1 r2 -- r3 r4 )<br>
+<a href="cpx.html#word30" title="Convert the complex number r1+jr2 to a string, using precision and PAD">cpx+to-string</a> ( F: r1 r2 -- ; -- c-addr u )<br>
+<a href="cpx.html#word3" title="Create a named complex number variable in the dictionary">cpx-create</a> ( "&lt;spaces&gt;name" -- ; -- cpx )<br>
+<a href="cpx.html#word40" title="Dump the complex variable">cpx-dump</a> ( cpx -- )<br>
+<a href="cpx.html#word5" title="Free the complex number variable from the heap">cpx-free</a> ( cpx -- )<br>
+<a href="cpx.html#word36" title="Get the complex number r1+jr2 from the complex variable">cpx-get</a> ( F: -- r1 r2 ; cpx -- )<br>
+<a href="cpx.html#word35" title="Get the imaginary part of the complex number">cpx-im@</a> ( F: -- r ; cpx -- )<br>
+<a href="cpx.html#word2" title="Initialise to the zero complex number">cpx-init</a> ( cpx -- )<br>
+<a href="cpx.html#word4" title="Create a new complex number variable on the heap">cpx-new</a> ( -- cpx )<br>
+<a href="cpx.html#word34" title="Get the real part of the complex number">cpx-re@</a> ( F: -- r ; cpx -- )<br>
+<a href="cpx.html#word37" title="Set the complex number r1+jr2 in the complex variable">cpx-set</a> ( F: r1 r2 -- ; cpx -- )<br>
+<a href="cpx.html#word39" title="Check if complex2 is [true] equal to complex1">cpx^equal?</a> ( cpx2 cpx1 -- flag )<br>
+<a href="cpx.html#word38" title="Move complex2 in complex1">cpx^move</a> ( cpx2 cpx1 -- )<br>
+<a href="crc.html#word1" title="Get the required space for a crc-32 variable">crc%</a> ( -- n )<br>
+<a href="crc.html#word13" title="Calculate the CRC32 for byte data with default crc32 table">crc+calc-crc32</a> ( c-addr u -- u1 )<br>
+<a href="crc.html#word12" title="Calculate the polynomial u">crc+calc-poly</a> ( u1 .. un n -- u )<br>
+<a href="crc.html#word4" title="Free the internal table from the heap">crc-(free)</a> ( crc -- )<br>
+<a href="crc.html#word3" title="Create a named crc variable in the dictionary">crc-create</a> ( "&lt;spaces&gt;name" -- ; -- crc )<br>
+<a href="crc.html#word11" title="Finish the calculation, return the CRC32 result">crc-finish</a> ( crc -- u )<br>
+<a href="crc.html#word6" title="Free the crc from the heap">crc-free</a> ( crc -- )<br>
+<a href="crc.html#word2" title="Initialise the crc">crc-init</a> ( crc -- )<br>
+<a href="crc.html#word5" title="Create a new crc variable on the heap">crc-new</a> ( -- crc )<br>
+<a href="crc.html#word7" title="Use the polynomial u for the crc">crc-poly!</a> ( u crc -- )<br>
+<a href="crc.html#word8" title="Get the polynomial u in the crc">crc-poly@</a> ( crc -- u )<br>
+<a href="crc.html#word9" title="Reset the crc calculation">crc-reset</a> ( crc -- )<br>
+<a href="crc.html#word10" title="Update the crc structure with more byte data">crc-update</a> ( c-addr u crc -- )<br>
+<a href="dci.html#word1" title="Get the required space for a dci variable">dci%</a> ( -- n )<br>
+<a href="dci.html#word3" title="Create a named iterator in the dictionary with a dcl list">dci-create</a> ( dcl "&lt;spaces&gt;name" -- ; -- dci )<br>
+<a href="dci.html#word16" title="Dump the iterator">dci-dump</a> ( dci -- )<br>
+<a href="dci.html#word8" title="Move the iterator to the first record, return the cell data x">dci-first</a> ( dci -- x true | false )<br>
+<a href="dci.html#word13" title="Check if the iterator is on the first record">dci-first?</a> ( dci -- flag )<br>
+<a href="dci.html#word5" title="Free the iterator from the heap">dci-free</a> ( dci -- )<br>
+<a href="dci.html#word6" title="Get the cell data x from the current record">dci-get</a> ( dci -- x true | false )<br>
+<a href="dci.html#word2" title="Initialise the iterator with a dcl list">dci-init</a> ( dcl dci -- )<br>
+<a href="dci.html#word15" title="Insert the cell data x after the current record">dci-insert-after</a> ( x dci -- )<br>
+<a href="dci.html#word11" title="Move the iterator to the last record, return the cell data x">dci-last</a> ( dci -- x true | false )<br>
+<a href="dci.html#word14" title="Check if the iterator is on the last record">dci-last?</a> ( dci -- flag )<br>
+<a href="dci.html#word12" title="Move the iterator to the next record with the cell data x">dci-move</a> ( x dci -- false )<br>
+<a href="dci.html#word4" title="Create an iterator on the heap with a dcl list">dci-new</a> ( dcl -- dci )<br>
+<a href="dci.html#word9" title="Move the iterator to the next record, return the cell data x">dci-next</a> ( dci -- x true | false )<br>
+<a href="dci.html#word10" title="Move the iterator to the previous record, return the cell data x">dci-prev</a> ( dci -- x true | false )<br>
+<a href="dci.html#word7" title="Set the cell data x for the current record">dci-set</a> ( x dci -- )<br>
+<a href="dcl.html#word1" title="Get the required space for a dcl variable">dcl%</a> ( -- n )<br>
+<a href="dcl.html#word3" title="Free the nodes from the heap">dcl-(free)</a> ( dnl -- )<br>
+<a href="dcl.html#word12" title="Append the cell data x in the list">dcl-append</a> ( x dcl -- )<br>
+<a href="dcl.html#word11" title="Delete all nodes from the list">dcl-clear</a> ( dnl -- )<br>
+<a href="dcl.html#word9" title="Set the compare execution token for sorting the list">dcl-compare!</a> ( xt dcl -- )<br>
+<a href="dcl.html#word10" title="Get the compare execution token for sorting the list">dcl-compare@</a> ( dcl -- xt )<br>
+<a href="dcl.html#word19" title="Count the number of occurrences of the cell data x in the list">dcl-count</a> ( x dcl -- u )<br>
+<a href="dcl.html#word4" title="Create a named dcl list in the dictionary">dcl-create</a> ( "&lt;spaces&gt;name" -- ; -- dcl )<br>
+<a href="dcl.html#word18" title="Delete the nth node from the list, return the cell data x">dcl-delete</a> ( n dcl -- x )<br>
+<a href="dcl.html#word26" title="Dump the list">dcl-dump</a> ( dcl -- )<br>
+<a href="dcl.html#word7" title="Check for empty list">dcl-empty?</a> ( dcl -- flag )<br>
+<a href="dcl.html#word20" title="Execute xt for every cell data in list">dcl-execute</a> ( i*x xt dcl -- j*x )<br>
+<a href="dcl.html#word22" title="Find the first index for the cell data x in the list, -1 for not found">dcl-find</a> ( x dcl -- n )<br>
+<a href="dcl.html#word6" title="Free the list from the heap, including the nodes">dcl-free</a> ( dcl -- )<br>
+<a href="dcl.html#word16" title="Get the cell data x from the nth node from the list">dcl-get</a> ( n dcl -- x )<br>
+<a href="dcl.html#word23" title="Check if the cell data x is present in the list">dcl-has?</a> ( x dcl -- flag )<br>
+<a href="dcl.html#word14" title="Check if the index n is valid for the list">dcl-index?</a> ( n dcl -- flag )<br>
+<a href="dcl.html#word2" title="Initialise the dcl list">dcl-init</a> ( dcl -- )<br>
+<a href="dcl.html#word17" title="Insert cell data x at the nth node in the list">dcl-insert</a> ( x n dcl -- )<br>
+<a href="dcl.html#word25" title="Insert the cell data x sorted in the list">dcl-insert-sorted</a> ( x dcl -- )<br>
+<a href="dcl.html#word8" title="Get the number of nodes in the list">dcl-length@</a> ( dcl -- u )<br>
+<a href="dcl.html#word5" title="Create a new dcl list on the heap">dcl-new</a> ( -- dcl )<br>
+<a href="dcl.html#word13" title="Prepend the cell data x in the list">dcl-prepend</a> ( x dcl -- )<br>
+<a href="dcl.html#word24" title="Remove the first occurrence of the cell data x from the list, return success">dcl-remove</a> ( x dcl -- flag )<br>
+<a href="dcl.html#word21" title="Reverse or mirror the list">dcl-reverse</a> ( dcl -- )<br>
+<a href="dcl.html#word15" title="Set the cell data x in the nth node in the list">dcl-set</a> ( x n dcl -- )<br>
+<a href="dcn.html#word1" title="Get the required space for a dcn node">dcn%</a> ( -- n )<br>
+<a href="dcn.html#word6" title="Set the cell data x in the node">dcn-cell!</a> ( x dcn -- )<br>
+<a href="dcn.html#word5" title="Get the cell data x from the node">dcn-cell@</a> ( dcn -- x )<br>
+<a href="dcn.html#word7" title="Dump the node">dcn-dump</a> ( dcn -- )<br>
+<a href="dcn.html#word4" title="Free the node from the heap">dcn-free</a> ( dcn -- )<br>
+<a href="dcn.html#word2" title="Initialise the node with data x">dcn-init</a> ( x dcn -- )<br>
+<a href="dcn.html#word3" title="Create a new node on the heap with data x">dcn-new</a> ( x -- dcn )<br>
+<a href="log.html#word21" title="Log a debug message">debug"</a> ( "ccc&lt;quote&gt;" -- )<br>
+<a href="stc.html#word9" title="Create a structure field of 1 double float, return the field address">dffield:</a> ( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="stc.html#word6" title="Create a structure field of 1 double, return the field address">dfield:</a> ( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="stc.html#word12" title="Create a structure field of n doubles, return the field address">dfields:</a> ( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="dni.html#word1" title="Get the required space for a dni variable">dni%</a> ( -- n )<br>
+<a href="dni.html#word3" title="Create a named iterator in the dictionary with a dnl list">dni-create</a> ( dnl "&lt;spaces&gt;name" -- ; -- dni )<br>
+<a href="dni.html#word13" title="Dump the iterator variable">dni-dump</a> ( dni -- )<br>
+<a href="dni.html#word7" title="Move the iterator to the first node, return this node">dni-first</a> ( dni -- dnn | nil )<br>
+<a href="dni.html#word11" title="Check if the iterator is on the first node">dni-first?</a> ( dni -- flag )<br>
+<a href="dni.html#word5" title="Free the iterator from the heap">dni-free</a> ( dni -- )<br>
+<a href="dni.html#word6" title="Get the current node">dni-get</a> ( dni -- dnn | nil )<br>
+<a href="dni.html#word2" title="Initialise the iterator with a dnl list">dni-init</a> ( dnl dni -- )<br>
+<a href="dni.html#word10" title="Move the iterator to the last node, return this node">dni-last</a> ( dni -- dnn | nil )<br>
+<a href="dni.html#word12" title="Check if the iterator is on the last node">dni-last?</a> ( dni -- flag )<br>
+<a href="dni.html#word4" title="Create an iterator on the heap">dni-new</a> ( dnl -- dni )<br>
+<a href="dni.html#word8" title="Move the iterator to the next node, return this node">dni-next</a> ( dni -- dnn | nil )<br>
+<a href="dni.html#word9" title="Move the iterator to the previous node, return this node">dni-prev</a> ( dni -- dnn | nil )<br>
+<a href="dnl.html#word1" title="Get the required space for a dnl variable">dnl%</a> ( -- n )<br>
+<a href="dnl.html#word3" title="Free the nodes in the list from the heap using xt">dnl-(free)</a> ( xt dnl -- )<br>
+<a href="dnl.html#word11" title="Append the node dnn in the list">dnl-append</a> ( dnn dnl -- )<br>
+<a href="dnl.html#word4" title="Create a named dnl list in the dictionary">dnl-create</a> ( "&lt;spaces&gt;name" -- ; -- dnl )<br>
+<a href="dnl.html#word19" title="Delete the nth node from the list, return the deleted node">dnl-delete</a> ( n dnl -- dnn )<br>
+<a href="dnl.html#word24" title="Dequeue the node dnn from the end of the list">dnl-dequeue</a> ( dnl -- dnn | nil )<br>
+<a href="dnl.html#word27" title="Dump the list">dnl-dump</a> ( dnl -- )<br>
+<a href="dnl.html#word8" title="Check for empty list">dnl-empty?</a> ( dnl -- flag )<br>
+<a href="dnl.html#word23" title="Enqueue the node dnn at the start of the list">dnl-enqueue</a> ( dnn dnl -- )<br>
+<a href="dnl.html#word25" title="Execute xt for every node in list">dnl-execute</a> ( i*x xt dnl -- j*x )<br>
+<a href="dnl.html#word9" title="Get the first node in the list">dnl-first@</a> ( dnl -- dnn | nil )<br>
+<a href="dnl.html#word6" title="Free the list from the heap">dnl-free</a> ( dnl -- )<br>
+<a href="dnl.html#word17" title="Get the nth node from the list">dnl-get</a> ( n dnl -- dnn )<br>
+<a href="dnl.html#word16" title="Check if the index n is valid in the list">dnl-index?</a> ( n dnl -- flag )<br>
+<a href="dnl.html#word2" title="Initialise the list">dnl-init</a> ( dnl -- )<br>
+<a href="dnl.html#word18" title="Insert the node dnn before the nth node in the list">dnl-insert</a> ( dnn n dnl -- )<br>
+<a href="dnl.html#word14" title="Insert the new node dnn1 after the reference node dnn2 in the list">dnl-insert-after</a> ( dnn1 dnn2 dnl -- )<br>
+<a href="dnl.html#word13" title="Insert the new node dnn1 before the reference node dnn2 in the list">dnl-insert-before</a> ( dnn1 dnn2 dnl -- )<br>
+<a href="dnl.html#word10" title="Get the last node in the list">dnl-last@</a> ( dnl -- dnn | nil )<br>
+<a href="dnl.html#word7" title="Get the number of nodes in the list">dnl-length@</a> ( dnl -- u )<br>
+<a href="dnl.html#word5" title="Create a new dnl list on the heap">dnl-new</a> ( -- dnl )<br>
+<a href="dnl.html#word21" title="Pop the node dnn from the end of the list">dnl-pop</a> ( dnl -- dnn | nil )<br>
+<a href="dnl.html#word12" title="Prepend the node dnn in the list">dnl-prepend</a> ( dnn dnl -- )<br>
+<a href="dnl.html#word20" title="Push the node dnn at the end of the list">dnl-push</a> ( dnn dnl -- )<br>
+<a href="dnl.html#word15" title="Remove the node dnn from the list">dnl-remove</a> ( dnn dnl -- )<br>
+<a href="dnl.html#word26" title="Reverse or mirror the list">dnl-reverse</a> ( dnl -- )<br>
+<a href="dnl.html#word22" title="Get the node dnn from the end of the list">dnl-tos</a> ( dnl -- dnn | nil )<br>
+<a href="dnn.html#word1" title="Get the required space for a dnn structure">dnn%</a> ( -- n )<br>
+<a href="dnn.html#word9" title="Dump the node">dnn-dump</a> ( dnn -- )<br>
+<a href="dnn.html#word4" title="Free the node from the heap">dnn-free</a> ( dnn -- )<br>
+<a href="dnn.html#word2" title="Initialise the node">dnn-init</a> ( dnn -- )<br>
+<a href="dnn.html#word3" title="Create a new node on the heap">dnn-new</a> ( -- dnn )<br>
+<a href="dnn.html#word6" title="Set for node dnn2 the next node to dnn1">dnn-next!</a> ( dnn1 dnn2 -- )<br>
+<a href="dnn.html#word5" title="Get the next node dnn2 from node dnn1">dnn-next@</a> ( dnn1 -- dnn2 )<br>
+<a href="dnn.html#word8" title="Set for node dnn2 the previous node to dnn1">dnn-prev!</a> ( dnn1 dnn2 -- )<br>
+<a href="dnn.html#word7" title="Get from node dnn1 the previous node">dnn-prev@</a> ( dnn1 -- dnn2 )<br>
+<a href="log.html#word16" title="Log the message c-addr u with event n">do-log</a> ( c-addr u n -- )<br>
+<a href="dom.html#word14" title="Get the required space for a dom variable">dom%</a> ( -- n )<br>
+<a href="dom.html#word16" title="Free the internal, private variables from the heap">dom-(free)</a> ( dom -- )<br>
+<a href="dom.html#word37" title="Append a node to the current node, exception if not allowed, iterator is moved to the new node">dom-append-node</a> ( i*x n dom -- )<br>
+<a href="dom.html#word29" title="Move the iterator to the first child node, return the xml type of this node">dom-child</a> ( dom -- n true | false )<br>
+<a href="dom.html#word27" title="Return the number of children for the current node">dom-children</a> ( dom -- n )<br>
+<a href="dom.html#word28" title="Check if the current node has children">dom-children?</a> ( dom -- flag )<br>
+<a href="dom.html#word17" title="Create a named DOM in the dictionary">dom-create</a> ( "&lt;spaces&gt;name" -- ; -- dom )<br>
+<a href="dom.html#word24" title="Move the iterator to the document [=root] node">dom-document</a> ( dom -- true | false )<br>
+<a href="dom.html#word25" title="Check if the current node is the document [=root] node">dom-document?</a> ( dom -- flag )<br>
+<a href="dom.html#word45" title="Dump the DOM tree">dom-dump</a> ( dom - )<br>
+<a href="dom.html#word30" title="Move the iterator to the first sibling node, return the xml type of this node">dom-first</a> ( dom -- n true | false )<br>
+<a href="dom.html#word31" title="Check if the current node is the first sibling node">dom-first?</a> ( dom -- flag )<br>
+<a href="dom.html#word19" title="Free the DOM from the heap">dom-free</a> ( dom -- )<br>
+<a href="dom.html#word20" title="Get the xml node type of the current node">dom-get</a> ( dom -- n true | false )<br>
+<a href="dom.html#word22" title="Get the name from the current node">dom-get-name</a> ( dom -- c-addr u )<br>
+<a href="dom.html#word21" title="Get the xml node type of the current node">dom-get-type</a> ( dom -- n )<br>
+<a href="dom.html#word23" title="Get the value from the current node">dom-get-value</a> ( dom -- c-addr u )<br>
+<a href="dom.html#word15" title="Initialise the DOM">dom-init</a> ( dom -- )<br>
+<a href="dom.html#word39" title="Insert a node after the current node, exception if not allowed">dom-insert-node-after</a> ( i*x n -- )<br>
+<a href="dom.html#word38" title="Insert a node before the current node, exception if not allowed">dom-insert-node-before</a> ( i*x n dom -- )<br>
+<a href="dom.html#word34" title="Move the iterator to the last sibling node, return the xml type of this node">dom-last</a> ( dom -- n true | false )<br>
+<a href="dom.html#word35" title="Check if the current node is the last sibling node">dom-last?</a> ( dom -- flag )<br>
+<a href="dom.html#word18" title="Create a new DOM on the heap">dom-new</a> ( -- dom )<br>
+<a href="dom.html#word32" title="Move the iterator to the next sibling node, return the xml type of this node">dom-next</a> ( dom -- n true | false )<br>
+<a href="dom.html#word26" title="Move the iterator to the parent node, return the xml type of this node">dom-parent</a> ( dom -- n true | false )<br>
+<a href="dom.html#word33" title="Move the iterator to the previous sibling node, return the xml type of this node">dom-prev</a> ( dom -- n true | false )<br>
+<a href="dom.html#word42" title="Read xml source with the reader xt with its state x into the dom tree, flag1 indicates whitespace stripping, throw exception if tree is not empty, return success in flag2">dom-read-reader</a> ( x xt flag1 dom -- flag2 )<br>
+<a href="dom.html#word41" title="Read xml source from the string c-addr u into the dom tree, flag1 indicates whitespace stripping, throw exception if tree is not empty, return success in flag2">dom-read-string</a> ( c-addr u flag1 dom -- flag2 )<br>
+<a href="dom.html#word40" title="Remove the current sibling node without children from the tree, iterator is moved to the next, previous or parent node, return the removed node">dom-remove</a> ( dom -- flag )<br>
+<a href="dom.html#word36" title="Update the current node">dom-set</a> ( i*x dom -- )<br>
+<a href="dom.html#word43" title="Write the tree to xml returning a string c-addr u if successful">dom-write-string</a> ( dom -- c-addr u true | false )<br>
+<a href="dom.html#word44" title="Write the tree to xml using writer xt and its data x, flag indicate success">dom-write-writer</a> ( x xt dom -- flag )<br>
+<a href="dom.html#word3" title="DOM node: Attribute">dom.attribute</a> ( -- n )<br>
+<a href="dom.html#word5" title="DOM node: CDATA">dom.cdata</a> ( -- n )<br>
+<a href="dom.html#word9" title="DOM node: Comment">dom.comment</a> ( -- n )<br>
+<a href="dom.html#word12" title="DOM node: Document fragment [not used]">dom.doc-fragment</a> ( -- n )<br>
+<a href="dom.html#word11" title="DOM node: Document type [not used]">dom.doc-type</a> ( -- n )<br>
+<a href="dom.html#word10" title="DOM node: Start document">dom.document</a> ( -- n )<br>
+<a href="dom.html#word2" title="DOM node: Tag">dom.element</a> ( -- n )<br>
+<a href="dom.html#word7" title="DOM node: Entitiy [not used]">dom.entity</a> ( -- n )<br>
+<a href="dom.html#word6" title="DOM node: Entity reference [not used]">dom.entity-ref</a> ( -- n )<br>
+<a href="dom.html#word1" title="DOM node: Not used">dom.not-used</a> ( -- n )<br>
+<a href="dom.html#word13" title="DOM node: Notation [not used]">dom.notation</a> ( -- n )<br>
+<a href="dom.html#word8" title="DOM node: Processing Instruction">dom.pi</a> ( -- n )<br>
+<a href="dom.html#word4" title="DOM node: Text">dom.text</a> ( -- n )<br>
+<a href="dos.html#word12" title="Write the hour using a 12-hour clock: 01..12">dos-write-12hour</a> ( dtm tos -- )<br>
+<a href="dos.html#word11" title="Write the hour using a 24-hour clock: 00..23">dos-write-24hour</a> ( dtm tos -- )<br>
+<a href="dos.html#word29" title="Write the year without the century: 00..99">dos-write-2year</a> ( dtm tos -- )<br>
+<a href="dos.html#word3" title="Write the abbreviated month name, using the streams catalog for locale">dos-write-abbr-month-name</a> ( dtm tos -- )<br>
+<a href="dos.html#word1" title="Write the abbreviated weekday name, using the streams catalog for locale">dos-write-abbr-weekday-name</a> ( dtm tos -- )<br>
+<a href="dos.html#word8" title="Write the date in mm/dd/yy format">dos-write-american-date</a> ( dtm tos -- )<br>
+<a href="dos.html#word18" title="Write the am or pm notation, using the streams catalog for locale">dos-write-ampm</a> ( dtm tos -- )<br>
+<a href="dos.html#word20" title="Write the time in ampm notation: hh:mm:ss ?m, using the streams catalog for locale">dos-write-ampm-time</a> ( dtm tos -- )<br>
+<a href="dos.html#word6" title="Write the century number">dos-write-century</a> ( dtm tos -- )<br>
+<a href="dos.html#word27" title="Write the preferred date using the streams catalog for the locale, else yyyy/mm/dd">dos-write-date</a> ( dtm tos -- )<br>
+<a href="dos.html#word5" title="Write the preferred time and date using the streams catalog for the locale, else yyyy/mm/dd hh:mm:ss">dos-write-date-time</a> ( dtm tos -- )<br>
+<a href="dos.html#word31" title="Write date and time info with the format string c-addr u in the stream tos">dos-write-format</a> ( dtm c-addr u tos -- )<br>
+<a href="dos.html#word21" title="Write the time: hh:mm">dos-write-hhmm-time</a> ( dtm tos -- )<br>
+<a href="dos.html#word24" title="Write the time: hh:mm:ss">dos-write-hhmmss-time</a> ( dtm tos -- )<br>
+<a href="dos.html#word10" title="Write the date in ISO 8601 format: yyyy-mm-dd">dos-write-iso8601-date</a> ( dtm tos -- )<br>
+<a href="dos.html#word17" title="Write the minute: 00..59">dos-write-minute</a> ( dtm tos -- )<br>
+<a href="dos.html#word16" title="Write the month: 01..12">dos-write-month</a> ( dtm tos -- )<br>
+<a href="dos.html#word4" title="Write the full month name, using the streams catalog for locale">dos-write-month-name</a> ( dtm tos -- )<br>
+<a href="dos.html#word7" title="Write the day of the month: 01..31">dos-write-monthday</a> ( dtm tos -- )<br>
+<a href="dos.html#word23" title="Write the number of seconds: 00..61">dos-write-seconds</a> ( dtm tos -- )<br>
+<a href="dos.html#word22" title="Write the number of seconds since 1970-01-01 00:00:00">dos-write-seconds-since-epoch</a> ( dtm tos -- )<br>
+<a href="dos.html#word15" title="Write the hour using a 12-hour clock:  1..12, space padded">dos-write-spaced-12hour</a> ( dtm tos -- )<br>
+<a href="dos.html#word14" title="Write the hour using a 24-hour clock:  0..23, space padded">dos-write-spaced-24hour</a> ( dtm tos -- )<br>
+<a href="dos.html#word9" title="Write the day of the month,  1..31, space padded">dos-write-spaced-monthday</a> ( dtm tos -- )<br>
+<a href="dos.html#word28" title="Write the preferred time using the stream catalog for the locale, else hh:mm:ss">dos-write-time</a> ( dtm tos -- )<br>
+<a href="dos.html#word19" title="Write the AM or PM notation, using the streams catalog for locale">dos-write-upper-ampm</a> ( dtm tos -- )<br>
+<a href="dos.html#word26" title="Write the week number: 01..53">dos-write-week-number</a> ( dtm tos -- )<br>
+<a href="dos.html#word25" title="Write the weekday: 0..6, 0 = sunday">dos-write-weekday</a> ( dtm tos -- )<br>
+<a href="dos.html#word2" title="Write the full weekday name, using the streams catalog for locale">dos-write-weekday-name</a> ( dtm tos -- )<br>
+<a href="dos.html#word30" title="Write the year including the century">dos-write-year</a> ( dtm tos -- )<br>
+<a href="dos.html#word13" title="Write the day of the year: 001..366">dos-write-yearday</a> ( dtm tos -- )<br>
+<a href="dti.html#word6" title="Increase the date/time with one day">dti-day+</a> ( dtm -- )<br>
+<a href="dti.html#word5" title="Decrease the date/time with one day">dti-day-</a> ( dtm -- )<br>
+<a href="dti.html#word7" title="Increase the date/time with d days">dti-days+</a> ( d dtm -- )<br>
+<a href="dti.html#word8" title="Decrease the date/time with d days">dti-days-</a> ( d dtm -- )<br>
+<a href="dti.html#word10" title="Increase the date/time with one hour">dti-hour+</a> ( dtm -- )<br>
+<a href="dti.html#word9" title="Decrease the date/time with one hour">dti-hour-</a> ( dtm -- )<br>
+<a href="dti.html#word17" title="Increase the date/time with one millisecond">dti-milli+</a> ( dtm -- )<br>
+<a href="dti.html#word18" title="Decrease the date/time with one millisecond">dti-milli-</a> ( dtm -- )<br>
+<a href="dti.html#word12" title="Increase the date/time with one minute">dti-minute+</a> ( dtm -- )<br>
+<a href="dti.html#word11" title="Decrease the date/time with one minute">dti-minute-</a> ( dtm -- )<br>
+<a href="dti.html#word4" title="Increase the date/time with one months">dti-month+</a> ( dtm -- )<br>
+<a href="dti.html#word3" title="Decrease the date/time with one months">dti-month-</a> ( dtm -- )<br>
+<a href="dti.html#word14" title="Increase the date/time with one second">dti-second+</a> ( dtm -- )<br>
+<a href="dti.html#word13" title="Decrease the date/time with one second">dti-second-</a> ( dtm -- )<br>
+<a href="dti.html#word15" title="Increase the date/time with d seconds">dti-seconds+</a> ( d dtm -- )<br>
+<a href="dti.html#word16" title="Decrease the date/time with d seconds">dti-seconds-</a> ( d dtm -- )<br>
+<a href="dti.html#word2" title="Increase the date/time with one year">dti-year+</a> ( dtm -- )<br>
+<a href="dti.html#word1" title="Decrease the date/time with one year">dti-year-</a> ( dtm -- )<br>
+<a href="dtm.html#word1" title="Get the required space for a dtm variable">dtm%</a> ( -- n )<br>
+<a href="dtm.html#word28" title="Calculate the number of leap years in the year range [n2..n1]">dtm+calc-leap-years</a> ( n1 n2 -- n3 )<br>
+<a href="dtm.html#word36" title="Check if the day n1 in the month n2 and year n3 is valid">dtm+day?</a> ( n1 n2 n3 -- flag )<br>
+<a href="dtm.html#word30" title="Get the number of days in the month n1 and year n2">dtm+days-in-month</a> ( n1 n2 -- n3 )<br>
+<a href="dtm.html#word29" title="Get the number of days in the year n1">dtm+days-in-year</a> ( n1 -- n2 )<br>
+<a href="dtm.html#word31" title="Get the number of days till the month n1 and year n2">dtm+days-till-month</a> ( n1 n2 -- n3 )<br>
+<a href="dtm.html#word35" title="Check if the hours n are valid">dtm+hour?</a> ( n -- flag )<br>
+<a href="dtm.html#word27" title="Check if the year n is a leap year">dtm+leap-year?</a> ( n -- flag )<br>
+<a href="dtm.html#word32" title="Check if the milliseconds n are valid">dtm+milli?</a> ( n -- flag )<br>
+<a href="dtm.html#word34" title="Check if the minutes n are valid">dtm+minute?</a> ( n -- flag )<br>
+<a href="dtm.html#word37" title="Check if the month n is valid">dtm+month?</a> ( n -- flag )<br>
+<a href="dtm.html#word33" title="Check if the seconds n are valid">dtm+second?</a> ( n -- flag )<br>
+<a href="dtm.html#word38" title="Check if the year n [>1582] is valid">dtm+year?</a> ( n -- flag )<br>
+<a href="dtm.html#word65" title="Calculate the number of days since epoch n from the date">dtm-calc-days-since-epoch</a> ( n dtm -- d )<br>
+<a href="dtm.html#word66" title="Calculate the number of seconds since epoch n from the date/time">dtm-calc-seconds-since-epoch</a> ( n dtm -- d )<br>
+<a href="dtm.html#word67" title="Compare the date/time with milliseconds n1, seconds n2, minutes n3, hours n4, day n5, month n6 and year n7">dtm-compare</a> ( n1 n2 n3 n4 n5 n6 n7 dtm -- n )<br>
+<a href="dtm.html#word24" title="Create a date/time variable in the dictionary with the current date/time">dtm-create</a> ( "&lt;spaces&gt;name" -- ; -- dtm )<br>
+<a href="dtm.html#word48" title="Set the day">dtm-day!</a> ( n dtm -- )<br>
+<a href="dtm.html#word47" title="Get the day">dtm-day@</a> ( dtm -- n )<br>
+<a href="dtm.html#word69" title="Dump the date/time variable">dtm-dump</a> ( dtm -- )<br>
+<a href="dtm.html#word26" title="Free the date/time variable from the heap">dtm-free</a> ( dtm -- )<br>
+<a href="dtm.html#word59" title="Get the date/time, return milliseconds n1, seconds n2, minutes n3, hours n4, day n5, month n6 and year n7">dtm-get</a> ( dtm -- n1 n2 n3 n4 n5 n6 n7 )<br>
+<a href="dtm.html#word60" title="Get the date, return day n1, month n2 and year n3">dtm-get-date</a> ( dtm -- n1 n2 n3 )<br>
+<a href="dtm.html#word61" title="Get the time, return milliseconds n1, seconds n2, minutes n3 and hours n4">dtm-get-time</a> ( dtm -- n1 n2 n3 n4 )<br>
+<a href="dtm.html#word46" title="Set the hour">dtm-hour!</a> ( n dtm -- )<br>
+<a href="dtm.html#word45" title="Get the hour">dtm-hour@</a> ( dtm -- n )<br>
+<a href="dtm.html#word23" title="Initialise the date/time with the current date and time">dtm-init</a> ( dtm -- )<br>
+<a href="dtm.html#word64" title="Get the iso week number n1 and year n2 from the date">dtm-iso-weeknumber</a> ( dtm -- n1 n2 )<br>
+<a href="dtm.html#word40" title="Set the milliseconds">dtm-milli!</a> ( n dtm -- )<br>
+<a href="dtm.html#word39" title="Get the milliseconds">dtm-milli@</a> ( dtm -- n )<br>
+<a href="dtm.html#word44" title="Set the minutes">dtm-minute!</a> ( n dtm -- )<br>
+<a href="dtm.html#word43" title="Get the minutes">dtm-minute@</a> ( dtm -- n )<br>
+<a href="dtm.html#word50" title="Set the month">dtm-month!</a> ( n dtm -- )<br>
+<a href="dtm.html#word49" title="Get the month">dtm-month@</a> ( dtm -- n )<br>
+<a href="dtm.html#word25" title="Allocate a date/time variable on the heap with the current date/time">dtm-new</a> ( -- dtm )<br>
+<a href="dtm.html#word42" title="Set the seconds">dtm-second!</a> ( n dtm -- )<br>
+<a href="dtm.html#word41" title="Get the seconds">dtm-second@</a> ( dtm -- n )<br>
+<a href="dtm.html#word55" title="Set the date/time with milliseconds n1, seconds n2, minutes n3, hours n4, day n5, month n6 and year n7">dtm-set</a> ( n1 n2 n3 n4 n5 n6 n7 dtm -- )<br>
+<a href="dtm.html#word53" title="Set the date with day n1, month n2 and year n3">dtm-set-date</a> ( n1 n2 n3 dtm -- )<br>
+<a href="dtm.html#word56" title="Set the date time with the current date/time">dtm-set-now</a> ( dtm -- )<br>
+<a href="dtm.html#word54" title="Set the time with milliseconds n1, seconds n2, minutes n3 and hours n4">dtm-set-time</a> ( n1 n2 n3 n4 dtm -- )<br>
+<a href="dtm.html#word57" title="Set the date with days d1 since epoch n2">dtm-set-with-days</a> ( d1 n2 dtm -- )<br>
+<a href="dtm.html#word58" title="Set the date/time with d seconds since epoch n">dtm-set-with-seconds</a> ( d n dtm -- )<br>
+<a href="dtm.html#word62" title="Get the week day from the date">dtm-weekday</a> ( dtm -- n )<br>
+<a href="dtm.html#word52" title="Set the year">dtm-year!</a> ( n dtm -- )<br>
+<a href="dtm.html#word51" title="Get the year">dtm-year@</a> ( dtm -- n )<br>
+<a href="dtm.html#word63" title="Get the day number [in the year] from the date">dtm-yearday</a> ( dtm -- n )<br>
+<a href="dtm.html#word14" title="April">dtm.april</a> ( -- n )<br>
+<a href="dtm.html#word18" title="August">dtm.august</a> ( -- n )<br>
+<a href="dtm.html#word22" title="December">dtm.december</a> ( -- n )<br>
+<a href="dtm.html#word12" title="February">dtm.february</a> ( -- n )<br>
+<a href="dtm.html#word9" title="Friday">dtm.friday</a> ( -- n )<br>
+<a href="dtm.html#word11" title="January">dtm.january</a> ( -- n )<br>
+<a href="dtm.html#word17" title="July">dtm.july</a> ( -- n )<br>
+<a href="dtm.html#word16" title="June">dtm.june</a> ( -- n )<br>
+<a href="dtm.html#word13" title="March">dtm.march</a> ( -- n )<br>
+<a href="dtm.html#word15" title="May">dtm.may</a> ( -- n )<br>
+<a href="dtm.html#word5" title="Monday">dtm.monday</a> ( -- n )<br>
+<a href="dtm.html#word21" title="November">dtm.november</a> ( -- n )<br>
+<a href="dtm.html#word20" title="October">dtm.october</a> ( -- n )<br>
+<a href="dtm.html#word10" title="Saturday">dtm.saturday</a> ( -- n )<br>
+<a href="dtm.html#word19" title="September">dtm.september</a> ( -- n )<br>
+<a href="dtm.html#word3" title="Start epoch [1583]">dtm.start-epoch</a> ( -- n )<br>
+<a href="dtm.html#word4" title="Sunday">dtm.sunday</a> ( -- n )<br>
+<a href="dtm.html#word8" title="Thursday">dtm.thursday</a> ( -- n )<br>
+<a href="dtm.html#word6" title="Tuesday">dtm.tuesday</a> ( -- n )<br>
+<a href="dtm.html#word2" title="Unix epoch [1970]">dtm.unix-epoch</a> ( -- n )<br>
+<a href="dtm.html#word7" title="Wednesday">dtm.wednesday</a> ( -- n )<br>
+<a href="dtm.html#word68" title="Compare two date/times, return the compare result [-1,0,1]">dtm^compare</a> ( dtm1 dtm2 -- n )<br>
+<a href="enm.html#word2" title="End an enumeration definition">end-enumeration</a> ( enum-sys -- )<br>
+<a href="config.html#word1" title="Counted string for the end of line for the current system">end-of-line</a> ( -- c-addr )<br>
+<a href="stt.html#word3" title="End the stringtable definition">end-stringtable</a> ( stringtable-sys -- )<br>
+<a href="stc.html#word2" title="End a structure definition">end-structure</a> ( structure-sys -- )<br>
+<a href="enm.html#word3" title="Define an enumeration, increment for the next enumeration, return the enum value">enum:</a> ( enum-sys "&lt;spaces&gt;name" -- enum-sys ;  -- n )<br>
+<a href="log.html#word18" title="Log an error message">error"</a> ( "ccc&lt;quote&gt;" -- )<br>
+<a href="config.html#word35" title="Index out of range exception number">exp-index-out-of-range</a> ( -- n )<br>
+<a href="config.html#word44" title="Invalid data exception number">exp-invalid-data</a> ( -- n )<br>
+<a href="config.html#word38" title="Invalid parameters on stack">exp-invalid-parameters</a> ( -- n )<br>
+<a href="config.html#word36" title="Invalid state exception number">exp-invalid-state</a> ( -- n )<br>
+<a href="config.html#word37" title="No data available exception number">exp-no-data</a> ( -- n )<br>
+<a href="config.html#word42" title="Wrong checksum">exp-wrong-checksum</a> ( -- n )<br>
+<a href="config.html#word41" title="Wrong file data">exp-wrong-file-data</a> ( -- n )<br>
+<a href="config.html#word39" title="Wrong file type">exp-wrong-file-type</a> ( -- n )<br>
+<a href="config.html#word40" title="Wrong file version">exp-wrong-file-version</a> ( -- n )<br>
+<a href="config.html#word43" title="Wrong length">exp-wrong-length</a> ( -- n )<br>
+<a href="config.html#word30" title="Rotate counter clockwise three floats">f-rot</a> ( F: r1 r2 r3 -- r3 r1 r2 )<br>
+<a href="config.html#word31" title="Duplicate two floats">f2dup</a> ( F: r1 r2 -- r1 r2 r1 r2 )<br>
+<a href="config.html#word32" title="Push float on the return stack">f>r</a> ( F: r -- ; R: -- r )<br>
+<a href="log.html#word17" title="Log a fatal message">fatal"</a> ( "ccc&lt;quote&gt;" -- )<br>
+<a href="stc.html#word7" title="Create a structure field of 1 float, return the field address">ffield:</a> ( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="stc.html#word13" title="Create a structure field of n floats, return the field address">ffields:</a> ( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="stc.html#word5" title="Create a structure field of 1 cell, return the field address">field:</a> ( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="stc.html#word11" title="Create a structure field of n cells, return the field address">fields:</a> ( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="config.html#word33" title="Pop float from the return stack">fr></a> ( F: -- r ; R: r -- )<br>
+<a href="config.html#word34" title="Get float from top of return stack">fr@</a> ( F: -- r ; R: r -- r )<br>
+<a href="frc.html#word1" title="Get the required space for a frc variable">frc%</a> ( -- n )<br>
+<a href="frc.html#word15" title="Absolute the fraction n1/n2, return n3/n4">frc+abs</a> ( n1 n2 -- n3 n4 )<br>
+<a href="frc.html#word9" title="Add two fractions n1/n2 and n3/n4, return n5/n6">frc+add</a> ( n1 n2 n3 n4 -- n5 n6 )<br>
+<a href="frc.html#word6" title="Calculate the Greatest Common Divider">frc+calc-gcd</a> ( n1 n2 -- +n )<br>
+<a href="frc.html#word7" title="Calculate the Least Common Multiplier">frc+calc-lcm</a> ( n1 n2 -- +n )<br>
+<a href="frc.html#word18" title="Compare the fractions n1/n2 and n3/n4, return the result [-1,0,1]">frc+compare</a> ( n1 n2 n3 n4 -- n )<br>
+<a href="frc.html#word12" title="Divide fraction n1/n2 by fraction n3/n4, return n5/n6">frc+divide</a> ( n1 n2 n3 n4 -- n5 n6 )<br>
+<a href="frc.html#word13" title="Invert the fraction n1/n2, return n3/n4">frc+invert</a> ( n1 n2 -- n3 n4 )<br>
+<a href="frc.html#word11" title="Multiply fraction n1/n2 by fraction n3/n4, return n5/n6">frc+multiply</a> ( n1 n2 n3 n4 -- n5 n6 )<br>
+<a href="frc.html#word14" title="Negate the fraction n1/n2, return n3/n4">frc+negate</a> ( n1 n2 -- n3 n4 )<br>
+<a href="frc.html#word8" title="Normalize a fraction n1/n2, return n3/n4">frc+norm</a> ( n1 n2 -- n3 n4 )<br>
+<a href="frc.html#word10" title="Subtract fraction n3/n4 from fraction n1/n2, return n5/n6">frc+subtract</a> ( n1 n2 n3 n4 -- n5 n6 )<br>
+<a href="frc.html#word16" title="Convert fraction n1/n2 to float value">frc+to-float</a> ( n1 n2 -- r )<br>
+<a href="frc.html#word17" title="Convert fraction n1/n2 to a string using the pictured output area">frc+to-string</a> ( n1 n2 -- c-addr u )<br>
+<a href="frc.html#word3" title="Create a named fraction in the dictionary">frc-create</a> ( "&lt;spaces&gt;name" -- ; -- frc )<br>
+<a href="frc.html#word20" title="Get the denominator">frc-denom@</a> ( frc -- n )<br>
+<a href="frc.html#word25" title="Dump the fraction">frc-dump</a> ( frc -- )<br>
+<a href="frc.html#word5" title="Free the fraction from the heap">frc-free</a> ( frc -- )<br>
+<a href="frc.html#word21" title="Get the fraction n1/n2">frc-get</a> ( frc -- n1 n2 )<br>
+<a href="frc.html#word2" title="Initialise the fraction to zero">frc-init</a> ( frc -- )<br>
+<a href="frc.html#word4" title="Create a new fraction on the heap">frc-new</a> ( -- frc )<br>
+<a href="frc.html#word19" title="Get the numerator">frc-num@</a> ( frc -- n )<br>
+<a href="frc.html#word22" title="Normalize and set the fraction n1/n2">frc-set</a> ( n1 n2 frc )<br>
+<a href="frc.html#word24" title="Compare fraction2 with fraction1, return the result [-1,0,1]">frc^compare</a> ( frc2 frc1 -- n )<br>
+<a href="frc.html#word23" title="Move frc2 in frc1">frc^move</a> ( frc2 frc1 -- )<br>
+<a href="fsm.html#word1" title="Get the required space for a fsm variable">fsm%</a> ( -- n )<br>
+<a href="fsm.html#word3" title="Free the internal, private variables from the heap">fsm-(free)</a> ( fsm -- )<br>
+<a href="fsm.html#word13" title="Set the any transition for state fst1 to state fst2 with label c-addr1 u1, action xt and data x">fsm-any-transition</a> ( x xt c-addr1 u1 fst1 fst2 fsm -- ftr )<br>
+<a href="fsm.html#word4" title="Create a named fsm in the dictionary with the number of events n">fsm-create</a> ( "&lt;spaces&gt;name" +n -- ; -- fsm )<br>
+<a href="fsm.html#word17" title="Dump the fsm variable">fsm-dump</a> ( fsm -- )<br>
+<a href="fsm.html#word14" title="Feed the event to the current state, return the next state or nil if the event did not match any condition">fsm-feed</a> ( n fsm -- fst | nil )<br>
+<a href="fsm.html#word11" title="Find the state by its label c-addr u in the fsm">fsm-find-state</a> ( c-addr u fsm -- fst | nil )<br>
+<a href="fsm.html#word6" title="Free the fsm from the heap">fsm-free</a> ( fsm -- )<br>
+<a href="fsm.html#word2" title="Initialise the fsm with the number of events n">fsm-init</a> ( +n fsm -- )<br>
+<a href="fsm.html#word5" title="Create a new fsm on the heap with the number of events n">fsm-new</a> ( +n -- fsm )<br>
+<a href="fsm.html#word9" title="Add a new state with label c-addr1 u1, entry action xt1, exit action xt2 and data x">fsm-new-state</a> ( x xt1 xt2 c-addr1 u1 fsm -- fst )<br>
+<a href="fsm.html#word12" title="Add a new transition from state fst1 to state fst2 with label c-addr1 u1, action xt and data x">fsm-new-transition</a> ( x xt c-addr1 u1 fst1 fst2 fsm -- ftr )<br>
+<a href="fsm.html#word10" title="Start the finite state machine">fsm-start</a> ( fsm -- )<br>
+<a href="fsm.html#word8" title="Set the start state">fsm-start!</a> ( fst fsm -- )<br>
+<a href="fsm.html#word7" title="Get the start state">fsm-start@</a> ( fsm -- fst )<br>
+<a href="fsm.html#word16" title="Convert the fsm to a dot string using the stream, giving the graph the name c-addr u">fsm-to-dot</a> ( c-addr u tos fsm -- )<br>
+<a href="fsm.html#word15" title="Try the event for the current event, return the next state, but do not move to this state">fsm-try</a> ( n fsm -- fst | nil )<br>
+<a href="fst.html#word1" title="Get the required space for a state variable">fst%</a> ( -- n )<br>
+<a href="fst.html#word3" title="Free the internal, private variables from the heap">fst-(free)</a> ( fst -- )<br>
+<a href="fst.html#word16" title="Set the any transition to state fst1 with label c-addr u, action xt and data x">fst-any-transition</a> ( x xt c-addr u fst1 fst -- ftr )<br>
+<a href="fst.html#word13" title="Set the extra graphviz attributes for the state">fst-attributes!</a> ( c-addr u fst -- )<br>
+<a href="fst.html#word14" title="Get the extra graphviz attributes of the state">fst-attributes@</a> ( fst -- c-addr u )<br>
+<a href="fst.html#word10" title="Set the data for the state">fst-data!</a> ( x fst -- )<br>
+<a href="fst.html#word9" title="Get the data of the state">fst-data@</a> ( fst -- x )<br>
+<a href="fst.html#word20" title="Dump the fst variable">fst-dump</a> ( fst -- )<br>
+<a href="fst.html#word11" title="Get the entry action of the state">fst-entry@</a> ( fst -- xt )<br>
+<a href="fst.html#word12" title="Get the exit action of the state">fst-exit@</a> ( fst -- xt )<br>
+<a href="fst.html#word18" title="Feed the event to this state, return the next state or nil if the event did not match any condition">fst-feed</a> ( n fst -- fst | nil )<br>
+<a href="fst.html#word17" title="Find the transition with label c-addr u, else return nil">fst-find-transition</a> ( c-addr u fst -- ftr | nil )<br>
+<a href="fst.html#word5" title="Free the state from the heap">fst-free</a> ( fst -- )<br>
+<a href="fst.html#word6" title="Get the id of the state">fst-id@</a> ( fst -- n )<br>
+<a href="fst.html#word2" title="Initialise the state with id n and label c-addr u, entry action xt1, exit action xt2 and data x">fst-init</a> ( x xt1 xt2 c-addr u n fst -- )<br>
+<a href="fst.html#word8" title="Check the label c-addr u with this state">fst-label?</a> ( c-addr u fst -- c-addr u false | fst true )<br>
+<a href="fst.html#word7" title="Get the label of the state">fst-label@</a> ( fst -- c-addr u )<br>
+<a href="fst.html#word4" title="Create a new state on the heap with id n, label c-addr u, entry action xt1, exit action xt2 and data x">fst-new</a> ( x xt1 xt2 c-addr u n -- fst )<br>
+<a href="fst.html#word15" title="Add a new transition to state fst1 with label c-addr u, number events n, action xt and data x">fst-new-transition</a> ( x xt c-addr u fst1 n fst -- ftr )<br>
+<a href="fst.html#word19" title="Try the event for this state, return the result">fst-try</a> ( n fst -- fst | nil )<br>
+<a href="ftr.html#word1" title="Get the required space for a transition variable">ftr%</a> ( -- n )<br>
+<a href="ftr.html#word3" title="Free the internal, private variables from the heap">ftr-(free)</a> ( ftr -- )<br>
+<a href="ftr.html#word11" title="Get the action of the transition">ftr-action@</a> ( ftr -- xt )<br>
+<a href="ftr.html#word12" title="Set the extra graphviz attributes for the transition">ftr-attributes!</a> ( c-addr u ftr -- )<br>
+<a href="ftr.html#word13" title="Get the extra graphviz attributes of the transition">ftr-attributes@</a> ( ftr -- c-addr u )<br>
+<a href="ftr.html#word6" title="Get the condition of the transition as reference to a bit array">ftr-condition@</a> ( ftr -- bar )<br>
+<a href="ftr.html#word10" title="Set the data for the transition">ftr-data!</a> ( x ftr -- )<br>
+<a href="ftr.html#word9" title="Get the data of the transition">ftr-data@</a> ( ftr -- x )<br>
+<a href="ftr.html#word17" title="Dump the transition">ftr-dump</a> ( ftr -- )<br>
+<a href="ftr.html#word15" title="Feed the event to this transition, return the next state or the event if the event did not match the condition">ftr-feed</a> ( n ftr -- n false | fst true )<br>
+<a href="ftr.html#word14" title="Fire the transition for event n, without checking the condition">ftr-fire</a> ( n ftr -- fst )<br>
+<a href="ftr.html#word5" title="Free the transition from the heap">ftr-free</a> ( ftr -- )<br>
+<a href="ftr.html#word2" title="Initialise the transition to the state fst, with label c-addr u, number events n, action xt and data x">ftr-init</a> ( x xt c-addr u fst +n ftr -- )<br>
+<a href="ftr.html#word8" title="Check the label c-addr u with the transition ftr">ftr-label?</a> ( c-addr u ftr -- ftr true | c-addr u false )<br>
+<a href="ftr.html#word7" title="Get the label of the transition">ftr-label@</a> ( ftr -- c-addr u )<br>
+<a href="ftr.html#word4" title="Create a new transition on the heap to the state fst, with label c-addr u, number events n, action xt and data x">ftr-new</a> ( x xt c-addr u fst +n -- ftr )<br>
+<a href="ftr.html#word16" title="Try the event for this transition, return the result">ftr-try</a> ( n ftr -- n false | fst true )<br>
+<a href="gmo.html#word1" title="Read a mo-file named c-addr u and store the contents in the message catalog msc">gmo-read</a> ( c-addr u msc -- 0 | ior )<br>
+<a href="gsv.html#word2" title="Call the gtk-server with command c-addr1 u1, resulting in response c-addr2 u2">gsv+call</a> ( c-addr1 u1 -- c-addr2 u2 )<br>
+<a href="gsv.html#word5" title="Close the connection to the gtk-server, the gtk-server is *NOT* closed">gsv+close</a> ( -- ior )<br>
+<a href="gsv.html#word1" title="Connect to the gtk-server via a fifo c-addr u">gsv+connect</a> ( c-addr u -- ior )<br>
+<a href="gsv.html#word3" title="Disconnect from the gtk-server, the gtk-server is *NOT* closed">gsv+disconnect</a> ( -- ior )<br>
+<a href="gsv.html#word4" title="Open the connection to the gtk-server by reading the configuration file c-addr1 u1 and connecting to c-addr2 u2">gsv+open</a> ( c-addr1 u1 c-addr2 u2 -- ior )<br>
+<a href="gsv.html#word6" title="Call gtk_server_connect with widgetid n2, signal c-addr1 u1 and description n2, returning the result c-addr2 u2">gsv+server-connect</a> ( n1 c-addr1 u1 n2 -- c-addr2 u2 )<br>
+<a href="gsv.html#word7" title="Call gtk_server_connect_after with widgetid n2, signal c-addr1 u1 and description n2, returning the result c-addr2 u2">gsv+server-connect-after</a> ( n1 c-addr1 u1 n2 -- c-addr2 u2 )<br>
+<a href="gzf.html#word17" title="Get the required space for a gzf variable">gzf%</a> ( -- n )<br>
+<a href="gzf.html#word19" title="Free the internal, private variables from the heap">gzf-(free)</a> ( gzf -- )<br>
+<a href="gzf.html#word34" title="Set the comment for the next file in the gzip file">gzf-comment!</a> ( c-addr u gzf -- )<br>
+<a href="gzf.html#word33" title="Get the comment of the current file in the gzip file">gzf-comment@</a> ( gzf -- c-addr u )<br>
+<a href="gzf.html#word20" title="Create a named gzip file variable in the dictionary">gzf-create</a> ( "&lt;spaces&gt;name" -- ; -- gzf )<br>
+<a href="gzf.html#word36" title="Dump the variable">gzf-dump</a> ( gzf -- )<br>
+<a href="gzf.html#word26" title="Set the flags for the gzip file header">gzf-flags!</a> ( u gzf -- )<br>
+<a href="gzf.html#word25" title="Get the flags from the gzip file header">gzf-flags@</a> ( gzf -- u )<br>
+<a href="gzf.html#word22" title="Free the variable from the heap">gzf-free</a> ( gzf -- )<br>
+<a href="gzf.html#word18" title="Initialise the gzip file variable">gzf-init</a> ( gzf -- )<br>
+<a href="gzf.html#word30" title="Set the modification time for the next file in the gzip file in seconds since unix epoch">gzf-mtime!</a> ( u gzf -- )<br>
+<a href="gzf.html#word29" title="Get the modification time of the current file in the gzip file in seconds since unix epoch">gzf-mtime@</a> ( gzf -- u )<br>
+<a href="gzf.html#word32" title="Set the name of the next file in the gzip file">gzf-name!</a> ( c-addr u gzf -- )<br>
+<a href="gzf.html#word31" title="Get the name of the current file in the gzip file">gzf-name@</a> ( gzf -- c-addr u )<br>
+<a href="gzf.html#word21" title="Create a new gzip file variable on the heap">gzf-new</a> ( -- gzf )<br>
+<a href="gzf.html#word28" title="Set the operating system for the next file in the gzip file">gzf-os!</a> ( n gzf -- )<br>
+<a href="gzf.html#word27" title="Get the operating system of the current file in the gzip file">gzf-os@</a> ( gzf -- n )<br>
+<a href="gzf.html#word35" title="Reset the gzip file header">gzf-reset</a> ( gzf -- )<br>
+<a href="gzf.html#word24" title="Set if the source for the next file in the gzip file is text">gzf-text!</a> ( flag gzf -- )<br>
+<a href="gzf.html#word23" title="Get if the source of the current file in the gzip file is text">gzf-text@</a> ( gzf -- flag )<br>
+<a href="gzf.html#word14" title="ACORN OS">gzf.acorn</a> ( -- n )<br>
+<a href="gzf.html#word2" title="Amiga OS">gzf.amiga</a> ( -- n )<br>
+<a href="gzf.html#word6" title="ATARI OS">gzf.atari</a> ( -- n )<br>
+<a href="gzf.html#word10" title="CP-M OS">gzf.cp/m</a> ( -- n )<br>
+<a href="gzf.html#word16" title="Deflate Compression mode">gzf.deflate</a> ( -- n )<br>
+<a href="gzf.html#word1" title="FAT OS">gzf.fat</a> ( -- n )<br>
+<a href="gzf.html#word7" title="HPFS OS">gzf.hpfs</a> ( -- n )<br>
+<a href="gzf.html#word8" title="MACINTOS OS">gzf.macintos</a> ( -- n )<br>
+<a href="gzf.html#word12" title="NTFS OS">gzf.ntfs</a> ( -- n )<br>
+<a href="gzf.html#word13" title="QDOS OS">gzf.qdos</a> ( -- n )<br>
+<a href="gzf.html#word11" title="TOPS-20 OS">gzf.tops-20</a> ( -- n )<br>
+<a href="gzf.html#word4" title="UNIX OS">gzf.unix</a> ( -- n )<br>
+<a href="gzf.html#word15" title="other">gzf.unknown</a> ( -- n )<br>
+<a href="gzf.html#word5" title="VM-CMS OS">gzf.vm/cms</a> ( -- n )<br>
+<a href="gzf.html#word3" title="VMS OS">gzf.vms</a> ( -- n )<br>
+<a href="gzf.html#word9" title="Z-SYSTEM OS">gzf.z-system</a> ( -- n )<br>
+<a href="gzi.html#word5" title="Get the required space for a gzi variable">gzi%</a> ( -- n )<br>
+<a href="gzi.html#word7" title="Free the internal, private variables from the heap">gzi-(free)</a> ( gzi -- )<br>
+<a href="gzi.html#word8" title="Create a named gzip inflation variable in the dictionary with an initial output buffer size u">gzi-create</a> ( "&lt;spaces&gt;name" u -- ; -- gzi )<br>
+<a href="gzi.html#word16" title="Dump the gzi">gzi-dump</a> ( gzi -- )<br>
+<a href="gzi.html#word15" title="Finish the inflation of data">gzi-end-inflate</a> ( gzi -- )<br>
+<a href="gzi.html#word10" title="Free the variable from the heap">gzi-free</a> ( gzi -- )<br>
+<a href="gzi.html#word13" title="Do the next step in inflating data, return the result code">gzi-inflate</a> ( gzi -- ior )<br>
+<a href="gzi.html#word6" title="Initialise the gzip inflation variable with an initial output buffer size u">gzi-init</a> ( u gzi -- )<br>
+<a href="gzi.html#word12" title="Start the inflation of data">gzi-init-inflate</a> ( gzi -- )<br>
+<a href="gzi.html#word11" title="Get the output buffer">gzi-lbf@</a> ( gzi -- lbf )<br>
+<a href="gzi.html#word9" title="Create a new gzip inflation variable on the heap">gzi-new</a> ( -- gzi )<br>
+<a href="gzi.html#word14" title="Check if the output buffer can be reduced">gzi-reduce-output</a> ( gzi -- )<br>
+<a href="gzi.html#word2" title="Decompression is done">gzi.done</a> ( -- n )<br>
+<a href="gzi.html#word3" title="Decompression step needs more data">gzi.more</a> ( -- n )<br>
+<a href="gzi.html#word1" title="Decompression step is okee">gzi.ok</a> ( -- n )<br>
+<a href="gzi.html#word4" title="Decompression step states">gzi.states</a> ( -- n )<br>
+<a href="hci.html#word1" title="Get the required space for a hash cell table iterator">hci%</a> ( -- n )<br>
+<a href="hci.html#word3" title="Create a named iterator in the dictionary on the hash table hct">hci-create</a> ( hct "&lt;spaces&gt;name" -- ; -- hci )<br>
+<a href="hci.html#word14" title="Dump the iterator">hci-dump</a> ( hci -- )<br>
+<a href="hci.html#word9" title="Move the iterator to the first record, return the cell data of this record">hci-first</a> ( hci -- x true | false )<br>
+<a href="hci.html#word12" title="Check if the iterator is on the first record">hci-first?</a> ( hci -- flag )<br>
+<a href="hci.html#word5" title="Free the iterator from heap">hci-free</a> ( hci -- )<br>
+<a href="hci.html#word6" title="Get the cell data x from the current record">hci-get</a> ( hci -- false | x true )<br>
+<a href="hci.html#word2" title="Initialise the iterator with a hash table">hci-init</a> ( hct hci -- )<br>
+<a href="hci.html#word7" title="Get the key from the current record">hci-key</a> ( hci -- c-addr u )<br>
+<a href="hci.html#word13" title="Check if the iterator is on the last record">hci-last?</a> ( hci -- flag )<br>
+<a href="hci.html#word11" title="Move the iterator to the next record with the cell data x, return success">hci-move</a> ( x hci -- flag )<br>
+<a href="hci.html#word4" title="Create an iterator on the heap on the hash table hct">hci-new</a> ( hct -- hci )<br>
+<a href="hci.html#word10" title="Move the iterator to the next record, return the cell data from this record">hci-next</a> ( hci -- x true | false )<br>
+<a href="hci.html#word8" title="Set the cell data x in the current record">hci-set</a> ( x hci -- )<br>
+<a href="hcn.html#word1" title="Get the required space for a hcn node">hcn%</a> ( - n )<br>
+<a href="hcn.html#word3" title="Free the key from the heap">hcn-(free)</a> ( hcn -- )<br>
+<a href="hcn.html#word6" title="Dump the node">hcn-dump</a> ( hcn -- )<br>
+<a href="hcn.html#word5" title="Free the node from the heap">hcn-free</a> ( hcn -- )<br>
+<a href="hcn.html#word2" title="Initialise the node with the hash u2, the key c-addr u and cell data x">hcn-init</a> ( x c-addr u u2 hcn -- )<br>
+<a href="hcn.html#word4" title="Create a new node on the heap with the hash u2, the key c-addr u and cell data x">hcn-new</a> ( x c-addr u u2 -- hcn )<br>
+<a href="hct.html#word1" title="Get the required space for a hash table variable">hct%</a> ( -- n )<br>
+<a href="hct.html#word7" title="Calculate the hash value of a key">hct+hash</a> ( c-addr1 u1 -- u2 )<br>
+<a href="hct.html#word3" title="Free the nodes from the hash table">hct-(free)</a> ( hct -- )<br>
+<a href="hct.html#word17" title="Count the number of occurrences of the cell data x in the table">hct-count</a> ( x hct -- u )<br>
+<a href="hct.html#word4" title="Create a named hash table with an initial size u in the dictionary">hct-create</a> ( u "&lt;spaces&gt;name" -- ; -- hct )<br>
+<a href="hct.html#word14" title="Delete the key c-addr u from the table, return the cell data related to the key">hct-delete</a> ( c-addr u hct -- false | x true )<br>
+<a href="hct.html#word19" title="Dump the hash table">hct-dump</a> ( hct -- )<br>
+<a href="hct.html#word8" title="Check if the table is empty">hct-empty?</a> ( hct -- flag )<br>
+<a href="hct.html#word18" title="Execute xt for every key and cell data in table">hct-execute</a> ( i*x xt hct -- j*x )<br>
+<a href="hct.html#word6" title="Free the hash table from the heap">hct-free</a> ( hct -- )<br>
+<a href="hct.html#word15" title="Get the cell data x related to the key c-addr u from the table">hct-get</a> ( c-addr u hct -- false | x true )<br>
+<a href="hct.html#word16" title="Check if the key c-addr u is present in the table">hct-has?</a> ( c-addr u hct -- flag )<br>
+<a href="hct.html#word2" title="Initialise the hash table with an initial size u">hct-init</a> ( u hct -- )<br>
+<a href="hct.html#word13" title="Insert cell data x with the key c-addr u in the table">hct-insert</a> ( x c-addr u hct -- )<br>
+<a href="hct.html#word9" title="Get the number of nodes in the table">hct-length@</a> ( hct -- u )<br>
+<a href="hct.html#word11" title="Set the load factor [*100%]">hct-load!</a> ( u hct -- )<br>
+<a href="hct.html#word10" title="Get the load factor [*100%]">hct-load@</a> ( hct -- u )<br>
+<a href="hct.html#word5" title="Create a hash table with an initial size u on the heap">hct-new</a> ( u -- hct )<br>
+<a href="hct.html#word12" title="Resize the hash table to size u">hct-size!</a> ( u hct -- )<br>
+<a href="hni.html#word1" title="Get the required space for a hash table base iterator variable">hni%</a> ( -- n )<br>
+<a href="hni.html#word3" title="Create a named iterator in the dictionary on the hash table hnt">hni-create</a> ( hnt "&lt;spaces&gt;name" -- ; -- hni )<br>
+<a href="hni.html#word12" title="Dump the iterator">hni-dump</a> ( hni -- )<br>
+<a href="hni.html#word8" title="Move the iterator to the first record, return the node in this record">hni-first</a> ( hni -- hnn | nil )<br>
+<a href="hni.html#word10" title="Check if the iterator is on the first record">hni-first?</a> ( hni -- flag )<br>
+<a href="hni.html#word5" title="Free iterator from heap">hni-free</a> ( hni -- )<br>
+<a href="hni.html#word6" title="Get the node from the current record">hni-get</a> ( hni -- hnn | nil )<br>
+<a href="hni.html#word2" title="Initialise the iterator with the hash table hnt">hni-init</a> ( hnt hni -- )<br>
+<a href="hni.html#word7" title="Get the key from the current record">hni-key</a> ( hni -- c-addr u )<br>
+<a href="hni.html#word11" title="Check if the iterator is on the last record">hni-last?</a> ( hni -- flag )<br>
+<a href="hni.html#word4" title="Create an iterator on the heap on the hash table hnt">hni-new</a> ( hnt -- hni )<br>
+<a href="hni.html#word9" title="Move the iterator to the next record, return the node in this record">hni-next</a> ( hni -- hnn | nil )<br>
+<a href="hnn.html#word1" title="Get the required space for a hnn node">hnn%</a> ( -- n )<br>
+<a href="hnn.html#word3" title="Free the key from the heap">hnn-(free)</a> ( hnn -- )<br>
+<a href="hnn.html#word7" title="Dump the node">hnn-dump</a> ( hnn -- )<br>
+<a href="hnn.html#word5" title="Free the node from the heap">hnn-free</a> ( hnn -- )<br>
+<a href="hnn.html#word2" title="Initialise the node with the key c-addr u and hash u2">hnn-init</a> ( c-addr u u2 hnn -- )<br>
+<a href="hnn.html#word6" title="Get the key from the node">hnn-key@</a> ( hnn -- c-addr u )<br>
+<a href="hnn.html#word4" title="Create a new node on the heap with the key c-addr u and hash u2">hnn-new</a> ( c-addr u u2 -- hnn )<br>
+<a href="hnt.html#word1" title="Get the required space for a hash table variable">hnt%</a> ( -- n )<br>
+<a href="hnt.html#word7" title="Calculate the hash value of the key c-addr1 u1">hnt+hash</a> ( c-addr1 u1 -- u2 )<br>
+<a href="hnt.html#word3" title="Free the nodes from the heap using xt">hnt-(free)</a> ( xt hnt -- )<br>
+<a href="hnt.html#word4" title="Create a named hash table with an initial size u in the dictionary">hnt-create</a> ( u "&lt;spaces&gt;name" -- ; -- hnt )<br>
+<a href="hnt.html#word15" title="Delete the key c-addr u from the table, return the deleted node hnn">hnt-delete</a> ( c-addr u hnt -- nil | hnn )<br>
+<a href="hnt.html#word19" title="Dump the hash table">hnt-dump</a> ( hnt -- )<br>
+<a href="hnt.html#word8" title="Check for an empty table">hnt-empty?</a> ( hnt -- flag )<br>
+<a href="hnt.html#word18" title="Execute xt for every key and node in table">hnt-execute</a> ( i*x xt hnt -- j*x )<br>
+<a href="hnt.html#word6" title="Free the hash table from the heap">hnt-free</a> ( hnt -- )<br>
+<a href="hnt.html#word16" title="Get the node related to the key c-addr u from the table, return the node hnn">hnt-get</a> ( c-addr u hnt -- nil | hnn )<br>
+<a href="hnt.html#word17" title="Check if the key c-addr u is present in the table">hnt-has?</a> ( c-addr u hnt -- flag )<br>
+<a href="hnt.html#word2" title="Initialise the hash table with an initial size u">hnt-init</a> ( u hnt -- )<br>
+<a href="hnt.html#word14" title="Insert the node hnn in the table, double keys are NOT checked">hnt-insert</a> ( hnn hnt -- )<br>
+<a href="hnt.html#word9" title="Get the number of nodes in the table">hnt-length@</a> ( hnt -- u )<br>
+<a href="hnt.html#word11" title="Set the load factor [*100%]">hnt-load!</a> ( u hnt -- )<br>
+<a href="hnt.html#word10" title="Get the load factor [*100%]">hnt-load@</a> ( hnt -- u )<br>
+<a href="hnt.html#word5" title="Create a hash table with an initial size u on the heap">hnt-new</a> ( u -- hnt )<br>
+<a href="hnt.html#word13" title="Search the node based on the key, return the hash u and the node hnn">hnt-search</a> ( c-addr u hnt -- u hnn )<br>
+<a href="hnt.html#word12" title="Resize the hash table">hnt-size!</a> ( u hnt -- )<br>
+<a href="config.html#word21" title="Compare case-insensitive two strings and return the result [-1,0,1]">icompare</a> ( c-addr1 u1 c-addr2 u2 -- n )<br>
+<a href="config.html#word23" title="Convert the index n1 range [-n2..n2> into offset n3 range [0..n2>, negative values of n1 downward length n2">index2offset</a> ( n1 n2 -- n3 )<br>
+<a href="log.html#word20" title="Log an info message">info"</a> ( "ccc&lt;quote&gt;" -- )<br>
+<a href="fwt.html#word13" title="Store a long word, 32 bit">l!</a> ( n l-addr -- )<br>
+<a href="fwt.html#word14" title="Add l to l-addr">l+!</a> ( l l-addr -- )<br>
+<a href="fwt.html#word15" title="Add l to l-addr">l+!</a> ( l l-addr -- )<br>
+<a href="fwt.html#word16" title="Store 32 bits of data in the data storage">l,</a> ( x -- )<br>
+<a href="fwt.html#word17" title="Store 32 bits of data in the data storage">l,</a> ( x -- )<br>
+<a href="fwt.html#word11" title="Fetch a long word, 32 bit, zero extend">l@</a> ( l-addr -- n )<br>
+<a href="fwt.html#word22" title="Fetch l2 from l-addr and then store l1 at l-addr">l@!</a> ( l1 l-addr -- l2 )<br>
+<a href="fwt.html#word23" title="Fetch l2 from l-addr and then store l1 at l-addr">l@!</a> ( l1 l-addr -- l2 )<br>
+<a href="lbf.html#word1" title="Get the required space for a lbf variable">lbf%</a> ( -- n )<br>
+<a href="lbf.html#word14" title="Set the initial extra space allocated during resizing of the buffer">lbf+extra!</a> ( u -- )<br>
+<a href="lbf.html#word13" title="Get the initial extra space allocated during resizing of the buffer">lbf+extra@</a> ( -- u )<br>
+<a href="lbf.html#word3" title="Free the internal data from the heap">lbf-(free)</a> ( lbf -- )<br>
+<a href="lbf.html#word16" title="Set the store word xt1 and the fetch word x2 for the buffer">lbf-access!</a> ( xt1 xt2 lbf -- )<br>
+<a href="lbf.html#word15" title="Get the store word xt1 and the fetch word xt2 for the buffer">lbf-access@</a> ( lbf -- xt1 xt2 )<br>
+<a href="lbf.html#word28" title="Clear the buffer">lbf-clear</a> ( lbf -- )<br>
+<a href="lbf.html#word27" title="Copy records u1 times from distance u2, u1 >= u2 is allowed">lbf-copy</a> ( u1 u2 lbf -- )<br>
+<a href="lbf.html#word4" title="Create a linear buffer in the dictionary with element size n1 and initial length n2">lbf-create</a> ( +n1 +n2 "&lt;spaces&gt;name" -- ; -- lbf )<br>
+<a href="lbf.html#word23" title="Dequeue one element from the buffer, using the fetch word if available">lbf-dequeue</a> ( lbf -- i*x true | addr true | false )<br>
+<a href="lbf.html#word30" title="Dump the linear buffer variable">lbf-dump</a> ( lbf -- )<br>
+<a href="lbf.html#word22" title="Enqueue one element in the buffer, using the store word if available">lbf-enqueue</a> ( i*x lbf | addr lbf -- )<br>
+<a href="lbf.html#word11" title="Set the extra space allocated during resizing of the buffer">lbf-extra!</a> ( u lbf -- )<br>
+<a href="lbf.html#word10" title="Get the extra space allocated during resizing of the buffer">lbf-extra@</a> ( lbf -- u )<br>
+<a href="lbf.html#word20" title="Fetch maximum u1 elements from the buffer, return the actual number of elements u2">lbf-fetch</a> ( u1 lbf -- addr u2 | 0 )<br>
+<a href="lbf.html#word6" title="Free the linear buffer from the heap">lbf-free</a> ( lbf -- )<br>
+<a href="lbf.html#word9" title="Get the number of elements between the out pointer and the secondary out pointer">lbf-gap@</a> ( lbf -- u )<br>
+<a href="lbf.html#word18" title="Get maximum u1 elements from the buffer, return the actual number of elements u2">lbf-get</a> ( u1 lbf -- addr u2 | 0 )<br>
+<a href="lbf.html#word19" title="Get maximum u1 elements from the buffer, based on secondary out, return the actual number of elements u2">lbf-get'</a> ( u1 lbf -- addr u2 | 0 )<br>
+<a href="lbf.html#word2" title="Initialise the buffer with element size n1 and initial length n2">lbf-init</a> ( +n1 +n2 lbf -- )<br>
+<a href="lbf.html#word8" title="Get the number of elements in the buffer based on the secondary out pointer">lbf-length'@</a> ( lbf -- u )<br>
+<a href="lbf.html#word7" title="Get the number of elements in the buffer">lbf-length@</a> ( lbf -- u )<br>
+<a href="lbf.html#word5" title="Create a linear buffer with element size n1 and initial length n2 on the heap">lbf-new</a> ( +n1 +n2 -- lbf )<br>
+<a href="lbf.html#word26" title="Pop one element from the buffer, using the fetch word if available">lbf-pop</a> ( lbf -- i*x true | addr true | false )<br>
+<a href="lbf.html#word25" title="Push one element in the buffer, using the store word if available">lbf-push</a> ( i*x lbf | addr lbf -- )<br>
+<a href="lbf.html#word29" title="Remove the leading unused space in the buffer if the unused length is at least u elements">lbf-reduce</a> ( u lbf -- )<br>
+<a href="lbf.html#word17" title="Set u elements, starting from addr in the buffer, resize if necessary">lbf-set</a> ( addr u lbf -- )<br>
+<a href="lbf.html#word12" title="Insure the size of the buffer">lbf-size!</a> ( +n lbf -- )<br>
+<a href="lbf.html#word21" title="Skip maximum u1 elements from the buffer, return the actual skipped elements u2">lbf-skip</a> ( u1 lbf -- u2 )<br>
+<a href="lbf.html#word24" title="Fetch the top element, using the fetch word if available">lbf-tos</a> ( lbf -- i*x true | addr true | false )<br>
+<a href="fwt.html#word2" title="Create a structure field for a long word, 4 bytes, not aligned, return the field address">lfield:</a> ( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="fwt.html#word4" title="Create a structure field for n long words, not aligned, return the field address">lfields:</a> ( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="fwt.html#word18" title="Rotate l1 u2 bits to the left">llroll</a> ( l1 u2 -- l3 )<br>
+<a href="fwt.html#word19" title="Rotate l1 u2 bits to the left">llroll</a> ( l1 u2 -- l3 )<br>
+<a href="log.html#word12" title="Skip and suppress all events below level n">log-from-level</a> ( n -- )<br>
+<a href="log.html#word13" title="Append max n top stack elements to the log message">log-stack-depth</a> ( n -- )<br>
+<a href="log.html#word10" title="Start logging to the xt callback">log-to-callback</a> ( xt -- )<br>
+<a href="log.html#word11" title="Start logging to the console">log-to-console</a> ( -- )<br>
+<a href="log.html#word9" title="Start logging to the file">log-to-file</a> ( fileid -- )<br>
+<a href="log.html#word8" title="Start logging to rolling files, with names starting with c-addr u, maximum n1 files and n2 entries in one file">log-to-rolling</a> ( c-addr u n1 n2 -- )<br>
+<a href="log.html#word15" title="Set if the log line should be flushed to file">log-with-flush</a> ( flag -- )<br>
+<a href="log.html#word14" title="Set if the time&date should start the log message">log-with-time&date</a> ( flag -- )<br>
+<a href="log.html#word2" title="the debug event">log.debug</a> ( -- n )<br>
+<a href="log.html#word5" title="the error event">log.error</a> ( -- n )<br>
+<a href="log.html#word6" title="the fatal event">log.fatal</a> ( -- n )<br>
+<a href="log.html#word3" title="the info event">log.info</a> ( -- n )<br>
+<a href="log.html#word7" title="disable all events">log.none</a> ( -- n )<br>
+<a href="log.html#word1" title="the trace event">log.trace</a> ( -- n )<br>
+<a href="log.html#word4" title="the warning event">log.warning</a> ( -- n )<br>
+<a href="config.html#word10" title="Rotate u1 u2 bits to the left">lroll</a> ( u1 u2 -- u3 )<br>
+<a href="fwt.html#word20" title="Rotate l1 u2 bits to the right">lrroll</a> ( l1 u2 -- l3 )<br>
+<a href="fwt.html#word21" title="Rotate l1 u2 bits to the left">lrroll</a> ( l1 u2 -- l3 )<br>
+<a href="config.html#word7" title="Maximum value of the milliseconds timer">max-ms@</a> ( -- u )<br>
+<a href="md5.html#word1" title="Get the required space for a md5 variable">md5%</a> ( -- n )<br>
+<a href="md5.html#word9" title="Convert MD5 result to the string, using the pictured output area">md5+to-string</a> ( u1 u2 u3 u4 -- c-addr u )<br>
+<a href="md5.html#word3" title="Create a named MD5 variable in the dictionary">md5-create</a> ( "&lt;spaces&gt;name" -- ; -- md5 )<br>
+<a href="md5.html#word10" title="Dump the md5 variable">md5-dump</a> ( md5 -- )<br>
+<a href="md5.html#word8" title="Finish the MD5 calculation, return the result u1 u2 u3 u4">md5-finish</a> ( md5 -- u1 u2 u3 u4 )<br>
+<a href="md5.html#word5" title="Free the MD5 variable from the heap">md5-free</a> ( md5 -- )<br>
+<a href="md5.html#word2" title="Initialise the MD5 variable">md5-init</a> ( md5 -- )<br>
+<a href="md5.html#word4" title="Create a new MD5 variable on the heap">md5-new</a> ( -- md5 )<br>
+<a href="md5.html#word6" title="Reset the MD5 state">md5-reset</a> ( md5 -- )<br>
+<a href="md5.html#word7" title="Update the MD5 with more data c-addr u">md5-update</a> ( c-addr u md5 -- )<br>
+<a href="config.html#word6" title="Fetch milliseconds timer">ms@</a> ( -- u )<br>
+<a href="msc.html#word1" title="Get the required space for a message catalog">msc%</a> ( -- n )<br>
+<a href="msc.html#word3" title="Free the catalogs nodes from the heap">msc-(free)</a> ( msc -- )<br>
+<a href="msc.html#word7" title="Add the message c-addr1 u1 and translation c-addr2 u2 to the catalog">msc-add</a> ( c-addr1 u1 c-addr2 u2 msc -- )<br>
+<a href="msc.html#word4" title="Create a named message catalog in the dictionary">msc-create</a> ( "&lt;spaces&gt;name" --  ; -- msc )<br>
+<a href="msc.html#word11" title="Dump the message catalog">msc-dump</a> ( msc -- )<br>
+<a href="msc.html#word6" title="Free the message catalog from the heap">msc-free</a> ( msc -- )<br>
+<a href="msc.html#word2" title="Initialise the catalog">msc-init</a> ( msc -- )<br>
+<a href="msc.html#word5" title="Create a message catalog on the heap">msc-new</a> ( -- msc )<br>
+<a href="msc.html#word10" title="Remove the message c-addr u from the catalog, return success">msc-remove</a> ( c-addr u msc -- flag )<br>
+<a href="msc.html#word8" title="Translate the message c-addr1 u1 with the catalog, return message if not found">msc-translate</a> ( c-addr1 u1 msc -- c-addr2 u2 )<br>
+<a href="msc.html#word9" title="Translate the message c-addr1 u1 with the catalog, return success">msc-translate?</a> ( c-addr1 u2 msc -- c-addr2 u2 true | false )<br>
+<a href="nci.html#word1" title="Get the required space for a nci variable">nci%</a> ( -- n )<br>
+<a href="nci.html#word14" title="Append data x as child to the children of the current node, iterator is moved to the new child">nci-append-child</a> ( x nci -- )<br>
+<a href="nci.html#word12" title="Move the iterator to the first child of the current node, return the cell data x of this node">nci-child</a> ( nci -- x true | false )<br>
+<a href="nci.html#word10" title="Return the number of children of the current node">nci-children</a> ( nci -- n )<br>
+<a href="nci.html#word11" title="Check if the current node has children">nci-children?</a> ( nci -- flag )<br>
+<a href="nci.html#word3" title="Create a named iterator in the dictionary on the n-tree nct">nci-create</a> ( nct "&lt;spaces&gt;name" -- ; -- nci )<br>
+<a href="nci.html#word24" title="Dump the iterator">nci-dump</a> ( nci -- )<br>
+<a href="nci.html#word15" title="Move the iterator to the first sibling, return the cell data x from this node">nci-first</a> ( nci -- x true | false )<br>
+<a href="nci.html#word19" title="Check if the iterator is on the first sibling">nci-first?</a> ( nci -- flag )<br>
+<a href="nci.html#word5" title="Free the iterator from heap">nci-free</a> ( nci -- )<br>
+<a href="nci.html#word6" title="Get the cell data x from the current node">nci-get</a> ( nci -- x true | false )<br>
+<a href="nci.html#word2" title="Initialise the iterator with the n-tree nct">nci-init</a> ( nct nci -- )<br>
+<a href="nci.html#word22" title="Insert data x as sibling after the current sibling in the tree">nci-insert-after</a> ( x nci -- )<br>
+<a href="nci.html#word21" title="Insert data x as sibling before the current sibling in the tree">nci-insert-before</a> ( x nci -- )<br>
+<a href="nci.html#word18" title="Move the iterator to the last sibling, return the cell data x from this node">nci-last</a> ( nci -- x true | false )<br>
+<a href="nci.html#word20" title="Check if the iterator is on the last sibling">nci-last?</a> ( nci -- flag )<br>
+<a href="nci.html#word4" title="Create an iterator on the heap on the n-tree nct">nci-new</a> ( nct -- nci )<br>
+<a href="nci.html#word16" title="Move the iterator to the next sibling, return the cell data x from this node">nci-next</a> ( nci -- x true | false )<br>
+<a href="nci.html#word9" title="Move the iterator to the parent of the current node, return the cell data x from this node">nci-parent</a> ( nci -- x true | false )<br>
+<a href="nci.html#word13" title="Prepend data x as child to the children of the current node, iterator is moved to the new child">nci-prepend-child</a> ( x nci -- )<br>
+<a href="nci.html#word17" title="Move the iterator to the previous sibling, return the cell data x from this node">nci-prev</a> ( nci -- x true | false )<br>
+<a href="nci.html#word23" title="Remove the current sibling without children from the tree, move the iterator to the next, previous or parent node, return the cell data x of the removed node">nci-remove</a> ( nci -- x true | false )<br>
+<a href="nci.html#word8" title="Move the iterator to the root of the tree, return the cell data x from this node">nci-root</a> ( nci -- x true | false )<br>
+<a href="nci.html#word7" title="Check if the current node is the root node">nci-root?</a> ( nci -- flag )<br>
+<a href="ncn.html#word1" title="Get the required space for a ncn node">ncn%</a> ( -- n )<br>
+<a href="ncn.html#word6" title="Set the cell data x in the node">ncn-cell!</a> ( x ncn -- )<br>
+<a href="ncn.html#word5" title="Get the cell data from the node">ncn-cell@</a> ( ncn -- x )<br>
+<a href="ncn.html#word7" title="Dump the node">ncn-dump</a> ( ncn -- )<br>
+<a href="ncn.html#word4" title="Free the node from the heap">ncn-free</a> ( ncn -- )<br>
+<a href="ncn.html#word2" title="Initialise the node with data x">ncn-init</a> ( x ncn -- )<br>
+<a href="ncn.html#word3" title="Create a new node on the heap with data x">ncn-new</a> ( x -- ncn )<br>
+<a href="nct.html#word1" title="Get the required space for a nct variable">nct%</a> ( -- n )<br>
+<a href="nct.html#word3" title="Free the nodes in the tree">nct-(free)</a> ( nct -- )<br>
+<a href="nct.html#word9" title="Delete all nodes from the tree">nct-clear</a> ( nct -- )<br>
+<a href="nct.html#word12" title="Count the number of the occurrences of the cell data x in the tree">nct-count</a> ( x nct -- u )<br>
+<a href="nct.html#word4" title="Create a named n-tree in the dictionary">nct-create</a> ( "&lt;spaces&gt;name" -- ; -- nct )<br>
+<a href="nct.html#word14" title="Dump the tree">nct-dump</a> ( nct -- )<br>
+<a href="nct.html#word8" title="Check for empty tree">nct-empty?</a> ( nct -- flag )<br>
+<a href="nct.html#word10" title="Execute xt for every node in tree">nct-execute</a> ( i*x xt nct -- j*x )<br>
+<a href="nct.html#word11" title="Execute xt for every node in the tree until xt returns true">nct-execute?</a> ( i*x xt nct -- j*x flag )<br>
+<a href="nct.html#word6" title="Free the tree from the heap">nct-free</a> ( nct -- )<br>
+<a href="nct.html#word13" title="Check if the cell data x is present in the tree">nct-has?</a> ( x nct -- flag )<br>
+<a href="nct.html#word2" title="Initialise the tree">nct-init</a> ( nct -- )<br>
+<a href="nct.html#word7" title="Get the number of nodes in the tree">nct-length@</a> ( nct -- u )<br>
+<a href="nct.html#word5" title="Create a new n-tree on the heap">nct-new</a> ( -- nct )<br>
+<a href="nfe.html#word1" title="Get the required space for a nfe expression">nfe%</a> ( -- n )<br>
+<a href="nfe.html#word3" title="Free all states in the [sub]expression [recursive]">nfe+free-expression</a> ( nfe -- )<br>
+<a href="nfe.html#word4" title="Free the internal, private variables from the heap">nfe-(free)</a> ( nfe -- )<br>
+<a href="nfe.html#word18" title="Make an alternation [|] of two expressions, return the new outs nfs5 and start nfs6">nfe-alternation</a> ( nfs1 nfs2 nfs3 nfs4 nfe -- nfs5 nfs6 )<br>
+<a href="nfe.html#word14" title="Clear the expression">nfe-clear</a> ( nfe -- )<br>
+<a href="nfe.html#word22" title="Close the expression by adding the match state, return the start nfs3">nfe-close</a> ( nfs1 nfs2 nfe -- nfs3 )<br>
+<a href="nfe.html#word16" title="Concat the two expressions, return the outs nfs5 and start nfs6">nfe-concat</a> ( nfs1 nfs2 nfs3 nfs4 nfe -- nfs5 nfs6 )<br>
+<a href="nfe.html#word5" title="Create a named expression in the dictionary">nfe-create</a> ( "&lt;spaces&gt;name" -- ; -- nfe )<br>
+<a href="nfe.html#word26" title="Dump the expression">nfe-dump</a> ( nfe -- )<br>
+<a href="nfe.html#word11" title="Get the list of states in the expression or nil">nfe-expression@</a> ( nfe -- a-addr )<br>
+<a href="nfe.html#word7" title="Free the expression from the heap">nfe-free</a> ( nfe -- )<br>
+<a href="nfe.html#word2" title="Initialise the expression">nfe-init</a> ( nfe -- )<br>
+<a href="nfe.html#word9" title="Increment and return the paren level">nfe-level+@</a> ( nfe -- n )<br>
+<a href="nfe.html#word23" title="Match a string c-addr u, with the flag indicating case insensitive match, return the match result">nfe-match?</a> ( c-addr u flag nfe -- flag )<br>
+<a href="nfe.html#word6" title="Create a new expression on the heap">nfe-new</a> ( -- nfe )<br>
+<a href="nfe.html#word21" title="Repeat the expression one or more [+] times, return the new outs nfs3 and start nfs4">nfe-one-or-more</a> ( nfs1 nfs2 nfe -- nfs3 nfs4 )<br>
+<a href="nfe.html#word17" title="Paren the expression with level n, return the new outs nf3 and start nfs4">nfe-paren</a> ( nfs1 nfs2 n nfe -- nfs3 nfs4 )<br>
+<a href="nfe.html#word13" title="Get the number of parens in the expression">nfe-parens@</a> ( nfe -- n )<br>
+<a href="nfe.html#word25" title="Get the match result of the n1th grouping, return match start n3 and end n2">nfe-result</a> ( n1 nfe -- n2 n3 )<br>
+<a href="nfe.html#word24" title="Search in the string c-addr u for a match, with the flag indicating case insensitive match, return the first offset for a match, or -1 for no match">nfe-search</a> ( c-addr u flag nfe -- n )<br>
+<a href="nfe.html#word15" title="Start an expression, nfs2 nfs1, with a single new state nfs1 with data x and type n">nfe-single</a> ( x n nfe -- nfs1 nfs2 )<br>
+<a href="nfe.html#word12" title="Get the number of states in the expression">nfe-states@</a> ( nfe -- n )<br>
+<a href="nfe.html#word8" title="Increment the visit number in the expression, return the visit number">nfe-visit++</a> ( nfe -- n )<br>
+<a href="nfe.html#word10" title="Get the current visit number">nfe-visit@</a> ( nfe -- n )<br>
+<a href="nfe.html#word20" title="Repeat the expression zero or more [*] times, return the new outs nfs3 and start nfs4">nfe-zero-or-more</a> ( nfs1 nfs2 nfe -- nfs3 nfs4 )<br>
+<a href="nfe.html#word19" title="Repeat the expression one or zero [?] times, return the new start outs nfs3 and start nfs4">nfe-zero-or-one</a> ( nfs1 nfs2 nfe -- nfs3 nfs4 )<br>
+<a href="nfs.html#word1" title="Get the required space for a nfs state">nfs%</a> ( -- n )<br>
+<a href="nfs.html#word14" title="Get the optional data of the state">nfs-data@</a> ( nfs -- x )<br>
+<a href="nfs.html#word21" title="Dump the nfs state">nfs-dump</a> ( nfs -- )<br>
+<a href="nfs.html#word11" title="Free the state from the heap">nfs-free</a> ( nfs -- )<br>
+<a href="nfs.html#word12" title="Get the id of the state">nfs-id@</a> ( nfs -- n )<br>
+<a href="nfs.html#word9" title="Initialise the nfs state with data x, type n1 and id n2">nfs-init</a> ( x n1 n2 nfs -- )<br>
+<a href="nfs.html#word10" title="Create a new nfs state on the heap with data x, type n1 and id n2">nfs-new</a> ( x n1 n2 -- nfs )<br>
+<a href="nfs.html#word15" title="Set out1 in the nfs2 state to the nfs1 state">nfs-out1!</a> ( nfs1 nfs2 -- )<br>
+<a href="nfs.html#word16" title="Get the out1 state of the nfs1 state">nfs-out1@</a> ( nfs1 -- nfs2 )<br>
+<a href="nfs.html#word17" title="Set out2 in the nfs2 state to the nfs1 state">nfs-out2!</a> ( nfs1 nfs2 -- )<br>
+<a href="nfs.html#word18" title="Get the out2 nfs state of nfs1 state">nfs-out2@</a> ( nfs1 -- nfs2 )<br>
+<a href="nfs.html#word13" title="Get the type of the state">nfs-type@</a> ( nfs -- n )<br>
+<a href="nfs.html#word19" title="Set the visit number [0>=]">nfs-visit!</a> ( n nfs -- )<br>
+<a href="nfs.html#word20" title="Get the visit number">nfs-visit@</a> ( nfs -- n )<br>
+<a href="nfs.html#word3" title="State type any, no data">nfs.any</a> ( -- n )<br>
+<a href="nfs.html#word2" title="State type char, data = char">nfs.char</a> ( -- n )<br>
+<a href="nfs.html#word4" title="State type class, data = chs">nfs.class</a> ( -- n )<br>
+<a href="nfs.html#word5" title="State type left paren, data = paren level">nfs.lparen</a> ( -- n )<br>
+<a href="nfs.html#word8" title="State type match, no data">nfs.match</a> ( -- n )<br>
+<a href="nfs.html#word6" title="State type right paren, data = paren level">nfs.rparen</a> ( -- n )<br>
+<a href="nfs.html#word7" title="State type split, no data">nfs.split</a> ( -- n )<br>
+<a href="config.html#word13" title="Set address to nil">nil!</a> ( a-addr -- )<br>
+<a href="config.html#word15" title="Check for unequal to nil">nil<></a> ( addr -- flag )<br>
+<a href="config.html#word16" title="If addr is nil, then return false, else return address with true">nil<>?</a> ( addr -- false | addr true )<br>
+<a href="config.html#word14" title="Check for nil">nil=</a> ( addr -- flag )<br>
+<a href="nni.html#word1" title="Get the required space for a nni variable">nni%</a> ( -- n )<br>
+<a href="nni.html#word14" title="Append a child to the children of the current node, iterator is moved to the new child">nni-append-child</a> ( nnn nni -- )<br>
+<a href="nni.html#word12" title="Move the iterator to the first child of the current node, return this node">nni-child</a> ( nni -- nnn | nil )<br>
+<a href="nni.html#word10" title="Return the number of children of the current node">nni-children</a> ( nni -- n )<br>
+<a href="nni.html#word11" title="Check if the current node has children">nni-children?</a> ( nni -- flag )<br>
+<a href="nni.html#word3" title="Create a named iterator in the dictionary on the n-tree nnt">nni-create</a> ( nnt "&lt;spaces&gt;name" -- ; -- nni )<br>
+<a href="nni.html#word24" title="Dump the iterator">nni-dump</a> ( nni -- )<br>
+<a href="nni.html#word15" title="Move the iterator to the first sibling, return this node">nni-first</a> ( nni -- nnn )<br>
+<a href="nni.html#word19" title="Check if the iterator is on the first sibling">nni-first?</a> ( nni -- flag )<br>
+<a href="nni.html#word5" title="Free the iterator from the heap">nni-free</a> ( nni -- )<br>
+<a href="nni.html#word6" title="Get the current node">nni-get</a> ( nni -- nnn | nil )<br>
+<a href="nni.html#word2" title="Initialise the iterator with the n-tree nnt">nni-init</a> ( nnt nni -- )<br>
+<a href="nni.html#word22" title="Insert a sibling after the current sibling in the tree">nni-insert-after</a> ( nnn nni -- )<br>
+<a href="nni.html#word21" title="Insert a sibling before the current sibling in the tree">nni-insert-before</a> ( nnn nni -- )<br>
+<a href="nni.html#word18" title="Move the iterator to the last sibling, return this node">nni-last</a> ( nni -- nnn )<br>
+<a href="nni.html#word20" title="Check if the iterator is on the last sibling">nni-last?</a> ( nni -- flag )<br>
+<a href="nni.html#word4" title="Create an iterator on the heap on the n-tree nnt">nni-new</a> ( nnt -- nni )<br>
+<a href="nni.html#word16" title="Move the iterator to the next sibling, return this node">nni-next</a> ( nni -- nnn | nil )<br>
+<a href="nni.html#word9" title="Move the iterator to the parent of the current node, return this node">nni-parent</a> ( nni -- nnn | nil )<br>
+<a href="nni.html#word13" title="Prepend a child to the children of the current node, iterator is moved to the new child">nni-prepend-child</a> ( nnn nni -- )<br>
+<a href="nni.html#word17" title="Move the iterator to the previous sibling">nni-prev</a> ( nni -- nnn | nil )<br>
+<a href="nni.html#word23" title="Remove the current sibling without children from the tree, move the iterator to the next, previous or parent node, return the removed node">nni-remove</a> ( nni -- nnn )<br>
+<a href="nni.html#word8" title="Move the iterator to the root of the tree, return this node">nni-root</a> ( nni -- nnn | nil )<br>
+<a href="nni.html#word7" title="Check if the current node is the root node">nni-root?</a> ( nni -- flag )<br>
+<a href="nnn.html#word1" title="Get the required space for a nnn node">nnn%</a> ( -- n )<br>
+<a href="nnn.html#word7" title="Dump the node">nnn-dump</a> ( nnn -- )<br>
+<a href="nnn.html#word4" title="Free the node from the heap">nnn-free</a> ( nnn -- )<br>
+<a href="nnn.html#word2" title="Initialise the node">nnn-init</a> ( nnn -- )<br>
+<a href="nnn.html#word3" title="Create a new node on the heap">nnn-new</a> ( -- nnn )<br>
+<a href="nnn.html#word6" title="Set for node nnn2 the parent to nnn1">nnn-parent!</a> ( nnn1 nnn2 -- )<br>
+<a href="nnn.html#word5" title="Get from node nnn1 the parent node">nnn-parent@</a> ( nnn1 -- nnn2 )<br>
+<a href="nnt.html#word1" title="Get the required space for a nnt variable">nnt%</a> ( -- n )<br>
+<a href="nnt.html#word3" title="Free all nodes in the tree with xt">nnt-(free)</a> ( xt nnt -- )<br>
+<a href="nnt.html#word4" title="Create a named n-tree in the dictionary">nnt-create</a> ( "&lt;spaces&gt;name" -- ; -- nnt )<br>
+<a href="nnt.html#word12" title="Dump the tree">nnt-dump</a> ( nnt -- )<br>
+<a href="nnt.html#word8" title="Check for an empty tree">nnt-empty?</a> ( nnt -- flag )<br>
+<a href="nnt.html#word10" title="Execute xt for every node in tree">nnt-execute</a> ( i*x xt nnt -- j*x )<br>
+<a href="nnt.html#word11" title="Execute xt for every node in the tree until xt returns true">nnt-execute?</a> ( i*x xt nnt -- j*x flag )<br>
+<a href="nnt.html#word6" title="Free the tree from the heap">nnt-free</a> ( nnt -- )<br>
+<a href="nnt.html#word2" title="Initialise the n-tree">nnt-init</a> ( nnt -- )<br>
+<a href="nnt.html#word7" title="Get the number of nodes in the tree">nnt-length@</a> ( nnt -- u )<br>
+<a href="nnt.html#word5" title="Create a new n-tree on the heap">nnt-new</a> ( -- nnt )<br>
+<a href="nnt.html#word9" title="Get the root of the tree">nnt-root@</a> ( nnt -- nnn | nil )<br>
+<a href="est.html#word1" title="Parse the escaped character in string c-addr1 u1, store the result in string c-addr2 and return the remaining string c-addr3 u3">parse-esc</a> ( c-addr1 u1 c-addr2 -- c-addr3 u3 )<br>
+<a href="est.html#word2" title="Parse the input stream for a escaped string">parse\"</a> ( "ccc&lt;quote&gt;" -- c-addr u )<br>
+<a href="config.html#word24" title="Fetch the second cell on the return stack">r'@</a> ( R: x1 x2 -- x1 x2; -- x1 )<br>
+<a href="rdg.html#word1" title="Get the required space for a rdg variable">rdg%</a> ( -- n )<br>
+<a href="rdg.html#word10" title="Generate a random number with a beta distribution with alpha r1 [>0] and beta r2 [>0], alpha*beta = mean, alpha*beta^2 = variance">rdg-beta</a> ( F: r1 r2 -- r3 ; rdg -- )<br>
+<a href="rdg.html#word11" title="Generate a random number with a binomial distribution with probability r [0,1] and trails u1 [>=0]">rdg-binomial</a> ( F: r -- ; u1 rdg -- u2 )<br>
+<a href="rdg.html#word3" title="Create a named random generator in the dictionary with the random generator xt and its data x">rdg-create</a> ( x xt "&lt;spaces&gt;name" -- ; -- rdg )<br>
+<a href="rdg.html#word8" title="Generate a random number with an exponential distribution with mu or mean r1 [>0]">rdg-exponential</a> ( F: r1 -- r2 ; rdg -- )<br>
+<a href="rdg.html#word5" title="Free the random generator from the heap">rdg-free</a> ( rdg -- )<br>
+<a href="rdg.html#word9" title="Generate a random number with a gamma distribution with alpha r1 [>0] and beta r2 [>0], alpha*beta = mean, alpha*beta^2 = variance">rdg-gamma</a> ( F: r1 r2 -- r3 ; rdg -- )<br>
+<a href="rdg.html#word2" title="Initialise the generator with the random generator xt and its data x">rdg-init</a> ( x xt rdg -- )<br>
+<a href="rdg.html#word4" title="Create a new random generator on the heap with the random generator xt and its data x">rdg-new</a> ( x xt -- rdg )<br>
+<a href="rdg.html#word7" title="Generate a random number with a normal or Gaussian distribution with mu or mean r1 and sigma or standard deviation r2">rdg-normal</a> ( F: r1 r2 -- r3 ; rdg -- )<br>
+<a href="rdg.html#word13" title="Generate a random number with a Pareto distribution with alpha r1 [>0] the scale parameter and r2 [>0] the shape parameter">rdg-pareto</a> ( F: r1 r2 -- r3 ; rdg -- )<br>
+<a href="rdg.html#word12" title="Generate a random number with a Poisson distribution with mean r [>=0]">rdg-poisson</a> ( F: r -- ; rdg -- u )<br>
+<a href="rdg.html#word6" title="Generate a random number with a uniform distribution in the range of [r1,r2>">rdg-uniform</a> ( F: r1 r2 -- r3 ; rdg -- )<br>
+<a href="rdg.html#word14" title="Generate a random number with a Weibull distribution with alpha r1 [>0] the scale parameter and beta r2 [>0] the shape parameter">rdg-weibull</a> ( F: r1 r2 -- r3 ; rdg -- )<br>
+<a href="rgx.html#word1" title="Get the required space for a rgx variable">rgx%</a> ( -- n )<br>
+<a href="rgx.html#word7" title="Match case-sensitive a string with the regular expression, return match result">rgx-cmatch?</a> ( c-addr u rgx -- flag )<br>
+<a href="rgx.html#word6" title="Compile a pattern as regular expression, return success and optional the error offset n">rgx-compile</a> ( c-addr u rgx -- true | n false )<br>
+<a href="rgx.html#word3" title="Create a named regular expression in the dictionary">rgx-create</a> ( "&lt;spaces&gt;name" -- ; -- rgx )<br>
+<a href="rgx.html#word9" title="Search case-sensitive in a string for the first match of the regular expression, return offset in string, or -1 for not found">rgx-csearch</a> ( c-addr u rgx -- n )<br>
+<a href="rgx.html#word12" title="Dump the regular expression">rgx-dump</a> ( rgx -- )<br>
+<a href="rgx.html#word5" title="Free the regular expression from the heap">rgx-free</a> ( rgx -- )<br>
+<a href="rgx.html#word8" title="Match case-insensitive a string with the regular expression, return match result">rgx-imatch?</a> ( c-addr u rgx -- flag )<br>
+<a href="rgx.html#word2" title="Initialise the regular expression">rgx-init</a> ( rgx -- )<br>
+<a href="rgx.html#word10" title="Search case-insensitive in a string for the first match of the regular expression, return offset in string, or -1 if not found">rgx-isearch</a> ( c-addr u rgx -- n:index )<br>
+<a href="rgx.html#word4" title="Create a new regular expression on the heap">rgx-new</a> ( -- rgx )<br>
+<a href="rgx.html#word11" title="Get the match result of the nth grouping, return match start n2 and end n1">rgx-result</a> ( n rgx -- n1 n2 )<br>
+<a href="rng.html#word1" title="Get the required space for a rng variable">rng%</a> ( -- n )<br>
+<a href="rng.html#word3" title="Create a named random generator in the dictionary with seed u">rng-create</a> ( u "&lt;spaces&gt;name" -- ; -- rng )<br>
+<a href="rng.html#word9" title="Dump the random generator">rng-dump</a> ( rng -- )<br>
+<a href="rng.html#word5" title="Free the random generator from the heap">rng-free</a> ( rng -- )<br>
+<a href="rng.html#word2" title="Initialise the generator with the seed u">rng-init</a> ( u rng -- )<br>
+<a href="rng.html#word4" title="Create a new random generator on the heap with seed u">rng-new</a> ( u -- rng )<br>
+<a href="rng.html#word8" title="Calculate the next pseudo random float number, range [0,1>">rng-next-float</a> ( rng -- r )<br>
+<a href="rng.html#word7" title="Calculate the next pseudo random number, 32 bit">rng-next-number</a> ( rng -- n )<br>
+<a href="rng.html#word6" title="Initialise the generator with the seed u">rng-seed</a> ( u rng -- )<br>
+<a href="config.html#word11" title="Rotate u1 u2 bits to the right">rroll</a> ( u1 u2 -- u3 )<br>
+<a href="est.html#word3" title="Create a string with escaped characters">s\"</a> ( "ccc&lt;quote&gt;" -- c-addr u )<br>
+<a href="scf.html#word2" title="Scan the source string c-addr1 u1 with the specifier string c-addr2 u2, resulting in n arguments i*x and j*r">scf"</a> ( "ccc&lt;quote&gt;" c-addr u -- i*x j*r n )<br>
+<a href="scf.html#word1" title="Scan the source string c-addr1 u1 with specifier string c-addr2 u2, resulting in n arguments i*x j*r">scf+scan</a> ( c-addr1 u1 c-addr2 u2  -- i*x j*r n )<br>
+<a href="sci.html#word1" title="Get the required space for a sci variable">sci%</a> ( -- n )<br>
+<a href="sci.html#word3" title="Create a named iterator in the dictionary on the scl list">sci-create</a> ( scl "&lt;spaces&gt;name" -- ; -- sci )<br>
+<a href="sci.html#word14" title="Dump the iterator">sci-dump</a> ( sci -- )<br>
+<a href="sci.html#word8" title="Move the iterator to the first node, return the cell data x from this node">sci-first</a> ( sci -- x true | false )<br>
+<a href="sci.html#word11" title="Check if the iterator is on the first node">sci-first?</a> ( sci -- flag )<br>
+<a href="sci.html#word5" title="Free the iterator from the heap">sci-free</a> ( sci -- )<br>
+<a href="sci.html#word6" title="Get the cell data x from the current node">sci-get</a> ( sci -- x true | false )<br>
+<a href="sci.html#word2" title="Initialise the iterator with a scl list">sci-init</a> ( scl sci -- )<br>
+<a href="sci.html#word13" title="Insert the cell data x after the current node">sci-insert-after</a> ( x sci -- )<br>
+<a href="sci.html#word12" title="Check if the iterator is on the last node">sci-last?</a> ( sci -- flag )<br>
+<a href="sci.html#word10" title="Move the iterator to the next node with the cell data x">sci-move</a> ( x sci -- flag )<br>
+<a href="sci.html#word4" title="Create an iterator on the heap on the scl list">sci-new</a> ( scl -- sci )<br>
+<a href="sci.html#word9" title="Move the iterator to the next node, return the cell data x from this node">sci-next</a> ( sci -- x true | false )<br>
+<a href="sci.html#word7" title="Set the cell data x for the current node">sci-set</a> ( x sci -- )<br>
+<a href="scl.html#word1" title="Get the required space for a scl variable">scl%</a> ( -- n )<br>
+<a href="scl.html#word3" title="Free the nodes from the heap">scl-(free)</a> ( scl -- )<br>
+<a href="scl.html#word12" title="Append the cell data x in the list">scl-append</a> ( x scl -- )<br>
+<a href="scl.html#word11" title="Delete all nodes from the list">scl-clear</a> ( scl -- )<br>
+<a href="scl.html#word9" title="Set the compare execution token for sorting the list">scl-compare!</a> ( xt scl -- )<br>
+<a href="scl.html#word10" title="Get the compare execution token for sorting the list">scl-compare@</a> ( scl -- xt )<br>
+<a href="scl.html#word19" title="Count the number of occurrences of the cell data x in the list">scl-count</a> ( x scl -- u )<br>
+<a href="scl.html#word4" title="Create a named scl list in the dictionary">scl-create</a> ( "&lt;spaces&gt;name" -- ; -- scl )<br>
+<a href="scl.html#word18" title="Delete the nth node from the list, return the cell data from the deleted node">scl-delete</a> ( n scl -- x )<br>
+<a href="scl.html#word26" title="Dump the list">scl-dump</a> ( scl -- )<br>
+<a href="scl.html#word7" title="Check for an empty list">scl-empty?</a> ( scl -- flag )<br>
+<a href="scl.html#word20" title="Execute xt for every cell data in list">scl-execute</a> ( i*x xt scl -- j*x )<br>
+<a href="scl.html#word22" title="Find the first index for cell data x in the list, -1 for not found">scl-find</a> ( x scl -- n )<br>
+<a href="scl.html#word6" title="Free the list from the heap">scl-free</a> ( scl -- )<br>
+<a href="scl.html#word16" title="Get the cell data x from the nth node in the list">scl-get</a> ( n scl -- x )<br>
+<a href="scl.html#word23" title="Check if the cell data x is present in the list">scl-has?</a> ( x scl -- flag )<br>
+<a href="scl.html#word14" title="Check if the index n is valid for the list">scl-index?</a> ( n scl -- flag )<br>
+<a href="scl.html#word2" title="Initialise the scl list">scl-init</a> ( scl -- )<br>
+<a href="scl.html#word17" title="Insert cell data x at the nth node in the list">scl-insert</a> ( x n scl -- )<br>
+<a href="scl.html#word25" title="Insert the cell data x sorted in the list">scl-insert-sorted</a> ( x scl -- )<br>
+<a href="scl.html#word8" title="Get the number of nodes in the list">scl-length@</a> ( scl -- u )<br>
+<a href="scl.html#word5" title="Create a new scl list on the heap">scl-new</a> ( -- scl )<br>
+<a href="scl.html#word13" title="Prepend the cell data x in the list">scl-prepend</a> ( x scl -- )<br>
+<a href="scl.html#word24" title="Remove the first occurrence of the cell data x from the list, return success">scl-remove</a> ( x scl -- flag )<br>
+<a href="scl.html#word21" title="Reverse or mirror the list">scl-reverse</a> ( scl -- )<br>
+<a href="scl.html#word15" title="Set the cell data x in the nth node in the list">scl-set</a> ( x n scl -- )<br>
+<a href="scn.html#word1" title="Get the required space for a scn node">scn%</a> ( -- n )<br>
+<a href="scn.html#word6" title="Set the cell data x in the node">scn-cell!</a> ( x scn -- )<br>
+<a href="scn.html#word5" title="Get the cell data x from the node">scn-cell@</a> ( scn -- x )<br>
+<a href="scn.html#word7" title="Dump the node">scn-dump</a> ( scn -- )<br>
+<a href="scn.html#word4" title="Free the node from the heap">scn-free</a> ( scn -- )<br>
+<a href="scn.html#word2" title="Initialise the node with cell data x">scn-init</a> ( x scn -- )<br>
+<a href="scn.html#word3" title="Create a new node on the heap with cell data x">scn-new</a> ( x -- scn )<br>
+<a href="stc.html#word8" title="Create a structure field of 1 single float, return the field address">sffield:</a> ( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="sh1.html#word1" title="Get the required space for a sha1 variable">sh1%</a> ( -- n )<br>
+<a href="sh1.html#word9" title="Convert SHA-1 result to the string c-addr u, using the pictured output area">sh1+to-string</a> ( u1 u2 u3 u4 u5 -- c-addr u )<br>
+<a href="sh1.html#word3" title="Create a named sha-1 variable in the dictionary">sh1-create</a> ( "&lt;spaces&gt;name" --  ; -- sh1 )<br>
+<a href="sh1.html#word10" title="Dump the sh1 variable">sh1-dump</a> ( sh1 -- )<br>
+<a href="sh1.html#word8" title="Finish the SHA-1 calculation, return the sha values">sh1-finish</a> ( sh1 -- u1 u2 u3 u4 u5 )<br>
+<a href="sh1.html#word5" title="Free the sha-1 variable from the heap">sh1-free</a> ( sh1 -- )<br>
+<a href="sh1.html#word2" title="Initialise the sh1">sh1-init</a> ( sh1 -- )<br>
+<a href="sh1.html#word4" title="Create a new sha-1 variable on the heap">sh1-new</a> ( -- sh1 )<br>
+<a href="sh1.html#word6" title="Reset the SHA-1 state">sh1-reset</a> ( sh1 -- )<br>
+<a href="sh1.html#word7" title="Update the SHA-1 with more data c-addr u">sh1-update</a> ( c-addr u sh1 -- )<br>
+<a href="sh2.html#word1" title="Get the required space for a sha2 variable">sh2%</a> ( -- n )<br>
+<a href="sh2.html#word9" title="Convert SHA-256 result to the string c-addr u, using the pictured output area">sh2+to-string</a> ( u1 u2 u3 u4 u5 u6 u7 u8 -- c-addr u )<br>
+<a href="sh2.html#word3" title="Create a named SHA-256 variable in the dictionary">sh2-create</a> ( "&lt;spaces&gt;name" -- ; -- sh2 )<br>
+<a href="sh2.html#word10" title="Dump the sh2 variable">sh2-dump</a> ( sh2 -- )<br>
+<a href="sh2.html#word8" title="Finish the SHA-256 calculation, return the result">sh2-finish</a> ( sh2 -- u1 u2 u3 u4 u5 u6 u7 u8 )<br>
+<a href="sh2.html#word5" title="Free the SHA-256 variable from the heap">sh2-free</a> ( sh2 -- )<br>
+<a href="sh2.html#word2" title="Initialise the sh2 variable">sh2-init</a> ( sh2 -- )<br>
+<a href="sh2.html#word4" title="Create a new SHA-256 variable on the heap">sh2-new</a> ( -- sh2 )<br>
+<a href="sh2.html#word6" title="Reset the SHA-256 state">sh2-reset</a> ( sh2 -- )<br>
+<a href="sh2.html#word7" title="Update the SHA-256 with more data c-addr u">sh2-update</a> ( c-addr u sh2 -- )<br>
+<a href="sni.html#word1" title="Get the required space for a sni variable">sni%</a> ( -- n )<br>
+<a href="sni.html#word3" title="Create a named iterator in the dictionary on the snl list">sni-create</a> ( snl "&lt;spaces&gt;name" -- ; -- sni )<br>
+<a href="sni.html#word11" title="Dump the iterator">sni-dump</a> ( sni -- )<br>
+<a href="sni.html#word7" title="Move the iterator to the first node, return this node">sni-first</a> ( sni -- snn | nil )<br>
+<a href="sni.html#word9" title="Check if the iterator is on the first node">sni-first?</a> ( sni -- flag )<br>
+<a href="sni.html#word5" title="Free the iterator from the heap">sni-free</a> ( sni -- )<br>
+<a href="sni.html#word6" title="Get the current node">sni-get</a> ( sni -- snn | nil )<br>
+<a href="sni.html#word2" title="Initialise the iterator with a snl list">sni-init</a> ( snl sni -- )<br>
+<a href="sni.html#word10" title="Check if the iterator is on the last node">sni-last?</a> ( sni -- flag )<br>
+<a href="sni.html#word4" title="Create an iterator on the snl list on the heap">sni-new</a> ( snl -- sni )<br>
+<a href="sni.html#word8" title="Move the iterator to the next node, return this node">sni-next</a> ( sni -- snn | nil )<br>
+<a href="snl.html#word1" title="Get the required space for a snl variable">snl%</a> ( -- n )<br>
+<a href="snl.html#word3" title="Free the nodes from the heap using xt">snl-(free)</a> ( xt scl -- )<br>
+<a href="snl.html#word11" title="Append the node snn to the list">snl-append</a> ( snn snl -- )<br>
+<a href="snl.html#word4" title="Create a named snl list in the dictionary">snl-create</a> ( "&lt;spaces&gt;name" -- ; -- snl )<br>
+<a href="snl.html#word19" title="Delete the nth node from the list, return the deleted node">snl-delete</a> ( n snl -- snn )<br>
+<a href="snl.html#word24" title="Dequeue the node at the end of the queue [= start of the list], return this node">snl-dequeue</a> ( snl -- snn | nil )<br>
+<a href="snl.html#word28" title="Dump the list">snl-dump</a> ( snl -- )<br>
+<a href="snl.html#word8" title="Check for an empty list">snl-empty?</a> ( snl -- flag )<br>
+<a href="snl.html#word23" title="Enqueue the node snn at the start of the queue [=end of the list]">snl-enqueue</a> ( snn snl -- )<br>
+<a href="snl.html#word25" title="Execute xt for every node in list">snl-execute</a> ( i*x xt snl -- j*x )<br>
+<a href="snl.html#word26" title="Execute xt for every node in the list until xt returns true">snl-execute?</a> ( i*x xt snl -- j*x flag )<br>
+<a href="snl.html#word9" title="Get the first node from the list">snl-first@</a> ( snl -- snn | nil )<br>
+<a href="snl.html#word6" title="Free the list from the heap">snl-free</a> ( snl -- )<br>
+<a href="snl.html#word17" title="Get the nth node from the list">snl-get</a> ( n snl -- snn )<br>
+<a href="snl.html#word16" title="Check if the index n is valid in the list">snl-index?</a> ( n snl -- flag )<br>
+<a href="snl.html#word2" title="Initialise the snl list">snl-init</a> ( snl -- )<br>
+<a href="snl.html#word18" title="Insert a node before the nth node in the list">snl-insert</a> ( snn n snl -- )<br>
+<a href="snl.html#word13" title="Insert the node snn1 after the reference node snn2 in the list">snl-insert-after</a> ( snn1 snn2 snl -- )<br>
+<a href="snl.html#word10" title="Get the last node from the list">snl-last@</a> ( snl -- snn | nil )<br>
+<a href="snl.html#word7" title="Get the number of nodes in the list">snl-length@</a> ( snl -- u )<br>
+<a href="snl.html#word5" title="Create a new snl list on the heap">snl-new</a> ( -- snl )<br>
+<a href="snl.html#word21" title="Pop the node at the top of the stack [= start of the list], return the popped node">snl-pop</a> ( snl -- snn | nil )<br>
+<a href="snl.html#word12" title="Prepend the node snn in the list">snl-prepend</a> ( snn snl -- )<br>
+<a href="snl.html#word20" title="Push the node snn at the top of the stack [= start of the list]">snl-push</a> ( snn snl -- )<br>
+<a href="snl.html#word15" title="Remove the node after the reference node snn1 from the list, return the removed node">snl-remove-after</a> ( snn1 snl -- snn2 | nil )<br>
+<a href="snl.html#word14" title="Remove the first node from the list, return the removed node">snl-remove-first</a> ( snl -- snn | nil )<br>
+<a href="snl.html#word27" title="Reverse or mirror the list">snl-reverse</a> ( snl -- )<br>
+<a href="snl.html#word22" title="Get the node at the top of the stack [= start of the list], return this node">snl-tos</a> ( snl -- snn | nil )<br>
+<a href="snn.html#word1" title="Get the required space for a snn node">snn%</a> ( - n )<br>
+<a href="snn.html#word7" title="Dump the single list node">snn-dump</a> ( snn -- )<br>
+<a href="snn.html#word4" title="Free the node from the heap">snn-free</a> ( snn -- )<br>
+<a href="snn.html#word2" title="Initialise the node">snn-init</a> ( snn -- )<br>
+<a href="snn.html#word3" title="Create a new node on the heap">snn-new</a> ( -- snn )<br>
+<a href="snn.html#word6" title="Set for the node snn1 the next node to snn2">snn-next!</a> ( snn1 snn2 -- )<br>
+<a href="snn.html#word5" title="Get the next node snn2 from the node snn1">snn-next@</a> ( snn1 -- snn2 )<br>
+<a href="spf.html#word3" title="Convert the arguments i*x with the format string and set the result in str">spf"</a> ( "ccc&lt;quote&gt;" i*x j*r str -- )<br>
+<a href="spf.html#word1" title="Convert the arguments i*x with the format string c-addr u and append the result to str">spf-append</a> ( i*x j*r c-addr u str -- k*x l*r )<br>
+<a href="spf.html#word2" title="Convert the arguments i*x with the format string c-addr u and set the result in str">spf-set</a> ( i*x j*r c-addr u str -- )<br>
+<a href="str.html#word1" title="Get the required space for a str variable">str%</a> ( -- n )<br>
+<a href="str.html#word63" title="Split the string c-addr u in n substrings, u width wide, skipping leading spaces [recursive]">str+columns</a> ( c-addr u n -- c-addrn un ... c-addr1 u1 n )<br>
+<a href="str.html#word16" title="Set the initial extra space allocated during resizing of the string">str+extra!</a> ( u -- )<br>
+<a href="str.html#word15" title="Get the initial extra space allocated during resizing of the string">str+extra@</a> ( -- u )<br>
+<a href="str.html#word53" title="Strip leading and trailing spaces from string c-addr1 u1">str+strip</a> ( c-addr1 u1 -- c-addr2 u2 )<br>
+<a href="str.html#word49" title="Strip leading whitespace in the string c-addr1 u1">str+strip-leading</a> ( c-addr1 u1 -- c-addr2 u2 )<br>
+<a href="str.html#word51" title="Strip trailing whitespace in the string c-addr u1">str+strip-trailing</a> ( c-addr u1 -- c-addr u2 )<br>
+<a href="str.html#word3" title="Free the string data from the heap">str-(free)</a> ( str -- )<br>
+<a href="str.html#word46" title="Align left the string in width u">str-align-left</a> ( u str -- )<br>
+<a href="str.html#word47" title="Align right the string in width u">str-align-right</a> ( u str -- )<br>
+<a href="str.html#word31" title="Append a character at the end of the string">str-append-char</a> ( char str -- )<br>
+<a href="str.html#word21" title="Append u chars in the string">str-append-chars</a> ( char u str -- )<br>
+<a href="str.html#word19" title="Append the string c-addr u to the string">str-append-string</a> ( c-addr u str -- )<br>
+<a href="str.html#word27" title="Get the bounds of the string">str-bounds</a> ( str -- c-addr+u c-addr )<br>
+<a href="str.html#word44" title="Capitalize all words in the string">str-cap-words</a> ( str -- )<br>
+<a href="str.html#word43" title="Capitalize the first word in the string">str-capatilize</a> ( str -- )<br>
+<a href="str.html#word58" title="Compare case-sensitive the string c-addr u with the string, return the result [-1,0,1]">str-ccompare</a> ( c-addr u str -- n )<br>
+<a href="str.html#word45" title="Center the string in width u">str-center</a> ( u str -- )<br>
+<a href="str.html#word17" title="Clear the string">str-clear</a> ( str -- )<br>
+<a href="str.html#word41" title="Count the number of occurrences of the string c-addr u in the string">str-count</a> ( c-addr u str -- u )<br>
+<a href="str.html#word4" title="Create a named empty string in the dictionary">str-create</a> ( "&lt;spaces&gt;name" -- ; -- str )<br>
+<a href="str.html#word11" title="Get the start of the string">str-data@</a> ( str -- c-addr )<br>
+<a href="str.html#word28" title="Delete a substring starting at index n with length u from the string">str-delete</a> ( u n str -- )<br>
+<a href="str.html#word40" title="Delete the character on the nth position in the string">str-delete-char</a> ( n str -- )<br>
+<a href="str.html#word36" title="Get the character at the end of the string">str-dequeue-char</a> ( char str -- )<br>
+<a href="str.html#word64" title="Dump the string">str-dump</a> ( str -- )<br>
+<a href="str.html#word7" title="Check for an empty string">str-empty?</a> ( str -- flag )<br>
+<a href="str.html#word35" title="Place a character at the start of the string">str-enqueue-char</a> ( char str -- )<br>
+<a href="str.html#word42" title="Execute the xt token for every character in the string">str-execute</a> ( i*x xt str -- j*x )<br>
+<a href="str.html#word56" title="Expand the tabs to u spaces in the string">str-expand-tabs</a> ( u str -- )<br>
+<a href="str.html#word14" title="Set the extra space allocated during resizing of the string">str-extra!</a> ( u str -- )<br>
+<a href="str.html#word13" title="Get the extra space allocated during resizing of the string">str-extra@</a> ( str -- u )<br>
+<a href="str.html#word61" title="Find the first occurrence of the string c-addr u starting from index n1 in the string, return -1 if not found">str-find</a> ( c-addr u n1 str -- n2 )<br>
+<a href="str.html#word6" title="Free the string from the heap">str-free</a> ( str -- )<br>
+<a href="str.html#word26" title="Get the string in the string">str-get</a> ( str -- c-addr u )<br>
+<a href="str.html#word38" title="Get the character from the nth position in the string">str-get-char</a> ( n str -- char )<br>
+<a href="str.html#word25" title="Get a substring starting from index n,  u characters long">str-get-substring</a> ( u n str -- c-addr u )<br>
+<a href="str.html#word30" title="Get the string as zero terminated string">str-get-zstring</a> ( str -- c-addr )<br>
+<a href="str.html#word57" title="Compare case-insensitive the string c-addr u with the string, return the result [-1,0,1]">str-icompare</a> ( c-addr u str -- n )<br>
+<a href="str.html#word10" title="Check if the index n is valid in the string">str-index?</a> ( n str -- flag )<br>
+<a href="str.html#word2" title="Initialise to an empty string">str-init</a> ( str -- )<br>
+<a href="str.html#word39" title="Insert the character on the nth position in the string">str-insert-char</a> ( char n str -- )<br>
+<a href="str.html#word24" title="Insert u chars in the string at index n">str-insert-chars</a> ( char u n str -- )<br>
+<a href="str.html#word23" title="Insert the string c-addr in the string at index n">str-insert-string</a> ( c-addr u n str -- )<br>
+<a href="str.html#word9" title="Set the length of the string">str-length!</a> ( u str -- )<br>
+<a href="str.html#word8" title="Get the length of the string">str-length@</a> ( str -- u )<br>
+<a href="str.html#word54" title="Convert the string to lower case">str-lower</a> ( str -- )<br>
+<a href="str.html#word5" title="Create a new empty string on the heap">str-new</a> ( -- str )<br>
+<a href="str.html#word34" title="Pop a character from the end of the string">str-pop-char</a> ( str -- char )<br>
+<a href="str.html#word32" title="Prepend a character at the start of the string">str-prepend-char</a> ( char str -- )<br>
+<a href="str.html#word22" title="Prepend u chars in the string">str-prepend-chars</a> ( char u str -- )<br>
+<a href="str.html#word20" title="Prepend the string c-addr u to the string">str-prepend-string</a> ( c-addr u str -- )<br>
+<a href="str.html#word33" title="Push a character at the end of the string">str-push-char</a> ( char str -- )<br>
+<a href="str.html#word62" title="Replace all occurences of the string c-addr2 u2 with the string c-addr1 u1 in the string">str-replace</a> ( c-addr1 u1 c-addr2 u2 str -- )<br>
+<a href="str.html#word18" title="Set the string c-addr u in the string">str-set</a> ( c-addr u str -- )<br>
+<a href="str.html#word37" title="Set the character on the nth position in the string">str-set-char</a> ( char n str -- )<br>
+<a href="str.html#word29" title="Set a zero terminated string in the string">str-set-zstring</a> ( c-addr str -- )<br>
+<a href="str.html#word12" title="Insure the size u of the string">str-size!</a> ( u str -- )<br>
+<a href="str.html#word52" title="Strip leading and trailing spaces in the string">str-strip</a> ( str -- )<br>
+<a href="str.html#word48" title="Strip leading spaces in the string">str-strip-leading</a> ( str -- )<br>
+<a href="str.html#word50" title="Strip trailing spaces in the string">str-strip-trailing</a> ( str -- )<br>
+<a href="str.html#word55" title="Convert the string to upper case">str-upper</a> ( str -- )<br>
+<a href="str.html#word60" title="Compare case-sensitive the string str1 and str2, return the result [-1,0,1]">str^ccompare</a> ( str1 str2 -- n )<br>
+<a href="str.html#word59" title="Compare case-insensitive the strings str1 and str, return the result [-1,0,1]">str^icompare</a> ( str1 str2 -- n )<br>
+<a href="tis.html#word1" title="Get the required space for a tis variable">tis%</a> ( -- n )<br>
+<a href="tis.html#word5" title="Free the internal, private variables from the heap">tis-(free)</a> ( tis -- )<br>
+<a href="tis.html#word22" title="Match case-sensitive a character">tis-cmatch-char</a> ( char tis -- flag )<br>
+<a href="tis.html#word23" title="Match one of the characters in the string case-sensitive">tis-cmatch-chars</a> ( c-addr u tis -- false | char true )<br>
+<a href="tis.html#word24" title="Match case-sensitive a string">tis-cmatch-string</a> ( c-addr u tis -- flag )<br>
+<a href="tis.html#word3" title="Create a named input stream in the dictionary">tis-create</a> ( "&lt;spaces&gt;name" -- ; -- tis )<br>
+<a href="tis.html#word39" title="Dump the text input stream">tis-dump</a> ( tis -- )<br>
+<a href="tis.html#word15" title="Check if the end of the stream is reached">tis-eof?</a> ( tis -- flag )<br>
+<a href="tis.html#word17" title="Fetch the next character from the stream">tis-fetch-char</a> ( tis -- false | char true )<br>
+<a href="tis.html#word19" title="Fetch maximum of n next characters from the stream">tis-fetch-chars</a> ( n tis -- 0 | addr u )<br>
+<a href="tis.html#word6" title="Free the input stream from the heap">tis-free</a> ( tis -- )<br>
+<a href="tis.html#word14" title="Get the remaining characters from the stream, stream pointer is not changed">tis-get</a> ( tis -- 0 | addr u )<br>
+<a href="tis.html#word21" title="Match case-insensitive a character">tis-imatch-char</a> ( char tis -- flag )<br>
+<a href="tis.html#word25" title="Match case-insensitive a string">tis-imatch-string</a> ( c-addr u tis -- flag )<br>
+<a href="tis.html#word2" title="Initialise the empty input stream">tis-init</a> ( tis -- )<br>
+<a href="tis.html#word36" title="Read characters till the string c-addr1 n1 [case insensitive]">tis-iscan-string</a> ( c-addr1 n1 tis -- false | c-addr2 u2 true )<br>
+<a href="tis.html#word26" title="Match one of the characters in the set">tis-match-set</a> ( chs tis - false | char true )<br>
+<a href="tis.html#word4" title="Create a new input stream on the heap">tis-new</a> ( -- tis )<br>
+<a href="tis.html#word18" title="Move the stream pointer one character after fetch-char">tis-next-char</a> ( tis -- )<br>
+<a href="tis.html#word20" title="Move the stream pointer n characters after fetch-chars">tis-next-chars</a> ( n tis -- )<br>
+<a href="tis.html#word8" title="Set the stream pointer from start {>=0} or from end {<0}">tis-pntr!</a> ( n tis -- flag )<br>
+<a href="tis.html#word9" title="Add the offset u to the stream pointer">tis-pntr+!</a> ( n tis -- flag )<br>
+<a href="tis.html#word7" title="Get the stream pointer">tis-pntr@</a> ( tis -- u )<br>
+<a href="tis.html#word28" title="Read all remaining characters from the stream">tis-read-all</a> ( tis -- 0 | c-addr u )<br>
+<a href="tis.html#word27" title="Read character from the stream">tis-read-char</a> ( tis -- false | char true )<br>
+<a href="tis.html#word32" title="Read a double value in the current base from the stream">tis-read-double</a> ( tis -- false | d true )<br>
+<a href="tis.html#word30" title="Read characters till cr and/or lf">tis-read-line</a> ( tis -- 0 | c-addr u )<br>
+<a href="tis.html#word11" title="Read more data from the reader">tis-read-more</a> ( tis -- flag )<br>
+<a href="tis.html#word31" title="Read a cell number in the current base from the stream">tis-read-number</a> ( tis -- false | n true )<br>
+<a href="tis.html#word29" title="Read n characters from the stream">tis-read-string</a> ( n tis -- 0 | c-addr u )<br>
+<a href="tis.html#word16" title="Reduce the stream size">tis-reduce</a> ( tis -- )<br>
+<a href="tis.html#word12" title="Reset the input stream for reading from string">tis-reset</a> ( tis -- )<br>
+<a href="tis.html#word33" title="Read characters till the char">tis-scan-char</a> ( char tis -- false | c-addr u true )<br>
+<a href="tis.html#word34" title="Read characters till one of characters in c-addr1 u1">tis-scan-chars</a> ( c-addr1 n1 tis -- false | c-addr2 u2 char true )<br>
+<a href="tis.html#word37" title="Read characters till one of the characters in the set chs">tis-scan-set</a> ( chs tis - false | c-addr u char true )<br>
+<a href="tis.html#word35" title="Read characters till the string c-addr1 n1">tis-scan-string</a> ( c-addr1 n2 tis -- false | c-addr1 u2 true )<br>
+<a href="tis.html#word13" title="Initialise the stream for reading from a string">tis-set</a> ( c-addr u tis -- )<br>
+<a href="tis.html#word10" title="Initialise the stream for reading using the reader callback xt and its data x">tis-set-reader</a> ( x xt tis -- )<br>
+<a href="tis.html#word38" title="Skip whitespace in the stream, return the number of skipped whitespace characters">tis-skip-spaces</a> ( tis -- n )<br>
+<a href="tmr.html#word1" title="Get the required space for the timer variable">tmr%</a> ( - n )<br>
+<a href="tmr.html#word3" title="Create a named timer variable in the dictionary with timeout u">tmr-create</a> ( u "&lt;spaces&gt;name" -- ; -- tmr )<br>
+<a href="tmr.html#word12" title="Dump the tmr state">tmr-dump</a> ( tmr -- )<br>
+<a href="tmr.html#word10" title="Check if the timer is expired, if so the timer is restarted">tmr-expired?</a> ( tmr -- flag )<br>
+<a href="tmr.html#word5" title="Free the timer from the heap">tmr-free</a> ( tmr -- )<br>
+<a href="tmr.html#word2" title="Initialise the timer with timeout u">tmr-init</a> ( u tmr -- )<br>
+<a href="tmr.html#word4" title="Create a new timer variable on the heap with timeout u">tmr-new</a> ( u -- tmr )<br>
+<a href="tmr.html#word9" title="Restart the timer with the current timeout value">tmr-restart</a> ( tmr -- )<br>
+<a href="tmr.html#word8" title="Start the timer with a timeout value u">tmr-start</a> ( u tmr -- )<br>
+<a href="tmr.html#word6" title="Get the timeout value from the timer">tmr-timeout@</a> ( tmr -- u )<br>
+<a href="tmr.html#word7" title="Get the running time u from the timer in ms, after last [re]start, expired? or wait">tmr-timer@</a> ( tmr -- u )<br>
+<a href="tmr.html#word11" title="Wait till the timer expires and restart the timer">tmr-wait</a> ( tmr -- )<br>
+<a href="tos.html#word1" title="Get the required space for a tos variable">tos%</a> ( -- n )<br>
+<a href="tos.html#word3" title="Free the tos data from the heap">tos-(free)</a> ( tos -- )<br>
+<a href="tos.html#word23" title="Align the previous written data with padding character char, u1 trailing chars and u2 leading chars">tos-align</a> ( char u1 u2 tos -- )<br>
+<a href="tos.html#word24" title="Align the previous written data to the left, using padding character char with width u">tos-align-left</a> ( char u tos -- )<br>
+<a href="tos.html#word25" title="Align the previous written data to the right, using padding character char with width u">tos-align-right</a> ( char u tos -- )<br>
+<a href="tos.html#word26" title="Center the previous written data, using padding character char with width u">tos-center</a> ( char u tos -- )<br>
+<a href="tos.html#word4" title="Create a named output stream in the dictionary">tos-create</a> ( "&lt;spaces&gt;name" -- ; -- tos )<br>
+<a href="tos.html#word27" title="Dump the text output stream">tos-dump</a> ( tos -- )<br>
+<a href="tos.html#word12" title="Flush the contents of the stream to the writer">tos-flush</a> ( tos -- )<br>
+<a href="tos.html#word6" title="Free the output stream from the heap">tos-free</a> ( tos -- )<br>
+<a href="tos.html#word2" title="Initialise the empty output stream">tos-init</a> ( tos -- )<br>
+<a href="tos.html#word13" title="Set the message catalog for the output stream">tos-msc!</a> ( msc tos -- )<br>
+<a href="tos.html#word14" title="Get the message catalog for the output stream">tos-msc@</a> ( tos -- msc | nil )<br>
+<a href="tos.html#word5" title="Create a new output stream on the heap">tos-new</a> ( -- tos )<br>
+<a href="tos.html#word9" title="Set the alignment pointer from start [n>=0] or from end [n<0], return success">tos-pntr!</a> ( n tos -- flag )<br>
+<a href="tos.html#word10" title="Add the offset n to the alignment pointer, return success">tos-pntr+!</a> ( n tos -- flag )<br>
+<a href="tos.html#word8" title="Get the current alignment start pointer">tos-pntr@</a> ( tos -- u )<br>
+<a href="tos.html#word7" title="Rewrite the output stream">tos-rewrite</a> ( tos -- )<br>
+<a href="tos.html#word11" title="Use the stream for writing using the writer callback xt and its data x">tos-set-writer</a> ( x xt tos -- )<br>
+<a href="tos.html#word15" title="Write character to the stream">tos-write-char</a> ( char tos -- )<br>
+<a href="tos.html#word16" title="Write u chars to the stream">tos-write-chars</a> ( char u tos -- )<br>
+<a href="tos.html#word20" title="Write the double d in the current base to the stream">tos-write-double</a> ( d tos -- )<br>
+<a href="tos.html#word22" title="Write the float r to the stream in fixed-point notation: [-]digits.digits0, using PAD and PRECISION">tos-write-fixed-point</a> ( r tos -- )<br>
+<a href="tos.html#word21" title="Write the float r to the stream in notation: [-]0.digitsE[-]digits, using PAD and PRECISION">tos-write-float</a> ( r tos -- )<br>
+<a href="tos.html#word18" title="Write end-of-line from config to the stream, not align able">tos-write-line</a> ( tos -- )<br>
+<a href="tos.html#word19" title="Write the number n in the current base to the stream">tos-write-number</a> ( n tos -- )<br>
+<a href="tos.html#word17" title="Write the string c-addr u to the stream, using the message catalog if present">tos-write-string</a> ( c-addr u tos -- )<br>
+<a href="log.html#word22" title="Log a trace message">trace"</a> ( "ccc&lt;quote&gt;" -- )<br>
+<a href="trm.html#word66" title="Bring the console to the front">trm+activate-console</a> ( u -- )<br>
+<a href="trm.html#word58" title="Clear all LEDs">trm+clear-all-leds</a> ( -- )<br>
+<a href="trm.html#word35" title="Clear all tab stops">trm+clear-all-tab-stops</a> ( -- )<br>
+<a href="trm.html#word34" title="Clear tab stop at current column">trm+clear-tab-stop</a> ( -- )<br>
+<a href="trm.html#word55" title="Delete n characters on the current line">trm+delete-chars</a> ( u -- )<br>
+<a href="trm.html#word53" title="Delete u lines">trm+delete-lines</a> ( u -- )<br>
+<a href="trm.html#word56" title="Erase u characters on the current line">trm+erase-chars</a> ( u -- )<br>
+<a href="trm.html#word48" title="Erase the whole display">trm+erase-display</a> ( -- )<br>
+<a href="trm.html#word46" title="Erase display from cursor to end">trm+erase-display-down</a> ( -- )<br>
+<a href="trm.html#word47" title="Erase from start display to cursor">trm+erase-display-up</a> ( -- )<br>
+<a href="trm.html#word49" title="Erase the line from cursor to end of line">trm+erase-end-of-line</a> ( -- )<br>
+<a href="trm.html#word51" title="Erase the whole line">trm+erase-line</a> ( -- )<br>
+<a href="trm.html#word50" title="Erase the line from start line to cursor">trm+erase-start-of-line</a> ( -- )<br>
+<a href="trm.html#word52" title="Insert u blank lines">trm+insert-lines</a> ( u -- )<br>
+<a href="trm.html#word54" title="Insert u spaces">trm+insert-spaces</a> ( u -- )<br>
+<a href="trm.html#word43" title="Move cursor to column and row with x u1 and y u2">trm+move-cursor</a> ( u1 u2 -- )<br>
+<a href="trm.html#word40" title="Move cursor down u rows">trm+move-cursor-down</a> ( u -- )<br>
+<a href="trm.html#word42" title="Move cursor left u columns">trm+move-cursor-left</a> ( u -- )<br>
+<a href="trm.html#word41" title="Move cursor right u columns">trm+move-cursor-right</a> ( u -- )<br>
+<a href="trm.html#word39" title="Move cursor up u rows">trm+move-cursor-up</a> ( u -- )<br>
+<a href="trm.html#word30" title="Reset the terminal">trm+reset</a> ( -- )<br>
+<a href="trm.html#word32" title="Restore the current state: cursor, attributes and character sets">trm+restore-current-state</a> ( -- )<br>
+<a href="trm.html#word45" title="Restore cursor location">trm+restore-cursor</a> ( -- )<br>
+<a href="trm.html#word31" title="Save the current state: cursor, attributes and character sets">trm+save-current-state</a> ( -- )<br>
+<a href="trm.html#word44" title="Save cursor location">trm+save-cursor</a> ( -- )<br>
+<a href="trm.html#word38" title="Scroll the display down">trm+scroll-down</a> ( -- )<br>
+<a href="trm.html#word37" title="Scroll the display up">trm+scroll-up</a> ( -- )<br>
+<a href="trm.html#word63" title="Select the alternate character set">trm+select-alternate-font</a> ( -- )<br>
+<a href="trm.html#word68" title="Select the default character set ISO8859-1">trm+select-default</a> ( -- )<br>
+<a href="trm.html#word62" title="Select the default character set">trm+select-default-font</a> ( -- )<br>
+<a href="trm.html#word70" title="Select the vt100 graphics font for the alternate font">trm+select-graphics-font2</a> ( -- )<br>
+<a href="trm.html#word69" title="Select the UTF-8 character set">trm+select-UTF-8</a> ( -- )<br>
+<a href="trm.html#word57" title="Set n attributes">trm+set-attributes</a> ( u1 .. un n -- )<br>
+<a href="trm.html#word61" title="Set the caps lock LED">trm+set-caps-led</a> ( -- )<br>
+<a href="trm.html#word64" title="Set the current attributes the default attributes">trm+set-default-attributes</a> ( -- )<br>
+<a href="trm.html#word60" title="Set the num lock LED">trm+set-num-led</a> ( -- )<br>
+<a href="trm.html#word65" title="Set the screen blank timeout in minutes">trm+set-screen-blank-timeout</a> ( u -- )<br>
+<a href="trm.html#word59" title="Set the scroll lock LED">trm+set-scroll-led</a> ( -- )<br>
+<a href="trm.html#word36" title="Set the scroll region rows with top u2 and bottom u1">trm+set-scroll-region</a> ( u1 u2 -- )<br>
+<a href="trm.html#word33" title="Set tab stop at current column">trm+set-tab-stop</a> ( -- )<br>
+<a href="trm.html#word67" title="Unblank the screen">trm+unblank-screen</a> ( -- )<br>
+<a href="trm.html#word21" title="Set black background">trm.background-black</a> ( -- u )<br>
+<a href="trm.html#word25" title="Set blue background">trm.background-blue</a> ( -- u )<br>
+<a href="trm.html#word24" title="Set brown background">trm.background-brown</a> ( -- u )<br>
+<a href="trm.html#word27" title="Set cyan background">trm.background-cyan</a> ( -- u )<br>
+<a href="trm.html#word29" title="Set default background">trm.background-default</a> ( -- u )<br>
+<a href="trm.html#word23" title="Set green background">trm.background-green</a> ( -- u )<br>
+<a href="trm.html#word26" title="Set magenta background">trm.background-magenta</a> ( -- u )<br>
+<a href="trm.html#word22" title="Set red background">trm.background-red</a> ( -- u )<br>
+<a href="trm.html#word28" title="Set white background">trm.background-white</a> ( -- u )<br>
+<a href="trm.html#word9" title="Reset blink">trm.blink-off</a> ( -- u )<br>
+<a href="trm.html#word5" title="Set blink">trm.blink-on</a> ( -- u )<br>
+<a href="trm.html#word2" title="Set bold">trm.bold</a> ( -- u )<br>
+<a href="trm.html#word11" title="Set black foreground">trm.foreground-black</a> ( -- u )<br>
+<a href="trm.html#word15" title="Set blue foreground">trm.foreground-blue</a> ( -- u )<br>
+<a href="trm.html#word14" title="Set brown foreground">trm.foreground-brown</a> ( -- u )<br>
+<a href="trm.html#word17" title="Set cyan foreground">trm.foreground-cyan</a> ( -- u )<br>
+<a href="trm.html#word19" title="Set default foreground with underscore on">trm.foreground-def-underline</a> ( -- u )<br>
+<a href="trm.html#word20" title="Set default foreground">trm.foreground-default</a> ( -- u )<br>
+<a href="trm.html#word13" title="Set green foreground">trm.foreground-green</a> ( -- u )<br>
+<a href="trm.html#word16" title="Set magenta foreground">trm.foreground-magenta</a> ( -- u )<br>
+<a href="trm.html#word12" title="Set red foreground">trm.foreground-red</a> ( -- u )<br>
+<a href="trm.html#word18" title="Set white foreground">trm.foreground-white</a> ( -- u )<br>
+<a href="trm.html#word3" title="Set half bright">trm.half-bright</a> ( -- u )<br>
+<a href="trm.html#word7" title="Set normal intensity">trm.normal-intensity</a> ( -- u )<br>
+<a href="trm.html#word1" title="Reset attributes to defaults">trm.reset</a> ( -- u )<br>
+<a href="trm.html#word10" title="Reset reverse">trm.reverse-off</a> ( -- u )<br>
+<a href="trm.html#word6" title="Set reverse video">trm.reverse-on</a> ( -- u )<br>
+<a href="trm.html#word8" title="Reset underline">trm.underline-off</a> ( -- u )<br>
+<a href="trm.html#word4" title="Set underscore">trm.underscore-on</a> ( -- u )<br>
+<a href="tst.html#word14" title="Get the test results, return the test time u1, the number of tests u2 and the number of errors u3">tst-get-result</a> ( -- u1 u2 u3 )<br>
+<a href="tst.html#word13" title="Reset the test results">tst-reset-tests</a> ( -- )<br>
+<a href="tst.html#word1" title="Start a test">t{</a> ( -- )<br>
+<a href="fwt.html#word9" title="Convert a unsigned number to 32 bit number">u>l</a> ( u -- l )<br>
+<a href="fwt.html#word10" title="Convert a unsigned number to 32 bit number">u>l</a> ( u -- l )<br>
+<a href="fwt.html#word7" title="Store a word, 16 bit">w!</a> ( n w-addr -- )<br>
+<a href="fwt.html#word8" title="Store 16 bits of data in the data storage">w,</a> ( x -- )<br>
+<a href="fwt.html#word5" title="Fetch a word, 16 bit, zero extend">w@</a> ( w-addr -- u )<br>
+<a href="log.html#word19" title="Log a warning message">warning"</a> ( "ccc&lt;quote&gt;" -- )<br>
+<a href="fwt.html#word1" title="Create a structure field for a word, 2 bytes, not aligned, return the field address">wfield:</a> ( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="fwt.html#word3" title="Create a structure field for n words, not aligned, return the field address">wfields:</a> ( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )<br>
+<a href="xis.html#word14" title="Get the required space for a xis reader variable">xis%</a> ( -- n )<br>
+<a href="xis.html#word28" title="Dump the various parameters of a xml token after calling xis-read &lb;see xml reader constants&rb;">xis+dump-read-parameters</a> ( i*x n -- )<br>
+<a href="xis.html#word27" title="Remove the various parameters of a xml token after calling xis-read &lb;see xml reader constants&rb;">xis+remove-read-parameters</a> ( i*x n -- )<br>
+<a href="xis.html#word16" title="Free the internal, private variables from the heap">xis-(free)</a> ( xis -- )<br>
+<a href="xis.html#word17" title="Create a named xml reader variable in the dictionary">xis-create</a> ( "&lt;spaces&gt;name" -- ; -- xis )<br>
+<a href="xis.html#word19" title="Free the xis reader variable from the heap">xis-free</a> ( xis -- )<br>
+<a href="xis.html#word15" title="Initialise the xml reader variable">xis-init</a> ( xis -- )<br>
+<a href="xis.html#word23" title="Set the entity reference catalog for the reader">xis-msc!</a> ( msc xis -- )<br>
+<a href="xis.html#word22" title="Get the current entity reference catalog">xis-msc@</a> ( xis -- msc )<br>
+<a href="xis.html#word18" title="Create a new xml reader variable on the heap">xis-new</a> ( -- xis )<br>
+<a href="xis.html#word26" title="Read the next xml token n with various parameters from the source &lb;see xml reader constants&rb;">xis-read</a> ( xis -- i*x n )<br>
+<a href="xis.html#word20" title="Init the xml parser for reading using the reader callback xt with its data x">xis-set-reader</a> ( x xt xis -- )<br>
+<a href="xis.html#word21" title="Init the xml parser for for reading from the string c-addr u">xis-set-string</a> ( c-addr u xis -- )<br>
+<a href="xis.html#word25" title="Set the flag indicating the stripping of leading and trailing white space in normal text">xis-strip!</a> ( flag xis -- )<br>
+<a href="xis.html#word24" title="Return flag indicating the stripping of leading and trailing white space in normal text">xis-strip@</a> ( xis -- flag )<br>
+<a href="xis.html#word9" title="CDATA section">xis.cdata</a> ( -- n )<br>
+<a href="xis.html#word4" title="Comment">xis.comment</a> ( -- n )<br>
+<a href="xis.html#word2" title="Done reading">xis.done</a> ( -- n )<br>
+<a href="xis.html#word8" title="Empty element">xis.empty-element</a> ( -- n )<br>
+<a href="xis.html#word7" title="End tag">xis.end-tag</a> ( -- n )<br>
+<a href="xis.html#word1" title="Error">xis.error</a> ( -- n )<br>
+<a href="xis.html#word11" title="Internal DTD">xis.internal-dtd</a> ( -- n )<br>
+<a href="xis.html#word10" title="Proc. instr.">xis.proc-instr</a> ( -- n )<br>
+<a href="xis.html#word12" title="Public DTD">xis.public-dtd</a> ( -- n )<br>
+<a href="xis.html#word6" title="Start tag">xis.start-tag</a> ( -- n )<br>
+<a href="xis.html#word3" title="Start Document">xis.start-xml</a> ( -- n )<br>
+<a href="xis.html#word13" title="System DTD">xis.system-dtd</a> ( -- n )<br>
+<a href="xis.html#word5" title="Normal text">xis.text</a> ( -- n )<br>
+<a href="xos.html#word8" title="Write a xml CDATA section">xos-write-cdata</a> ( c-addr u tos -- )<br>
+<a href="xos.html#word7" title="Write a xml comment">xos-write-comment</a> ( c-addr u tos -- )<br>
+<a href="xos.html#word5" title="Write the xml start and end tag c-addr u with n attributes and values c-addr* u*">xos-write-empty-element</a> ( c-addr1 u1 ... c-addr2n u2n n c-addr u tos -- )<br>
+<a href="xos.html#word4" title="Write the xml end tag c-addr u">xos-write-end-tag</a> ( c-addr u tos -- )<br>
+<a href="xos.html#word10" title="Write an internal document type definition with name c-addr2 u2 and markup c-addr1 u1">xos-write-internal-dtd</a> ( c-addr1 u1 c-addr2 u2 tos -- )<br>
+<a href="xos.html#word9" title="Write a xml processing instruction with target c-addr u and n attributes and values c-addr* u*">xos-write-proc-instr</a> ( c-addr1 u1 c-addr2n u2n n c-addr u tos -- )<br>
+<a href="xos.html#word12" title="Write a public document type definition with name c-addr4 u4, markup c-addr3 u3, public-id c-addr2 u2 and system c-addr1 u1">xos-write-public-dtd</a> ( c-addr1 u1 c-addr2 u2 c-addr3 u3 c-addr4 u4 tos -- )<br>
+<a href="xos.html#word6" title="Write unprocessed xml text">xos-write-raw-text</a> ( c-addr u tos -- )<br>
+<a href="xos.html#word3" title="Write the xml start tag c-addr u with n attributes and values c-addr* u*">xos-write-start-tag</a> ( c-addr1 u1 ... c-addr2n u2n n c-addr u tos -- )<br>
+<a href="xos.html#word1" title="Write the start of a xml document with n attributes and values">xos-write-start-xml</a> ( c-addr1 u1 ... c-addr2n u2n n tos -- )<br>
+<a href="xos.html#word11" title="Write a system document type definition with name c-addr3 u3, markup c-addr2 u2 and system c-addr1 u1">xos-write-system-dtd</a> ( c-addr1 u1 c-addr2 u2 c-addr3 u3 tos -- )<br>
+<a href="xos.html#word2" title="Write normal xml text c-addr u with translation to the default entity references">xos-write-text</a> ( c-addr u tos -- )<br>
+<a href="zif.html#word1" title="Get the required space for a zif variable">zif%</a> ( -- n )<br>
+<a href="zif.html#word7" title="Set the default input buffer size &lb;default 2kb, min. 1kb&rb;">zif+input-size!</a> ( u -- )<br>
+<a href="zif.html#word8" title="Get the default input buffer size">zif+input-size@</a> ( -- u )<br>
+<a href="zif.html#word9" title="Set the default output buffer size &lb;default 64kb+4kb, min. 64kb+4kb&rb;">zif+output-size!</a> ( u -- )<br>
+<a href="zif.html#word10" title="Get the default output buffer size">zif+output-size@</a> ( -- u )<br>
+<a href="zif.html#word3" title="Free the internal, private variables from the heap">zif-(free)</a> ( zif -- )<br>
+<a href="zif.html#word15" title="Close the file">zif-close-file</a> ( zif -- ior )<br>
+<a href="zif.html#word4" title="Create a named gzip file reader variable in the dictionary">zif-create</a> ( "&lt;spaces&gt;name" -- ; -- zif )<br>
+<a href="zif.html#word16" title="Dump the variable">zif-dump</a> ( zif -- )<br>
+<a href="zif.html#word6" title="Free the variable from the heap">zif-free</a> ( zif -- )<br>
+<a href="zif.html#word11" title="Get the reference to the gzip file header info after zif-read-header">zif-gzf@</a> ( zif -- gzf )<br>
+<a href="zif.html#word2" title="Initialise the gzip file reader variable">zif-init</a> ( zif -- )<br>
+<a href="zif.html#word5" title="Create a new gzip file reader variable on the heap">zif-new</a> ( -- zif )<br>
+<a href="zif.html#word12" title="Open an existing gzip file for reading with name c-addr u">zif-open-file</a> ( c-addr u zif -- ior )<br>
+<a href="zif.html#word14" title="Read/decompress maximum u1 bytes from the file and store those at c-addr1, return the actual read bytes">zif-read-file</a> ( c-addr1 u1 zif -- u2 ior )<br>
+<a href="zif.html#word13" title="Read the &lb;next&rb; header from the gzip file">zif-read-header</a> ( zif -- ior )<br>
+<a href="tst.html#word2" title="Check for stack overflow">}t</a> ( i*x j*r -- )<br>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

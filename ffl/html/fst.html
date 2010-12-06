@@ -1,0 +1,235 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module fst - FSM State - Forth Foundation Library</title>
+</head>
+<body>
+<h2>fst - FSM State</h2>
+<h3>Module Description</h3>
+<p>The fst module implements a state in a Finite State Machine. See [fsm] for
+more info about using this module.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>State structure</h4>
+<dl>
+<dt><a name="word1"><b>fst%</b>	( -- n )</dt>
+<dd>Get the required space for a state variable</dd>
+</dl>
+<h4>State creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>fst-init</b>	( x xt1 xt2 c-addr u n fst -- )</dt>
+<dd>Initialise the state with id n and label c-addr u, entry action xt1, exit action xt2 and data x</dd>
+<dt><a name="word3"><b>fst-(free)</b>	( fst -- )</dt>
+<dd>Free the internal, private variables from the heap</dd>
+<dt><a name="word4"><b>fst-new</b>	( x xt1 xt2 c-addr u n -- fst )</dt>
+<dd>Create a new state on the heap with id n, label c-addr u, entry action xt1, exit action xt2 and data x</dd>
+<dt><a name="word5"><b>fst-free</b>	( fst -- )</dt>
+<dd>Free the state from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word6"><b>fst-id@</b>	( fst -- n )</dt>
+<dd>Get the id of the state</dd>
+<dt><a name="word7"><b>fst-label@</b>	( fst -- c-addr u )</dt>
+<dd>Get the label of the state</dd>
+<dt><a name="word8"><b>fst-label?</b>	( c-addr u fst -- c-addr u false | fst true )</dt>
+<dd>Check the label c-addr u with this state</dd>
+<dt><a name="word9"><b>fst-data@</b>	( fst -- x )</dt>
+<dd>Get the data of the state</dd>
+<dt><a name="word10"><b>fst-data!</b>	( x fst -- )</dt>
+<dd>Set the data for the state</dd>
+<dt><a name="word11"><b>fst-entry@</b>	( fst -- xt )</dt>
+<dd>Get the entry action of the state</dd>
+<dt><a name="word12"><b>fst-exit@</b>	( fst -- xt )</dt>
+<dd>Get the exit action of the state</dd>
+<dt><a name="word13"><b>fst-attributes!</b>	( c-addr u fst -- )</dt>
+<dd>Set the extra graphviz attributes for the state</dd>
+<dt><a name="word14"><b>fst-attributes@</b>	( fst -- c-addr u )</dt>
+<dd>Get the extra graphviz attributes of the state</dd>
+</dl>
+<h4>Transition words</h4>
+<dl>
+<dt><a name="word15"><b>fst-new-transition</b>	( x xt c-addr u fst1 n fst -- ftr )</dt>
+<dd>Add a new transition to state fst1 with label c-addr u, number events n, action xt and data x</dd>
+<dt><a name="word16"><b>fst-any-transition</b>	( x xt c-addr u fst1 fst -- ftr )</dt>
+<dd>Set the any transition to state fst1 with label c-addr u, action xt and data x</dd>
+<dt><a name="word17"><b>fst-find-transition</b>	( c-addr u fst -- ftr | nil )</dt>
+<dd>Find the transition with label c-addr u, else return nil</dd>
+</dl>
+<h4>Event words</h4>
+<dl>
+<dt><a name="word18"><b>fst-feed</b>	( n fst -- fst | nil )</dt>
+<dd>Feed the event to this state, return the next state or nil if the event did not match any condition</dd>
+<dt><a name="word19"><b>fst-try</b>	( n fst -- fst | nil )</dt>
+<dd>Try the event for this state, return the result</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word20"><b>fst-dump</b>	( fst -- )</dt>
+<dd>Dump the fst variable</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/fsm.fs
+include ffl/enm.fs
+
+
+\ Example: vending machine
+
+
+\ Enumerate the events
+
+begin-enumeration
+enum: voilence
+enum: coin
+enum: choice
+enum: refuse
+enum: #events
+end-enumeration
+
+
+\ Create the finite state machine on the heap with #events events
+
+#events fsm-new value machine
+
+
+\ Create the entry and exit action words
+
+: say-thank-you  ( fst -- = Say 'thank you' after a coin or choice )
+  drop
+  ." Thank you" cr
+;
+
+: say-choice?    ( fst -- = Ask for choice after the coin )
+  drop
+  ." Please make your choice" cr
+;
+
+: say-coin?      ( fst -- = Ask for coin after the choice )
+  drop
+  ." Please enter your coin" cr
+;
+
+: call-support   ( fst -- = Call support after voilence, states data contains the phone number )
+  ." Voilence against the machine, calling: " fst-data@ . cr
+;
+
+
+\ Create the states in the state machine
+
+0     nil            ' say-thank-you s" start"    machine fsm-new-state value start
+0   ' say-choice?    ' say-thank-you s" choice?"  machine fsm-new-state value choice?
+0   ' say-coin?      ' say-thank-you s" coin?"    machine fsm-new-state value coin?
+112 ' call-support     nil           s" support"  machine fsm-new-state value support
+
+
+\ Set extra dot attributes for the support state
+
+s" color=red" support fst-attributes!
+
+
+\ Create the transitions for state start, use the bit array to set the condition
+
+0     nil             s" coin"      start choice? machine fsm-new-transition ftr-condition@ coin     swap bar-set-bit
+0     nil             s" choice"    start coin?   machine fsm-new-transition ftr-condition@ choice   swap bar-set-bit
+0     nil             s" voilence"  start support machine fsm-new-transition ftr-condition@ voilence swap bar-set-bit
+
+s" voilence" start fst-find-transition s" color=yellow" rot ftr-attributes!
+
+
+\ Create the transition actions for choice? and coin? states
+
+: deliver-choice   ( n ftr -- = Deliver the choosen product )
+  2drop
+  ." Deliver choice" cr
+;
+
+: do-refund        ( n ftr -- = Refused the product, refund the coin )
+  2drop
+  ." Refund coin" cr
+;
+
+
+\ Create the transitions for state choice?
+
+0   ' deliver-choice  s" choice"    choice? start   machine fsm-new-transition ftr-condition@ choice   swap bar-set-bit
+0   ' do-refund       s" refuse"    choice? start   machine fsm-new-transition ftr-condition@ refuse   swap bar-set-bit
+0     nil             s" voilence"  choice? support machine fsm-new-transition ftr-condition@ voilence swap bar-set-bit
+
+
+\ Set extra dot attributes for the voilence transition
+
+s" voilence" choice? fst-find-transition s" color=yellow" rot ftr-attributes!
+
+
+\ Create the transitions for state coin?
+
+0   ' deliver-choice  s" coin"      coin? start   machine fsm-new-transition ftr-condition@ coin     swap bar-set-bit
+0     nil             s" refuse"    coin? start   machine fsm-new-transition ftr-condition@ refuse   swap bar-set-bit
+0     nil             s" voilence"  coin? support machine fsm-new-transition ftr-condition@ voilence swap bar-set-bit
+
+s" voilence" coin? fst-find-transition s" color=yellow" rot ftr-attributes!
+
+
+\ Start the state machine and feed it events 
+
+machine fsm-start
+
+coin     machine fsm-feed drop
+choice   machine fsm-feed drop
+coin     machine fsm-feed drop
+refuse   machine fsm-feed drop
+choice   machine fsm-feed drop
+coin     machine fsm-feed drop
+voilence machine fsm-feed drop
+
+
+\ Create a text output stream for writing the state machine to dot
+
+tos-new value dot-tos
+
+
+\ Create the writer word
+
+: write-dot    ( c-addr u file-id -- flag = Write the string )
+  write-line 
+  0=
+;
+
+
+\ Create the output file
+
+s" out.dot" w/o create-file throw value dot-file
+
+
+\ Set the writer word and the file in the stream
+
+dot-file  ' write-dot  dot-tos  tos-set-writer
+
+
+\ Write the state machine to the dot-file with graph name "Machine"
+
+s" Machine" dot-tos machine fsm-to-dot
+
+
+\ Free the dot stream
+
+dot-tos tos-free
+
+
+\ Close the dot file
+
+dot-file close-file throw
+
+
+\ To generate an image, use for example: dot -Tpng -o fsm.png out.dot
+
+\ ==============================================================================
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module dnn - Generic Double Linked List Node - Forth Foundation Library</title>
+</head>
+<body>
+<h2>dnn - Generic Double Linked List Node</h2>
+<h3>Module Description</h3>
+<p>The dnn module implements a node in a dnl list.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Node structure</h4>
+<dl>
+<dt><a name="word1"><b>dnn%</b>	( -- n )</dt>
+<dd>Get the required space for a dnn structure</dd>
+</dl>
+<h4>Node creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>dnn-init</b>	( dnn -- )</dt>
+<dd>Initialise the node</dd>
+<dt><a name="word3"><b>dnn-new</b>	( -- dnn )</dt>
+<dd>Create a new node on the heap</dd>
+<dt><a name="word4"><b>dnn-free</b>	( dnn -- )</dt>
+<dd>Free the node from the heap</dd>
+</dl>
+<h4>Members words</h4>
+<dl>
+<dt><a name="word5"><b>dnn-next@</b>	( dnn1 -- dnn2 )</dt>
+<dd>Get the next node dnn2 from node dnn1</dd>
+<dt><a name="word6"><b>dnn-next!</b>	( dnn1 dnn2 -- )</dt>
+<dd>Set for node dnn2 the next node to dnn1</dd>
+<dt><a name="word7"><b>dnn-prev@</b>	( dnn1 -- dnn2 )</dt>
+<dd>Get from node dnn1 the previous node</dd>
+<dt><a name="word8"><b>dnn-prev!</b>	( dnn1 dnn2 -- )</dt>
+<dd>Set for node dnn2 the previous node to dnn1</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word9"><b>dnn-dump</b>	( dnn -- )</dt>
+<dd>Dump the node</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>
