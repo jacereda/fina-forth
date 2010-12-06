@@ -1,0 +1,59 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module crc - 32-bit Cyclic Redundancy Check - Forth Foundation Library</title>
+</head>
+<body>
+<h2>crc - 32-bit Cyclic Redundancy Check</h2>
+<h3>Module Description</h3>
+<p>The crc module implements a 32-bit cyclic redundancy check calculation.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>CRC-32 Structure</h4>
+<dl>
+<dt><a name="word1"><b>crc%</b>	( -- n )</dt>
+<dd>Get the required space for a crc-32 variable</dd>
+</dl>
+<h4>CRC-32 variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>crc-init</b>	( crc -- )</dt>
+<dd>Initialise the crc</dd>
+<dt><a name="word3"><b>crc-create</b>	( "&lt;spaces&gt;name" -- ; -- crc )</dt>
+<dd>Create a named crc variable in the dictionary</dd>
+<dt><a name="word4"><b>crc-(free)</b>	( crc -- )</dt>
+<dd>Free the internal table from the heap</dd>
+<dt><a name="word5"><b>crc-new</b>	( -- crc )</dt>
+<dd>Create a new crc variable on the heap</dd>
+<dt><a name="word6"><b>crc-free</b>	( crc -- )</dt>
+<dd>Free the crc from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word7"><b>crc-poly!</b>	( u crc -- )</dt>
+<dd>Use the polynomial u for the crc</dd>
+<dt><a name="word8"><b>crc-poly@</b>	( crc -- u )</dt>
+<dd>Get the polynomial u in the crc</dd>
+</dl>
+<h4>CRC-32 words</h4>
+<dl>
+<dt><a name="word9"><b>crc-reset</b>	( crc -- )</dt>
+<dd>Reset the crc calculation</dd>
+<dt><a name="word10"><b>crc-update</b>	( c-addr u crc -- )</dt>
+<dd>Update the crc structure with more byte data</dd>
+<dt><a name="word11"><b>crc-finish</b>	( crc -- u )</dt>
+<dd>Finish the calculation, return the CRC32 result</dd>
+</dl>
+<h4>Module words</h4>
+<dl>
+<dt><a name="word12"><b>crc+calc-poly</b>	( u1 .. un n -- u )</dt>
+<dd>Calculate the polynomial u</dd>
+<dt><a name="word13"><b>crc+calc-crc32</b>	( c-addr u -- u1 )</dt>
+<dd>Calculate the CRC32 for byte data with default crc32 table</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

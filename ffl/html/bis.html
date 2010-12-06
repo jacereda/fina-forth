@@ -1,0 +1,136 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module bis - Bit Input Stream Module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>bis - Bit Input Stream Module</h2>
+<h3>Module Description</h3>
+<p>The bis module implements words for reading bits and bytes from a stream
+of bytes. The module uses a cell wide internal buffer to make it possible
+to keep reading from succeeding input streams. The maximum number of bits
+that can be read per call, is limited to the size of a cell minus one
+byte. So if a cell is 4 bytes wide, this maximum is 24 bit. Keep in mind
+that the module does not copy the data for the stream, it only stores a
+reference to the data.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>bis structure</h4>
+<dl>
+<dt><a name="word1"><b>bis%</b>	( -- n )</dt>
+<dd>Get the required space for a bis variable</dd>
+</dl>
+<h4>Bit input stream variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>bis-init</b>	( bis -- )</dt>
+<dd>Initialise the bit input stream variable</dd>
+<dt><a name="word3"><b>bis-create</b>	( "&lt;spaces&gt;name" -- ; -- bis )</dt>
+<dd>Create a named bit input stream variable in the dictionary</dd>
+<dt><a name="word4"><b>bis-new</b>	( -- bis )</dt>
+<dd>Create a new bit input stream variable on the heap</dd>
+<dt><a name="word5"><b>bis-free</b>	( bis -- )</dt>
+<dd>Free the bit input stream variable from the heap</dd>
+</dl>
+<h4>Input stream words</h4>
+<dl>
+<dt><a name="word6"><b>bis-set</b>	( c-addr u bis -- )</dt>
+<dd>Set the data string for the input stream</dd>
+<dt><a name="word7"><b>bis-get</b>	( bis -- c-addr u )</dt>
+<dd>Get the data string from the input stream</dd>
+<dt><a name="word8"><b>bis-reset</b>	( bis -- )</dt>
+<dd>Reset the input buffer, not the input stream</dd>
+</dl>
+<h4>Read byte words</h4>
+<dl>
+<dt><a name="word9"><b>bis-bits>bytes</b>	( bis -- )</dt>
+<dd>Start reading bytes, dropping the not-byte-aligned bits</dd>
+<dt><a name="word10"><b>bis-read-bytes</b>	( n1 bis -- false | n2 true )</dt>
+<dd>Try reading n1 bytes via the buffer from the stream, return the read number, n1 &lt;= #bytes/cell</dd>
+</dl>
+<h4>Read bits words</h4>
+<dl>
+<dt><a name="word11"><b>bis-bytes>bits</b>	( bis -- )</dt>
+<dd>Start reading bits from the stream</dd>
+<dt><a name="word12"><b>bis-need-bits</b>	( n bis -- flag )</dt>
+<dd>Check if there are n bits from the stream available in the buffer</dd>
+<dt><a name="word13"><b>bis-fetch-bits</b>	( u1 bis -- u2 )</dt>
+<dd>Fetch u1 bits from the buffer and return the value</dd>
+<dt><a name="word14"><b>bis-next-bits</b>	( n bis -- )</dt>
+<dd>Set n bits processed in the buffer</dd>
+<dt><a name="word15"><b>bis-get-bit</b>	( bis -- false | u true )</dt>
+<dd>Get a single bit u from the buffer</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word16"><b>bis-dump</b>	( bis -- )</dt>
+<dd>Dump the bit input stream</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/bis.fs
+
+
+\ Create an bit input stream variable bis1 in the dictionary
+
+bis-create bis1
+
+\ Give the stream some input data (note: the stream does not make a copy of the data)
+
+: bis-ab ( -- c-addr u ) s" ab" ;
+
+bis-ab bis1 bis-set
+
+\ Try reading 10 bits from the stream
+
+10 bis1 bis-need-bits [IF]
+  .( There are 10 bits available in the buffer. ) cr
+[ELSE]
+  .( There are not enough bits availabe in the buffer, refill.) cr
+[THEN]
+
+\ Read the bits from the stream
+
+.( The 10 bits from the stream:) 10 bis1 bis-fetch-bits . cr
+
+\ Indicate the the 10 bits are processed
+
+10 bis1 bis-next-bits
+
+\ Try reading another 10 bits from the stream
+
+10 bis1 bis-need-bits [IF]
+  .( There are another 10 bits available in the buffer.) cr
+[ELSE]
+  .( There are not enough bits available in the buffer, refill.) cr
+[THEN]
+
+\ Refill the input stream
+
+: bis-cd ( -- c-addr u) s" cd" ;
+
+bis-cd bis1 bis-set
+
+\ Again try reading another 10 bits from the stream
+
+10 bis1 bis-need-bits [IF]
+  .( There are another 10 bits available in the buffer.) cr
+[ELSE]
+  .( There are not enough bits available in the buffer, refill.) cr
+[THEN]
+
+\ Read the bits from the stream and indicate that the bits are processed
+
+.( The 10 bits from the stream:) 10 bis1 bis-fetch-bits . cr
+
+\ Indicate the the 10 bits are processed
+
+10 bis1 bis-next-bits
+
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

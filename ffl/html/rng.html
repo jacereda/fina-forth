@@ -1,0 +1,49 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module rng - Pseudo random number generator module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>rng - Pseudo random number generator module</h2>
+<h3>Module Description</h3>
+<p>The rng module implements a pseudo random number generator;
+it uses the Mersenne Twister as generator with a period of 2^19937 - 1.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Random generator structure</h4>
+<dl>
+<dt><a name="word1"><b>rng%</b>	( -- n )</dt>
+<dd>Get the required space for a rng variable</dd>
+</dl>
+<h4>Random generator creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>rng-init</b>	( u rng -- )</dt>
+<dd>Initialise the generator with the seed u</dd>
+<dt><a name="word3"><b>rng-create</b>	( u "&lt;spaces&gt;name" -- ; -- rng )</dt>
+<dd>Create a named random generator in the dictionary with seed u</dd>
+<dt><a name="word4"><b>rng-new</b>	( u -- rng )</dt>
+<dd>Create a new random generator on the heap with seed u</dd>
+<dt><a name="word5"><b>rng-free</b>	( rng -- )</dt>
+<dd>Free the random generator from the heap</dd>
+</dl>
+<h4>Random generator words</h4>
+<dl>
+<dt><a name="word6"><b>rng-seed</b>	( u rng -- )</dt>
+<dd>Initialise the generator with the seed u</dd>
+<dt><a name="word7"><b>rng-next-number</b>	( rng -- n )</dt>
+<dd>Calculate the next pseudo random number, 32 bit</dd>
+<dt><a name="word8"><b>rng-next-float</b>	( rng -- r )</dt>
+<dd>Calculate the next pseudo random float number, range [0,1&gt;</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word9"><b>rng-dump</b>	( rng -- )</dt>
+<dd>Dump the random generator</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

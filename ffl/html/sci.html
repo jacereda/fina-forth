@@ -1,0 +1,61 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module sci - Single Linked Cell List Iterator - Forth Foundation Library</title>
+</head>
+<body>
+<h2>sci - Single Linked Cell List Iterator</h2>
+<h3>Module Description</h3>
+<p>The sci module implements an iterator on the single linked cell list [scl].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Iterator structure</h4>
+<dl>
+<dt><a name="word1"><b>sci%</b>	( -- n )</dt>
+<dd>Get the required space for a sci variable</dd>
+</dl>
+<h4>Iterator creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>sci-init</b>	( scl sci -- )</dt>
+<dd>Initialise the iterator with a scl list</dd>
+<dt><a name="word3"><b>sci-create</b>	( scl "&lt;spaces&gt;name" -- ; -- sci )</dt>
+<dd>Create a named iterator in the dictionary on the scl list</dd>
+<dt><a name="word4"><b>sci-new</b>	( scl -- sci )</dt>
+<dd>Create an iterator on the heap on the scl list</dd>
+<dt><a name="word5"><b>sci-free</b>	( sci -- )</dt>
+<dd>Free the iterator from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word6"><b>sci-get</b>	( sci -- x true | false )</dt>
+<dd>Get the cell data x from the current node</dd>
+<dt><a name="word7"><b>sci-set</b>	( x sci -- )</dt>
+<dd>Set the cell data x for the current node</dd>
+</dl>
+<h4>Iterator words</h4>
+<dl>
+<dt><a name="word8"><b>sci-first</b>	( sci -- x true | false )</dt>
+<dd>Move the iterator to the first node, return the cell data x from this node</dd>
+<dt><a name="word9"><b>sci-next</b>	( sci -- x true | false )</dt>
+<dd>Move the iterator to the next node, return the cell data x from this node</dd>
+<dt><a name="word10"><b>sci-move</b>	( x sci -- flag )</dt>
+<dd>Move the iterator to the next node with the cell data x</dd>
+<dt><a name="word11"><b>sci-first?</b>	( sci -- flag )</dt>
+<dd>Check if the iterator is on the first node</dd>
+<dt><a name="word12"><b>sci-last?</b>	( sci -- flag )</dt>
+<dd>Check if the iterator is on the last node</dd>
+<dt><a name="word13"><b>sci-insert-after</b>	( x sci -- )</dt>
+<dd>Insert the cell data x after the current node</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word14"><b>sci-dump</b>	( sci -- )</dt>
+<dd>Dump the iterator</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

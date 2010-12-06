@@ -1,0 +1,134 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module chr - Char Data Type - Forth Foundation Library</title>
+</head>
+<body>
+<h2>chr - Char Data Type</h2>
+<h3>Module Description</h3>
+<p>The chr module implements words for checking ranges of characters and for
+converting characters.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>ASCII constants</h4>
+<dl>
+<dt><a name="word1"><b>chr.nul</b>	( -- char )</dt>
+<dd>the null character</dd>
+<dt><a name="word2"><b>chr.soh</b>	( -- char )</dt>
+<dd>the soh character</dd>
+<dt><a name="word3"><b>chr.stx</b>	( -- char )</dt>
+<dd>the stx character</dd>
+<dt><a name="word4"><b>chr.etx</b>	( -- char )</dt>
+<dd>the etx character</dd>
+<dt><a name="word5"><b>chr.eot</b>	( -- char )</dt>
+<dd>the eot character</dd>
+<dt><a name="word6"><b>chr.enq</b>	( -- char )</dt>
+<dd>the enq character</dd>
+<dt><a name="word7"><b>chr.ack</b>	( -- char )</dt>
+<dd>the ack character</dd>
+<dt><a name="word8"><b>chr.bel</b>	( -- char )</dt>
+<dd>the bel character</dd>
+<dt><a name="word9"><b>chr.bs</b>	( -- char )</dt>
+<dd>the backspace character</dd>
+<dt><a name="word10"><b>chr.ht</b>	( -- char )</dt>
+<dd>the horz. tab character</dd>
+<dt><a name="word11"><b>chr.lf</b>	( -- char )</dt>
+<dd>the line feed character</dd>
+<dt><a name="word12"><b>chr.vt</b>	( -- char )</dt>
+<dd>the vert. tab character</dd>
+<dt><a name="word13"><b>chr.ff</b>	( -- char )</dt>
+<dd>the formfeed character</dd>
+<dt><a name="word14"><b>chr.cr</b>	( -- char )</dt>
+<dd>the carriage return character</dd>
+<dt><a name="word15"><b>chr.sm</b>	( -- char )</dt>
+<dd>the sm character</dd>
+<dt><a name="word16"><b>chr.si</b>	( -- char )</dt>
+<dd>the si character</dd>
+<dt><a name="word17"><b>chr.dle</b>	( -- char )</dt>
+<dd>the dle character</dd>
+<dt><a name="word18"><b>chr.dc1</b>	( -- char )</dt>
+<dd>the dc1 character</dd>
+<dt><a name="word19"><b>chr.dc2</b>	( -- char )</dt>
+<dd>the dc2 character</dd>
+<dt><a name="word20"><b>chr.dc3</b>	( -- char )</dt>
+<dd>the dc3 character</dd>
+<dt><a name="word21"><b>chr.dc4</b>	( -- char )</dt>
+<dd>the dc4 character</dd>
+<dt><a name="word22"><b>chr.nak</b>	( -- char )</dt>
+<dd>the nak character</dd>
+<dt><a name="word23"><b>chr.syn</b>	( -- char )</dt>
+<dd>the syn character</dd>
+<dt><a name="word24"><b>chr.etb</b>	( -- char )</dt>
+<dd>the etc character</dd>
+<dt><a name="word25"><b>chr.can</b>	( -- char )</dt>
+<dd>the cancel character</dd>
+<dt><a name="word26"><b>chr.em</b>	( -- char )</dt>
+<dd>the em character</dd>
+<dt><a name="word27"><b>chr.sub</b>	( -- char )</dt>
+<dd>the sub character</dd>
+<dt><a name="word28"><b>chr.esc</b>	( -- char )</dt>
+<dd>the escape character</dd>
+<dt><a name="word29"><b>chr.fs</b>	( -- char )</dt>
+<dd>the fs character</dd>
+<dt><a name="word30"><b>chr.gs</b>	( -- char )</dt>
+<dd>the gs character</dd>
+<dt><a name="word31"><b>chr.rs</b>	( -- char )</dt>
+<dd>the rs character</dd>
+<dt><a name="word32"><b>chr.us</b>	( -- char )</dt>
+<dd>the us character</dd>
+<dt><a name="word33"><b>chr.sp</b>	( -- char )</dt>
+<dd>the space character</dd>
+<dt><a name="word34"><b>chr.del</b>	( -- char )</dt>
+<dd>the delete character</dd>
+</dl>
+<h4>Character class checking words</h4>
+<dl>
+<dt><a name="word35"><b>chr-range?</b>	( char1 char2 char3 -- flag )</dt>
+<dd>Check if char1 is in the range [char2..char3]</dd>
+<dt><a name="word36"><b>chr-lower?</b>	( char -- flag )</dt>
+<dd>Check for a lowercase alphabetic character</dd>
+<dt><a name="word37"><b>chr-upper?</b>	( char -- flag )</dt>
+<dd>Check for an uppercase alphabetic character</dd>
+<dt><a name="word38"><b>chr-alpha?</b>	( char -- flag )</dt>
+<dd>Check for an alphabetic character</dd>
+<dt><a name="word39"><b>chr-digit?</b>	( char -- flag )</dt>
+<dd>Check for a decimal digit character</dd>
+<dt><a name="word40"><b>chr-alnum?</b>	( char -- flag )</dt>
+<dd>Check for an alphanumeric character</dd>
+<dt><a name="word41"><b>chr-ascii?</b>	( char -- flag )</dt>
+<dd>Check for an ascii character</dd>
+<dt><a name="word42"><b>chr-blank?</b>	( char -- flag )</dt>
+<dd>Check for a blank character, space or tab</dd>
+<dt><a name="word43"><b>chr-cntrl?</b>	( char -- flag )</dt>
+<dd>Check for a control character, 0 till 31</dd>
+<dt><a name="word44"><b>chr-graph?</b>	( char -- flag )</dt>
+<dd>Check for a printable character except space</dd>
+<dt><a name="word45"><b>chr-print?</b>	( char -- flag )</dt>
+<dd>Check for a printable character including space</dd>
+<dt><a name="word46"><b>chr-punct?</b>	( char -- flag )</dt>
+<dd>Check for a printable character, but not a space or alphanumeric character</dd>
+<dt><a name="word47"><b>chr-space?</b>	( char -- flag )</dt>
+<dd>Check for a white-space: space, lf, vt, ff, cr</dd>
+<dt><a name="word48"><b>chr-hexdigit?</b>	( char -- flag )</dt>
+<dd>Check for a hexadecimal character</dd>
+<dt><a name="word49"><b>chr-octdigit?</b>	( char -- flag )</dt>
+<dd>Check for an octal character</dd>
+<dt><a name="word50"><b>chr-string?</b>	( c-addr u char -- flag )</dt>
+<dd>Check if the character is in the string</dd>
+</dl>
+<h4>Character conversion words</h4>
+<dl>
+<dt><a name="word51"><b>chr-upper</b>	( char1 -- char2 )</dt>
+<dd>Convert char1 to uppercase</dd>
+<dt><a name="word52"><b>chr-lower</b>	( char1 -- char2 )</dt>
+<dd>Convert char1 to lowercase</dd>
+<dt><a name="word53"><b>chr-base</b>	( char -- false | u true )</dt>
+<dd>Convert the character to a digit according the current base</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

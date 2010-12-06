@@ -1,0 +1,191 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module str - Dynamic text string - Forth Foundation Library</title>
+</head>
+<body>
+<h2>str - Dynamic text string</h2>
+<h3>Module Description</h3>
+<p>The str module implements a dynamic text string.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>String structure</h4>
+<dl>
+<dt><a name="word1"><b>str%</b>	( -- n )</dt>
+<dd>Get the required space for a str variable</dd>
+</dl>
+<h4>String creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>str-init</b>	( str -- )</dt>
+<dd>Initialise to an empty string</dd>
+<dt><a name="word3"><b>str-(free)</b>	( str -- )</dt>
+<dd>Free the string data from the heap</dd>
+<dt><a name="word4"><b>str-create</b>	( "&lt;spaces&gt;name" -- ; -- str )</dt>
+<dd>Create a named empty string in the dictionary</dd>
+<dt><a name="word5"><b>str-new</b>	( -- str )</dt>
+<dd>Create a new empty string on the heap</dd>
+<dt><a name="word6"><b>str-free</b>	( str -- )</dt>
+<dd>Free the string from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word7"><b>str-empty?</b>	( str -- flag )</dt>
+<dd>Check for an empty string</dd>
+<dt><a name="word8"><b>str-length@</b>	( str -- u )</dt>
+<dd>Get the length of the string</dd>
+<dt><a name="word9"><b>str-length!</b>	( u str -- )</dt>
+<dd>Set the length of the string</dd>
+<dt><a name="word10"><b>str-index?</b>	( n str -- flag )</dt>
+<dd>Check if the index n is valid in the string</dd>
+<dt><a name="word11"><b>str-data@</b>	( str -- c-addr )</dt>
+<dd>Get the start of the string</dd>
+<dt><a name="word12"><b>str-size!</b>	( u str -- )</dt>
+<dd>Insure the size u of the string</dd>
+<dt><a name="word13"><b>str-extra@</b>	( str -- u )</dt>
+<dd>Get the extra space allocated during resizing of the string</dd>
+<dt><a name="word14"><b>str-extra!</b>	( u str -- )</dt>
+<dd>Set the extra space allocated during resizing of the string</dd>
+<dt><a name="word15"><b>str+extra@</b>	( -- u )</dt>
+<dd>Get the initial extra space allocated during resizing of the string</dd>
+<dt><a name="word16"><b>str+extra!</b>	( u -- )</dt>
+<dd>Set the initial extra space allocated during resizing of the string</dd>
+</dl>
+<h4>Set words</h4>
+<dl>
+<dt><a name="word17"><b>str-clear</b>	( str -- )</dt>
+<dd>Clear the string</dd>
+<dt><a name="word18"><b>str-set</b>	( c-addr u str -- )</dt>
+<dd>Set the string c-addr u in the string</dd>
+<dt><a name="word19"><b>str-append-string</b>	( c-addr u str -- )</dt>
+<dd>Append the string c-addr u to the string</dd>
+<dt><a name="word20"><b>str-prepend-string</b>	( c-addr u str -- )</dt>
+<dd>Prepend the string c-addr u to the string</dd>
+<dt><a name="word21"><b>str-append-chars</b>	( char u str -- )</dt>
+<dd>Append u chars in the string</dd>
+<dt><a name="word22"><b>str-prepend-chars</b>	( char u str -- )</dt>
+<dd>Prepend u chars in the string</dd>
+<dt><a name="word23"><b>str-insert-string</b>	( c-addr u n str -- )</dt>
+<dd>Insert the string c-addr in the string at index n</dd>
+<dt><a name="word24"><b>str-insert-chars</b>	( char u n str -- )</dt>
+<dd>Insert u chars in the string at index n</dd>
+</dl>
+<h4>Get words</h4>
+<dl>
+<dt><a name="word25"><b>str-get-substring</b>	( u n str -- c-addr u )</dt>
+<dd>Get a substring starting from index n,  u characters long</dd>
+<dt><a name="word26"><b>str-get</b>	( str -- c-addr u )</dt>
+<dd>Get the string in the string</dd>
+<dt><a name="word27"><b>str-bounds</b>	( str -- c-addr+u c-addr )</dt>
+<dd>Get the bounds of the string</dd>
+</dl>
+<h4>Delete word</h4>
+<dl>
+<dt><a name="word28"><b>str-delete</b>	( u n str -- )</dt>
+<dd>Delete a substring starting at index n with length u from the string</dd>
+</dl>
+<h4>Zero terminated string words</h4>
+<dl>
+<dt><a name="word29"><b>str-set-zstring</b>	( c-addr str -- )</dt>
+<dd>Set a zero terminated string in the string</dd>
+<dt><a name="word30"><b>str-get-zstring</b>	( str -- c-addr )</dt>
+<dd>Get the string as zero terminated string</dd>
+</dl>
+<h4>Strings word</h4>
+<dl>
+</dl>
+<h4>Character words</h4>
+<dl>
+<dt><a name="word31"><b>str-append-char</b>	( char str -- )</dt>
+<dd>Append a character at the end of the string</dd>
+<dt><a name="word32"><b>str-prepend-char</b>	( char str -- )</dt>
+<dd>Prepend a character at the start of the string</dd>
+<dt><a name="word33"><b>str-push-char</b>	( char str -- )</dt>
+<dd>Push a character at the end of the string</dd>
+<dt><a name="word34"><b>str-pop-char</b>	( str -- char )</dt>
+<dd>Pop a character from the end of the string</dd>
+<dt><a name="word35"><b>str-enqueue-char</b>	( char str -- )</dt>
+<dd>Place a character at the start of the string</dd>
+<dt><a name="word36"><b>str-dequeue-char</b>	( char str -- )</dt>
+<dd>Get the character at the end of the string</dd>
+<dt><a name="word37"><b>str-set-char</b>	( char n str -- )</dt>
+<dd>Set the character on the nth position in the string</dd>
+<dt><a name="word38"><b>str-get-char</b>	( n str -- char )</dt>
+<dd>Get the character from the nth position in the string</dd>
+<dt><a name="word39"><b>str-insert-char</b>	( char n str -- )</dt>
+<dd>Insert the character on the nth position in the string</dd>
+<dt><a name="word40"><b>str-delete-char</b>	( n str -- )</dt>
+<dd>Delete the character on the nth position in the string</dd>
+</dl>
+<h4>Special words</h4>
+<dl>
+<dt><a name="word41"><b>str-count</b>	( c-addr u str -- u )</dt>
+<dd>Count the number of occurrences of the string c-addr u in the string</dd>
+<dt><a name="word42"><b>str-execute</b>	( i*x xt str -- j*x )</dt>
+<dd>Execute the xt token for every character in the string</dd>
+</dl>
+<h4>Special manipulation words</h4>
+<dl>
+<dt><a name="word43"><b>str-capatilize</b>	( str -- )</dt>
+<dd>Capitalize the first word in the string</dd>
+<dt><a name="word44"><b>str-cap-words</b>	( str -- )</dt>
+<dd>Capitalize all words in the string</dd>
+<dt><a name="word45"><b>str-center</b>	( u str -- )</dt>
+<dd>Center the string in width u</dd>
+<dt><a name="word46"><b>str-align-left</b>	( u str -- )</dt>
+<dd>Align left the string in width u</dd>
+<dt><a name="word47"><b>str-align-right</b>	( u str -- )</dt>
+<dd>Align right the string in width u</dd>
+<dt><a name="word48"><b>str-strip-leading</b>	( str -- )</dt>
+<dd>Strip leading spaces in the string</dd>
+<dt><a name="word49"><b>str+strip-leading</b>	( c-addr1 u1 -- c-addr2 u2 )</dt>
+<dd>Strip leading whitespace in the string c-addr1 u1</dd>
+<dt><a name="word50"><b>str-strip-trailing</b>	( str -- )</dt>
+<dd>Strip trailing spaces in the string</dd>
+<dt><a name="word51"><b>str+strip-trailing</b>	( c-addr u1 -- c-addr u2 )</dt>
+<dd>Strip trailing whitespace in the string c-addr u1</dd>
+<dt><a name="word52"><b>str-strip</b>	( str -- )</dt>
+<dd>Strip leading and trailing spaces in the string</dd>
+<dt><a name="word53"><b>str+strip</b>	( c-addr1 u1 -- c-addr2 u2 )</dt>
+<dd>Strip leading and trailing spaces from string c-addr1 u1</dd>
+<dt><a name="word54"><b>str-lower</b>	( str -- )</dt>
+<dd>Convert the string to lower case</dd>
+<dt><a name="word55"><b>str-upper</b>	( str -- )</dt>
+<dd>Convert the string to upper case</dd>
+<dt><a name="word56"><b>str-expand-tabs</b>	( u str -- )</dt>
+<dd>Expand the tabs to u spaces in the string</dd>
+</dl>
+<h4>Comparison words</h4>
+<dl>
+<dt><a name="word57"><b>str-icompare</b>	( c-addr u str -- n )</dt>
+<dd>Compare case-insensitive the string c-addr u with the string, return the result [-1,0,1]</dd>
+<dt><a name="word58"><b>str-ccompare</b>	( c-addr u str -- n )</dt>
+<dd>Compare case-sensitive the string c-addr u with the string, return the result [-1,0,1]</dd>
+<dt><a name="word59"><b>str^icompare</b>	( str1 str2 -- n )</dt>
+<dd>Compare case-insensitive the strings str1 and str, return the result [-1,0,1]</dd>
+<dt><a name="word60"><b>str^ccompare</b>	( str1 str2 -- n )</dt>
+<dd>Compare case-sensitive the string str1 and str2, return the result [-1,0,1]</dd>
+</dl>
+<h4>Search and replace words</h4>
+<dl>
+<dt><a name="word61"><b>str-find</b>	( c-addr u n1 str -- n2 )</dt>
+<dd>Find the first occurrence of the string c-addr u starting from index n1 in the string, return -1 if not found</dd>
+<dt><a name="word62"><b>str-replace</b>	( c-addr1 u1 c-addr2 u2 str -- )</dt>
+<dd>Replace all occurences of the string c-addr2 u2 with the string c-addr1 u1 in the string</dd>
+</dl>
+<h4>Split words</h4>
+<dl>
+<dt><a name="word63"><b>str+columns</b>	( c-addr u n -- c-addrn un ... c-addr1 u1 n )</dt>
+<dd>Split the string c-addr u in n substrings, u width wide, skipping leading spaces [recursive]</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word64"><b>str-dump</b>	( str -- )</dt>
+<dd>Dump the string</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

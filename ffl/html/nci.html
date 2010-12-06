@@ -1,0 +1,84 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module nci - n-Tree cell Iterator - Forth Foundation Library</title>
+</head>
+<body>
+<h2>nci - n-Tree cell Iterator</h2>
+<h3>Module Description</h3>
+<p>The nci module implements an iterator on a cell n-Tree [nct].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Iterator structure</h4>
+<dl>
+<dt><a name="word1"><b>nci%</b>	( -- n )</dt>
+<dd>Get the required space for a nci variable</dd>
+</dl>
+<h4>Iterator creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>nci-init</b>	( nct nci -- )</dt>
+<dd>Initialise the iterator with the n-tree nct</dd>
+<dt><a name="word3"><b>nci-create</b>	( nct "&lt;spaces&gt;name" -- ; -- nci )</dt>
+<dd>Create a named iterator in the dictionary on the n-tree nct</dd>
+<dt><a name="word4"><b>nci-new</b>	( nct -- nci )</dt>
+<dd>Create an iterator on the heap on the n-tree nct</dd>
+<dt><a name="word5"><b>nci-free</b>	( nci -- )</dt>
+<dd>Free the iterator from heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word6"><b>nci-get</b>	( nci -- x true | false )</dt>
+<dd>Get the cell data x from the current node</dd>
+</dl>
+<h4>Tree iterator words</h4>
+<dl>
+<dt><a name="word7"><b>nci-root?</b>	( nci -- flag )</dt>
+<dd>Check if the current node is the root node</dd>
+<dt><a name="word8"><b>nci-root</b>	( nci -- x true | false )</dt>
+<dd>Move the iterator to the root of the tree, return the cell data x from this node</dd>
+<dt><a name="word9"><b>nci-parent</b>	( nci -- x true | false )</dt>
+<dd>Move the iterator to the parent of the current node, return the cell data x from this node</dd>
+<dt><a name="word10"><b>nci-children</b>	( nci -- n )</dt>
+<dd>Return the number of children of the current node</dd>
+<dt><a name="word11"><b>nci-children?</b>	( nci -- flag )</dt>
+<dd>Check if the current node has children</dd>
+<dt><a name="word12"><b>nci-child</b>	( nci -- x true | false )</dt>
+<dd>Move the iterator to the first child of the current node, return the cell data x of this node</dd>
+<dt><a name="word13"><b>nci-prepend-child</b>	( x nci -- )</dt>
+<dd>Prepend data x as child to the children of the current node, iterator is moved to the new child</dd>
+<dt><a name="word14"><b>nci-append-child</b>	( x nci -- )</dt>
+<dd>Append data x as child to the children of the current node, iterator is moved to the new child</dd>
+</dl>
+<h4>Sibling iterator words</h4>
+<dl>
+<dt><a name="word15"><b>nci-first</b>	( nci -- x true | false )</dt>
+<dd>Move the iterator to the first sibling, return the cell data x from this node</dd>
+<dt><a name="word16"><b>nci-next</b>	( nci -- x true | false )</dt>
+<dd>Move the iterator to the next sibling, return the cell data x from this node</dd>
+<dt><a name="word17"><b>nci-prev</b>	( nci -- x true | false )</dt>
+<dd>Move the iterator to the previous sibling, return the cell data x from this node</dd>
+<dt><a name="word18"><b>nci-last</b>	( nci -- x true | false )</dt>
+<dd>Move the iterator to the last sibling, return the cell data x from this node</dd>
+<dt><a name="word19"><b>nci-first?</b>	( nci -- flag )</dt>
+<dd>Check if the iterator is on the first sibling</dd>
+<dt><a name="word20"><b>nci-last?</b>	( nci -- flag )</dt>
+<dd>Check if the iterator is on the last sibling</dd>
+<dt><a name="word21"><b>nci-insert-before</b>	( x nci -- )</dt>
+<dd>Insert data x as sibling before the current sibling in the tree</dd>
+<dt><a name="word22"><b>nci-insert-after</b>	( x nci -- )</dt>
+<dd>Insert data x as sibling after the current sibling in the tree</dd>
+<dt><a name="word23"><b>nci-remove</b>	( nci -- x true | false )</dt>
+<dd>Remove the current sibling without children from the tree, move the iterator to the next, previous or parent node, return the cell data x of the removed node</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word24"><b>nci-dump</b>	( nci -- )</dt>
+<dd>Dump the iterator</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

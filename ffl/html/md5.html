@@ -1,0 +1,94 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module md5 - MD5 Message Digest Algorithm - Forth Foundation Library</title>
+</head>
+<body>
+<h2>md5 - MD5 Message Digest Algorithm</h2>
+<h3>Module Description</h3>
+<p>The md5 module implements the MD5 algorithm.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>MD5 Structure</h4>
+<dl>
+<dt><a name="word1"><b>md5%</b>	( -- n )</dt>
+<dd>Get the required space for a md5 variable</dd>
+</dl>
+<h4>MD5 variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>md5-init</b>	( md5 -- )</dt>
+<dd>Initialise the MD5 variable</dd>
+<dt><a name="word3"><b>md5-create</b>	( "&lt;spaces&gt;name" -- ; -- md5 )</dt>
+<dd>Create a named MD5 variable in the dictionary</dd>
+<dt><a name="word4"><b>md5-new</b>	( -- md5 )</dt>
+<dd>Create a new MD5 variable on the heap</dd>
+<dt><a name="word5"><b>md5-free</b>	( md5 -- )</dt>
+<dd>Free the MD5 variable from the heap</dd>
+</dl>
+<h4>MD5 words</h4>
+<dl>
+<dt><a name="word6"><b>md5-reset</b>	( md5 -- )</dt>
+<dd>Reset the MD5 state</dd>
+<dt><a name="word7"><b>md5-update</b>	( c-addr u md5 -- )</dt>
+<dd>Update the MD5 with more data c-addr u</dd>
+<dt><a name="word8"><b>md5-finish</b>	( md5 -- u1 u2 u3 u4 )</dt>
+<dd>Finish the MD5 calculation, return the result u1 u2 u3 u4</dd>
+<dt><a name="word9"><b>md5+to-string</b>	( u1 u2 u3 u4 -- c-addr u )</dt>
+<dd>Convert MD5 result to the string, using the pictured output area</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word10"><b>md5-dump</b>	( md5 -- )</dt>
+<dd>Dump the md5 variable</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/md5.fs
+
+\ Create a MD5 variable md1 in the dictionary
+
+md5-create md1
+
+\ Update the variable with data
+
+s" The quick brown fox jumps over the lazy dog" md1 md5-update
+
+\ Finish the MD5 calculation resulting in four unsigned 32 bit words
+\ on the stack representing the hash value
+
+md1 md5-finish
+
+\ Convert the hash value to a hex string and print it
+
+md5+to-string type cr
+
+
+
+\ Create a MD5 variable on the heap
+
+md5-new value md2
+
+\ Update the variable with multiple data
+
+s" The quick brown fox "    md2 md5-update
+s" jumps over the lazy dog" md2 md5-update
+
+\ Finish the calculation
+
+md2 md5-finish
+
+\ Convert the hash value to a hex string and print
+
+md5+to-string type cr
+
+\ Free the variable from the heap
+
+md2 md5-free
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

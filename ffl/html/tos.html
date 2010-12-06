@@ -1,0 +1,110 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module tos - Text output stream - Forth Foundation Library</title>
+</head>
+<body>
+<h2>tos - Text output stream</h2>
+<h3>Module Description</h3>
+<p>The tos module implements a text output stream. It extends the str module,
+so all words from the str module, can be used on a tos variable.
+The data written to the stream is always appended. Alignment is normally
+done for the last written data. By using the start alignment pointers
+words the start of the alignment can be changed. The end of the alignment
+is always the end of the stream. The message catalog can be used for
+localization of strings. Note: the numerical words in this module use the
+the numeric output string. The writer can be used to direct the result of
+the formatter to a writer word by calling tos-flush:
+<pre>
+ Stack usage writer word: c-addr u x -- flag = Write c-addr u, return success
+</pre>
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Output stream structure</h4>
+<dl>
+<dt><a name="word1"><b>tos%</b>	( -- n )</dt>
+<dd>Get the required space for a tos variable</dd>
+</dl>
+<h4>Output stream creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>tos-init</b>	( tos -- )</dt>
+<dd>Initialise the empty output stream</dd>
+<dt><a name="word3"><b>tos-(free)</b>	( tos -- )</dt>
+<dd>Free the tos data from the heap</dd>
+<dt><a name="word4"><b>tos-create</b>	( "&lt;spaces&gt;name" -- ; -- tos )</dt>
+<dd>Create a named output stream in the dictionary</dd>
+<dt><a name="word5"><b>tos-new</b>	( -- tos )</dt>
+<dd>Create a new output stream on the heap</dd>
+<dt><a name="word6"><b>tos-free</b>	( tos -- )</dt>
+<dd>Free the output stream from the heap</dd>
+</dl>
+<h4>Stream words</h4>
+<dl>
+<dt><a name="word7"><b>tos-rewrite</b>	( tos -- )</dt>
+<dd>Rewrite the output stream</dd>
+</dl>
+<h4>Alignment start pointer words</h4>
+<dl>
+<dt><a name="word8"><b>tos-pntr@</b>	( tos -- u )</dt>
+<dd>Get the current alignment start pointer</dd>
+<dt><a name="word9"><b>tos-pntr!</b>	( n tos -- flag )</dt>
+<dd>Set the alignment pointer from start [n&gt;=0] or from end [n&lt;0], return success</dd>
+<dt><a name="word10"><b>tos-pntr+!</b>	( n tos -- flag )</dt>
+<dd>Add the offset n to the alignment pointer, return success</dd>
+</dl>
+<h4>Writer words</h4>
+<dl>
+<dt><a name="word11"><b>tos-set-writer</b>	( x xt tos -- )</dt>
+<dd>Use the stream for writing using the writer callback xt and its data x</dd>
+<dt><a name="word12"><b>tos-flush</b>	( tos -- )</dt>
+<dd>Flush the contents of the stream to the writer</dd>
+</dl>
+<h4>Message catalog words</h4>
+<dl>
+<dt><a name="word13"><b>tos-msc!</b>	( msc tos -- )</dt>
+<dd>Set the message catalog for the output stream</dd>
+<dt><a name="word14"><b>tos-msc@</b>	( tos -- msc | nil )</dt>
+<dd>Get the message catalog for the output stream</dd>
+</dl>
+<h4>Write data words</h4>
+<dl>
+<dt><a name="word15"><b>tos-write-char</b>	( char tos -- )</dt>
+<dd>Write character to the stream</dd>
+<dt><a name="word16"><b>tos-write-chars</b>	( char u tos -- )</dt>
+<dd>Write u chars to the stream</dd>
+<dt><a name="word17"><b>tos-write-string</b>	( c-addr u tos -- )</dt>
+<dd>Write the string c-addr u to the stream, using the message catalog if present</dd>
+<dt><a name="word18"><b>tos-write-line</b>	( tos -- )</dt>
+<dd>Write end-of-line from config to the stream, not align able</dd>
+<dt><a name="word19"><b>tos-write-number</b>	( n tos -- )</dt>
+<dd>Write the number n in the current base to the stream</dd>
+<dt><a name="word20"><b>tos-write-double</b>	( d tos -- )</dt>
+<dd>Write the double d in the current base to the stream</dd>
+<dt><a name="word21"><b>tos-write-float</b>	( r tos -- )</dt>
+<dd>Write the float r to the stream in notation: [-]0.digitsE[-]digits, using PAD and PRECISION</dd>
+<dt><a name="word22"><b>tos-write-fixed-point</b>	( r tos -- )</dt>
+<dd>Write the float r to the stream in fixed-point notation: [-]digits.digits0, using PAD and PRECISION</dd>
+</dl>
+<h4>Alignment words</h4>
+<dl>
+<dt><a name="word23"><b>tos-align</b>	( char u1 u2 tos -- )</dt>
+<dd>Align the previous written data with padding character char, u1 trailing chars and u2 leading chars</dd>
+<dt><a name="word24"><b>tos-align-left</b>	( char u tos -- )</dt>
+<dd>Align the previous written data to the left, using padding character char with width u</dd>
+<dt><a name="word25"><b>tos-align-right</b>	( char u tos -- )</dt>
+<dd>Align the previous written data to the right, using padding character char with width u</dd>
+<dt><a name="word26"><b>tos-center</b>	( char u tos -- )</dt>
+<dd>Center the previous written data, using padding character char with width u</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word27"><b>tos-dump</b>	( tos -- )</dt>
+<dd>Dump the text output stream</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module b64 - Base64 module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>b64 - Base64 module</h2>
+<h3>Module Description</h3>
+<p>The b64 module implements the encoding to and decoding from base64.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Base64 conversion words</h4>
+<dl>
+<dt><a name="word1"><b>b64-encode</b>	( c-addr1 u1 str -- c-addr2 u2 )</dt>
+<dd>Encode the string c-addr u with str, resulting in c-addr2 u2 in str</dd>
+<dt><a name="word2"><b>b64-decode</b>	( c-addr1 u1 str -- c-addr2 u2 )</dt>
+<dd>Decode the string c-addr1 u1 using str, resulting in c-addr2 u2 in str, throws exp-invalid-data for characters out of range</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/b64.fs
+
+
+\ Create a string in the dictionary for storing the encoded characters
+
+str-create inbase64
+
+\ Encode the string: The quick brown fox jumps over the lazy dog
+
+s" The quick brown fox jumps over the lazy dog" inbase64 b64-encode
+
+\ Print the result
+
+.( Base64 encoding of 'The quick brown fox jumps over the lazy dog' is: ) type cr
+
+\ The result is also stored in inbase64
+
+.( inbase64 contents: ) inbase64 str-get type cr
+
+
+\ Create a string on the heap for storing the decoded characters
+
+str-new value frombase64
+
+\ Decode the encoded string of The quick brown fox jumps over the lazy dog
+
+s" VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==" frombase64 b64-decode
+
+.( Base64 decoding of 'VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==' is: ) type cr
+
+\ The result is also stored in frombase64
+
+.( frombase64 contents: ) frombase64 str-get type cr
+
+\ Free the string from the heap
+
+frombase64 str-free
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

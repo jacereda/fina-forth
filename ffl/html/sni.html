@@ -1,0 +1,55 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module sni - Generic Single Linked List Iterator - Forth Foundation Library</title>
+</head>
+<body>
+<h2>sni - Generic Single Linked List Iterator</h2>
+<h3>Module Description</h3>
+<p>The sni module implements an iterator on the generic single linked list [snl].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Iterator structure</h4>
+<dl>
+<dt><a name="word1"><b>sni%</b>	( -- n )</dt>
+<dd>Get the required space for a sni variable</dd>
+</dl>
+<h4>Iterator creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>sni-init</b>	( snl sni -- )</dt>
+<dd>Initialise the iterator with a snl list</dd>
+<dt><a name="word3"><b>sni-create</b>	( snl "&lt;spaces&gt;name" -- ; -- sni )</dt>
+<dd>Create a named iterator in the dictionary on the snl list</dd>
+<dt><a name="word4"><b>sni-new</b>	( snl -- sni )</dt>
+<dd>Create an iterator on the snl list on the heap</dd>
+<dt><a name="word5"><b>sni-free</b>	( sni -- )</dt>
+<dd>Free the iterator from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word6"><b>sni-get</b>	( sni -- snn | nil )</dt>
+<dd>Get the current node</dd>
+</dl>
+<h4>Iterator words</h4>
+<dl>
+<dt><a name="word7"><b>sni-first</b>	( sni -- snn | nil )</dt>
+<dd>Move the iterator to the first node, return this node</dd>
+<dt><a name="word8"><b>sni-next</b>	( sni -- snn | nil )</dt>
+<dd>Move the iterator to the next node, return this node</dd>
+<dt><a name="word9"><b>sni-first?</b>	( sni -- flag )</dt>
+<dd>Check if the iterator is on the first node</dd>
+<dt><a name="word10"><b>sni-last?</b>	( sni -- flag )</dt>
+<dd>Check if the iterator is on the last node</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word11"><b>sni-dump</b>	( sni -- )</dt>
+<dd>Dump the iterator</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

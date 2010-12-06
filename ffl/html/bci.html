@@ -1,0 +1,203 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module bci - Binary cell tree iterator - Forth Foundation Library</title>
+</head>
+<body>
+<h2>bci - Binary cell tree iterator</h2>
+<h3>Module Description</h3>
+<p>The bci module implements an iterator on the [bct] binary tree.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Iterator Structure</h4>
+<dl>
+<dt><a name="word1"><b>bci%</b>	( -- n )</dt>
+<dd>Get the required space for a bci variable</dd>
+</dl>
+<h4>Iterator creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>bci-init</b>	( bct bci -- )</dt>
+<dd>Initialise the iterator with a binary tree</dd>
+<dt><a name="word3"><b>bci-create</b>	( bct "&lt;spaces&gt;name" -- ; -- bci )</dt>
+<dd>Create a named iterator in the dictionary with a binary tree</dd>
+<dt><a name="word4"><b>bci-new</b>	( bct -- bci )</dt>
+<dd>Create an iterator on the heap with a binary tree</dd>
+<dt><a name="word5"><b>bci-free</b>	( bci -- )</dt>
+<dd>Free the iterator from the heap</dd>
+</dl>
+<h4>Iterator words</h4>
+<dl>
+<dt><a name="word6"><b>bci-get</b>	( bci -- false | x true )</dt>
+<dd>Get the cell data x from the current node</dd>
+<dt><a name="word7"><b>bci-key</b>	( bci -- false | x true )</dt>
+<dd>Get the key x from the current node</dd>
+<dt><a name="word8"><b>bci-set</b>	( x bci -- )</dt>
+<dd>Set the cell data x for the current node</dd>
+<dt><a name="word9"><b>bci-first</b>	( bci -- x true | false )</dt>
+<dd>Move the iterator to the first node, return the cell data x</dd>
+<dt><a name="word10"><b>bci-next</b>	( bci -- x true | false )</dt>
+<dd>Move the iterator to the next node, return the cell data x</dd>
+<dt><a name="word11"><b>bci-move</b>	( x bci -- flag )</dt>
+<dd>Move the iterator to the next node with the cell data x</dd>
+<dt><a name="word12"><b>bci-prev</b>	( bci -- x true | false )</dt>
+<dd>Move the iterator to the previous node, return the cell data x</dd>
+<dt><a name="word13"><b>bci-last</b>	( bci -- x true | false )</dt>
+<dd>Move the iterator to the last node, return the cell data x</dd>
+<dt><a name="word14"><b>bci-first?</b>	( bci -- flag )</dt>
+<dd>Check if the iterator is on the first node</dd>
+<dt><a name="word15"><b>bci-last?</b>	( bci -- flag )</dt>
+<dd>Check if the iterator is on the last node</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word16"><b>bci-dump</b>	( bci -- )</dt>
+<dd>Dump the iterator variable</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/bct.fs
+include ffl/bci.fs
+include ffl/str.fs
+include ffl/enm.fs
+
+
+\ Example1: store mountain height in a binary tree with numerical keys
+
+\ The mountain enumeration
+
+begin-enumeration
+  enum: MountEverest
+  enum: MontBlanc
+  enum: MountElbrus
+  enum: Vaalserberg
+end-enumeration
+
+
+\ Create the binary tree on the heap and store it in the heights variable
+
+bct-new value heights
+
+
+\ Add the mountain heights in the tree; the key is the mountain enum value
+
+8300 MountEverest heights bct-insert
+4819 MontBlanc    heights bct-insert
+5642 MountElbrus  heights bct-insert
+
+
+\ Find a mountain height in the tree
+
+MontBlanc heights bct-get [IF]
+  .( Mount:mont blanc height:) . cr
+[ELSE]
+  .( Mount:mont blanc not in tree.) cr
+[THEN]
+
+Vaalserberg heights bct-get [IF]
+  .( Mount:vaalserber height:) . cr
+[ELSE]
+  .( Mount:vaalserberg not in tree.) cr
+[THEN]
+
+
+\ Free the heights tree from the heap
+
+heights bct-free
+
+
+
+\ Example2: store mountain height in a binary tree with string keys
+
+
+\ Create the binary tree in the dictionary
+
+bct-create mountains
+
+
+\ Setup the compare word for comparing the mountain names
+
+: mount-compare  ( str str - n = Compare the two mountain names )
+  str^ccompare
+;
+
+' mount-compare mountains bct-compare!
+
+
+\ Add the mountain heights to the binary tree; the key is the mountain name in a (unique) dynamic string
+
+8300 str-new dup s" mount everest" rot str-set  mountains bct-insert
+4819 str-new dup s" mont blanc"    rot str-set  mountains bct-insert
+5642 str-new dup s" mount elbrus"  rot str-set  mountains bct-insert
+
+
+\ Find a mountain height in the binary tree
+
+str-new value mount-name
+
+s" mont blanc" mount-name str-set
+
+mount-name mountains bct-get [IF]
+  .( Mount:)        mount-name str-get type 
+  .(  height:)      . cr 
+[ELSE]
+  .( Mount:) mount-name str-get type .(  not in tree.) cr
+[THEN]
+
+
+s" vaalserberg" mount-name str-set
+
+mount-name mountains bct-get [IF]
+  .( Mount:)        mount-name str-get type 
+  .(  height:)      . cr 
+[ELSE]
+  .( Mount:) mount-name str-get type .(  not in tree.) cr
+[THEN] 
+
+
+\ Word for printing the mountain heights
+
+: mount-emit ( x x -- = Print mountain )
+  str-get type ."  --&gt; " . cr
+;
+
+
+\ Print all mountain heights
+
+' mount-emit mountains bct-execute       \ Execute the word mount-emit for all entries in the tree
+
+
+\ Example binary tree iterator
+
+\ Create the tree iterator in the dictionary
+
+mountains bci-create mount-iter          \ Create an iterator named mount-iter on the mountains tree
+
+
+\ Using the iterator
+
+mount-iter bci-first [IF]
+  .( First mount:) mount-iter bci-key drop str-get type 
+  .(  height:)     . cr 
+[ELSE]
+  .( No first mountain.) cr
+[THEN]
+
+mount-iter bci-last [IF]
+  .( Last mount:) mount-iter bci-key drop str-get type 
+  .(  height:)    . cr
+[ELSE]
+  .( No last mountain.) cr
+[THEN]
+
+
+\ Cleanup the tree
+
+mountains bct-clear
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

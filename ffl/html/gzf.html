@@ -1,0 +1,112 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module gzf - gzip File - Forth Foundation Library</title>
+</head>
+<body>
+<h2>gzf - gzip File</h2>
+<h3>Module Description</h3>
+<p>The gzf module implements the base definitions for using a gzip file. It
+is  used by the [zif] and, in a future version, [zof] module.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Operating Systems constants</h4>
+<dl>
+<dt><a name="word1"><b>gzf.fat</b>	( -- n )</dt>
+<dd>FAT OS</dd>
+<dt><a name="word2"><b>gzf.amiga</b>	( -- n )</dt>
+<dd>Amiga OS</dd>
+<dt><a name="word3"><b>gzf.vms</b>	( -- n )</dt>
+<dd>VMS OS</dd>
+<dt><a name="word4"><b>gzf.unix</b>	( -- n )</dt>
+<dd>UNIX OS</dd>
+<dt><a name="word5"><b>gzf.vm/cms</b>	( -- n )</dt>
+<dd>VM-CMS OS</dd>
+<dt><a name="word6"><b>gzf.atari</b>	( -- n )</dt>
+<dd>ATARI OS</dd>
+<dt><a name="word7"><b>gzf.hpfs</b>	( -- n )</dt>
+<dd>HPFS OS</dd>
+<dt><a name="word8"><b>gzf.macintos</b>	( -- n )</dt>
+<dd>MACINTOS OS</dd>
+<dt><a name="word9"><b>gzf.z-system</b>	( -- n )</dt>
+<dd>Z-SYSTEM OS</dd>
+<dt><a name="word10"><b>gzf.cp/m</b>	( -- n )</dt>
+<dd>CP-M OS</dd>
+<dt><a name="word11"><b>gzf.tops-20</b>	( -- n )</dt>
+<dd>TOPS-20 OS</dd>
+<dt><a name="word12"><b>gzf.ntfs</b>	( -- n )</dt>
+<dd>NTFS OS</dd>
+<dt><a name="word13"><b>gzf.qdos</b>	( -- n )</dt>
+<dd>QDOS OS</dd>
+<dt><a name="word14"><b>gzf.acorn</b>	( -- n )</dt>
+<dd>ACORN OS</dd>
+<dt><a name="word15"><b>gzf.unknown</b>	( -- n )</dt>
+<dd>other</dd>
+</dl>
+<h4>Compression modes constants</h4>
+<dl>
+<dt><a name="word16"><b>gzf.deflate</b>	( -- n )</dt>
+<dd>Deflate Compression mode</dd>
+</dl>
+<h4>gzf structure</h4>
+<dl>
+<dt><a name="word17"><b>gzf%</b>	( -- n )</dt>
+<dd>Get the required space for a gzf variable</dd>
+</dl>
+<h4>gzip file variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word18"><b>gzf-init</b>	( gzf -- )</dt>
+<dd>Initialise the gzip file variable</dd>
+<dt><a name="word19"><b>gzf-(free)</b>	( gzf -- )</dt>
+<dd>Free the internal, private variables from the heap</dd>
+<dt><a name="word20"><b>gzf-create</b>	( "&lt;spaces&gt;name" -- ; -- gzf )</dt>
+<dd>Create a named gzip file variable in the dictionary</dd>
+<dt><a name="word21"><b>gzf-new</b>	( -- gzf )</dt>
+<dd>Create a new gzip file variable on the heap</dd>
+<dt><a name="word22"><b>gzf-free</b>	( gzf -- )</dt>
+<dd>Free the variable from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word23"><b>gzf-text@</b>	( gzf -- flag )</dt>
+<dd>Get if the source of the current file in the gzip file is text</dd>
+<dt><a name="word24"><b>gzf-text!</b>	( flag gzf -- )</dt>
+<dd>Set if the source for the next file in the gzip file is text</dd>
+<dt><a name="word25"><b>gzf-flags@</b>	( gzf -- u )</dt>
+<dd>Get the flags from the gzip file header</dd>
+<dt><a name="word26"><b>gzf-flags!</b>	( u gzf -- )</dt>
+<dd>Set the flags for the gzip file header</dd>
+<dt><a name="word27"><b>gzf-os@</b>	( gzf -- n )</dt>
+<dd>Get the operating system of the current file in the gzip file</dd>
+<dt><a name="word28"><b>gzf-os!</b>	( n gzf -- )</dt>
+<dd>Set the operating system for the next file in the gzip file</dd>
+<dt><a name="word29"><b>gzf-mtime@</b>	( gzf -- u )</dt>
+<dd>Get the modification time of the current file in the gzip file in seconds since unix epoch</dd>
+<dt><a name="word30"><b>gzf-mtime!</b>	( u gzf -- )</dt>
+<dd>Set the modification time for the next file in the gzip file in seconds since unix epoch</dd>
+<dt><a name="word31"><b>gzf-name@</b>	( gzf -- c-addr u )</dt>
+<dd>Get the name of the current file in the gzip file</dd>
+<dt><a name="word32"><b>gzf-name!</b>	( c-addr u gzf -- )</dt>
+<dd>Set the name of the next file in the gzip file</dd>
+<dt><a name="word33"><b>gzf-comment@</b>	( gzf -- c-addr u )</dt>
+<dd>Get the comment of the current file in the gzip file</dd>
+<dt><a name="word34"><b>gzf-comment!</b>	( c-addr u gzf -- )</dt>
+<dd>Set the comment for the next file in the gzip file</dd>
+</dl>
+<h4>Header words</h4>
+<dl>
+<dt><a name="word35"><b>gzf-reset</b>	( gzf -- )</dt>
+<dd>Reset the gzip file header</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word36"><b>gzf-dump</b>	( gzf -- )</dt>
+<dd>Dump the variable</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

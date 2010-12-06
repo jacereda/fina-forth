@@ -1,0 +1,94 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module sh1 - SHA-1 module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>sh1 - SHA-1 module</h2>
+<h3>Module Description</h3>
+<p>The sh1 module implements the SHA-1 algorithm.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>SHA-1 structure</h4>
+<dl>
+<dt><a name="word1"><b>sh1%</b>	( -- n )</dt>
+<dd>Get the required space for a sha1 variable</dd>
+</dl>
+<h4>SHA-1 variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>sh1-init</b>	( sh1 -- )</dt>
+<dd>Initialise the sh1</dd>
+<dt><a name="word3"><b>sh1-create</b>	( "&lt;spaces&gt;name" --  ; -- sh1 )</dt>
+<dd>Create a named sha-1 variable in the dictionary</dd>
+<dt><a name="word4"><b>sh1-new</b>	( -- sh1 )</dt>
+<dd>Create a new sha-1 variable on the heap</dd>
+<dt><a name="word5"><b>sh1-free</b>	( sh1 -- )</dt>
+<dd>Free the sha-1 variable from the heap</dd>
+</dl>
+<h4>SHA-1 words</h4>
+<dl>
+<dt><a name="word6"><b>sh1-reset</b>	( sh1 -- )</dt>
+<dd>Reset the SHA-1 state</dd>
+<dt><a name="word7"><b>sh1-update</b>	( c-addr u sh1 -- )</dt>
+<dd>Update the SHA-1 with more data c-addr u</dd>
+<dt><a name="word8"><b>sh1-finish</b>	( sh1 -- u1 u2 u3 u4 u5 )</dt>
+<dd>Finish the SHA-1 calculation, return the sha values</dd>
+<dt><a name="word9"><b>sh1+to-string</b>	( u1 u2 u3 u4 u5 -- c-addr u )</dt>
+<dd>Convert SHA-1 result to the string c-addr u, using the pictured output area</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word10"><b>sh1-dump</b>	( sh1 -- )</dt>
+<dd>Dump the sh1 variable</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/sh1.fs
+
+\ Create a SHA-1 variable sh1 in the dictionary
+
+sh1-create sh1
+
+\ Update the variable with data
+
+s" The quick brown fox jumps over the lazy dog" sh1 sh1-update
+
+\ Finish the SHA-1 calculation resulting in 5 unsigned 32 bit words
+\ on the stack representing the hash value
+
+sh1 sh1-finish
+
+\ Convert the hash value to a hex string and print
+
+sh1+to-string type cr
+
+
+
+\ Create a SHA-1 variable on the heap
+
+sh1-new value sh2
+
+\ Update the variable with multiple data
+
+s" The quick brown fox " sh2 sh1-update
+s" jumps over the lazy dog" sh2 sh1-update
+
+\ Finish the calculation
+
+sh2 sh1-finish
+
+\ Convert the hash value to a hex string and print
+
+sh1+to-string type cr
+
+\ Free the variable from the heap
+
+sh2 sh1-free
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

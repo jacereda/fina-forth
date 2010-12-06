@@ -1,0 +1,44 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module ncn - n-Tree cell node - Forth Foundation Library</title>
+</head>
+<body>
+<h2>ncn - n-Tree cell node</h2>
+<h3>Module Description</h3>
+<p>The ncn module implements a node in a n-tree [nct] that stores a cell value.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Node structure</h4>
+<dl>
+<dt><a name="word1"><b>ncn%</b>	( -- n )</dt>
+<dd>Get the required space for a ncn node</dd>
+</dl>
+<h4>Node creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>ncn-init</b>	( x ncn -- )</dt>
+<dd>Initialise the node with data x</dd>
+<dt><a name="word3"><b>ncn-new</b>	( x -- ncn )</dt>
+<dd>Create a new node on the heap with data x</dd>
+<dt><a name="word4"><b>ncn-free</b>	( ncn -- )</dt>
+<dd>Free the node from the heap</dd>
+</dl>
+<h4>Members words</h4>
+<dl>
+<dt><a name="word5"><b>ncn-cell@</b>	( ncn -- x )</dt>
+<dd>Get the cell data from the node</dd>
+<dt><a name="word6"><b>ncn-cell!</b>	( x ncn -- )</dt>
+<dd>Set the cell data x in the node</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word7"><b>ncn-dump</b>	( ncn -- )</dt>
+<dd>Dump the node</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

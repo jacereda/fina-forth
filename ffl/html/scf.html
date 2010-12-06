@@ -1,0 +1,80 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module scf - sscanf scanner - Forth Foundation Library</title>
+</head>
+<body>
+<h2>scf - sscanf scanner</h2>
+<h3>Module Description</h3>
+<p>The scf module implements a simplified version of C's sscanf function.
+The words in this module expect a format string with specifiers (see
+below for the format). For every specifier (except %%) the string
+is scanned and converted to a stack item. The white space character in the
+specifier string will match repeatedly all white space in the source
+string. All other characters must be matched in the source string.
+<pre>
+Format: %[double]specifier
+   Double: l      = the argument is interpreted as a double
+Specifier: c      = scan a character [char]
+           d      = scan a signed number [n or d]
+           o      = scan an unsigned octal [n or d]
+           s      = scan a string [c-addr u]
+           u      = scan an unsigned number [u or ud]
+           x      = scan an unsigned hexadecimal number [u or ud]
+           X      = scan an unsigned hexadecimal number [u or ud]
+           e      = scan a float number [r]
+           E      = scan a float number [r]
+           q      = scan a quoted string (non sprintf) [c-addr u]
+           %      = match a '%' []
+</pre>
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>sscanf words</h4>
+<dl>
+<dt><a name="word1"><b>scf+scan</b>	( c-addr1 u1 c-addr2 u2  -- i*x j*r n )</dt>
+<dd>Scan the source string c-addr1 u1 with specifier string c-addr2 u2, resulting in n arguments i*x j*r</dd>
+<dt><a name="word2"><b>scf"</b>	( "ccc&lt;quote&gt;" c-addr u -- i*x j*r n )</dt>
+<dd>Scan the source string c-addr1 u1 with the specifier string c-addr2 u2, resulting in n arguments i*x and j*r</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/scf.fs
+
+\ Conversions
+.( Scan the string : ) 
+s" 10 a hello CE 55 20" 2dup type     \ the source string
+.(  with the specifiers: ) 
+s" %d %c %s %x %o %ld"  2dup type cr  \ the specifier string
+
+scf+scan                              \ scan the source string with the specifier string
+
+.( Number of conversions: ) . cr      \ the number of conversions done by scf+scan
+.( Double: ) d. cr                    \ the results
+.( Octal: ) . cr
+.( Hex: ) . cr
+.( String: ) type cr
+.( Character: ) emit cr
+.( Decimal: ) . cr
+
+\ Float conversions
+[DEFINED] &gt;float [IF]
+.( Scan floats ) cr
+s" 10 20.1 -30.3E+5" s" %e %e %e" scf+scan
+.( Number of floats: ) . 
+.(  values: ) f. f. f. cr
+[THEN]
+
+\ Matching and conversion
+.( Match and scan, with parsing word ) cr
+s" %var = 20 (24)" scf" %%%s = %d [%o]"
+
+.( Number of conversions: ) .          \ Only 2 conversion due to mismatch of '['
+.(  values: ) . type cr
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

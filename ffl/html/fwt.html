@@ -1,0 +1,74 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module fwt - Fixed Width Types module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>fwt - Fixed Width Types module</h2>
+<h3>Module Description</h3>
+<p>The fwt module implements types that have a fixed bit width. They are mainly
+used in interfaces. The words are defined for 32- and 64-bit forth engines.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Fixed width constants</h4>
+<dl>
+</dl>
+<h4>Fixed width structure fields</h4>
+<dl>
+<dt><a name="word1"><b>wfield:</b>	( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field for a word, 2 bytes, not aligned, return the field address</dd>
+<dt><a name="word2"><b>lfield:</b>	( structure-sys "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field for a long word, 4 bytes, not aligned, return the field address</dd>
+<dt><a name="word3"><b>wfields:</b>	( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field for n words, not aligned, return the field address</dd>
+<dt><a name="word4"><b>lfields:</b>	( structure-sys n "&lt;spaces&gt;name" -- structure-sys ; addr1 -- addr2 )</dt>
+<dd>Create a structure field for n long words, not aligned, return the field address</dd>
+</dl>
+<h4>Fixed width store and fetch</h4>
+<dl>
+<dt><a name="word5"><b>w@</b>	( w-addr -- u )</dt>
+<dd>Fetch a word, 16 bit, zero extend</dd>
+<dt><a name="word6"><b><w@</b>	( w-addr -- n )</dt>
+<dd>Fetch a word, 16 bit, sign extend</dd>
+<dt><a name="word7"><b>w!</b>	( n w-addr -- )</dt>
+<dd>Store a word, 16 bit</dd>
+<dt><a name="word8"><b>w,</b>	( x -- )</dt>
+<dd>Store 16 bits of data in the data storage</dd>
+<dt><a name="word9"><b>u>l</b>	( u -- l )</dt>
+<dd>Convert a unsigned number to 32 bit number</dd>
+<dt><a name="word10"><b>u>l</b>	( u -- l )</dt>
+<dd>Convert a unsigned number to 32 bit number</dd>
+<dt><a name="word11"><b>l@</b>	( l-addr -- n )</dt>
+<dd>Fetch a long word, 32 bit, zero extend</dd>
+<dt><a name="word12"><b><l@</b>	( l-addr -- n )</dt>
+<dd>Fetch a long word, 32 bit, sign extend</dd>
+<dt><a name="word13"><b>l!</b>	( n l-addr -- )</dt>
+<dd>Store a long word, 32 bit</dd>
+<dt><a name="word14"><b>l+!</b>	( l l-addr -- )</dt>
+<dd>Add l to l-addr</dd>
+<dt><a name="word15"><b>l+!</b>	( l l-addr -- )</dt>
+<dd>Add l to l-addr</dd>
+<dt><a name="word16"><b>l,</b>	( x -- )</dt>
+<dd>Store 32 bits of data in the data storage</dd>
+<dt><a name="word17"><b>l,</b>	( x -- )</dt>
+<dd>Store 32 bits of data in the data storage</dd>
+<dt><a name="word18"><b>llroll</b>	( l1 u2 -- l3 )</dt>
+<dd>Rotate l1 u2 bits to the left</dd>
+<dt><a name="word19"><b>llroll</b>	( l1 u2 -- l3 )</dt>
+<dd>Rotate l1 u2 bits to the left</dd>
+<dt><a name="word20"><b>lrroll</b>	( l1 u2 -- l3 )</dt>
+<dd>Rotate l1 u2 bits to the right</dd>
+<dt><a name="word21"><b>lrroll</b>	( l1 u2 -- l3 )</dt>
+<dd>Rotate l1 u2 bits to the left</dd>
+<dt><a name="word22"><b>l@!</b>	( l1 l-addr -- l2 )</dt>
+<dd>Fetch l2 from l-addr and then store l1 at l-addr</dd>
+<dt><a name="word23"><b>l@!</b>	( l1 l-addr -- l2 )</dt>
+<dd>Fetch l2 from l-addr and then store l1 at l-addr</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>
