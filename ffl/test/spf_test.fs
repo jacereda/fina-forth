@@ -148,6 +148,7 @@ t{ spf1 str-get s" 25:+143 +130 +077 +102" ?str }t
 t{ -66 -63 -88 -99 s" 26:%4o %-4o %04o %-04o" spf1 spf-set }t
 t{ spf1 str-get s" 26:-143 -130 -077 -102" ?str }t
 
+[DEFINED] fdepth [IF]
 precision value spf-save  4 set-precision
 
 
@@ -207,5 +208,7 @@ t{ spf1 str-get s" bye ?!" ?str }t
 spf-save set-precision
 
 t{ spf1 str-free }t
+
+[THEN]
 
 \ ==============================================================================

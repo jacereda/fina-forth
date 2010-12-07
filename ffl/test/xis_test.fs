@@ -248,7 +248,7 @@ t{ xis-new value xis2 }t
   THEN
 ;
 
-t{ s" test.xml" r/o open-file throw value xis.file }t
+t{ s" test/test.xml" >share r/o open-file throw value xis.file }t
 
 t{ xis.file ' xis-test-reader xis2 xis-set-reader }t
 
@@ -296,7 +296,7 @@ t{ xis2 xis-free }t
 
 t{ xis-new value xis3 }t
 
-t{ s" test.xml" r/o open-file throw to xis.file }t
+t{ s" test/test.xml" >share r/o open-file throw to xis.file }t
 
 t{ xis.file ' xis-test-reader xis3 xis-set-reader }t
 

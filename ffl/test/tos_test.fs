@@ -71,6 +71,8 @@ t{ -100. t4 tos-write-double }t
 t{ chr.sp 5 t4 tos-align-right }t
 t{ t4 str-get s" -712 -100" ?str }t
 
+[DEFINED] fdepth [IF]
+
 precision value save-precision
 
 3 set-precision
@@ -117,6 +119,7 @@ t{ -57.21E+3 t4 tos-write-fixed-point }t
 t{ t4 str-get s" -0.05721 -0.5721 -5.721 -57.21 -572.1 -5721. -57210." ?str }t
 
 save-precision set-precision
+[THEN]
 
 variable p1
 

@@ -37,7 +37,7 @@ include ffl/dtm.fs
 
 : zif-test-file  ( c-addr u zif -- ior )
   >r
-  r/w create-file throw
+  w/o create-file throw
   BEGIN
     pad 80 r@ zif-read-file
     dup 0= IF
@@ -61,7 +61,7 @@ t{ s" unknown.gz" zif1 zif-open-file ?true }t
 
 
 
-t{ s" stored.gz"  zif1 zif-open-file ?0 }t
+t{ s" test/stored.gz" >share zif1 zif-open-file ?0 }t
 
 t{ zif1 zif-read-header ?0 }t
 
@@ -81,7 +81,7 @@ t{ zif1 zif-(free) }t
 
 t{ zif-new value zif2 }t
 
-t{ s" fixed.gz"  zif2 zif-open-file ?0 }t
+t{ s" test/fixed.gz" >share zif2 zif-open-file ?0 }t
 
 t{ zif2 zif-read-header ?0 }t
 
@@ -95,7 +95,7 @@ t{ zif2 zif-free }t
 
 t{ zif-new value zif3 }t
 
-t{ s" gzipped.gz" zif3 zif-open-file ?0 }t
+t{ s" test/gzipped.gz" >share zif3 zif-open-file ?0 }t
 
 t{ zif3 zif-read-header ?0 }t
 
