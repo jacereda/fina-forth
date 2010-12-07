@@ -152,7 +152,11 @@ warnings off
 : variable ( "<spaces>name" -- ) 
    head, ['] dovar xt, drop  -559038737 , linklast ; 
 
-variable leaves
+variable leaves 
+variable sleaves
+: 0leaves  leaves @ sleaves ! leaves off ;
+: rleaves  sleaves @ leaves ! ;
+
 
 \g Link item to list
 : link ( item list -- )
@@ -164,15 +168,15 @@ variable leaves
 
 \g Start for-next loop, will iterate count+1 times
 : for ( ct: -- dest -1  rt: count -- r: u1 u1 )
-   postpone dofor  bwmark  leaves off ; immediate compile-only
+   postpone dofor  bwmark  0leaves ; immediate compile-only
 
 \g @see anscore
 : do ( ct: -- dest -1  rt: end start -- r: -- start end )
-   postpone dodo  bwmark   leaves off ; immediate compile-only
+   postpone dodo  bwmark  0leaves ; immediate compile-only
 
 \g @see anscore
 : ?do ( ct: -- dest -1  rt: end start -- r: -- start end )
-   postpone do?do leaves off leaves linked bwmark ; immediate compile-only
+   postpone do?do  0leaves leaves linked  bwmark ; immediate compile-only
 
 \g @see anscore
 : leave ( r: limit index -- )
@@ -191,22 +195,27 @@ variable leaves
 : resolvleave ( a-addr -- )
    here over - offset>rel swap ! ;
 
+: resolvleaves  forall leaves resolvleave  rleaves ;
+
 \g @see anscore
 : loop ( ct: dest -1  rt:  --  r: limit index --  | limit index+1 )
-   postpone doloop  bwresolve  
-   forall leaves resolvleave
+   postpone doloop  
+   bwresolve  
+   resolvleaves
    postpone unloop ; immediate compile-only
 
 \g Terminate for-next loop
 : next ( ct: dest -1  rt: initial index --  | initial index-1 )
-   postpone donext  bwresolve
-   forall leaves resolvleave
+   postpone donext  
+   bwresolve
+   resolvleaves
    postpone unloop ; immediate compile-only
 
 \g @see anscore
 : +loop ( ct: dest -1  rt: n --  r: limit index --  | limit index+n )
-   postpone do+loop  bwresolve
-   forall leaves resolvleave
+   postpone do+loop  
+   bwresolve
+   resolvleaves
    postpone unloop ; immediate compile-only
 
 \g @see anscore
