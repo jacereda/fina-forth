@@ -31,6 +31,9 @@ libc 0realpath ptr ptr (ptr) realpath
 
 \ If included file doesn't exist, we lookup in share dir
 :noname
-   2dup file-exists? unless >share then deferred inchook0 ; is inchook0
+   2dup file-exists? unless  >share  then 
+   deferred inchook0 ; is inchook0
+
+export >share
 
 end-module
