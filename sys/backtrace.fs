@@ -1,18 +1,16 @@
+expose-module private
 : nearestname ( xt -- c-addr )
   begin dup xt>name 0= while cell- repeat xt>name ;   
+create nbuf 20 chars allot
 : numrepr ( u -- c-addr )
-  s" h# " pad place  16 based repr pad append  pad ;
+  s" h# " nbuf place  16 based repr nbuf append  nbuf ;
 : probablename ( xt -- name )
     dup aligned over =  over dict? and if nearestname else numrepr then ;
-: rstack ( -- bottom top )
-    rp0 @ rp@ ;
-: .backtrace ( bottom top -- )
-    swap cell+ swap
-    ." backtrace: " 2dup - 1 cells / .depth
-    do i @ probablename .name 1 cells +loop ;
-: .stacks ( -- )
-   .s rstack .backtrace cr ;
-: (~~) type [char] : emit . .stacks cr ;
+: .backtrace ( -- )
+    rstack swap ?do i @ probablename .name 1 cells +loop ;
+: (~~) 
+   type [char] : emit .
+   ." data:" .s ." return:" .rs ." backtrace:" .backtrace cr ;
 : ~~ 
    state @ if
       sourceline# postpone literal sourcefilename postpone sliteral
@@ -20,3 +18,5 @@
    else 
       sourceline# sourcefilename (~~)
    then ; immediate
+export ~~
+end-module
