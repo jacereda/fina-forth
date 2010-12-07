@@ -34,7 +34,6 @@ fenv.Append(CPPPATH=[
 	'obj',
 	'libs/libffi/include',
 	])
-#fenv.Append(CPPDEFINES=[[ffiarch + ffios, 1]])
 fenv.Append(LIBPATH=['.'])
 fenv.Append(LIBS=['ffi'])
 
@@ -60,7 +59,7 @@ full = ['sys/' + i for i in Split("""
    string.fs require.fs tools.fs toolsext.fs
    facility.fs facilityext.fs lineedit.fs 
    assert.fs multi.fs
-   osnice.fs args.fs save.fs ffi.fs c.fs pipe.fs
+   osnice.fs args.fs save.fs ffi.fs c.fs backtrace.fs pipe.fs
    instinclude.fs help.fs build.fs savefina.fs
 """)]
 
@@ -158,7 +157,10 @@ env.Ins('share/doc/fina', Split("""
 # FFL installation
 env.Ins('share/fina/ffl', 'ffl/engines/fina/config.fs')
 env.Ins('share/fina/ffl', env.Glob('ffl/ffl/*.fs'))
-#env.Ins('share/fina/test', env.Glob('ffl/test/*.fs'))
+env.Ins('share/fina/test', env.Glob('ffl/test/*.fs'))
+env.Ins('share/fina/test', env.Glob('ffl/test/*.xml'))
+env.Ins('share/fina/test', env.Glob('ffl/test/*.mo'))
+env.Ins('share/fina/test', env.Glob('ffl/test/*.gz'))
 env.Ins('share/doc/fina/ffl', ['ffl/' + i for i in Split('''
 AUTHORS COPYING ChangeLog NEWS README
 ''')])
