@@ -518,12 +518,24 @@ p: rdrop  ( --  r: x -- )
 
 \ More stack
 
+\g Current data stack values
+: dstack ( -- current bottom)
+   postpone sp@ postpone sp0 postpone @ ; immediate compile-only
+
+\g Current return stack values
+: rstack ( -- current bottom)
+   postpone rp@ postpone rp0 postpone @ ; immediate compile-only
+
+\g Stack depth
+: sdepth ( bottom current -- +n)
+   swap - cellshift arshift ;
+
 \g @see anscore
 : depth ( -- +n )
-   sp@ negate sp0 @ + cellshift arshift ;
+   dstack sdepth ;
 
 : rdepth ( -- +n )
-   rp@ negate rp0 @ + cellshift arshift ;  
+   rstack sdepth ;
 
 \g @see anscore
 p: pick ( xu ... x1 x0 u -- xu ... x1 x0 xu )
@@ -538,13 +550,15 @@ p: pick ( xu ... x1 x0 u -- xu ... x1 x0 xu )
 
 \g Print number as <number>, used in .s and .backtrace
 : .depth ( u -- )
-   0 <# [char] > hold #s [char] < hold #> type space ;
+   0 <# [char] > hold #s [char] < hold #> type 3 spaces ;
 
 \g @see anstools
 : .s
-   depth .depth  depth dup 0 ?do dup pick . 1- loop drop cr ;
+   depth .depth  
+   depth dup 0 ?do dup pick . 1- loop drop cr ;
+
 : .rs
-   rdepth . 4 spaces
+   rdepth .depth
    rdepth 0 ?do i rpick . loop cr ;  
 
 \ Exception handling
