@@ -38,7 +38,7 @@ forth-wordlist set-current
 
 expose-module private
 : dumprow ( addr u -- addr' )
-  swap dup 0 <#  # # # # # # # #  #> type space
+  swap dup 0 <#  # # # # # # # # #  #> type space
   16 0 do
      over i 1+ < if 2 spaces else dup c@ 0 <# # # #> type then space char+ 
   loop 2 spaces 16 chars - 
