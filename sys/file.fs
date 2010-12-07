@@ -113,13 +113,18 @@ variable sourcepos 0 ,
 : interpret-file
    begin  refill  while  interpret  repeat ;
 
-create includes-stack 256 allot 0 includes-stack c!
+: wcount dup @ swap cell+ ;
+: wappend ( str len cstr -- )
+    2dup 2>r  wcount chars +  swap chars move  2r> +! ;
+
+
+create includes-stack 1024 allot includes-stack off
 
 : push-include ( c-addr u -- )
-   includes-stack count +  over sourcename 2!  includes-stack append ;
+   includes-stack wcount +  over sourcename 2!  includes-stack wappend ;
 
 : pop-include ( -- )
-   includes-stack c@ sourcename @ - includes-stack c! ;
+   includes-stack @ sourcename @ - includes-stack ! ;
 
 \g @see ansfile
 : include-file
