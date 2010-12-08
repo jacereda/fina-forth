@@ -14,8 +14,7 @@ decimal
 { fsize 0 -40 -1 d+ file reposition-file -> 0 }
 { file file-position -> fsize 0 -40 -1 d+ 0 }
 { pad 41 file read-file -> 40 0 }
-{ pad 41 file read-file -> 0 -39 }
-{ pad 41 file read-file -> 0 -39 }
+{ pad 41 file read-file -> 0 0 }
 { pad 80 file read-line -> 0 0 0 }
 { file file-position -> fsize 0 0 }
 { 0 file-position -> -1 -1 -37 }
