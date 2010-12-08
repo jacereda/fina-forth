@@ -22,15 +22,15 @@
                 d = tos;
 		POP;
 		d /= FXSCALE;
-		__builtin_memcpy(&ll, &d, 2 * sizeof(CELL));
-                PUSHLL;
+		__builtin_memcpy(&dc, &d, 2 * sizeof(CELL));
+                PUSHDC;
                 NEXT;
                 }
 
                 PRIM(DOUBLEGTFX, 263);
                 {
-                POPLL;
-		__builtin_memcpy(&d, &ll, 2 * sizeof(CELL));
+                POPDC;
+		__builtin_memcpy(&d, &dc, 2 * sizeof(CELL));
 		d *= FXSCALE;
 		PUSH;
 		tos = (CELL)d;

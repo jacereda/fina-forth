@@ -12,11 +12,11 @@
 #else
                 t0 = tos;
                 POP;
-                POPLL;
+                POPDC;
                 PUSH;
-                tos = ((UDCELL)ll) % t0;
+                tos = ((UDCELL)dc) % t0;
                 PUSH;
-                tos = ((UDCELL)ll) / t0;
+                tos = ((UDCELL)dc) / t0;
 #endif
                 NEXT;
                 
@@ -56,9 +56,9 @@
                 NEXT;
                 
                 PRIM(DNEGATE, 78);
-                POPLL;
-                ll = -ll;
-                PUSHLL;
+                POPDC;
+                dc = -dc;
+                PUSHDC;
                 NEXT;
                 
                 PRIM(ROT, 79);
@@ -161,10 +161,10 @@
                 NEXT;
                 
                 PRIM(DPLUS, 100);
-                POPLL;
-                POPLL2;
-                ll += ll2;
-                PUSHLL;
+                POPDC;
+                POPDC2;
+                dc += dc2;
+                PUSHDC;
                 NEXT;
                 
                 PRIM(ABS, 101);
@@ -198,11 +198,11 @@
                 NEXT;
                 
                 PRIM(MSTAR, 108);
-                ll = tos;
+                dc = tos;
                 POP;
-                ll *= tos;
+                dc *= tos;
                 POP;
-                PUSHLL;
+                PUSHDC;
                 NEXT;
                 
                 PRIM(FILL, 109);

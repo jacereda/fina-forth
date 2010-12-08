@@ -14,14 +14,14 @@ void Sys_FileClose(void * handle);
 unsigned Sys_FileRead(void * handle, char * buf, unsigned len);
 void Sys_FileWrite(void * handle, char * buf, unsigned len);
 void * Sys_FileMMap(void * handle);
-unsigned long long Sys_FileSize(void * handle);
-unsigned long long Sys_FileTell(void * handle);
-void Sys_FileSeek(void * handle, unsigned long long pos);
+DCELL Sys_FileSize(void * handle);
+DCELL Sys_FileTell(void * handle);
+void Sys_FileSeek(void * handle, DCELL pos);
 unsigned Sys_FileLine(void * handle, char * buf, unsigned len);
 void Sys_FileDelete(const char * name);
 unsigned Sys_FileStat(const char * name);
 void Sys_FileRen(const char * old, const char * new);
-void Sys_FileTrunc(void * handle, unsigned long long size);
+void Sys_FileTrunc(void * handle, DCELL size);
 void Sys_FileFlush(void * handle);
 
 // Memory

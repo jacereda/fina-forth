@@ -19,6 +19,7 @@
 
 
 #include "fina.h"
+#include "arch.h"
 #include "sys.h"
 
 static struct termios otio;
@@ -245,7 +246,7 @@ unsigned Sys_FileRead(void * handle, char * buf, unsigned len)
         unsigned res = 0;
         errnoThrow(handle == 0);
         if (!throw) res = fread(buf, 1, len, handle);
-        if (!throw) ferrorThrow(1, handle);
+        if (!throw) ferrorThrow(len == 0, handle);
         return res;
 }
 
@@ -277,7 +278,7 @@ char ** Sys_Argv()
         return argv;
 }
 
-unsigned long long Sys_FileSize(void * handle)
+DCELL Sys_FileSize(void * handle)
 {
         off_t prev = -1, res = -1;
         errnoThrow(handle == 0);
@@ -288,15 +289,15 @@ unsigned long long Sys_FileSize(void * handle)
         return res;
 }
 
-void Sys_FileSeek(void * handle, unsigned long long pos)
+void Sys_FileSeek(void * handle, DCELL pos)
 {
         errnoThrow(handle == 0);
         if (!throw) errnoThrow(-1 == fseeko(handle, pos, SEEK_SET));
 }
 
-unsigned long long Sys_FileTell(void * handle)
+DCELL Sys_FileTell(void * handle)
 {
-        unsigned long long res = -1;
+        off_t res = -1;
         errnoThrow(handle == 0);
         if (!throw) res = ftello(handle);
         if (!throw) errnoThrow(-1 == res);
@@ -371,7 +372,7 @@ void Sys_FileRen(const char * old, const char * new)
         errnoThrow(rename(old, new));
 }
 
-void Sys_FileTrunc(void * handle, unsigned long long size)
+void Sys_FileTrunc(void * handle, DCELL size)
 {
         errnoThrow(ftruncate(fileno((FILE*)handle), size));
 }
