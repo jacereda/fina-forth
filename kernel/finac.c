@@ -25,11 +25,9 @@ static void * dlsym(void * l, const char * sym) {
 #define MAXSTR 512 // power of 2
 #define FLAG(x) ((x)? -1 : 0)
 #define CELLSHIFT (8*sizeof(CELL))
-#define POPLL  ll  = (((DCELL)tos) << CELLSHIFT) | *(UCELL*)dsp++; tos = *dsp++
-#define POPLL2 ll2 = (((DCELL)tos) << CELLSHIFT) | *(UCELL*)dsp++; tos = *dsp++
-#define POPULL ull = (((UDCELL)tos) << CELLSHIFT)| *(UCELL*)dsp++; tos = *dsp++
-#define PUSHLL *--dsp = tos; *--dsp = ll; tos = ll>>CELLSHIFT
-#define PUSHULL *--dsp = tos; *--dsp = ull; tos = ull>>CELLSHIFT
+#define POPDC dc  = (((DCELL)tos) << CELLSHIFT) | *(UCELL*)dsp++; tos = *dsp++
+#define POPDC2 dc2 = (((DCELL)tos) << CELLSHIFT) | *(UCELL*)dsp++; tos = *dsp++
+#define PUSHDC *--dsp = tos; *--dsp = dc; tos = dc>>CELLSHIFT
 
 #undef DEBUG
 #if defined DEBUG
@@ -236,14 +234,13 @@ int internalTick(struct FINA_State * state, int throw) {
         extern CELL Forth_Here;
         register CELL t0;
         CELL t1, t2, t3, t4, t5, t6, t7;
-        DCELL ll, ll2;
-        UDCELL ull;
+        DCELL dc, dc2;
         float f;
 	double d;
 	char str1[MAXSTR];
 	char str2[MAXSTR];
 
-        (void)ll; (void)ll2; (void)ull;
+        (void)dc; (void)dc2;
         if (throw)
         {
                 fpc = (CELL*)(arch_callsize() + **(CELL**)userP());
