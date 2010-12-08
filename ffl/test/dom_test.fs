@@ -42,7 +42,7 @@ t{ dom-new value dom1 }t
   THEN
 ;
 
-t{ s" test.xml" r/o open-file throw value dom.file }t
+t{ s" test/test.xml" >share r/o open-file throw value dom.file }t
 
 t{ dom.file ' dom-test-reader true dom1 dom-read-reader ?true }t
 

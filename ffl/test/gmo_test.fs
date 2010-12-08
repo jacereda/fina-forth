@@ -40,7 +40,7 @@ bigendian? [IF]
 
 t{ msc-new value msc2 }t
 
-t{ s" nl.mo" msc2 gmo-read ?0 }t
+t{ s" test/nl.mo" >share msc2 gmo-read ?0 }t
 
 t{ msc2 hnt-length@ 38 ?s }t
 
