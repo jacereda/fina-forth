@@ -246,7 +246,7 @@ unsigned Sys_FileRead(void * handle, char * buf, unsigned len)
         unsigned res = 0;
         errnoThrow(handle == 0);
         if (!throw) res = fread(buf, 1, len, handle);
-        if (!throw) ferrorThrow(len == 0, handle);
+        if (!throw) ferrorThrow(res == 0, handle);
         return res;
 }
 
