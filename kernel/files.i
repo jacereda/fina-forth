@@ -21,7 +21,7 @@
                 t2 = Sys_Throw();
                 CALLREST;
                 *++dsp = t1;
-                tos = t2;
+                tos = t2 == -39? 0 : t2;
                 NEXT;
                 
                 PRIM(WRITEF, 203);
@@ -79,19 +79,13 @@
                 NEXT;
                         
                 PRIM(LINEF, 208);
-                t3 = dsp[1];
-                t4 = dsp[0];
                 CALLSAVE;
-                { 
-                    char buf[1024];
-                    t1 = Sys_FileLine((void*)tos, buf, t4+1);
-                    t2 = Sys_Throw();
-                    Sys_MemMove((char*)t3, buf, t4);
-                }
+                t1 = Sys_FileLine((void*)tos, dsp[1], dsp[0]+1);
+                t2 = Sys_Throw();
                 CALLREST;
                 dsp[1] = t1;
                 tos = t2;
-                dsp[0] = FLAG(tos != -39);
+                dsp[0] = FLAG(t2 != -39);
                 tos = tos == -39? 0 : tos;
                 NEXT;
 
