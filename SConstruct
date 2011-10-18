@@ -163,10 +163,9 @@ env.AddMethod(Ins)
 env.AddMethod(Run)
 env.AddMethod(TimedRun)
 env.SConscript('SConscript.ffi',
-		build_dir = 'obj', 
-		src_dir = '.', 
-		exports=['env'],
-		duplicate = 0)
+	       variant_dir = 'obj', 
+	       exports=['env'],
+	       duplicate = 0)
 
 sc = 'SConscript'
 if ring0:
@@ -179,7 +178,6 @@ env['moreprims'] = ARGUMENTS.get('moreprims', 1)
 env['profile'] = ARGUMENTS.get('profile', 0)
 
 env.SConscript(sc,
-		build_dir = 'obj', 
-		src_dir = '.', 
-		exports=['env'],
-		duplicate = 0)
+	       variant_dir = 'obj', 
+	       exports=['env'],
+	       duplicate = 0)
