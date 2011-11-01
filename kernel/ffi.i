@@ -1,5 +1,5 @@
 
-        PRIM(FFPREP, 1000);
+        PRIM(FFPREP);
         // types rtype nargs cif -- status
         CALLSAVE;
         t1 = ffi_prep_cif((ffi_cif*)tos, FFI_DEFAULT_ABI, 
@@ -9,7 +9,7 @@
         dsp += 3;
         NEXT;
         
-        PRIM(FFCALL, 1001);
+        PRIM(FFCALL);
         // ... func cif -- 
         {
 		void * arg[16];
@@ -55,37 +55,37 @@
         }
         NEXT;
 
-        PRIM(FFVOID, 1002);
+        PRIM(FFVOID);
         PUSH;
         tos = (CELL)&ffi_type_void;
         NEXT;
 
-        PRIM(FFINT, 1003);
+        PRIM(FFINT);
         PUSH;
         tos = (CELL)&ffi_type_uint;
         NEXT;
 
-        PRIM(FFFLOAT, 1004);
+        PRIM(FFFLOAT);
         PUSH;
         tos = (CELL)&ffi_type_float;
         NEXT;
 
-        PRIM(FFPTR, 1005);
+        PRIM(FFPTR);
         PUSH;
         tos = (CELL)&ffi_type_pointer;
         NEXT;
 
-        PRIM(FFINTSIXFOUR, 1006);
+        PRIM(FFINTSIXFOUR);
         PUSH;
         tos = (CELL)&ffi_type_uint64;
         NEXT;
 
-        PRIM(FFDOUBLE, 1007);
+        PRIM(FFDOUBLE);
         PUSH;
         tos = (CELL)&ffi_type_double;
         NEXT;
 
-        PRIM(FFCLOS, 1050);
+        PRIM(FFCLOS);
         // xt cif clos -- status
         CALLSAVE;
         t1 = ffi_prep_closure((ffi_closure*)tos, (ffi_cif*)dsp[0],
@@ -95,7 +95,7 @@
         dsp += 2;
         NEXT;
 
-        PRIM(DLOPEN, 1100);
+        PRIM(DLOPEN);
         CALLSAVE;
         t1 = (CELL)dlopen(zstr(str1, (char*)dsp[0], tos), 
 #if defined(__NetBSD__) || defined(_WIN32)
@@ -109,7 +109,7 @@
         dsp++;
         NEXT;
         
-        PRIM(DLSYM, 1101);
+        PRIM(DLSYM);
         CALLSAVE;
         t1 = (CELL)dlsym((void*)tos, zstr(str1, (char*)dsp[1], dsp[0]));
         CALLREST;

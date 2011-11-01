@@ -1,37 +1,37 @@
 
-                PRIM(DOLIT,0);
+                PRIM(DOLIT);
                 PUSH;
                 tos = *fpc++;
                 NEXT;
                 
-                PRIM(DOCONST,1);
+                PRIM(DOCONST);
                 PUSH;
                 tos = *getlnk();
                 NEXT;
                 
-                PRIM(DOVALUE,2);
+                PRIM(DOVALUE);
                 PUSH;
                 tos = *getlnk();
                 NEXT;
                 
-                PRIM(DOVAR,3);
+                PRIM(DOVAR);
                 PUSH; 
                 tos = (CELL)getlnk();
                 NEXT;
                 
-                PRIM(DOCREATE,4);
+                PRIM(DOCREATE);
                 PUSH;
                 t0 = (CELL)getlnk();
                 tos = sizeof(CELL) + t0;
                 goto **(CELL**)t0;
                 NEXT;
                 
-                PRIM(DOUSER,6);
+                PRIM(DOUSER);
                 PUSH;
                 tos = *userP() + sizeof(CELL) * *getlnk();
                 NEXT;
                 
-                PRIM(DOLIST,7);
+                PRIM(DOLIST);
                 RPUSH(fpc);
                 fpc = getlnk();
 #if BUILD_PROFILE
@@ -43,93 +43,93 @@
 #endif    
                 NEXT;
                 
-                PRIM(RPFETCH,8);
+                PRIM(RPFETCH);
                 PUSH;
                 tos = (CELL)rsp;
                 NEXT;
                 
-                PRIM(RPSTORE,9);
+                PRIM(RPSTORE);
                 rsp = (CELL*)tos;
                 POP;
                 NEXT;
                 
-                PRIM(SPFETCH,10);
+                PRIM(SPFETCH);
                 PUSH;
                 tos = (CELL)dsp;
                 NEXT;
                 
-                PRIM(SPSTORE,11);
+                PRIM(SPSTORE);
                 dsp = (CELL*)tos;
                 POP;
                 NEXT;
                 
-                PRIM(UMPLUS,12);
+                PRIM(UMPLUS);
                 *dsp += tos;
                 tos = ((UCELL)*dsp) < (UCELL)tos;
                 NEXT;
                 
-                PRIM(STORE,15);
+                PRIM(STORE);
                 *(CELL*)tos = *dsp++;
                 POP;
                 NEXT;
                 
-                PRIM(ZEROLT,16);
+                PRIM(ZEROLT);
                 tos = FLAG(tos < 0);
                 NEXT;
                 
-                PRIM(ZEROEQUALS,17);
+                PRIM(ZEROEQUALS);
                 tos = FLAG(tos == 0);
                 NEXT;
                 
-                PRIM(TWOSTAR,18);
+                PRIM(TWOSTAR);
                 tos += tos;
                 NEXT;
                 
-                PRIM(TWOSLASH,19);
+                PRIM(TWOSLASH);
                 tos >>= 1;
                 NEXT;
                 
-                PRIM(GTR,20);
+                PRIM(GTR);
                 RPUSH(tos);
                 POP;
                 NEXT;
                 
-                PRIM(FETCH,21);
+                PRIM(FETCH);
                 tos = *(CELL*)tos;
                 NEXT;
                 
-                PRIM(AND,22);
+                PRIM(AND);
                 tos &= *dsp++;
                 NEXT;
                 
-                PRIM(CSTORE,23);
+                PRIM(CSTORE);
                 *(unsigned char *)tos = *dsp++;
                 POP;
                 NEXT;
                 
-                PRIM(CFETCH,24);
+                PRIM(CFETCH);
                 tos = *(unsigned char *)tos;
                 NEXT;
                 
-                PRIM(DROP,25);
+                PRIM(DROP);
                 POP;
                 NEXT;
                 
-                PRIM(DUP,26);
+                PRIM(DUP);
                 PUSH;
                 NEXT;
                 
-                PRIM(EXECUTE,27);
+                PRIM(EXECUTE);
                 t0 = tos;
                 POP;
                 goto *t0;
                 NEXT;
                 
-                PRIM(EXIT,28);
+                PRIM(EXIT);
                 ARPOP(fpc);
                 NEXT;
                 
-                PRIM(MOVE,29);
+                PRIM(MOVE);
                 CALLSAVE;
                 Sys_MemMove((char*)dsp[0], (char*)dsp[1], tos);
                 CALLREST;
@@ -137,54 +137,54 @@
                 POP;
                 NEXT;
                 
-                PRIM(OR,30);
+                PRIM(OR);
                 tos |= *dsp++;
                 NEXT;
                 
-                PRIM(OVER,31);
+                PRIM(OVER);
                 PUSH;
                 tos = dsp[1];
                 NEXT;
                 
-                PRIM(RGT,32);
+                PRIM(RGT);
                 PUSH;
                 RPOP(tos);
                 NEXT;
                 
-                PRIM(I, 92);
+                PRIM(I);
                 PUSH;
                 tos = *rsp;
                 NEXT;
                 
-                PRIM(SWAP,34);
+                PRIM(SWAP);
                 t0 = tos;
                 tos = dsp[0];
                 dsp[0] = t0;
                 NEXT;
                 
-                PRIM(XOR,35);
+                PRIM(XOR);
                 tos ^= *dsp++;
                 NEXT;
                 
-                PRIM(BRANCH,36);
+                PRIM(BRANCH);
                 fpc += fpc[0];
                 NEXT;
                 
-                PRIM(DONEXT, 116);
+                PRIM(DONEXT);
                 if (rsp[0]--)
                         fpc += fpc[0];
                 else
                         fpc++;
                 NEXT;
                 
-                PRIM(DOLOOP,37);
+                PRIM(DOLOOP);
                 if (++rsp[0] != rsp[1])
                         fpc += fpc[0];
                 else
                         fpc++;
                 NEXT;
                 
-                PRIM(DOPLUSLOOP,38);
+                PRIM(DOPLUSLOOP);
                 t0 = rsp[0] - rsp[1];
                 rsp[0] += tos;
                 if ((t0 ^ (t0 + tos)) >= 0 || (t0 ^ tos) >= 0)
@@ -194,7 +194,7 @@
                 POP;
                 NEXT;
                 
-                PRIM(RXQ,66);
+                PRIM(RXQ);
                 PUSH;
                 CALLSAVE;
                 t1 = Sys_HasChar();
@@ -202,7 +202,7 @@
                 tos = t1;
                 NEXT;
                 
-                PRIM(RXFETCH,39);
+                PRIM(RXFETCH);
                 PUSH;
                 CALLSAVE;
                 t1 = Sys_GetChar(); 
@@ -210,19 +210,19 @@
                 tos = t1;
                 NEXT;
                 
-                PRIM(TXQ,40);
+                PRIM(TXQ);
                 PUSH;
                 tos = -1;
                 NEXT;
                 
-                PRIM(TXSTORE,41);
+                PRIM(TXSTORE);
                 CALLSAVE;
                 Sys_PutChar(tos);
                 CALLREST;
                 POP;
                 NEXT;
                 
-                PRIM(ZEROBRANCH,42);
+                PRIM(ZEROBRANCH);
                 if (tos == 0)
                         fpc +=  fpc[0];
                 else
@@ -230,7 +230,7 @@
                 POP;
                 NEXT;
                 
-                PRIM(QDODEFINE,44);
+                PRIM(QDODEFINE);
                 PUSH;
                 if (arch_iscall(tos))
                 {
@@ -241,7 +241,7 @@
                         tos = 0;
                 NEXT;
                 
-                PRIM(XTCOMMA,45);
+                PRIM(XTCOMMA);
                 t0 = *(CELL*)(Forth_Here + arch_callsize());
                 t0 += sizeof(CELL)-1;
                 t0 &= -sizeof(CELL);
@@ -250,22 +250,22 @@
                 tos = t0;
                 NEXT;
                 
-                PRIM(ENDTICK,55);
+                PRIM(ENDTICK);
                 RETURN(0);
                 NEXT;
                 
-                PRIM(BYE,56);
+                PRIM(BYE);
                 RETURN(1);
                 NEXT;
                 
-                PRIM(CALL0,57);
+                PRIM(CALL0);
                 CALLSAVE;
                 t1 = ((UCELL(*)())tos)();
                 CALLREST;
                 tos = t1;
                 NEXT;
                 
-                PRIM(CALL1,58);
+                PRIM(CALL1);
                 CALLSAVE;
                 t1 = ((UCELL(*)())tos)(dsp[0]);
                 CALLREST;
@@ -273,7 +273,7 @@
                 dsp++;
                 NEXT;
                 
-                PRIM(CALL2,59);
+                PRIM(CALL2);
                 CALLSAVE;
                 t1 = ((UCELL(*)())tos)(dsp[0], dsp[1]);
                 CALLREST;
@@ -281,7 +281,7 @@
                 dsp += 2;
                 NEXT;
                 
-                PRIM(CALL3,60);
+                PRIM(CALL3);
                 CALLSAVE;
                 t1 = ((UCELL(*)())tos)(dsp[0], dsp[1], dsp[2]);
                 CALLREST;
@@ -289,7 +289,7 @@
                 dsp += 3;
                 NEXT;
                 
-                PRIM(CALL4,61);
+                PRIM(CALL4);
                 CALLSAVE;
                 t1 = ((UCELL(*)())tos)(dsp[0], dsp[1], dsp[2], dsp[3]);
                 CALLREST;
@@ -297,7 +297,7 @@
                 dsp += 4;
                 NEXT;
                 
-                PRIM(ISAMEQ,62);
+                PRIM(ISAMEQ);
                 CALLSAVE;
                 t1 = nInsensitiveCompare(dsp[0], dsp[1], tos);
                 CALLREST;
@@ -305,7 +305,7 @@
                 dsp += 2;
                 NEXT;
 
-                PRIM(SAMEQ,63);
+                PRIM(SAMEQ);
                 CALLSAVE;
                 t1 = nCompare(dsp[0], dsp[1], tos);
                 CALLREST;
@@ -314,26 +314,26 @@
                 NEXT;
 
 
-                PRIM(RFETCH,33);
+                PRIM(RFETCH);
                 PUSH;
                 tos = *rsp;
                 NEXT;
 
-                PRIM(XTEND,34);
+                PRIM(XTEND);
                 t0 = sizeof(tab) / sizeof(CELL);
                 while (t0--)
                         if (tos == (CELL)tab[t0])
                                 tos = (CELL)tab[t0+1];
                 NEXT;
 
-                PRIM(MS, 298);
+                PRIM(MS);
                 CALLSAVE;
                 Sys_Sleep(tos);
                 CALLREST;
                 POP;
                 NEXT;
                 
-                PRIM(TIMEANDDATE, 299);
+                PRIM(TIMEANDDATE);
                 PUSH;
                 CALLSAVE;
                 t1 = (CELL)Sys_Time();
@@ -353,7 +353,7 @@
                 tos = t7;
                 NEXT;
 
-                PRIM(ARGC,300);
+                PRIM(ARGC);
                 PUSH;
                 CALLSAVE;
                 t1 = Sys_Argc();
