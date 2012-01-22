@@ -80,7 +80,7 @@
                         
                 PRIM(LINEF, 208);
                 CALLSAVE;
-                t1 = Sys_FileLine((void*)tos, dsp[1], dsp[0]+1);
+                t1 = Sys_FileLine((void*)tos, (char*)dsp[1], dsp[0]+1);
                 t2 = Sys_Throw();
                 CALLREST;
                 dsp[1] = t1;
