@@ -1,5 +1,5 @@
 
-                PRIM(FXGTFLOAT, 260);
+                PRIM(FXGTFLOAT);
                 { 
 		t1 = tos;
                 f = t1 / (float)FXSCALE;
@@ -8,7 +8,7 @@
                 NEXT;
                 }
 
-                PRIM(FLOATGTFX, 261);
+                PRIM(FLOATGTFX);
                 {
                 t1 = tos;
 		__builtin_memcpy(&f, &t1, sizeof(CELL));
@@ -17,7 +17,7 @@
                 NEXT;
                 }
 
-                PRIM(FXGTDOUBLE, 262);
+                PRIM(FXGTDOUBLE);
                 { 
                 d = tos;
 		POP;
@@ -27,7 +27,7 @@
                 NEXT;
                 }
 
-                PRIM(DOUBLEGTFX, 263);
+                PRIM(DOUBLEGTFX);
                 {
                 POPDC;
 		__builtin_memcpy(&d, &dc, 2 * sizeof(CELL));

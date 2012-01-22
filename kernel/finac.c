@@ -43,7 +43,7 @@ static inline void loc(const char * p) {
 #define DUMPLOC
 #endif
 
-#define PRIM(x, n)  x: asm("XT_" #x ":"); { DUMPDECL(x); int unused
+#define PRIM(x)  x: asm("XT_" #x ":"); { DUMPDECL(x); int unused
 #define NEXTT goto **fpc++
 #define NEXT (void) unused; DUMPLOC } NEXTT
 #define PUSH *--dsp = tos
@@ -252,7 +252,7 @@ int internalTick(struct FINA_State * state, int throw) {
                 RESTREGS;
 
         // DON'T MOVE THIS
-        PRIM(NOOP,-1);
+        PRIM(NOOP);
         NEXT;
         
 #define RETURN(x) ret = x; goto end
@@ -280,7 +280,7 @@ int internalTick(struct FINA_State * state, int throw) {
 #endif
 
         // DON'T MOVE THIS
-        PRIM(ARGV,301);
+        PRIM(ARGV);
         PUSH;
         CALLSAVE;
         t1 = (CELL)Sys_Argv();

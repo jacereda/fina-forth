@@ -1,4 +1,4 @@
-                PRIM(OPENF, 200);
+                PRIM(OPENF);
                 CALLSAVE;
                 t1 = (CELL)Sys_FileOpen(zstr(str1, (char*)dsp[1], dsp[0]), tos);
                 t2 = Sys_Throw();
@@ -7,7 +7,7 @@
                 tos = t2;
                 NEXT;
 
-                PRIM(CLOSEF, 201);
+                PRIM(CLOSEF);
                 CALLSAVE;
                 Sys_FileClose((void*)tos);
                 t1 = Sys_Throw();
@@ -15,7 +15,7 @@
                 tos = t1;
                 NEXT;
 
-                PRIM(READF, 202);
+                PRIM(READF);
                 CALLSAVE;
                 t1 = Sys_FileRead((void*)tos, (char*)dsp[1], dsp[0]);
                 t2 = Sys_Throw();
@@ -24,7 +24,7 @@
                 tos = t2 == -39? 0 : t2;
                 NEXT;
                 
-                PRIM(WRITEF, 203);
+                PRIM(WRITEF);
                 CALLSAVE;
                 Sys_FileWrite((void*)tos, (char*)dsp[1], dsp[0]);
                 t1 = Sys_Throw();
@@ -33,7 +33,7 @@
                 dsp += 2;
                 NEXT;
 
-                PRIM(MMAPF, 204);
+                PRIM(MMAPF);
                 CALLSAVE;
                 t1 = (CELL)Sys_FileMMap((void*)tos);
                 t2 = Sys_Throw();
@@ -43,7 +43,7 @@
                 tos = t2;
                 NEXT;
 
-                PRIM(SEEKF, 205);
+                PRIM(SEEKF);
                 t0 = tos;
                 POP;
                 POPDC;
@@ -55,7 +55,7 @@
                 tos = t1;
                 NEXT;
                 
-                PRIM(SIZEF, 206);
+                PRIM(SIZEF);
                 t0 = tos;
                 POP;
                 CALLSAVE;
@@ -67,7 +67,7 @@
                 tos = t1;
                 NEXT;
 
-                PRIM(TELLF, 207);
+                PRIM(TELLF);
                 CALLSAVE;
                 dc = Sys_FileTell((void*)tos);
                 t1 = Sys_Throw();
@@ -78,7 +78,7 @@
                 tos = t1;
                 NEXT;
                         
-                PRIM(LINEF, 208);
+                PRIM(LINEF);
                 CALLSAVE;
                 t1 = Sys_FileLine((void*)tos, (char*)dsp[1], dsp[0]+1);
                 t2 = Sys_Throw();
@@ -89,7 +89,7 @@
                 tos = tos == -39? 0 : tos;
                 NEXT;
 
-                PRIM(DELETEF, 209);
+                PRIM(DELETEF);
                 CALLSAVE;
                 Sys_FileDelete(zstr(str1, (char*)*dsp, tos));
                 t1 = Sys_Throw();
@@ -98,7 +98,7 @@
                 tos = t1;
                 NEXT;
 
-                PRIM(STATF, 210);
+                PRIM(STATF);
                 CALLSAVE;
                 t1 = Sys_FileStat(zstr(str1, (char*)dsp[0], tos));
                 t2 = Sys_Throw();
@@ -107,7 +107,7 @@
                 tos = t2;
                 NEXT;
 
-                PRIM(RENF, 211);
+                PRIM(RENF);
                 CALLSAVE;
                 t1 = (CELL)zstr(str1, (char*)dsp[0], tos);
                 Sys_FileRen(zstr(str2, (char*)dsp[2], dsp[1]), (char*)t1);
@@ -117,7 +117,7 @@
                 dsp += 3;
                 NEXT;
 
-                PRIM(TRUNCF, 212);
+                PRIM(TRUNCF);
                 t0 = tos;
                 POP;
                 POPDC;
@@ -129,7 +129,7 @@
                 tos = t1;
                 NEXT;
 
-                PRIM(FLUSHF, 213);
+                PRIM(FLUSHF);
                 CALLSAVE;
                 Sys_FileFlush((void*)tos);
                 t1 = Sys_Throw();
