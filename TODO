@@ -1,0 +1,20 @@
+- Remove globals in sysposix.c
+- Fix see for deferred words
+- More C types in FFI
+- Print line numbers in errors for the terminal.
+- blocks
+- negative strings?
+- fast dictionary search using endian-specific code, i.e
+   if (((*(CELL*)cstr1) << 3) == ((*(CELL*)cstr2) << 3)) ...
+- factorize INTERPRET with something like FOREACHPARSED
+- document
+- split ?dodefine -> ?xt+xtbody
+- more file tests
+- forlist/repeat?
+- implement user and remove fake definition from host-fina.fs
+- remove debug stuff (shifts, type2, rdepth, rpick...)
+- split docreate -> dovar+dodoes
+- cross-compiling support
+- implement as primitives:
+   >= u> u>= <> 0<> dofor do?do lshift rshift arshift 
+   fm/mod mod / 0 -1 1 perform

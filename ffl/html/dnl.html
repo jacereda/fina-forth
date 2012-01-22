@@ -1,0 +1,101 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module dnl - Generic Double Linked List - Forth Foundation Library</title>
+</head>
+<body>
+<h2>dnl - Generic Double Linked List</h2>
+<h3>Module Description</h3>
+<p>The dnl module implements a double linked list that can handle variable size
+nodes. It is the base module for more specialized modules, for example the
+double linked cell list [dcl] module.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>List structure</h4>
+<dl>
+<dt><a name="word1"><b>dnl%</b>	( -- n )</dt>
+<dd>Get the required space for a dnl variable</dd>
+</dl>
+<h4>List creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>dnl-init</b>	( dnl -- )</dt>
+<dd>Initialise the list</dd>
+<dt><a name="word3"><b>dnl-(free)</b>	( xt dnl -- )</dt>
+<dd>Free the nodes in the list from the heap using xt</dd>
+<dt><a name="word4"><b>dnl-create</b>	( "&lt;spaces&gt;name" -- ; -- dnl )</dt>
+<dd>Create a named dnl list in the dictionary</dd>
+<dt><a name="word5"><b>dnl-new</b>	( -- dnl )</dt>
+<dd>Create a new dnl list on the heap</dd>
+<dt><a name="word6"><b>dnl-free</b>	( dnl -- )</dt>
+<dd>Free the list from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word7"><b>dnl-length@</b>	( dnl -- u )</dt>
+<dd>Get the number of nodes in the list</dd>
+<dt><a name="word8"><b>dnl-empty?</b>	( dnl -- flag )</dt>
+<dd>Check for empty list</dd>
+<dt><a name="word9"><b>dnl-first@</b>	( dnl -- dnn | nil )</dt>
+<dd>Get the first node in the list</dd>
+<dt><a name="word10"><b>dnl-last@</b>	( dnl -- dnn | nil )</dt>
+<dd>Get the last node in the list</dd>
+</dl>
+<h4>List words</h4>
+<dl>
+<dt><a name="word11"><b>dnl-append</b>	( dnn dnl -- )</dt>
+<dd>Append the node dnn in the list</dd>
+<dt><a name="word12"><b>dnl-prepend</b>	( dnn dnl -- )</dt>
+<dd>Prepend the node dnn in the list</dd>
+<dt><a name="word13"><b>dnl-insert-before</b>	( dnn1 dnn2 dnl -- )</dt>
+<dd>Insert the new node dnn1 before the reference node dnn2 in the list</dd>
+<dt><a name="word14"><b>dnl-insert-after</b>	( dnn1 dnn2 dnl -- )</dt>
+<dd>Insert the new node dnn1 after the reference node dnn2 in the list</dd>
+<dt><a name="word15"><b>dnl-remove</b>	( dnn dnl -- )</dt>
+<dd>Remove the node dnn from the list</dd>
+</dl>
+<h4>Index words</h4>
+<dl>
+<dt><a name="word16"><b>dnl-index?</b>	( n dnl -- flag )</dt>
+<dd>Check if the index n is valid in the list</dd>
+<dt><a name="word17"><b>dnl-get</b>	( n dnl -- dnn )</dt>
+<dd>Get the nth node from the list</dd>
+<dt><a name="word18"><b>dnl-insert</b>	( dnn n dnl -- )</dt>
+<dd>Insert the node dnn before the nth node in the list</dd>
+<dt><a name="word19"><b>dnl-delete</b>	( n dnl -- dnn )</dt>
+<dd>Delete the nth node from the list, return the deleted node</dd>
+</dl>
+<h4>LIFO words</h4>
+<dl>
+<dt><a name="word20"><b>dnl-push</b>	( dnn dnl -- )</dt>
+<dd>Push the node dnn at the end of the list</dd>
+<dt><a name="word21"><b>dnl-pop</b>	( dnl -- dnn | nil )</dt>
+<dd>Pop the node dnn from the end of the list</dd>
+<dt><a name="word22"><b>dnl-tos</b>	( dnl -- dnn | nil )</dt>
+<dd>Get the node dnn from the end of the list</dd>
+</dl>
+<h4>FIFO words</h4>
+<dl>
+<dt><a name="word23"><b>dnl-enqueue</b>	( dnn dnl -- )</dt>
+<dd>Enqueue the node dnn at the start of the list</dd>
+<dt><a name="word24"><b>dnl-dequeue</b>	( dnl -- dnn | nil )</dt>
+<dd>Dequeue the node dnn from the end of the list</dd>
+</dl>
+<h4>Special words</h4>
+<dl>
+<dt><a name="word25"><b>dnl-execute</b>	( i*x xt dnl -- j*x )</dt>
+<dd>Execute xt for every node in list</dd>
+<dt><a name="word26"><b>dnl-reverse</b>	( dnl -- )</dt>
+<dd>Reverse or mirror the list</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word27"><b>dnl-dump</b>	( dnl -- )</dt>
+<dd>Dump the list</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

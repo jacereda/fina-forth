@@ -1,0 +1,215 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module chs - Character set module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>chs - Character set module</h2>
+<h3>Module Description</h3>
+<p>The chs module implements a character set. It supports the POSIX classes
+used in regular expressions.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Character Set Structure</h4>
+<dl>
+<dt><a name="word1"><b>chs%</b>	( -- n )</dt>
+<dd>Get the required space for a chs variable</dd>
+</dl>
+<h4>Set creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>chs-init</b>	( chs -- )</dt>
+<dd>Initialise the set</dd>
+<dt><a name="word3"><b>chs-create</b>	( "&lt;spaces&gt;name" -- ; -- chs )</dt>
+<dd>Create a named character set in the dictionary</dd>
+<dt><a name="word4"><b>chs-new</b>	( -- chs )</dt>
+<dd>Create a new character set on the heap</dd>
+<dt><a name="word5"><b>chs-free</b>	( chs -- )</dt>
+<dd>Free the set from the heap</dd>
+</dl>
+<h4>Sets words</h4>
+<dl>
+<dt><a name="word6"><b>chs^move</b>	( chs1 chs2 -- )</dt>
+<dd>Move chs1 in chs2</dd>
+<dt><a name="word7"><b>chs^or</b>	( chs1 chs2 -- )</dt>
+<dd>OR the sets chs1 with chs2 and store the result in chs2</dd>
+<dt><a name="word8"><b>chs^and</b>	( chs1 chs2 -- )</dt>
+<dd>AND the sets chs1 with chs2 and store the result in chs2</dd>
+<dt><a name="word9"><b>chs^xor</b>	( chs1 chs2 -- )</dt>
+<dd>XOR the sets chs1 with chs2 and store the result in chs2</dd>
+</dl>
+<h4>Set words</h4>
+<dl>
+<dt><a name="word10"><b>chs-set</b>	( chs -- )</dt>
+<dd>Set all characters in the set</dd>
+<dt><a name="word11"><b>chs-reset</b>	( chs -- )</dt>
+<dd>Reset all characters in the set</dd>
+<dt><a name="word12"><b>chs-invert</b>	( chs -- )</dt>
+<dd>Invert all characters in the set</dd>
+</dl>
+<h4>Char words</h4>
+<dl>
+<dt><a name="word13"><b>chs-set-char</b>	( char chs -- )</dt>
+<dd>Set the character in the set</dd>
+<dt><a name="word14"><b>chs-reset-char</b>	( char chs -- )</dt>
+<dd>Reset the character in the set</dd>
+</dl>
+<h4>Character range words</h4>
+<dl>
+<dt><a name="word15"><b>chs-set-chars</b>	( char1 char2 chs -- )</dt>
+<dd>Set the character range [char2..char1] in the set</dd>
+<dt><a name="word16"><b>chs-reset-chars</b>	( char1 char2 chs -- )</dt>
+<dd>Reset the character range [char2..char1] in the set</dd>
+</dl>
+<h4>String words</h4>
+<dl>
+<dt><a name="word17"><b>chs-set-string</b>	( c-addr u chs -- )</dt>
+<dd>Set the characters in the string in the set</dd>
+<dt><a name="word18"><b>chs-reset-string</b>	( c-addr u chs -- )</dt>
+<dd>Reset the characters in the string in the set</dd>
+</dl>
+<h4>List words</h4>
+<dl>
+<dt><a name="word19"><b>chs-set-list</b>	( charu .. char1 u chs -- )</dt>
+<dd>Set the characters char1 till charu in the set</dd>
+<dt><a name="word20"><b>chs-reset-list</b>	( charu .. char1 u chs -- )</dt>
+<dd>Reset the characters char1 till charu in the set</dd>
+</dl>
+<h4>POSIX classes</h4>
+<dl>
+<dt><a name="word21"><b>chs-set-upper</b>	( chs -- )</dt>
+<dd>Set the upper class in the set</dd>
+<dt><a name="word22"><b>chs-reset-upper</b>	( chs -- )</dt>
+<dd>Reset the upper class in the set</dd>
+<dt><a name="word23"><b>chs-set-lower</b>	( chs -- )</dt>
+<dd>Set the lower  class in the set</dd>
+<dt><a name="word24"><b>chs-reset-lower</b>	( chs -- )</dt>
+<dd>Reset the lower class in the set</dd>
+<dt><a name="word25"><b>chs-set-alpha</b>	( chs -- )</dt>
+<dd>Set the alpha class in the set</dd>
+<dt><a name="word26"><b>chs-reset-alpha</b>	( chs -- )</dt>
+<dd>Reset the alpha class in the set</dd>
+<dt><a name="word27"><b>chs-set-digit</b>	( chs -- )</dt>
+<dd>Set the digit class in the set</dd>
+<dt><a name="word28"><b>chs-reset-digit</b>	( chs -- )</dt>
+<dd>Reset the digit class in the set</dd>
+<dt><a name="word29"><b>chs-set-alnum</b>	( chs -- )</dt>
+<dd>Set the alnum class in the set</dd>
+<dt><a name="word30"><b>chs-reset-alnum</b>	( chs -- )</dt>
+<dd>Reset the alnum class in the set</dd>
+<dt><a name="word31"><b>chs-set-xdigit</b>	( chs -- )</dt>
+<dd>Set the xdigit class in the set</dd>
+<dt><a name="word32"><b>chs-reset-xdigit</b>	( chs -- )</dt>
+<dd>Reset the xdigit class in the set</dd>
+<dt><a name="word33"><b>chs-set-punct</b>	( chs -- )</dt>
+<dd>Set the punct class in the set</dd>
+<dt><a name="word34"><b>chs-reset-punct</b>	( chs -- )</dt>
+<dd>Reset the punct class in the set</dd>
+<dt><a name="word35"><b>chs-set-blank</b>	( chs -- )</dt>
+<dd>Set the blank class in the set</dd>
+<dt><a name="word36"><b>chs-reset-blank</b>	( chs -- )</dt>
+<dd>Reset the blank class in the set</dd>
+<dt><a name="word37"><b>chs-set-space</b>	( chs -- )</dt>
+<dd>Set the space class in the set</dd>
+<dt><a name="word38"><b>chs-reset-space</b>	( chs -- )</dt>
+<dd>Reset the space class in the set</dd>
+<dt><a name="word39"><b>chs-set-cntrl</b>	( chs -- )</dt>
+<dd>Set the cntrl class in the set</dd>
+<dt><a name="word40"><b>chs-reset-cntrl</b>	( chs -- )</dt>
+<dd>Reset the cntrl class in the set</dd>
+<dt><a name="word41"><b>chs-set-graph</b>	( chs -- )</dt>
+<dd>Set the graph class in the set</dd>
+<dt><a name="word42"><b>chs-reset-graph</b>	( chs -- )</dt>
+<dd>Reset the graph class in the set</dd>
+<dt><a name="word43"><b>chs-set-print</b>	( chs -- )</dt>
+<dd>Set the print class in the set</dd>
+<dt><a name="word44"><b>chs-reset-print</b>	( chs -- )</dt>
+<dd>Reset the print class in the set</dd>
+<dt><a name="word45"><b>chs-set-word</b>	( chs -- )</dt>
+<dd>Set the word class in the set</dd>
+<dt><a name="word46"><b>chs-reset-word</b>	( chs -- )</dt>
+<dd>Reset the word class in the set</dd>
+</dl>
+<h4>Char check word</h4>
+<dl>
+<dt><a name="word47"><b>chs-char?</b>	( char chs -- flag )</dt>
+<dd>Check if the character is in the set</dd>
+</dl>
+<h4>Special words</h4>
+<dl>
+<dt><a name="word48"><b>chs-execute</b>	( i*x xt chs -- j*x )</dt>
+<dd>Execute xt for every character in the set</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word49"><b>chs-dump</b>	( chs -- )</dt>
+<dd>Dump the chs state</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/chs.fs
+
+
+\ Create a character set variable chs1 in the dictionary
+
+chs-create chs1
+
+\ Set 'a', '*', 'q', 'w' and '0'..'9' in the set
+
+char a chs1 chs-set-char
+char * chs1 chs-set-char
+
+char 9 char 0 chs1 chs-set-chars
+
+s" qw" chs1 chs-set-string
+
+\ Check for characters in the set
+
+char 7 chs1 chs-char? [IF]
+  .( Character '7' is in the set ) cr
+[ELSE]
+  .( Character '7' is not in the set ) cr
+[THEN]
+
+char ; chs1 chs-char? [IF]
+  .( Character ';' is in the set ) cr
+[ELSE]
+  .( Character ';' is not in the set ) cr
+[THEN]
+
+\ Create a character set on the heap
+
+chs-new value chs2
+
+\ Use the space and xdigit classes to fill the set 
+
+chs1 chs-set-space
+chs1 chs-set-xdigit
+
+\ Invert the set so that the set contains no spaces and xdigits
+
+chs1 chs-invert
+
+\ Print the set contents by excecuting chs-emit for every character in the set
+
+: chs-emit  ( char -- )
+  dup chr-print? IF
+    emit
+  ELSE
+    [char] &lt; emit 0 .r [char] &gt; emit
+  THEN
+;
+
+.( Set:) ' chs-emit chs1 chs-execute cr
+
+\ Free the set from the heap
+
+chs2 chs-free
+
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

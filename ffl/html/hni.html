@@ -1,0 +1,143 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module hni - Generic Hash Table Iterator - Forth Foundation Library</title>
+</head>
+<body>
+<h2>hni - Generic Hash Table Iterator</h2>
+<h3>Module Description</h3>
+<p>The hni module implements an iterator on the generic hash table [hnt].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Iterator structure</h4>
+<dl>
+<dt><a name="word1"><b>hni%</b>	( -- n )</dt>
+<dd>Get the required space for a hash table base iterator variable</dd>
+</dl>
+<h4>Iterator creation, initialisation and destruction words</h4>
+<dl>
+<dt><a name="word2"><b>hni-init</b>	( hnt hni -- )</dt>
+<dd>Initialise the iterator with the hash table hnt</dd>
+<dt><a name="word3"><b>hni-create</b>	( hnt "&lt;spaces&gt;name" -- ; -- hni )</dt>
+<dd>Create a named iterator in the dictionary on the hash table hnt</dd>
+<dt><a name="word4"><b>hni-new</b>	( hnt -- hni )</dt>
+<dd>Create an iterator on the heap on the hash table hnt</dd>
+<dt><a name="word5"><b>hni-free</b>	( hni -- )</dt>
+<dd>Free iterator from heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word6"><b>hni-get</b>	( hni -- hnn | nil )</dt>
+<dd>Get the node from the current record</dd>
+<dt><a name="word7"><b>hni-key</b>	( hni -- c-addr u )</dt>
+<dd>Get the key from the current record</dd>
+</dl>
+<h4>Iterator words</h4>
+<dl>
+<dt><a name="word8"><b>hni-first</b>	( hni -- hnn | nil )</dt>
+<dd>Move the iterator to the first record, return the node in this record</dd>
+<dt><a name="word9"><b>hni-next</b>	( hni -- hnn | nil )</dt>
+<dd>Move the iterator to the next record, return the node in this record</dd>
+<dt><a name="word10"><b>hni-first?</b>	( hni -- flag )</dt>
+<dd>Check if the iterator is on the first record</dd>
+<dt><a name="word11"><b>hni-last?</b>	( hni -- flag )</dt>
+<dd>Check if the iterator is on the last record</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word12"><b>hni-dump</b>	( hni -- )</dt>
+<dd>Dump the iterator</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/hnt.fs
+include ffl/hni.fs
+
+
+\ Example: store scientific constants in a hash table
+
+\ Extend the base node with a float for storing the value of the constant
+
+begin-structure sc%
+  hnn%
+  +field  sc&gt;ht                      \ Node extends the base node
+  ffield: sc&gt;value                   \ Value of constant
+end-structure
+
+
+\ Create the hash table in the dictionary with an initial size of 10
+
+10 hnt-create sc-table
+
+
+\ Word for adding the value
+
+: sc-add ( r c-addr u -- = value key )
+  2dup sc-table hnt-search                     \ Search if the key is already present in the hash table
+  dup nil&lt;&gt; IF                                 \ If the key is already present Then
+    nip nip nip                                \   Remove the key and hash value from stack
+    sc&gt;value f!                                \   Update the node in the hash table with the value
+  ELSE                                         \ Else
+    drop                                       \   Drop nil
+    sc% allocate throw                         \   Allocate a new sc% node
+    &gt;r
+    r@ hnn-init                                \   Initialise the new sc% node with the key and hash
+    r@ sc&gt;value f!                             \   Save the value in the node
+    r&gt; sc-table hnt-insert                     \   Store the sc% node in the hash table
+  THEN
+;
+
+
+\ Add the constants
+
+3.14158E+0 s" pi"     sc-add
+2.71828E+0 s" euler"  sc-add
+1.61803E+0 s" golden" sc-add
+
+\ Word for printing the scientific constant
+
+: sc-emit ( sc% -- )
+  dup hnn-key@ type ."  -&gt; " sc&gt;value f@ f. cr
+;
+
+
+\ Print all scientific constants
+
+' sc-emit sc-table hnt-execute                \ Execute the word sc-emit for all entries in the hash table
+
+
+\ Example hash table iterator
+
+\ Create the hash table iterator in the dictionary
+
+sc-table hni-create sc-iter                   \ Create an iterator named sc-iter on the sc-table hash table
+
+\ Moving the iterator
+
+sc-iter hni-first                             \ Move the iterator to the first record
+nil&lt;&gt; [IF]                                    \ If record exists Then ..
+  sc-iter hni-key type                        \   Type the key ..
+  .(  =&gt; )
+  sc-iter hni-get sc&gt;value f@ f.              \   .. and the value
+  cr
+[THEN]
+
+sc-iter hni-next                              \ Move the iterator to the next record
+nil&lt;&gt; [IF]                                    \ If record exists Then ..
+  sc-iter hni-key type                        \   Type the key ..
+  .(  =&gt; )
+  sc-iter hni-get sc&gt;value f@ f.              \   .. and the value
+  cr
+[ELSE]
+  .( No next record in the hash table) cr  
+[THEN]
+
+
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

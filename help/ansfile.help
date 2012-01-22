@@ -1,0 +1,461 @@
+[left.gif] [right.gif] [up.gif] Table of Contents
+===============================================================================
+****** 11. The optional File-Access word set ******
+See: A.11 The optional File-Access word set
+===============================================================================
+***** 11.1 Introduction *****
+ These words provide access to mass storage in the form of files under the
+following assumptions:
+    * files are provided by a host operating system;
+    * file names are represented as character strings;
+    * the format of file names is determined by the host operating system;
+    * an open file is identified by a single-cell file identifier (fileid);
+    * file-state information (e.g., position, size) is managed by the host
+      operating system;
+    * file contents are accessed as a sequence of characters;
+    * file read operations return an actual transfer count, which can differ
+      from the requested transfer count.
+===============================================================================
+***** 11.2 Additional terms *****
+  file-access method:
+      A permissible means of accessing a file, such as read/write or read only.
+  file position:
+      The character offset from the start of the file.
+  input file:
+      The file, containing a sequence of lines, that is the input source.
+===============================================================================
+***** 11.3 Additional usage requirements *****
+
+===============================================================================
+**** 11.3.1 Data types ****
+ Append table 11.1 to table_3.1.
+Table 11.1 - Data types
+Symbol  Data type               Size on stack
+------  ---------               -------------
+ior     I/O results             1 cell
+fam     file access method      1 cell
+fileid  file identifiers        1 cell
+===============================================================================
+*** 11.3.1.1 File identifiers ***
+ File identifiers are implementation-dependent single-cell values that are
+passed to file operators to designate specific files. Opening a file assigns a
+file identifier, which remains valid until closed.
+===============================================================================
+*** 11.3.1.2 I/O results ***
+ I/O results are single-cell numbers indicating the result of I/O operations. A
+value of zero indicates that the I/O operation completed successfully; other
+values and their meanings are implementation-defined. Reaching the end of a
+file shall be reported as zero.
+An I/O exception in the execution of a File-Access word that can return an I/
+O result shall not cause a THROW; exception indications are returned in the
+ior.
+===============================================================================
+*** 11.3.1.3 File access methods ***
+ File access methods are implementation-defined single-cell values.
+===============================================================================
+*** 11.3.1.4 File names ***
+ A character string containing the name of the file. The file name may include
+an implementation-dependent path name. The format of file names is
+implementation defined.
+===============================================================================
+**** 11.3.2 Blocks in files ****
+ If the File-Access word set is implemented, the Block_word_set shall be
+implemented.
+Blocks may, but need not, reside in files. When they do:
+    * Block numbers may be mapped to one or more files by implementation-
+      defined means. An ambiguous condition exists if a requested block number
+      is not currently mapped;
+    * An UPDATEd block that came from a file shall be transferred back to the
+      same file.
+See: A.11.3.2 Blocks in files
+===============================================================================
+**** 11.3.3 Environmental queries ****
+ Append table 11.2 to table 3.5.
+See: 3.2.6 Environmental queries
+Table 11.2 - Environmental query strings
+String         Value data type   Constant?  Meaning
+------         ---------------   ---------  -------
+FILE            flag             no         file word set present
+FILE-EXT        flag             no         file extensions word set present
+===============================================================================
+**** 11.3.4 Input source ****
+ The File-Access word set creates another input source for the text
+interpreter. When the input source is a text file, BLK shall contain zero,
+SOURCE-ID shall contain the fileid of that text file, and the input buffer
+shall contain one line of the text file.
+Input with INCLUDED, INCLUDE-FILE, LOAD and EVALUATE shall be nestable in any
+order to at least eight levels.
+A program that uses more than eight levels of input-file nesting has an
+environmental dependency.
+See: 3.3.3.5 Input buffers, 9. Optional Exception word set.
+===============================================================================
+**** 11.3.5 Other transient regions ****
+ The list of words using memory in transient regions is extended to include
+11.6.1.2165 S".
+See: 3.3.3.6 Other transient regions
+===============================================================================
+**** 11.3.6 Parsing ****
+ When parsing from a text file using a space delimiter, control characters
+shall be treated the same as the space character.
+Lines of at least 128 characters shall be supported. A program that requires
+lines of more than 128 characters has an environmental dependency.
+A program may reposition the parse area within the input buffer by manipulating
+the contents of >IN. More extensive repositioning can be accomplished using
+SAVE-INPUT and RESTORE-INPUT.
+See: 3.4.1 Parsing
+===============================================================================
+***** 11.4 Additional documentation requirements *****
+
+===============================================================================
+**** 11.4.1 System documentation ****
+
+===============================================================================
+*** 11.4.1.1 Implementation-defined options ***
+    * file access methods used by 11.6.1.0765 BIN, 11.6.1.1010 CREATE-FILE,
+      11.6.1.1970 OPEN-FILE, 11.6.1.2054 R/O, 11.6.1.2056 R/W, and 11.6.1.2425
+      W/O;
+    * file exceptions;
+    * file line terminator (11.6.1.2090 READ-LINE);
+    * file name format (11.3.1.4 File names);
+    * Information returned by 11.6.2.1524 FILE-STATUS;
+    * Input file state after an exception (11.6.1.1717 INCLUDE-FILE,
+      11.6.1.1718 INCLUDED);
+    * ior values and meaning (11.3.1.2 I/O results);
+    * maximum depth of file input nesting (11.3.4 Input source);
+    * maximum size of input line (11.3.6 Parsing);
+    * methods for mapping block ranges to files (11.3.2 Blocks in files);
+    * number of string buffers provided (11.6.1.2165 S");
+    * size of string buffer used by 11.6.1.2165 S".
+===============================================================================
+*** 11.4.1.2 Ambiguous conditions ***
+    * attempting to position a file outside its boundaries (11.6.1.2142
+      REPOSITION-FILE);
+    * attempting to read from file positions not yet written (11.6.1.2080 READ-
+      FILE, 11.6.1.2090 READ-LINE);
+    * fileid is invalid (11.6.1.1717 INCLUDE-FILE);
+    * I/O exception reading or closing fileid (11.6.1.1717 INCLUDE-FILE,
+      11.6.1.1718 INCLUDED);
+    * named file cannot be opened (11.6.1.1718 INCLUDED);
+    * requesting an unmapped block number (11.3.2 Blocks in files);
+    * using 11.6.1.2218 SOURCE-ID when 7.6.1.0790 BLK is not zero.
+===============================================================================
+*** 11.4.1.3 Other system documentation ***
+    * no additional requirements.
+===============================================================================
+**** 11.4.2 Program documentation ****
+
+===============================================================================
+*** 11.4.2.1 Environmental dependencies ***
+    * requiring lines longer than 128 characters (11.3.6 Parsing);
+    * using more than eight levels of input-file nesting (11.3.4 Input source).
+===============================================================================
+*** 11.4.2.2 Other program documentation ***
+    * no additional requirements.
+===============================================================================
+***** 11.5 Compliance and labeling *****
+
+===============================================================================
+**** 11.5.1 ANS Forth systems ****
+ The phrase Providing the File Access word set shall be appended to the label
+of any Standard System that provides all of the File Access word set.
+The phrase Providing name(s) from the File Access Extensions word set shall be
+appended to the label of any Standard System that provides portions of the File
+Access Extensions word set.
+The phrase Providing the File Access Extensions word set shall be appended to
+the label of any Standard System that provides all of the File Access and File
+Access Extensions word sets.
+===============================================================================
+**** 11.5.2 ANS Forth programs ****
+ The phrase Requiring the File Access word set shall be appended to the label
+of Standard Programs that require the system to provide the File Access word
+set.
+The phrase Requiring name(s) from the File Access Extensions word set shall be
+appended to the label of Standard Programs that require the system to provide
+portions of the File Access Extensions word set.
+The phrase Requiring the File Access Extensions word set shall be appended to
+the label of Standard Programs that require the system to provide all of the
+File Access and File Access Extensions word sets.
+===============================================================================
+***** 11.6 Glossary *****
+
+===============================================================================
+**** 11.6.1 File Access words ****
+
+===============================================================================
+11.6.1.0080 (
+paren FILE
+	( "ccc<paren>" -- )
+Extend the semantics of 6.1.0080 ( to include:
+When parsing from a text file, if the end of the parse area is reached before a
+right parenthesis is found, refill the input buffer from the next line of the
+file, set >IN to zero, and resume parsing, repeating this process until either
+a right parenthesis is found or the end of the file is reached.
+===============================================================================
+11.6.1.0765 BIN
+FILE
+	( fam1 -- fam2 )
+Modify the implementation-defined file access method fam1 to additionally
+select a binary, i.e., not line oriented, file access method, giving access
+method fam2.
+See: A.11.6.1.0765_BIN , 11.6.1.2054_R/O , 11.6.1.2056_R/W , 11.6.1.2425_W/O
+===============================================================================
+11.6.1.0900 CLOSE-FILE
+FILE
+	( fileid -- ior )
+Close the file identified by fileid. ior is the implementation-defined I/
+O result code.
+===============================================================================
+11.6.1.1010 CREATE-FILE
+FILE
+	( c-addr u fam -- fileid ior )
+Create the file named in the character string specified by c-addr and u, and
+open it with file access method fam. The meaning of values of fam is
+implementation defined. If a file with the same name already exists, recreate
+it as an empty file.
+If the file was successfully created and opened, ior is zero, fileid is its
+identifier, and the file has been positioned to the start of the file.
+Otherwise, ior is the implementation-defined I/O result code and fileid is
+undefined.
+See: A.11.6.1.1010_CREATE-FILE
+===============================================================================
+11.6.1.1190 DELETE-FILE
+FILE
+	( c-addr u -- ior )
+Delete the file named in the character string specified by c-addr u. ior is the
+implementation-defined I/O result code.
+===============================================================================
+11.6.1.1520 FILE-POSITION
+FILE
+	( fileid -- ud ior )
+ud is the current file position for the file identified by fileid. ior is the
+implementation-defined I/O result code. ud is undefined if ior is non-zero.
+===============================================================================
+11.6.1.1522 FILE-SIZE
+FILE
+	( fileid -- ud ior )
+ud is the size, in characters, of the file identified by fileid. ior is the
+implementation-defined I/O result code. This operation does not affect the
+value returned by FILE-POSITION. ud is undefined if ior is non-zero.
+===============================================================================
+11.6.1.1717 INCLUDE-FILE
+FILE
+	( i*x fileid -- j*x )
+Remove fileid from the stack. Save the current input source specification,
+including the current value of SOURCE-ID. Store fileid in SOURCE-ID. Make the
+file specified by fileid the input source. Store zero in BLK. Other stack
+effects are due to the words included.
+Repeat until end of file: read a line from the file, fill the input buffer from
+the contents of that line, set >IN to zero, and interpret.
+Text interpretation begins at the file position where the next file read would
+occur.
+When the end of the file is reached, close the file and restore the input
+source specification to its saved value.
+An ambiguous condition exists if fileid is invalid, if there is an I/
+O exception reading fileid, or if an I/O exception occurs while closing fileid.
+When an ambiguous condition exists, the status (open or closed) of any files
+that were being interpreted is implementation-defined.
+See: 11.3.4 Input source, A.11.6.1.1717_INCLUDE-FILE
+===============================================================================
+11.6.1.1718 INCLUDED
+FILE
+	( i*x c-addr u -- j*x )
+Remove c-addr u from the stack. Save the current input source specification,
+including the current value of SOURCE-ID. Open the file specified by c-addr u,
+store the resulting fileid in SOURCE-ID, and make it the input source. Store
+zero in BLK. Other stack effects are due to the words included.
+Repeat until end of file: read a line from the file, fill the input buffer from
+the contents of that line, set >IN to zero, and interpret.
+Text interpretation begins at the file position where the next file read would
+occur.
+When the end of the file is reached, close the file and restore the input
+source specification to its saved value.
+An ambiguous condition exists if the named file can not be opened, if an I/
+O exception occurs reading the file, or if an I/O exception occurs while
+closing the file. When an ambiguous condition exists, the status (open or
+closed) of any files that were being interpreted is implementation-defined.
+See: A.11.6.1.1718_INCLUDED , 11.6.1.1717_INCLUDE-FILE
+===============================================================================
+11.6.1.1970 OPEN-FILE
+FILE
+	( c-addr u fam -- fileid ior )
+Open the file named in the character string specified by c-addr u, with file
+access method indicated by fam. The meaning of values of fam is implementation
+defined.
+If the file is successfully opened, ior is zero, fileid is its identifier, and
+the file has been positioned to the start of the file.
+Otherwise, ior is the implementation-defined I/O result code and fileid is
+undefined.
+See: A.11.6.1.1970_OPEN-FILE
+===============================================================================
+11.6.1.2054 R/O
+r-o FILE
+	( -- fam )
+fam is the implementation-defined value for selecting the read only file access
+method.
+See: 11.6.1.1010_CREATE-FILE , 11.6.1.1970_OPEN-FILE
+===============================================================================
+11.6.1.2056 R/W
+r-w FILE
+	( -- fam )
+fam is the implementation-defined value for selecting the read/write file
+access method.
+See: 11.6.1.1010_CREATE-FILE , 11.6.1.1970_OPEN-FILE
+===============================================================================
+11.6.1.2080 READ-FILE
+FILE
+	( c-addr u1 fileid -- u2 ior )
+Read u1 consecutive characters to c-addr from the current position of the file
+identified by fileid.
+If u1 characters are read without an exception, ior is zero and u2 is equal to
+u1.
+If the end of the file is reached before u1 characters are read, ior is zero
+and u2 is the number of characters actually read.
+If the operation is initiated when the value returned by FILE-POSITION is equal
+to the value returned by FILE-SIZE for the file identified by fileid, ior is
+zero and u2 is zero.
+If an exception occurs, ior is the implementation-defined I/O result code, and
+u2 is the number of characters transferred to c-addr without an exception.
+An ambiguous condition exists if the operation is initiated when the value
+returned by FILE-POSITION is greater than the value returned by FILE-SIZE for
+the file identified by fileid, or if the requested operation attempts to read
+portions of the file not written.
+At the conclusion of the operation, FILE-POSITION returns the next file
+position after the last character read.
+See: A.11.6.1.2080_READ-FILE
+===============================================================================
+11.6.1.2090 READ-LINE
+FILE
+	( c-addr u1 fileid -- u2 flag ior )
+Read the next line from the file specified by fileid into memory at the address
+c-addr. At most u1 characters are read. Up to two implementation-defined line-
+terminating characters may be read into memory at the end of the line, but are
+not included in the count u2. The line buffer provided by c-addr should be at
+least u1+2 characters long.
+If the operation succeeded, flag is true and ior is zero. If a line terminator
+was received before u1 characters were read, then u2 is the number of
+characters, not including the line terminator, actually read (0 <= u2 <= u1).
+When u1 = u2, the line terminator has yet to be reached.
+If the operation is initiated when the value returned by FILE-POSITION is equal
+to the value returned by FILE-SIZE for the file identified by fileid, flag is
+false, ior is zero, and u2 is zero. If ior is non-zero, an exception occurred
+during the operation and ior is the implementation-defined I/O result code.
+An ambiguous condition exists if the operation is initiated when the value
+returned by FILE-POSITION is greater than the value returned by FILE-SIZE for
+the file identified by fileid, or if the requested operation attempts to read
+portions of the file not written.
+At the conclusion of the operation, FILE-POSITION returns the next file
+position after the last character read.
+See: A.11.6.1.2090_READ-LINE , RFI_0001.
+===============================================================================
+11.6.1.2142 REPOSITION-FILE
+FILE
+	( ud fileid -- ior )
+Reposition the file identified by fileid to ud. ior is the implementation-
+defined I/O result code. An ambiguous condition exists if the file is
+positioned outside the file boundaries.
+At the conclusion of the operation, FILE-POSITION returns the value ud.
+===============================================================================
+11.6.1.2147 RESIZE-FILE
+FILE
+	( ud fileid -- ior )
+Set the size of the file identified by fileid to ud. ior is the implementation-
+defined I/O result code.
+If the resultant file is larger than the file before the operation, the portion
+of the file added as a result of the operation might not have been written.
+At the conclusion of the operation, FILE-SIZE returns the value ud and FILE-
+POSITION returns an unspecified value.
+See: 11.6.1.2080_READ-FILE , 11.6.1.2090_READ-LINE
+===============================================================================
+11.6.1.2165 S"
+s-quote FILE
+Extend the semantics of 6.1.2165 S" to be:
+        Interpretation: ( "ccc<quote>" -- c-addr u )
+Parse ccc delimited by " (double quote). Store the resulting string c-addr u at
+a temporary location. The maximum length of the temporary buffer is
+implementation-dependent but shall be no less than 80 characters. Subsequent
+uses of S" may overwrite the temporary buffer. At least one such buffer shall
+be provided.
+        Compilation: ( "ccc<quote>" -- )
+Parse ccc delimited by " (double quote). Append the run-time semantics given
+below to the current definition.
+        Run-time: ( -- c-addr u )
+Return c-addr and u that describe a string consisting of the characters ccc.
+See: 3.4.1 Parsing, 6.2.0855_C" , A.11.6.1.2165_S" , 11.3.5 Other transient
+regions.
+===============================================================================
+11.6.1.2218 SOURCE-ID
+source-i-d FILE
+	( -- 0 | -1 | fileid )
+Extend 6.2.2218 SOURCE-ID to include text-file input as follows:
+SOURCE-ID       Input source
+---------       ------------
+fileid          Text file fileid
+-1              String (via EVALUATE)
+0               User input device
+An ambiguous condition exists if SOURCE-ID is used when BLK contains a non-zero
+value.
+===============================================================================
+11.6.1.2425 W/O
+w-o FILE
+	( -- fam )
+fam is the implementation-defined value for selecting the write only file
+access method.
+See: 11.6.1.1010_CREATE-FILE , 11.6.1.1970_OPEN-FILE
+===============================================================================
+11.6.1.2480 WRITE-FILE
+FILE
+	( c-addr u fileid -- ior )
+Write u characters from c-addr to the file identified by fileid starting at its
+current position. ior is the implementation-defined I/O result code.
+At the conclusion of the operation, FILE-POSITION returns the next file
+position after the last character written to the file, and FILE-SIZE returns a
+value greater than or equal to the value returned by FILE-POSITION.
+See: 11.6.1.2080_READ-FILE , 11.6.1.2090_READ-LINE
+===============================================================================
+11.6.1.2485 WRITE-LINE
+FILE
+	( c-addr u fileid -- ior )
+Write u characters from c-addr followed by the implementation-dependent line
+terminator to the file identified by fileid starting at its current position.
+ior is the implementation-defined I/O result code.
+At the conclusion of the operation, FILE-POSITION returns the next file
+position after the last character written to the file, and FILE-SIZE returns a
+value greater than or equal to the value returned by FILE-POSITION.
+See: 11.6.1.2080_READ-FILE , 11.6.1.2090_READ-LINE
+===============================================================================
+**** 11.6.2 File-Access extension words ****
+
+===============================================================================
+11.6.2.1524 FILE-STATUS
+FILE EXT
+	( c-addr u -- x ior )
+Return the status of the file identified by the character string c-addr u. If
+the file exists, ior is zero; otherwise ior is the implementation-defined I/
+O result code. x contains implementation-defined information about the file.
+===============================================================================
+11.6.2.1560 FLUSH-FILE
+FILE EXT
+	( fileid -- ior )
+Attempt to force any buffered information written to the file referred to by
+fileid to be written to mass storage, and the size information for the file to
+be recorded in the storage directory if changed. If the operation is
+successful, ior is zero. Otherwise, it is an implementation-defined I/O result
+code.
+===============================================================================
+11.6.2.2125 REFILL
+FILE EXT
+	( -- flag )
+Extend the execution semantics of 6.2.2125 REFILL with the following:
+When the input source is a text file, attempt to read the next line from the
+text-input file. If successful, make the result the current input buffer, set
+>IN to zero, and return true. Otherwise return false.
+See: 7.6.2.2125_REFILL
+===============================================================================
+11.6.2.2130 RENAME-FILE
+FILE EXT
+	( c-addr1 u1 c-addr2 u2 -- ior )
+Rename the file named by the character string c-addr1 u1 to the name in the
+character string c-addr2 u2. ior is the implementation-defined I/O result code.
+===============================================================================
+[up.gif] Table of Contents
+[right.gif] Next Section

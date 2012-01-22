@@ -1,0 +1,201 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module trm - Terminal Escape Sequence Outputter - Forth Foundation Library</title>
+</head>
+<body>
+<h2>trm - Terminal Escape Sequence Outputter</h2>
+<h3>Module Description</h3>
+<p>The trm module implements an outputter for terminal escape sequences.
+It supports a selection of ANSI, VT100, VT102, ECMA-48 and linux console
+specific escape sequences in order to perform special terminal actions like
+colors, cursor movements, inserting, erasing lines, etc.
+Note: the module uses the pictured output buffer.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Attributes</h4>
+<dl>
+<dt><a name="word1"><b>trm.reset</b>	( -- u )</dt>
+<dd>Reset attributes to defaults</dd>
+<dt><a name="word2"><b>trm.bold</b>	( -- u )</dt>
+<dd>Set bold</dd>
+<dt><a name="word3"><b>trm.half-bright</b>	( -- u )</dt>
+<dd>Set half bright</dd>
+<dt><a name="word4"><b>trm.underscore-on</b>	( -- u )</dt>
+<dd>Set underscore</dd>
+<dt><a name="word5"><b>trm.blink-on</b>	( -- u )</dt>
+<dd>Set blink</dd>
+<dt><a name="word6"><b>trm.reverse-on</b>	( -- u )</dt>
+<dd>Set reverse video</dd>
+<dt><a name="word7"><b>trm.normal-intensity</b>	( -- u )</dt>
+<dd>Set normal intensity</dd>
+<dt><a name="word8"><b>trm.underline-off</b>	( -- u )</dt>
+<dd>Reset underline</dd>
+<dt><a name="word9"><b>trm.blink-off</b>	( -- u )</dt>
+<dd>Reset blink</dd>
+<dt><a name="word10"><b>trm.reverse-off</b>	( -- u )</dt>
+<dd>Reset reverse</dd>
+<dt><a name="word11"><b>trm.foreground-black</b>	( -- u )</dt>
+<dd>Set black foreground</dd>
+<dt><a name="word12"><b>trm.foreground-red</b>	( -- u )</dt>
+<dd>Set red foreground</dd>
+<dt><a name="word13"><b>trm.foreground-green</b>	( -- u )</dt>
+<dd>Set green foreground</dd>
+<dt><a name="word14"><b>trm.foreground-brown</b>	( -- u )</dt>
+<dd>Set brown foreground</dd>
+<dt><a name="word15"><b>trm.foreground-blue</b>	( -- u )</dt>
+<dd>Set blue foreground</dd>
+<dt><a name="word16"><b>trm.foreground-magenta</b>	( -- u )</dt>
+<dd>Set magenta foreground</dd>
+<dt><a name="word17"><b>trm.foreground-cyan</b>	( -- u )</dt>
+<dd>Set cyan foreground</dd>
+<dt><a name="word18"><b>trm.foreground-white</b>	( -- u )</dt>
+<dd>Set white foreground</dd>
+<dt><a name="word19"><b>trm.foreground-def-underline</b>	( -- u )</dt>
+<dd>Set default foreground with underscore on</dd>
+<dt><a name="word20"><b>trm.foreground-default</b>	( -- u )</dt>
+<dd>Set default foreground</dd>
+<dt><a name="word21"><b>trm.background-black</b>	( -- u )</dt>
+<dd>Set black background</dd>
+<dt><a name="word22"><b>trm.background-red</b>	( -- u )</dt>
+<dd>Set red background</dd>
+<dt><a name="word23"><b>trm.background-green</b>	( -- u )</dt>
+<dd>Set green background</dd>
+<dt><a name="word24"><b>trm.background-brown</b>	( -- u )</dt>
+<dd>Set brown background</dd>
+<dt><a name="word25"><b>trm.background-blue</b>	( -- u )</dt>
+<dd>Set blue background</dd>
+<dt><a name="word26"><b>trm.background-magenta</b>	( -- u )</dt>
+<dd>Set magenta background</dd>
+<dt><a name="word27"><b>trm.background-cyan</b>	( -- u )</dt>
+<dd>Set cyan background</dd>
+<dt><a name="word28"><b>trm.background-white</b>	( -- u )</dt>
+<dd>Set white background</dd>
+<dt><a name="word29"><b>trm.background-default</b>	( -- u )</dt>
+<dd>Set default background</dd>
+</dl>
+<h4>Terminal words</h4>
+<dl>
+<dt><a name="word30"><b>trm+reset</b>	( -- )</dt>
+<dd>Reset the terminal</dd>
+<dt><a name="word31"><b>trm+save-current-state</b>	( -- )</dt>
+<dd>Save the current state: cursor, attributes and character sets</dd>
+<dt><a name="word32"><b>trm+restore-current-state</b>	( -- )</dt>
+<dd>Restore the current state: cursor, attributes and character sets</dd>
+</dl>
+<h4>Tab words</h4>
+<dl>
+<dt><a name="word33"><b>trm+set-tab-stop</b>	( -- )</dt>
+<dd>Set tab stop at current column</dd>
+<dt><a name="word34"><b>trm+clear-tab-stop</b>	( -- )</dt>
+<dd>Clear tab stop at current column</dd>
+<dt><a name="word35"><b>trm+clear-all-tab-stops</b>	( -- )</dt>
+<dd>Clear all tab stops</dd>
+</dl>
+<h4>Scroll words</h4>
+<dl>
+<dt><a name="word36"><b>trm+set-scroll-region</b>	( u1 u2 -- )</dt>
+<dd>Set the scroll region rows with top u2 and bottom u1</dd>
+<dt><a name="word37"><b>trm+scroll-up</b>	( -- )</dt>
+<dd>Scroll the display up</dd>
+<dt><a name="word38"><b>trm+scroll-down</b>	( -- )</dt>
+<dd>Scroll the display down</dd>
+</dl>
+<h4>Cursor words</h4>
+<dl>
+<dt><a name="word39"><b>trm+move-cursor-up</b>	( u -- )</dt>
+<dd>Move cursor up u rows</dd>
+<dt><a name="word40"><b>trm+move-cursor-down</b>	( u -- )</dt>
+<dd>Move cursor down u rows</dd>
+<dt><a name="word41"><b>trm+move-cursor-right</b>	( u -- )</dt>
+<dd>Move cursor right u columns</dd>
+<dt><a name="word42"><b>trm+move-cursor-left</b>	( u -- )</dt>
+<dd>Move cursor left u columns</dd>
+<dt><a name="word43"><b>trm+move-cursor</b>	( u1 u2 -- )</dt>
+<dd>Move cursor to column and row with x u1 and y u2</dd>
+<dt><a name="word44"><b>trm+save-cursor</b>	( -- )</dt>
+<dd>Save cursor location</dd>
+<dt><a name="word45"><b>trm+restore-cursor</b>	( -- )</dt>
+<dd>Restore cursor location</dd>
+</dl>
+<h4>Erase display words</h4>
+<dl>
+<dt><a name="word46"><b>trm+erase-display-down</b>	( -- )</dt>
+<dd>Erase display from cursor to end</dd>
+<dt><a name="word47"><b>trm+erase-display-up</b>	( -- )</dt>
+<dd>Erase from start display to cursor</dd>
+<dt><a name="word48"><b>trm+erase-display</b>	( -- )</dt>
+<dd>Erase the whole display</dd>
+</dl>
+<h4>Erase line words</h4>
+<dl>
+<dt><a name="word49"><b>trm+erase-end-of-line</b>	( -- )</dt>
+<dd>Erase the line from cursor to end of line</dd>
+<dt><a name="word50"><b>trm+erase-start-of-line</b>	( -- )</dt>
+<dd>Erase the line from start line to cursor</dd>
+<dt><a name="word51"><b>trm+erase-line</b>	( -- )</dt>
+<dd>Erase the whole line</dd>
+</dl>
+<h4>Insert and delete lines words</h4>
+<dl>
+<dt><a name="word52"><b>trm+insert-lines</b>	( u -- )</dt>
+<dd>Insert u blank lines</dd>
+<dt><a name="word53"><b>trm+delete-lines</b>	( u -- )</dt>
+<dd>Delete u lines</dd>
+</dl>
+<h4>Character words</h4>
+<dl>
+<dt><a name="word54"><b>trm+insert-spaces</b>	( u -- )</dt>
+<dd>Insert u spaces</dd>
+<dt><a name="word55"><b>trm+delete-chars</b>	( u -- )</dt>
+<dd>Delete n characters on the current line</dd>
+<dt><a name="word56"><b>trm+erase-chars</b>	( u -- )</dt>
+<dd>Erase u characters on the current line</dd>
+</dl>
+<h4>Attribute words</h4>
+<dl>
+<dt><a name="word57"><b>trm+set-attributes</b>	( u1 .. un n -- )</dt>
+<dd>Set n attributes</dd>
+</dl>
+<h4>LED words</h4>
+<dl>
+<dt><a name="word58"><b>trm+clear-all-leds</b>	( -- )</dt>
+<dd>Clear all LEDs</dd>
+<dt><a name="word59"><b>trm+set-scroll-led</b>	( -- )</dt>
+<dd>Set the scroll lock LED</dd>
+<dt><a name="word60"><b>trm+set-num-led</b>	( -- )</dt>
+<dd>Set the num lock LED</dd>
+<dt><a name="word61"><b>trm+set-caps-led</b>	( -- )</dt>
+<dd>Set the caps lock LED</dd>
+</dl>
+<h4>Character set words</h4>
+<dl>
+<dt><a name="word62"><b>trm+select-default-font</b>	( -- )</dt>
+<dd>Select the default character set</dd>
+<dt><a name="word63"><b>trm+select-alternate-font</b>	( -- )</dt>
+<dd>Select the alternate character set</dd>
+</dl>
+<h4>Linux console words</h4>
+<dl>
+<dt><a name="word64"><b>trm+set-default-attributes</b>	( -- )</dt>
+<dd>Set the current attributes the default attributes</dd>
+<dt><a name="word65"><b>trm+set-screen-blank-timeout</b>	( u -- )</dt>
+<dd>Set the screen blank timeout in minutes</dd>
+<dt><a name="word66"><b>trm+activate-console</b>	( u -- )</dt>
+<dd>Bring the console to the front</dd>
+<dt><a name="word67"><b>trm+unblank-screen</b>	( -- )</dt>
+<dd>Unblank the screen</dd>
+<dt><a name="word68"><b>trm+select-default</b>	( -- )</dt>
+<dd>Select the default character set ISO8859-1</dd>
+<dt><a name="word69"><b>trm+select-UTF-8</b>	( -- )</dt>
+<dd>Select the UTF-8 character set</dd>
+<dt><a name="word70"><b>trm+select-graphics-font2</b>	( -- )</dt>
+<dd>Select the vt100 graphics font for the alternate font</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

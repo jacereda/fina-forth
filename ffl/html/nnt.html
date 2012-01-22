@@ -1,0 +1,60 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module nnt - Generic n-Tree - Forth Foundation Library</title>
+</head>
+<body>
+<h2>nnt - Generic n-Tree</h2>
+<h3>Module Description</h3>
+<p>The nnt module implements a n-Tree that can store variable size nodes. It
+is the base module for more specialized trees, for example the cel n-tree
+[nct]. Due to the structure of a n-tree the words for changing the tree,
+adding and removing children, are part of the iterator [nni].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Tree structure</h4>
+<dl>
+<dt><a name="word1"><b>nnt%</b>	( -- n )</dt>
+<dd>Get the required space for a nnt variable</dd>
+</dl>
+<h4>Tree creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>nnt-init</b>	( nnt -- )</dt>
+<dd>Initialise the n-tree</dd>
+<dt><a name="word3"><b>nnt-(free)</b>	( xt nnt -- )</dt>
+<dd>Free all nodes in the tree with xt</dd>
+<dt><a name="word4"><b>nnt-create</b>	( "&lt;spaces&gt;name" -- ; -- nnt )</dt>
+<dd>Create a named n-tree in the dictionary</dd>
+<dt><a name="word5"><b>nnt-new</b>	( -- nnt )</dt>
+<dd>Create a new n-tree on the heap</dd>
+<dt><a name="word6"><b>nnt-free</b>	( nnt -- )</dt>
+<dd>Free the tree from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word7"><b>nnt-length@</b>	( nnt -- u )</dt>
+<dd>Get the number of nodes in the tree</dd>
+<dt><a name="word8"><b>nnt-empty?</b>	( nnt -- flag )</dt>
+<dd>Check for an empty tree</dd>
+<dt><a name="word9"><b>nnt-root@</b>	( nnt -- nnn | nil )</dt>
+<dd>Get the root of the tree</dd>
+</dl>
+<h4>Tree words</h4>
+<dl>
+<dt><a name="word10"><b>nnt-execute</b>	( i*x xt nnt -- j*x )</dt>
+<dd>Execute xt for every node in tree</dd>
+<dt><a name="word11"><b>nnt-execute?</b>	( i*x xt nnt -- j*x flag )</dt>
+<dd>Execute xt for every node in the tree until xt returns true</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word12"><b>nnt-dump</b>	( nnt -- )</dt>
+<dd>Dump the tree</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

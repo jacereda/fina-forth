@@ -1,0 +1,118 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module cpx - Complex number data type - Forth Foundation Library</title>
+</head>
+<body>
+<h2>cpx - Complex number data type</h2>
+<h3>Module Description</h3>
+<p>The cpx module implements complex numbers. A complex number consists of
+two float numbers on the stack: first the real part of the complex number
+and second the imaginary part of the number.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Complex Structure</h4>
+<dl>
+<dt><a name="word1"><b>cpx%</b>	( -- n )</dt>
+<dd>Get the required space for a cpx variable</dd>
+</dl>
+<h4>Complex variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>cpx-init</b>	( cpx -- )</dt>
+<dd>Initialise to the zero complex number</dd>
+<dt><a name="word3"><b>cpx-create</b>	( "&lt;spaces&gt;name" -- ; -- cpx )</dt>
+<dd>Create a named complex number variable in the dictionary</dd>
+<dt><a name="word4"><b>cpx-new</b>	( -- cpx )</dt>
+<dd>Create a new complex number variable on the heap</dd>
+<dt><a name="word5"><b>cpx-free</b>	( cpx -- )</dt>
+<dd>Free the complex number variable from the heap</dd>
+</dl>
+<h4>Calculation module words</h4>
+<dl>
+<dt><a name="word6"><b>cpx+add</b>	( F: r1 r2 r3 r4 -- r5 r6 )</dt>
+<dd>Add the complex number r1+jr2 to r3+jr4</dd>
+<dt><a name="word7"><b>cpx+sub</b>	( F: r1 r2 r3 r4 -- r5 r6 )</dt>
+<dd>Subtract the complex number r1+jr2 from the number r3+jr4</dd>
+<dt><a name="word8"><b>cpx+mul</b>	( F: r1 r2 r3 r4 -- r5 r6 )</dt>
+<dd>Multiply the complex numbers r1+jr2 with r3+jr4</dd>
+<dt><a name="word9"><b>cpx+rmul</b>	( F: r1 r2 r3 -- r4 r5 )</dt>
+<dd>Multiply the complex number r1+jr2 with the real number r3</dd>
+<dt><a name="word10"><b>cpx+imul</b>	( F: r1 r2 r3 -- r4 r5 )</dt>
+<dd>Multiply the complex number r1+jr2 with the imaginary number r3</dd>
+<dt><a name="word11"><b>cpx+div</b>	( F: r1 r2 r3 r4 -- r5 r6 )</dt>
+<dd>Divide the complex number r3+jr4 by number r1+jr2</dd>
+<dt><a name="word12"><b>cpx+conj</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Conjugate the complex number r1+jr2</dd>
+<dt><a name="word13"><b>cpx+nrm</b>	( F: r1 r2 -- r3 )</dt>
+<dd>Calculate the square of the modulus of the complex number r1+jr2</dd>
+<dt><a name="word14"><b>cpx+abs</b>	( F: r1 r2 -- r3 )</dt>
+<dd>Calculate the modulus of the complex number r1+jr2</dd>
+<dt><a name="word15"><b>cpx+sqrt</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the square root for the complex number r1+jr2</dd>
+<dt><a name="word16"><b>cpx+exp</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the exponent function for the complex number r1+jr2</dd>
+<dt><a name="word17"><b>cpx+ln</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the natural logarithm for the complex number r1+jr2</dd>
+<dt><a name="word18"><b>cpx+sin</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the trigonometric functions sine for the complex number r1+jr2</dd>
+<dt><a name="word19"><b>cpx+cos</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the trigonometric functions cosine for the complex number r1+jr2</dd>
+<dt><a name="word20"><b>cpx+tan</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the trigonometric functions tangent for the complex number r1+jr2</dd>
+<dt><a name="word21"><b>cpx+asin</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the inverse trigonometric function sine for the complex number r1+jr2</dd>
+<dt><a name="word22"><b>cpx+acos</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the inverse trigonometric function cosine for the complex number r1+jr2</dd>
+<dt><a name="word23"><b>cpx+atan</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the inverse trigonometric function tangent for the complex number r1+jr2</dd>
+<dt><a name="word24"><b>cpx+sinh</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the hyperbolic function sine for the complex number r1+jr2</dd>
+<dt><a name="word25"><b>cpx+cosh</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the hyperbolic function cosine for the complex number r1+jr2</dd>
+<dt><a name="word26"><b>cpx+tanh</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the hyperbolic function tangent for the complex number r1+jr2</dd>
+<dt><a name="word27"><b>cpx+asinh</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the inverse hyperbolic function sine for the complex number r1+jr2</dd>
+<dt><a name="word28"><b>cpx+acosh</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the inverse hyperbolic function cosine for the complex number r1+jr2</dd>
+<dt><a name="word29"><b>cpx+atanh</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Calculate the inverse hyperbolic function tangent for the complex number r1+jr2</dd>
+</dl>
+<h4>Conversion module words</h4>
+<dl>
+<dt><a name="word30"><b>cpx+to-string</b>	( F: r1 r2 -- ; -- c-addr u )</dt>
+<dd>Convert the complex number r1+jr2 to a string, using precision and PAD</dd>
+<dt><a name="word31"><b>cpx+to-polar</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Convert the complex number r1+jr2 to polar notation with radius r3 and theta r4</dd>
+<dt><a name="word32"><b>cpx+from-polar</b>	( F: r1 r2 -- r3 r4 )</dt>
+<dd>Convert the polar radius r1, theta r2 to complex number r3+jr4</dd>
+</dl>
+<h4>Compare module words</h4>
+<dl>
+<dt><a name="word33"><b>cpx+equal?</b>	( F: r1 r2 r3 r4 -- ; -- flag )</dt>
+<dd>Check if the complex numbers r1+jr2 and r3+jr4 are [true] equal</dd>
+</dl>
+<h4>Variable words</h4>
+<dl>
+<dt><a name="word34"><b>cpx-re@</b>	( F: -- r ; cpx -- )</dt>
+<dd>Get the real part of the complex number</dd>
+<dt><a name="word35"><b>cpx-im@</b>	( F: -- r ; cpx -- )</dt>
+<dd>Get the imaginary part of the complex number</dd>
+<dt><a name="word36"><b>cpx-get</b>	( F: -- r1 r2 ; cpx -- )</dt>
+<dd>Get the complex number r1+jr2 from the complex variable</dd>
+<dt><a name="word37"><b>cpx-set</b>	( F: r1 r2 -- ; cpx -- )</dt>
+<dd>Set the complex number r1+jr2 in the complex variable</dd>
+<dt><a name="word38"><b>cpx^move</b>	( cpx2 cpx1 -- )</dt>
+<dd>Move complex2 in complex1</dd>
+<dt><a name="word39"><b>cpx^equal?</b>	( cpx2 cpx1 -- flag )</dt>
+<dd>Check if complex2 is [true] equal to complex1</dd>
+<dt><a name="word40"><b>cpx-dump</b>	( cpx -- )</dt>
+<dd>Dump the complex variable</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

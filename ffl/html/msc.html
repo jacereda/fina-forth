@@ -1,0 +1,113 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module msc - Message Catalog - Forth Foundation Library</title>
+</head>
+<body>
+<h2>msc - Message Catalog</h2>
+<h3>Module Description</h3>
+<p>The msc module implements a message catalog.
+The catalog is used to translates a message to another message. It can be
+used for internationalization of messages and for converting messages. Use
+the [gmo] module for importing gettexts mo-files in a message catalog.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Catalog structure</h4>
+<dl>
+<dt><a name="word1"><b>msc%</b>	( -- n )</dt>
+<dd>Get the required space for a message catalog</dd>
+</dl>
+<h4>Catalog creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>msc-init</b>	( msc -- )</dt>
+<dd>Initialise the catalog</dd>
+<dt><a name="word3"><b>msc-(free)</b>	( msc -- )</dt>
+<dd>Free the catalogs nodes from the heap</dd>
+<dt><a name="word4"><b>msc-create</b>	( "&lt;spaces&gt;name" --  ; -- msc )</dt>
+<dd>Create a named message catalog in the dictionary</dd>
+<dt><a name="word5"><b>msc-new</b>	( -- msc )</dt>
+<dd>Create a message catalog on the heap</dd>
+<dt><a name="word6"><b>msc-free</b>	( msc -- )</dt>
+<dd>Free the message catalog from the heap</dd>
+</dl>
+<h4>Catalog words</h4>
+<dl>
+<dt><a name="word7"><b>msc-add</b>	( c-addr1 u1 c-addr2 u2 msc -- )</dt>
+<dd>Add the message c-addr1 u1 and translation c-addr2 u2 to the catalog</dd>
+<dt><a name="word8"><b>msc-translate</b>	( c-addr1 u1 msc -- c-addr2 u2 )</dt>
+<dd>Translate the message c-addr1 u1 with the catalog, return message if not found</dd>
+<dt><a name="word9"><b>msc-translate?</b>	( c-addr1 u2 msc -- c-addr2 u2 true | false )</dt>
+<dd>Translate the message c-addr1 u1 with the catalog, return success</dd>
+<dt><a name="word10"><b>msc-remove</b>	( c-addr u msc -- flag )</dt>
+<dd>Remove the message c-addr u from the catalog, return success</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word11"><b>msc-dump</b>	( msc -- )</dt>
+<dd>Dump the message catalog</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/msc.fs
+
+
+\ Example 1 : translation of english to dutch
+
+
+\ Create the message catalog in the dictionary
+
+msc-create en&gt;nl
+
+
+\ Add translations to the catalog
+
+s" yes"  s" ja"    en&gt;nl msc-add
+s" no"   s" nee"   en&gt;nl msc-add
+s" tree" s" boom"  en&gt;nl msc-add
+s" bike" s" fiets" en&gt;nl msc-add
+
+\ Translate messages
+
+s" yes"   en&gt;nl msc-translate type cr
+s" bike"  en&gt;nl msc-translate type cr
+s" house" en&gt;nl msc-translate type cr     \ if not in the catalog, the orignal message is returned
+  
+  
+  
+\ Example 2 : entity references in html
+  
+\ Create the message catalog on the heap
+
+msc-new value entity
+
+
+\ Add the references in the catalog
+
+s" lt"   s" &lt;"                   entity msc-add
+s" gt"   s" &gt;"                   entity msc-add
+s" amp"  s" &amp;"                   entity msc-add
+s" quot"  char " pad c!  pad 1   entity msc-add
+
+
+\ Convert the references
+
+s" lt"   entity msc-translate type cr
+s" quot" entity msc-translate type cr
+
+
+\ Free the catalog from the heap
+
+entity msc-free
+
+
+  
+
+    
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

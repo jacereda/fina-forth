@@ -1,0 +1,186 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module dtm - Date time data type - Forth Foundation Library</title>
+</head>
+<body>
+<h2>dtm - Date time data type</h2>
+<h3>Module Description</h3>
+<p>The dtm module implements a [gregorian] date and time data type.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Date time structure</h4>
+<dl>
+<dt><a name="word1"><b>dtm%</b>	( -- n )</dt>
+<dd>Get the required space for a dtm variable</dd>
+</dl>
+<h4>Constants</h4>
+<dl>
+<dt><a name="word2"><b>dtm.unix-epoch</b>	( -- n )</dt>
+<dd>Unix epoch [1970]</dd>
+<dt><a name="word3"><b>dtm.start-epoch</b>	( -- n )</dt>
+<dd>Start epoch [1583]</dd>
+<dt><a name="word4"><b>dtm.sunday</b>	( -- n )</dt>
+<dd>Sunday</dd>
+<dt><a name="word5"><b>dtm.monday</b>	( -- n )</dt>
+<dd>Monday</dd>
+<dt><a name="word6"><b>dtm.tuesday</b>	( -- n )</dt>
+<dd>Tuesday</dd>
+<dt><a name="word7"><b>dtm.wednesday</b>	( -- n )</dt>
+<dd>Wednesday</dd>
+<dt><a name="word8"><b>dtm.thursday</b>	( -- n )</dt>
+<dd>Thursday</dd>
+<dt><a name="word9"><b>dtm.friday</b>	( -- n )</dt>
+<dd>Friday</dd>
+<dt><a name="word10"><b>dtm.saturday</b>	( -- n )</dt>
+<dd>Saturday</dd>
+<dt><a name="word11"><b>dtm.january</b>	( -- n )</dt>
+<dd>January</dd>
+<dt><a name="word12"><b>dtm.february</b>	( -- n )</dt>
+<dd>February</dd>
+<dt><a name="word13"><b>dtm.march</b>	( -- n )</dt>
+<dd>March</dd>
+<dt><a name="word14"><b>dtm.april</b>	( -- n )</dt>
+<dd>April</dd>
+<dt><a name="word15"><b>dtm.may</b>	( -- n )</dt>
+<dd>May</dd>
+<dt><a name="word16"><b>dtm.june</b>	( -- n )</dt>
+<dd>June</dd>
+<dt><a name="word17"><b>dtm.july</b>	( -- n )</dt>
+<dd>July</dd>
+<dt><a name="word18"><b>dtm.august</b>	( -- n )</dt>
+<dd>August</dd>
+<dt><a name="word19"><b>dtm.september</b>	( -- n )</dt>
+<dd>September</dd>
+<dt><a name="word20"><b>dtm.october</b>	( -- n )</dt>
+<dd>October</dd>
+<dt><a name="word21"><b>dtm.november</b>	( -- n )</dt>
+<dd>November</dd>
+<dt><a name="word22"><b>dtm.december</b>	( -- n )</dt>
+<dd>December</dd>
+</dl>
+<h4>Date time variable creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word23"><b>dtm-init</b>	( dtm -- )</dt>
+<dd>Initialise the date/time with the current date and time</dd>
+<dt><a name="word24"><b>dtm-create</b>	( "&lt;spaces&gt;name" -- ; -- dtm )</dt>
+<dd>Create a date/time variable in the dictionary with the current date/time</dd>
+<dt><a name="word25"><b>dtm-new</b>	( -- dtm )</dt>
+<dd>Allocate a date/time variable on the heap with the current date/time</dd>
+<dt><a name="word26"><b>dtm-free</b>	( dtm -- )</dt>
+<dd>Free the date/time variable from the heap</dd>
+</dl>
+<h4>Module words</h4>
+<dl>
+<dt><a name="word27"><b>dtm+leap-year?</b>	( n -- flag )</dt>
+<dd>Check if the year n is a leap year</dd>
+<dt><a name="word28"><b>dtm+calc-leap-years</b>	( n1 n2 -- n3 )</dt>
+<dd>Calculate the number of leap years in the year range [n2..n1]</dd>
+<dt><a name="word29"><b>dtm+days-in-year</b>	( n1 -- n2 )</dt>
+<dd>Get the number of days in the year n1</dd>
+<dt><a name="word30"><b>dtm+days-in-month</b>	( n1 n2 -- n3 )</dt>
+<dd>Get the number of days in the month n1 and year n2</dd>
+<dt><a name="word31"><b>dtm+days-till-month</b>	( n1 n2 -- n3 )</dt>
+<dd>Get the number of days till the month n1 and year n2</dd>
+<dt><a name="word32"><b>dtm+milli?</b>	( n -- flag )</dt>
+<dd>Check if the milliseconds n are valid</dd>
+<dt><a name="word33"><b>dtm+second?</b>	( n -- flag )</dt>
+<dd>Check if the seconds n are valid</dd>
+<dt><a name="word34"><b>dtm+minute?</b>	( n -- flag )</dt>
+<dd>Check if the minutes n are valid</dd>
+<dt><a name="word35"><b>dtm+hour?</b>	( n -- flag )</dt>
+<dd>Check if the hours n are valid</dd>
+<dt><a name="word36"><b>dtm+day?</b>	( n1 n2 n3 -- flag )</dt>
+<dd>Check if the day n1 in the month n2 and year n3 is valid</dd>
+<dt><a name="word37"><b>dtm+month?</b>	( n -- flag )</dt>
+<dd>Check if the month n is valid</dd>
+<dt><a name="word38"><b>dtm+year?</b>	( n -- flag )</dt>
+<dd>Check if the year n [&gt;1582] is valid</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word39"><b>dtm-milli@</b>	( dtm -- n )</dt>
+<dd>Get the milliseconds</dd>
+<dt><a name="word40"><b>dtm-milli!</b>	( n dtm -- )</dt>
+<dd>Set the milliseconds</dd>
+<dt><a name="word41"><b>dtm-second@</b>	( dtm -- n )</dt>
+<dd>Get the seconds</dd>
+<dt><a name="word42"><b>dtm-second!</b>	( n dtm -- )</dt>
+<dd>Set the seconds</dd>
+<dt><a name="word43"><b>dtm-minute@</b>	( dtm -- n )</dt>
+<dd>Get the minutes</dd>
+<dt><a name="word44"><b>dtm-minute!</b>	( n dtm -- )</dt>
+<dd>Set the minutes</dd>
+<dt><a name="word45"><b>dtm-hour@</b>	( dtm -- n )</dt>
+<dd>Get the hour</dd>
+<dt><a name="word46"><b>dtm-hour!</b>	( n dtm -- )</dt>
+<dd>Set the hour</dd>
+<dt><a name="word47"><b>dtm-day@</b>	( dtm -- n )</dt>
+<dd>Get the day</dd>
+<dt><a name="word48"><b>dtm-day!</b>	( n dtm -- )</dt>
+<dd>Set the day</dd>
+<dt><a name="word49"><b>dtm-month@</b>	( dtm -- n )</dt>
+<dd>Get the month</dd>
+<dt><a name="word50"><b>dtm-month!</b>	( n dtm -- )</dt>
+<dd>Set the month</dd>
+<dt><a name="word51"><b>dtm-year@</b>	( dtm -- n )</dt>
+<dd>Get the year</dd>
+<dt><a name="word52"><b>dtm-year!</b>	( n dtm -- )</dt>
+<dd>Set the year</dd>
+</dl>
+<h4>Set words</h4>
+<dl>
+<dt><a name="word53"><b>dtm-set-date</b>	( n1 n2 n3 dtm -- )</dt>
+<dd>Set the date with day n1, month n2 and year n3</dd>
+<dt><a name="word54"><b>dtm-set-time</b>	( n1 n2 n3 n4 dtm -- )</dt>
+<dd>Set the time with milliseconds n1, seconds n2, minutes n3 and hours n4</dd>
+<dt><a name="word55"><b>dtm-set</b>	( n1 n2 n3 n4 n5 n6 n7 dtm -- )</dt>
+<dd>Set the date/time with milliseconds n1, seconds n2, minutes n3, hours n4, day n5, month n6 and year n7</dd>
+<dt><a name="word56"><b>dtm-set-now</b>	( dtm -- )</dt>
+<dd>Set the date time with the current date/time</dd>
+<dt><a name="word57"><b>dtm-set-with-days</b>	( d1 n2 dtm -- )</dt>
+<dd>Set the date with days d1 since epoch n2</dd>
+<dt><a name="word58"><b>dtm-set-with-seconds</b>	( d n dtm -- )</dt>
+<dd>Set the date/time with d seconds since epoch n</dd>
+</dl>
+<h4>Get words</h4>
+<dl>
+<dt><a name="word59"><b>dtm-get</b>	( dtm -- n1 n2 n3 n4 n5 n6 n7 )</dt>
+<dd>Get the date/time, return milliseconds n1, seconds n2, minutes n3, hours n4, day n5, month n6 and year n7</dd>
+<dt><a name="word60"><b>dtm-get-date</b>	( dtm -- n1 n2 n3 )</dt>
+<dd>Get the date, return day n1, month n2 and year n3</dd>
+<dt><a name="word61"><b>dtm-get-time</b>	( dtm -- n1 n2 n3 n4 )</dt>
+<dd>Get the time, return milliseconds n1, seconds n2, minutes n3 and hours n4</dd>
+<dt><a name="word62"><b>dtm-weekday</b>	( dtm -- n )</dt>
+<dd>Get the week day from the date</dd>
+<dt><a name="word63"><b>dtm-yearday</b>	( dtm -- n )</dt>
+<dd>Get the day number [in the year] from the date</dd>
+<dt><a name="word64"><b>dtm-iso-weeknumber</b>	( dtm -- n1 n2 )</dt>
+<dd>Get the iso week number n1 and year n2 from the date</dd>
+</dl>
+<h4>Epoch words</h4>
+<dl>
+<dt><a name="word65"><b>dtm-calc-days-since-epoch</b>	( n dtm -- d )</dt>
+<dd>Calculate the number of days since epoch n from the date</dd>
+<dt><a name="word66"><b>dtm-calc-seconds-since-epoch</b>	( n dtm -- d )</dt>
+<dd>Calculate the number of seconds since epoch n from the date/time</dd>
+</dl>
+<h4>Compare words</h4>
+<dl>
+<dt><a name="word67"><b>dtm-compare</b>	( n1 n2 n3 n4 n5 n6 n7 dtm -- n )</dt>
+<dd>Compare the date/time with milliseconds n1, seconds n2, minutes n3, hours n4, day n5, month n6 and year n7</dd>
+<dt><a name="word68"><b>dtm^compare</b>	( dtm1 dtm2 -- n )</dt>
+<dd>Compare two date/times, return the compare result [-1,0,1]</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word69"><b>dtm-dump</b>	( dtm -- )</dt>
+<dd>Dump the date/time variable</dd>
+</dl>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

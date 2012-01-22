@@ -1,0 +1,64 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module stt - Stringtable module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>stt - Stringtable module</h2>
+<h3>Module Description</h3>
+<p>The stt module implements a stringtable with counted strings. The code is
+inspired by Wil Badens stringtable.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Stringtable syntax words</h4>
+<dl>
+<dt><a name="word1"><b>begin-stringtable</b>	( "&lt;spaces&gt;name" -- stringtable-sys ; n -- c-addr u )</dt>
+<dd>Start a named stringtable definition; return the nth string</dd>
+<dt><a name="word2"><b>+"</b>	( "ccc&lt;quote&gt;" -- )</dt>
+<dd>Parse ccc delimited by double quote and place the string as counted string in the stringtable</dd>
+<dt><a name="word3"><b>end-stringtable</b>	( stringtable-sys -- )</dt>
+<dd>End the stringtable definition</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/stt.fs
+
+
+\ Example : the month names in a stringtable
+
+
+\ Create the stringtable in the dictionary
+
+begin-stringtable months
++" January"
++" February"
++" March"
++" April"
++" May"
++" June"
++" July"
++" August"
++" September"
++" October"
++" November"
++" December"
+end-stringtable
+
+\ Fetch strings from the stringtable
+
+0  months type cr       \ January
+11 months type cr       \ December
+
+
+
+  
+
+    
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module gmo - Gettexts mo-file import - Forth Foundation Library</title>
+</head>
+<body>
+<h2>gmo - Gettexts mo-file import</h2>
+<h3>Module Description</h3>
+<p>The gmo module implements the import of the contents of a gettexts mo-file
+into a message catalog. The mo-file uses 4 byte pointers and 1 byte
+characters, so this module has an environmental dependency.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Import</h4>
+<dl>
+<dt><a name="word1"><b>gmo-read</b>	( c-addr u msc -- 0 | ior )</dt>
+<dd>Read a mo-file named c-addr u and store the contents in the message catalog msc</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/gmo.fs
+
+
+\ Example: import nl.mo file in a message catalog
+
+msc-new value en&gt;nl                 \ Create a message catalog on the heap
+
+s" nl.mo" en&gt;nl gmo-read throw      \ Import the nl.mo file in the catalog
+
+s" Sunday" en&gt;nl msc-translate type cr  \ Use the catalog for the translations
+
+en&gt;nl msc-free                      \ Free the message catalog from the heap
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

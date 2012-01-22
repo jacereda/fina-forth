@@ -1,0 +1,165 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module hnt - Generic Hash Table - Forth Foundation Library</title>
+</head>
+<body>
+<h2>hnt - Generic Hash Table</h2>
+<h3>Module Description</h3>
+<p>The hnt module implements a generic hash table that can store variable
+size nodes. It is the base module for more specialized hash tables, for
+example the cell hash table [hct].
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Hash table structure</h4>
+<dl>
+<dt><a name="word1"><b>hnt%</b>	( -- n )</dt>
+<dd>Get the required space for a hash table variable</dd>
+</dl>
+<h4>Hash table creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>hnt-init</b>	( u hnt -- )</dt>
+<dd>Initialise the hash table with an initial size u</dd>
+<dt><a name="word3"><b>hnt-(free)</b>	( xt hnt -- )</dt>
+<dd>Free the nodes from the heap using xt</dd>
+<dt><a name="word4"><b>hnt-create</b>	( u "&lt;spaces&gt;name" -- ; -- hnt )</dt>
+<dd>Create a named hash table with an initial size u in the dictionary</dd>
+<dt><a name="word5"><b>hnt-new</b>	( u -- hnt )</dt>
+<dd>Create a hash table with an initial size u on the heap</dd>
+<dt><a name="word6"><b>hnt-free</b>	( hnt -- )</dt>
+<dd>Free the hash table from the heap</dd>
+</dl>
+<h4>Module words</h4>
+<dl>
+<dt><a name="word7"><b>hnt+hash</b>	( c-addr1 u1 -- u2 )</dt>
+<dd>Calculate the hash value of the key c-addr1 u1</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word8"><b>hnt-empty?</b>	( hnt -- flag )</dt>
+<dd>Check for an empty table</dd>
+<dt><a name="word9"><b>hnt-length@</b>	( hnt -- u )</dt>
+<dd>Get the number of nodes in the table</dd>
+<dt><a name="word10"><b>hnt-load@</b>	( hnt -- u )</dt>
+<dd>Get the load factor [*100%]</dd>
+<dt><a name="word11"><b>hnt-load!</b>	( u hnt -- )</dt>
+<dd>Set the load factor [*100%]</dd>
+<dt><a name="word12"><b>hnt-size!</b>	( u hnt -- )</dt>
+<dd>Resize the hash table</dd>
+</dl>
+<h4>Hash table words</h4>
+<dl>
+<dt><a name="word13"><b>hnt-search</b>	( c-addr u hnt -- u hnn )</dt>
+<dd>Search the node based on the key, return the hash u and the node hnn</dd>
+<dt><a name="word14"><b>hnt-insert</b>	( hnn hnt -- )</dt>
+<dd>Insert the node hnn in the table, double keys are NOT checked</dd>
+<dt><a name="word15"><b>hnt-delete</b>	( c-addr u hnt -- nil | hnn )</dt>
+<dd>Delete the key c-addr u from the table, return the deleted node hnn</dd>
+<dt><a name="word16"><b>hnt-get</b>	( c-addr u hnt -- nil | hnn )</dt>
+<dd>Get the node related to the key c-addr u from the table, return the node hnn</dd>
+<dt><a name="word17"><b>hnt-has?</b>	( c-addr u hnt -- flag )</dt>
+<dd>Check if the key c-addr u is present in the table</dd>
+</dl>
+<h4>Special words</h4>
+<dl>
+<dt><a name="word18"><b>hnt-execute</b>	( i*x xt hnt -- j*x )</dt>
+<dd>Execute xt for every key and node in table</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word19"><b>hnt-dump</b>	( hnt -- )</dt>
+<dd>Dump the hash table</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/hnt.fs
+include ffl/hni.fs
+
+
+\ Example: store scientific constants in a hash table
+
+\ Extend the base node with a float for storing the value of the constant
+
+begin-structure sc%
+  hnn%
+  +field  sc&gt;ht                      \ Node extends the base node
+  ffield: sc&gt;value                   \ Value of constant
+end-structure
+
+
+\ Create the hash table in the dictionary with an initial size of 10
+
+10 hnt-create sc-table
+
+
+\ Word for adding the value
+
+: sc-add ( r c-addr u -- = value key )
+  2dup sc-table hnt-search                     \ Search if the key is already present in the hash table
+  dup nil&lt;&gt; IF                                 \ If the key is already present Then
+    nip nip nip                                \   Remove the key and hash value from stack
+    sc&gt;value f!                                \   Update the node in the hash table with the value
+  ELSE                                         \ Else
+    drop                                       \   Drop nil
+    sc% allocate throw                         \   Allocate a new sc% node
+    &gt;r
+    r@ hnn-init                                \   Initialise the new sc% node with the key and hash
+    r@ sc&gt;value f!                             \   Save the value in the node
+    r&gt; sc-table hnt-insert                     \   Store the sc% node in the hash table
+  THEN
+;
+
+
+\ Add the constants
+
+3.14158E+0 s" pi"     sc-add
+2.71828E+0 s" euler"  sc-add
+1.61803E+0 s" golden" sc-add
+
+\ Word for printing the scientific constant
+
+: sc-emit ( sc% -- )
+  dup hnn-key@ type ."  -&gt; " sc&gt;value f@ f. cr
+;
+
+
+\ Print all scientific constants
+
+' sc-emit sc-table hnt-execute                \ Execute the word sc-emit for all entries in the hash table
+
+
+\ Example hash table iterator
+
+\ Create the hash table iterator in the dictionary
+
+sc-table hni-create sc-iter                   \ Create an iterator named sc-iter on the sc-table hash table
+
+\ Moving the iterator
+
+sc-iter hni-first                             \ Move the iterator to the first record
+nil&lt;&gt; [IF]                                    \ If record exists Then ..
+  sc-iter hni-key type                        \   Type the key ..
+  .(  =&gt; )
+  sc-iter hni-get sc&gt;value f@ f.              \   .. and the value
+  cr
+[THEN]
+
+sc-iter hni-next                              \ Move the iterator to the next record
+nil&lt;&gt; [IF]                                    \ If record exists Then ..
+  sc-iter hni-key type                        \   Type the key ..
+  .(  =&gt; )
+  sc-iter hni-get sc&gt;value f@ f.              \   .. and the value
+  cr
+[ELSE]
+  .( No next record in the hash table) cr  
+[THEN]
+
+
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module hct - Hash Cell Table - Forth Foundation Library</title>
+</head>
+<body>
+<h2>hct - Hash Cell Table</h2>
+<h3>Module Description</h3>
+<p>The hct module implements a hash table that stores cell wide data.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Hash table structure</h4>
+<dl>
+<dt><a name="word1"><b>hct%</b>	( -- n )</dt>
+<dd>Get the required space for a hash table variable</dd>
+</dl>
+<h4>Hash table creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>hct-init</b>	( u hct -- )</dt>
+<dd>Initialise the hash table with an initial size u</dd>
+<dt><a name="word3"><b>hct-(free)</b>	( hct -- )</dt>
+<dd>Free the nodes from the hash table</dd>
+<dt><a name="word4"><b>hct-create</b>	( u "&lt;spaces&gt;name" -- ; -- hct )</dt>
+<dd>Create a named hash table with an initial size u in the dictionary</dd>
+<dt><a name="word5"><b>hct-new</b>	( u -- hct )</dt>
+<dd>Create a hash table with an initial size u on the heap</dd>
+<dt><a name="word6"><b>hct-free</b>	( hct -- )</dt>
+<dd>Free the hash table from the heap</dd>
+</dl>
+<h4>Module words</h4>
+<dl>
+<dt><a name="word7"><b>hct+hash</b>	( c-addr1 u1 -- u2 )</dt>
+<dd>Calculate the hash value of a key</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word8"><b>hct-empty?</b>	( hct -- flag )</dt>
+<dd>Check if the table is empty</dd>
+<dt><a name="word9"><b>hct-length@</b>	( hct -- u )</dt>
+<dd>Get the number of nodes in the table</dd>
+<dt><a name="word10"><b>hct-load@</b>	( hct -- u )</dt>
+<dd>Get the load factor [*100%]</dd>
+<dt><a name="word11"><b>hct-load!</b>	( u hct -- )</dt>
+<dd>Set the load factor [*100%]</dd>
+<dt><a name="word12"><b>hct-size!</b>	( u hct -- )</dt>
+<dd>Resize the hash table to size u</dd>
+</dl>
+<h4>Hash table words</h4>
+<dl>
+<dt><a name="word13"><b>hct-insert</b>	( x c-addr u hct -- )</dt>
+<dd>Insert cell data x with the key c-addr u in the table</dd>
+<dt><a name="word14"><b>hct-delete</b>	( c-addr u hct -- false | x true )</dt>
+<dd>Delete the key c-addr u from the table, return the cell data related to the key</dd>
+<dt><a name="word15"><b>hct-get</b>	( c-addr u hct -- false | x true )</dt>
+<dd>Get the cell data x related to the key c-addr u from the table</dd>
+<dt><a name="word16"><b>hct-has?</b>	( c-addr u hct -- flag )</dt>
+<dd>Check if the key c-addr u is present in the table</dd>
+</dl>
+<h4>Special words</h4>
+<dl>
+<dt><a name="word17"><b>hct-count</b>	( x hct -- u )</dt>
+<dd>Count the number of occurrences of the cell data x in the table</dd>
+<dt><a name="word18"><b>hct-execute</b>	( i*x xt hct -- j*x )</dt>
+<dd>Execute xt for every key and cell data in table</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word19"><b>hct-dump</b>	( hct -- )</dt>
+<dd>Dump the hash table</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/hct.fs
+include ffl/hci.fs
+
+\ Example: store mountain heights in a hash table
+
+
+\ Create the hash table in the dictionary with an initial size of 10
+
+10 hct-create height-table
+
+
+\ Add the mountains (in meters)
+
+8300 s" mount everest" height-table hct-insert
+4819 s" mont blanc"    height-table hct-insert
+5642 s" mount elbrus"  height-table hct-insert
+
+\ Get a mountain height
+
+s" mount everest" height-table hct-get [IF]
+  .( Mount everest: ) . cr
+[ELSE]
+  .( Unknown mountain) cr
+[THEN]
+
+s" vaalserberg" height-table hct-get [IF]
+  .( Vaalserberg: ) . cr
+[ELSE]
+  .( Unknown mountain) cr
+[THEN]
+
+
+\ Word for printing the mountain height
+
+: height-emit ( n c-addr u -- = height key )
+  type ."  -&gt; " . cr
+;
+
+
+\ Print all mountain heights
+
+' height-emit height-table hct-execute            \ Execute the word height-emit for all entries in the hash table
+
+
+
+\ Example hash table iterator
+
+\ Create the hash table iterator in the dictionary
+
+height-table hci-create height-iter               \ Create an iterator named height-iter on the height-table hash table
+
+\ Moving the iterator
+
+height-iter hci-first                         \ Move the iterator to the first record
+[IF]                                          \ If record exists Then ..
+  height-iter hci-key type                    \   Type the key ..
+  .(  =&gt; )
+  .                                           \   .. and the value
+  cr
+[THEN]
+
+8300 height-iter hci-move                     \ Move the iterator to the mountain with a height of 8300
+[IF]                                          \ If mountain exists Then ..
+  height-iter hci-key type                    \   Type the name ..
+  .(  =&gt; )
+  height-iter hci-get drop .                  \   .. and the height
+  cr
+[ELSE]
+  .( No mountain found with a height of 8300) cr  
+[THEN]
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>

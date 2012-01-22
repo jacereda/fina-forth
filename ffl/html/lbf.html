@@ -1,0 +1,199 @@
+<!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta name="robot" content="index,follow">
+<title>Module lbf - Linear buffer module - Forth Foundation Library</title>
+</head>
+<body>
+<h2>lbf - Linear buffer module</h2>
+<h3>Module Description</h3>
+<p>The lbf module implements a linear buffer with variable elements. During
+adding of extra data, the buffer will be resized. This type of buffer is
+most efficient if the buffer is empty on a regular bases: the unused space
+in the buffer is then automatically reduced. If the buffer is not
+regularly empty, use the lbf-reduce word to reuse the unused space in the
+buffer. The lbf-access! word expects two execution tokens on the stack:
+store with stack effect:  i*x addr --  and fetch: addr -- i*x. Those two
+words are used to store data in the buffer and fetch data from the buffer.
+Their behavior should match the size of the elements in the buffer.
+Besides the normal out pointer there is a secondary out pointer. This
+pointer will always stay between the normal out pointer and the in
+pointer. The words lbf-get' and lbf-length' use the secondary out pointer.
+Important: the lbf-get and lbf-fetch returning addresses are located
+in the buffer so the contents of these addresses can change with the next
+call to the buffer. This is different from the circular buffer [cbf]
+implementation: the cbf-get and cbf-fetch words copy data from the buffer
+to the destination addresses.
+</p>
+<h3>Module Words</h3>
+<dl>
+</dl>
+<h4>Linear Buffer Structure</h4>
+<dl>
+<dt><a name="word1"><b>lbf%</b>	( -- n )</dt>
+<dd>Get the required space for a lbf variable</dd>
+</dl>
+<h4>Buffer creation, initialisation and destruction</h4>
+<dl>
+<dt><a name="word2"><b>lbf-init</b>	( +n1 +n2 lbf -- )</dt>
+<dd>Initialise the buffer with element size n1 and initial length n2</dd>
+<dt><a name="word3"><b>lbf-(free)</b>	( lbf -- )</dt>
+<dd>Free the internal data from the heap</dd>
+<dt><a name="word4"><b>lbf-create</b>	( +n1 +n2 "&lt;spaces&gt;name" -- ; -- lbf )</dt>
+<dd>Create a linear buffer in the dictionary with element size n1 and initial length n2</dd>
+<dt><a name="word5"><b>lbf-new</b>	( +n1 +n2 -- lbf )</dt>
+<dd>Create a linear buffer with element size n1 and initial length n2 on the heap</dd>
+<dt><a name="word6"><b>lbf-free</b>	( lbf -- )</dt>
+<dd>Free the linear buffer from the heap</dd>
+</dl>
+<h4>Member words</h4>
+<dl>
+<dt><a name="word7"><b>lbf-length@</b>	( lbf -- u )</dt>
+<dd>Get the number of elements in the buffer</dd>
+<dt><a name="word8"><b>lbf-length'@</b>	( lbf -- u )</dt>
+<dd>Get the number of elements in the buffer based on the secondary out pointer</dd>
+<dt><a name="word9"><b>lbf-gap@</b>	( lbf -- u )</dt>
+<dd>Get the number of elements between the out pointer and the secondary out pointer</dd>
+<dt><a name="word10"><b>lbf-extra@</b>	( lbf -- u )</dt>
+<dd>Get the extra space allocated during resizing of the buffer</dd>
+<dt><a name="word11"><b>lbf-extra!</b>	( u lbf -- )</dt>
+<dd>Set the extra space allocated during resizing of the buffer</dd>
+<dt><a name="word12"><b>lbf-size!</b>	( +n lbf -- )</dt>
+<dd>Insure the size of the buffer</dd>
+<dt><a name="word13"><b>lbf+extra@</b>	( -- u )</dt>
+<dd>Get the initial extra space allocated during resizing of the buffer</dd>
+<dt><a name="word14"><b>lbf+extra!</b>	( u -- )</dt>
+<dd>Set the initial extra space allocated during resizing of the buffer</dd>
+<dt><a name="word15"><b>lbf-access@</b>	( lbf -- xt1 xt2 )</dt>
+<dd>Get the store word xt1 and the fetch word xt2 for the buffer</dd>
+<dt><a name="word16"><b>lbf-access!</b>	( xt1 xt2 lbf -- )</dt>
+<dd>Set the store word xt1 and the fetch word x2 for the buffer</dd>
+</dl>
+<h4>Lifo words</h4>
+<dl>
+<dt><a name="word17"><b>lbf-set</b>	( addr u lbf -- )</dt>
+<dd>Set u elements, starting from addr in the buffer, resize if necessary</dd>
+<dt><a name="word18"><b>lbf-get</b>	( u1 lbf -- addr u2 | 0 )</dt>
+<dd>Get maximum u1 elements from the buffer, return the actual number of elements u2</dd>
+<dt><a name="word19"><b>lbf-get'</b>	( u1 lbf -- addr u2 | 0 )</dt>
+<dd>Get maximum u1 elements from the buffer, based on secondary out, return the actual number of elements u2</dd>
+<dt><a name="word20"><b>lbf-fetch</b>	( u1 lbf -- addr u2 | 0 )</dt>
+<dd>Fetch maximum u1 elements from the buffer, return the actual number of elements u2</dd>
+<dt><a name="word21"><b>lbf-skip</b>	( u1 lbf -- u2 )</dt>
+<dd>Skip maximum u1 elements from the buffer, return the actual skipped elements u2</dd>
+<dt><a name="word22"><b>lbf-enqueue</b>	( i*x lbf | addr lbf -- )</dt>
+<dd>Enqueue one element in the buffer, using the store word if available</dd>
+<dt><a name="word23"><b>lbf-dequeue</b>	( lbf -- i*x true | addr true | false )</dt>
+<dd>Dequeue one element from the buffer, using the fetch word if available</dd>
+</dl>
+<h4>Fifo words</h4>
+<dl>
+<dt><a name="word24"><b>lbf-tos</b>	( lbf -- i*x true | addr true | false )</dt>
+<dd>Fetch the top element, using the fetch word if available</dd>
+<dt><a name="word25"><b>lbf-push</b>	( i*x lbf | addr lbf -- )</dt>
+<dd>Push one element in the buffer, using the store word if available</dd>
+<dt><a name="word26"><b>lbf-pop</b>	( lbf -- i*x true | addr true | false )</dt>
+<dd>Pop one element from the buffer, using the fetch word if available</dd>
+</dl>
+<h4>Copy words</h4>
+<dl>
+<dt><a name="word27"><b>lbf-copy</b>	( u1 u2 lbf -- )</dt>
+<dd>Copy records u1 times from distance u2, u1 &gt;= u2 is allowed</dd>
+</dl>
+<h4>Buffer words</h4>
+<dl>
+<dt><a name="word28"><b>lbf-clear</b>	( lbf -- )</dt>
+<dd>Clear the buffer</dd>
+<dt><a name="word29"><b>lbf-reduce</b>	( u lbf -- )</dt>
+<dd>Remove the leading unused space in the buffer if the unused length is at least u elements</dd>
+</dl>
+<h4>Inspection</h4>
+<dl>
+<dt><a name="word30"><b>lbf-dump</b>	( lbf -- )</dt>
+<dd>Dump the linear buffer variable</dd>
+</dl>
+<h3>Examples</h3>
+<pre>
+include ffl/lbf.fs
+
+
+\ Example 1: buffering characters strings
+
+
+\ Create the lineair buffer in the dictionary with an initial size of 10 chars
+
+1 chars 10 lbf-create char-buf
+
+
+\ Put characters in the buffer
+
+s" Hello" char-buf lbf-set
+
+\ Get the length of the stored characters
+
+.( Number characters in buffer:) char-buf lbf-length@ . cr
+
+\ Put more characters in the buffer, resulting in a resize of the buffer
+
+s" , a nice morning to you." char-buf lbf-set
+
+
+\ Get characters from the buffer
+
+.( Read the buffer:) 29 char-buf lbf-get type cr
+
+
+
+\ Example 2: buffering compound data: pair of cells as element
+
+
+\ Create the lineair buffer on the heap with an initial size of 3 elements
+
+2 cells 3 lbf-new value xy-buf
+
+
+\ Set the store and fetch words for the buffer
+
+' 2! ' 2@ xy-buf lbf-access!
+
+
+\ Use the buffer as fifo buffer, using the store and fetch words
+
+1 2 xy-buf lbf-enqueue
+3 4 xy-buf lbf-enqueue
+5 6 xy-buf lbf-enqueue
+7 8 xy-buf lbf-enqueue       \ Buffer is resized
+
+\ Get the length of the stored elements in the buffer
+
+.( Number elements in buffer:) xy-buf lbf-length@ . cr
+
+\ Get first element from buffer
+
+.( First pair in buffer:) xy-buf lbf-dequeue [IF]
+  .  . cr
+[ELSE]
+  .(  nothing in buffer) cr
+[THEN]
+
+
+\ Use the buffer as lifo buffer, using the store and fetch words
+
+\ Get last pair from buffer
+
+.( Last pair in buffer:) xy-buf lbf-pop [IF]
+  . . cr
+[ELSE]
+  .(  nothing in buffer) cr
+[THEN]
+
+\ Free the buffer from the heap
+
+xy-buf lbf-free
+
+\ ==============================================================================
+</pre>
+<hr>
+<div align="center">generated 24-Jul-2010 by <b>ofcfrth-0.10.0</b></div>
+</body>
+</html>
