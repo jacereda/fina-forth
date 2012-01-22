@@ -1,5 +1,5 @@
 
-                PRIM(ALLOCATE, 250);
+                PRIM(ALLOCATE);
                 CALLSAVE;
                 t1 = (CELL)Sys_MemAllocate(tos);
                 t2 = Sys_Throw();
@@ -9,14 +9,14 @@
                 tos = t2;
                 NEXT;
 
-                PRIM(FREE, 251);
+                PRIM(FREE);
                 CALLSAVE;
                 t1 = Sys_MemFree((void*)tos);
                 CALLREST;
                 tos = t1;
                 NEXT;
 
-                PRIM(RESIZE, 252);
+                PRIM(RESIZE);
                 CALLSAVE;
                 t1 = (CELL)Sys_MemResize((void*)dsp[0], tos);
                 t2 = Sys_Throw();

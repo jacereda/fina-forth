@@ -90,7 +90,7 @@ def gentab(env, target, source):
 	res = ''
 	prims = slurp(source[0]).split('PRIM(')[1:]
 	for prim in prims:
-		res += '&&' + prim.split(',')[0] + ',\n'
+		res += '&&' + prim.split(')')[0] + ',\n'
 	barf(target[0], res)
 
 def cat(env, target, source):

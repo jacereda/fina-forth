@@ -1,10 +1,10 @@
 
-                PRIM(DOTO,5);
+                PRIM(DOTO);
                 ((CELL*)*fpc++)[arch_callsize() / sizeof(CELL)] = tos;
                 POP;
                 NEXT;
                 
-                PRIM(UMSLASHMOD,67);
+                PRIM(UMSLASHMOD);
 #if 1
                 tos = UMSlashMod((UCELL*)dsp, tos, 
 				 (UCELL*)(dsp+1));
@@ -20,102 +20,102 @@
 #endif
                 NEXT;
                 
-                PRIM(ALIGNED, 68);
+                PRIM(ALIGNED);
                 tos += sizeof(CELL) - 1;
                 tos &= -sizeof(CELL);
                 NEXT;
                 
-                PRIM(ULT, 69);
+                PRIM(ULT);
                 tos = FLAG(((UCELL)*dsp++) < (UCELL) tos);
                 NEXT;
                 
-                PRIM(PLUS, 71);
+                PRIM(PLUS);
                 tos += *dsp++;
                 NEXT;
                 
-                PRIM(CHARPLUS, 72);
+                PRIM(CHARPLUS);
                 tos++;
                 NEXT;
                 
-                PRIM(CELLS, 73);
+                PRIM(CELLS);
                 tos *= sizeof(CELL);
                 NEXT;
                 
-                PRIM(COUNT, 74);
+                PRIM(COUNT);
                 *--dsp = tos + 1;
                 tos = *(unsigned char*)tos;
                 NEXT;
                 
-                PRIM(QDUP, 75);
+                PRIM(QDUP);
                 if (tos)
                         PUSH;
                 NEXT;
                 
-                PRIM(NIP, 76);
+                PRIM(NIP);
                 dsp++;
                 NEXT;
                 
-                PRIM(DNEGATE, 78);
+                PRIM(DNEGATE);
                 POPDC;
                 dc = -dc;
                 PUSHDC;
                 NEXT;
                 
-                PRIM(ROT, 79);
+                PRIM(ROT);
                 t0 = tos;
                 tos = dsp[1];
                 dsp[1] = dsp[0];
                 dsp[0] = t0;
                 NEXT;
                 
-                PRIM(ONEPLUS, 80);
+                PRIM(ONEPLUS);
                 tos++;
                 NEXT;
                 
-                PRIM(ONEMINUS, 81);
+                PRIM(ONEMINUS);
                 tos--;
                 NEXT;
                 
-                PRIM(CELLMINUS, 82);
+                PRIM(CELLMINUS);
                 tos -= sizeof(CELL);
                 NEXT;
                 
-                PRIM(TWODUP, 83); 
+                PRIM(TWODUP); 
                 t0 = *dsp;
                 *--dsp = tos;
                 *--dsp = t0;
                 NEXT;
                 
-                PRIM(DODO, 85);
+                PRIM(DODO);
                 RPUSH(*dsp++);
                 RPUSH(tos);
                 POP;
                 NEXT;
                 
-                PRIM(MINUS, 86);
+                PRIM(MINUS);
                 tos = *dsp++ - tos;
                 NEXT;
                 
-                PRIM(GT, 87);
+                PRIM(GT);
                 tos = FLAG(*dsp++ > tos);
                 NEXT;
                 
-                PRIM(TWOSTORE, 88);
+                PRIM(TWOSTORE);
                 ((CELL*)tos)[0] = *dsp++;
                 ((CELL*)tos)[1] = *dsp++;
                 POP;
                 NEXT;
                 
-                PRIM(EQUALS, 89);
+                PRIM(EQUALS);
                 tos = FLAG(tos == *dsp++);
                 NEXT;
                 
-                PRIM(TWODROP, 90);
+                PRIM(TWODROP);
                 dsp++;
                 POP;
                 NEXT;
                 
-                PRIM(TWOSWAP, 91);
+                PRIM(TWOSWAP);
                 t0 = tos;
                 tos = dsp[1];
                 dsp[1] = t0;
@@ -124,80 +124,80 @@
                 dsp[2] = t0;
                 NEXT;
                 
-                PRIM(UNLOOP, 93);
+                PRIM(UNLOOP);
                 rsp += 2;
                 NEXT;
                 
-                PRIM(LT, 94);
+                PRIM(LT);
                 tos = FLAG(*dsp++ < tos);
                 NEXT;
                 
-                PRIM(PLUSSTORE, 95);
+                PRIM(PLUSSTORE);
                 *(CELL*)tos += *dsp++;
                 POP;
                 NEXT;
                 
-                PRIM(SGTD, 96);
+                PRIM(SGTD);
                 PUSH;
                 tos >>= CELLSHIFT-1;
                 NEXT;
                 
-                PRIM(TWOFETCH, 97);
+                PRIM(TWOFETCH);
                 *--dsp=((CELL*)tos)[1];
                 tos = ((CELL*)tos)[0];
                 NEXT;
                 
-                PRIM(WITHIN, 98);
+                PRIM(WITHIN);
                 tos = FLAG(((UCELL)dsp[1] - (UCELL)dsp[0]) 
                            < ((UCELL)tos - (UCELL)dsp[0]));
                 dsp += 2;
                 NEXT;
                 
-                PRIM(UMSTAR, 99);
+                PRIM(UMSTAR);
 		UDCELL t0 = (UCELL)tos;
 		t0 *= ((UCELL*)dsp)[0];
 		tos = t0 >> CELLSHIFT;
 		dsp[0] = t0;
                 NEXT;
                 
-                PRIM(DPLUS, 100);
+                PRIM(DPLUS);
                 POPDC;
                 POPDC2;
                 dc += dc2;
                 PUSHDC;
                 NEXT;
                 
-                PRIM(ABS, 101);
+                PRIM(ABS);
                 tos = tos > 0? tos : -tos;
                 NEXT;
                 
-                PRIM(NEGATE, 102);
+                PRIM(NEGATE);
                 tos = -tos;
                 NEXT;
                 
-                PRIM(INVERT, 103);
+                PRIM(INVERT);
                 tos = ~tos;
                 NEXT;
                 
-                PRIM(PICK, 104);
+                PRIM(PICK);
                 tos = dsp[tos];
                 NEXT;
                 
-                PRIM(RSHIFT, 105);
+                PRIM(RSHIFT);
                 tos = ((UCELL)*dsp++) >> tos;
                 NEXT;
                 
-                PRIM(MAX, 106);
+                PRIM(MAX);
                 tos = tos > *dsp? tos : *dsp;
                 dsp++;
                 NEXT;
                 
-                PRIM(MIN, 107);
+                PRIM(MIN);
                 tos = tos < *dsp? tos : *dsp;
                 dsp++;
                 NEXT;
                 
-                PRIM(MSTAR, 108);
+                PRIM(MSTAR);
                 dc = tos;
                 POP;
                 dc *= tos;
@@ -205,7 +205,7 @@
                 PUSHDC;
                 NEXT;
                 
-                PRIM(FILL, 109);
+                PRIM(FILL);
                 CALLSAVE;
                 Sys_MemSet((char*)dsp[1], tos, dsp[0]);
                 CALLREST;
@@ -213,43 +213,43 @@
                 POP;
                 NEXT;
                 
-                PRIM(STAR, 110);
+                PRIM(STAR);
                 tos *= *dsp++;
                 NEXT;
                 
-                PRIM(J, 111);
+                PRIM(J);
                 PUSH;
                 tos = rsp[2];
                 NEXT;
                 
-                PRIM(CELLPLUS, 112);
+                PRIM(CELLPLUS);
                 tos += sizeof(CELL);
                 NEXT;
                 
-                PRIM(LSHIFT, 113);
+                PRIM(LSHIFT);
                 tos = *dsp++ << tos;
                 NEXT;
                 
-                PRIM(TWOOVER, 115);
+                PRIM(TWOOVER);
                 PUSH;
                 t0 = dsp[3];
                 tos = dsp[2];
                 *--dsp = t0;
                 NEXT;
                 
-                PRIM(RDROP, 120);
+                PRIM(RDROP);
                 rsp++;
                 NEXT;
                 
-                PRIM(ZEROLTGT, 121);
+                PRIM(ZEROLTGT);
                 tos = FLAG(tos);
                 NEXT;
 
-                PRIM(LTGT, 122);
+                PRIM(LTGT);
                 tos = FLAG(tos != *dsp++);
                 NEXT;
                 
-//                PRIMXXX(SLASH, 123);
+//                PRIMXXX(SLASH);
 //                tos = *dsp++ / tos;
 //                NEXT;
                 
