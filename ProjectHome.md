@@ -1,0 +1,1 @@
+FINA (FINA Is Not ANS) is a small direct-threaded Forth compiler/interpreter. Should be easy to port and embed in other applications. Tries to follow the ANS Forth standard. Currently supports PowerPC, X86 and X64 (MIPS and ARM untested).
