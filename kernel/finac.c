@@ -92,9 +92,9 @@ static inline CELL nCompare(CELL p1, CELL p2, CELL len)
 static inline char * zstr(char * res, const char * str, unsigned len)
 {
         len &= MAXSTR-1;
-	res[len] = 0;
-	while (len--)
-		res[len] = str[len];
+        res[len] = 0;
+        while (len--)
+                res[len] = str[len];
         return res;
 }
 #endif  // BUILD_FILES
@@ -109,25 +109,25 @@ static unsigned strLen(const char * str)
 #if BUILD_FFI
 static void closure(ffi_cif * cif, void * result, void ** args, void * xt)
 {
-	unsigned nargs = cif->nargs;
-	struct FINA_State state;
-	state.fpc = (CELL*)(arch_callsize() + (char*)xt);
-	state.dsp = state.bootstrap_ds+FINA_BOOTSTRAP_STACK;
-	state.rsp = state.bootstrap_rs+FINA_BOOTSTRAP_STACK;
-	state.tos = (CELL)state.dsp;
-	while(nargs--)
-	  *--(state.dsp) = *(CELL*)(*args++);
-	FINA_Tick(&state);
-	*(CELL*)result = state.tos;
+        unsigned nargs = cif->nargs;
+        struct FINA_State state;
+        state.fpc = (CELL*)(arch_callsize() + (char*)xt);
+        state.dsp = state.bootstrap_ds+FINA_BOOTSTRAP_STACK;
+        state.rsp = state.bootstrap_rs+FINA_BOOTSTRAP_STACK;
+        state.tos = (CELL)state.dsp;
+        while(nargs--)
+          *--(state.dsp) = *(CELL*)(*args++);
+        FINA_Tick(&state);
+        *(CELL*)result = state.tos;
 }
 #endif // BUILD_FFI
 
 #if 0
 static inline UCELL UMStar(UCELL * rl, UCELL a, UCELL b) {
-	UDCELL res = a;
-	res *= b;
-	*rl = res;
-	return res >> CELLSHIFT;
+        UDCELL res = a;
+        res *= b;
+        *rl = res;
+        return res >> CELLSHIFT;
 }
 #endif
 
@@ -184,19 +184,19 @@ void FINA_End(struct FINA_State * state)
         Sys_End();
 }
 
-static int internalTick(struct FINA_State * state, int throw) PRIMSATTR;
+static int internalTick(struct FINA_State *, int) PRIMSATTR;
 
-int FINA_InternalTick(struct FINA_State * state, int throw) {
-	return internalTick(state, throw);
+int FINA_InternalTick(struct FINA_State * state, int throwval) {
+        return internalTick(state, throwval);
 }
 
 int FINA_Tick(struct FINA_State * state)
 {
-		return Sys_Tick(state);
+                return Sys_Tick(state);
 }
 
-int internalTick(struct FINA_State * state, int throw) {
-        static const CELL * tab[] = {
+int internalTick(struct FINA_State * state, int throwval) {
+        static const void * tab[] = {
                 &&NOOP,
 #include "primstab.it"
 
@@ -228,7 +228,7 @@ int internalTick(struct FINA_State * state, int throw) {
         register CELL * dsp DSPREG;
         register CELL   tos TOSREG;
 #if defined LNKREG
-	volatile register CELL * lnk LNKREG;
+        volatile register CELL * lnk LNKREG;
 #endif
         int ret = 0xdeadbeef;
         extern CELL Forth_Here;
@@ -236,17 +236,17 @@ int internalTick(struct FINA_State * state, int throw) {
         CELL t1, t2, t3, t4, t5, t6, t7;
         DCELL dc, dc2;
         float f;
-	double d;
-	char str1[MAXSTR];
-	char str2[MAXSTR];
+        double d;
+        char str1[MAXSTR];
+        char str2[MAXSTR];
 
         (void)dc; (void)dc2;
-        if (throw)
+        if (throwval)
         {
                 fpc = (CELL*)(arch_callsize() + **(CELL**)userP());
                 rsp = state->bootstrap_rs + FINA_BOOTSTRAP_STACK;
                 dsp = state->bootstrap_ds + FINA_BOOTSTRAP_STACK;
-                tos = throw;
+                tos = throwval;
         }
         else
                 RESTREGS;

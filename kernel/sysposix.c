@@ -25,17 +25,17 @@
 static struct termios otio;
 static unsigned argc;
 static char ** argv;
-static int throw;
+static int throwval;
 static jmp_buf jmpbuf;
 
 
-void mysignal(int signo, void * handler)
+void mysignal(int signo, void (*handler)(int))
 {
-	struct sigaction action;
-	action.sa_handler = handler;
-	sigemptyset(&action.sa_mask);
-	action.sa_flags=SA_NODEFER;
-	sigaction(signo, &action, 0);
+        struct sigaction action;
+        action.sa_handler = handler;
+        sigemptyset(&action.sa_mask);
+        action.sa_flags=SA_NODEFER;
+        sigaction(signo, &action, 0);
 }
 
 static void errnoThrow(int error)
@@ -43,16 +43,16 @@ static void errnoThrow(int error)
         if (error) switch (errno)
         {
         case ENOENT:
-                throw = -38;
+                throwval = -38;
                 break;
         case ENOMEM:
-                throw = -21;
+                throwval = -21;
                 break;
         default:
-                throw = -37;
+                throwval = -37;
         }
         if (!error)
-                throw = 0;
+                throwval = 0;
         errno = 0;
 }
 
@@ -68,11 +68,11 @@ static void memThrow(int error)
 static void ferrorThrow(int error, FILE * handle)
 {
         if (error && feof(handle))
-                throw = -39;
+                throwval = -39;
         if (error && ferror(handle))
-                throw = -37;
+                throwval = -37;
         if (!error)
-                throw = 0;
+                throwval = 0;
         clearerr(handle);
 }
 
@@ -83,30 +83,30 @@ static void sighandler(int sig)
         case SIGBUS:
         case SIGSEGV:
         case SIGILL:
-                throw = -9;
+                throwval = -9;
                 break;
         default:
-                throw = -59;
+                throwval = -59;
         }
-	mysignal(sig, sighandler);
-        longjmp(jmpbuf, throw);
+        mysignal(sig, sighandler);
+        longjmp(jmpbuf, throwval);
 }
 
 int Sys_Tick(struct FINA_State * state)
 {
         static int set = 0;
-        int throw = 0;
+        int throwval = 0;
         if (!set)
-                throw = setjmp(jmpbuf);
-        set = !throw;
-		return FINA_InternalTick(state, throw);
+                throwval = setjmp(jmpbuf);
+        set = !throwval;
+        return FINA_InternalTick(state, throwval);
 }
 
 static void initSignals()
 {
-	mysignal(SIGBUS, sighandler);
-	mysignal(SIGSEGV, sighandler);
-	mysignal(SIGILL, sighandler);
+        mysignal(SIGBUS, sighandler);
+        mysignal(SIGSEGV, sighandler);
+        mysignal(SIGILL, sighandler);
 }
 
 static void initTerm()
@@ -135,33 +135,33 @@ static void endTerm()
 }
 
 static uintptr_t end() {
-	extern CELL Forth_End;
-	return (uintptr_t) &Forth_End;
+        extern CELL Forth_End;
+        return (uintptr_t) &Forth_End;
 }
 
 static uintptr_t start() {
-	extern CELL Forth_Entry;
-	return (uintptr_t) &Forth_Entry;
+        extern CELL Forth_Entry;
+        return (uintptr_t) &Forth_Entry;
 }
 
 static unsigned pageshift() {
-	return 12;
+        return 12;
 }
 
 static unsigned pagesize() {
-	return 1 << pageshift();
+        return 1 << pageshift();
 }
 
 static uintptr_t page(uintptr_t addr) {
-	return addr >> pageshift();
+        return addr >> pageshift();
 }
 
 static uintptr_t tosize(uintptr_t npages) {
-	return npages * pagesize();
+        return npages * pagesize();
 }
 
 static void * toaddr(uintptr_t page) {
-	return (void*)(page * pagesize());
+        return (void*)(page * pagesize());
 }
 
 void Sys_Init(int argcc, char ** argvv)
@@ -170,10 +170,10 @@ void Sys_Init(int argcc, char ** argvv)
         argv = argvv;
         initTerm();
         initSignals();
-	if (mprotect(toaddr(page(start())),
-		     tosize(page(end()) - page(start()) + 1),
-		     PROT_READ+PROT_WRITE+PROT_EXEC))
-		perror("mprotect");
+        if (mprotect(toaddr(page(start())),
+                     tosize(page(end()) - page(start()) + 1),
+                     PROT_READ+PROT_WRITE+PROT_EXEC))
+                perror("mprotect");
 }
 
 void Sys_End()
@@ -204,9 +204,9 @@ void Sys_PutChar(unsigned c)
 {
         unsigned ret;
         ret = putchar(c);
-	errnoThrow(ret != c);
+        errnoThrow(ret != c);
         ret = fflush(stdout);
-	errnoThrow(ret != 0);
+        errnoThrow(ret != 0);
 }
 
 void Sys_MemMove(char * to, const char * from, unsigned bytes)
@@ -221,7 +221,7 @@ void Sys_MemSet(char * dst, unsigned val, unsigned bytes)
 
 void * Sys_FileOpen(const char * name, unsigned mode)
 {
-        char *modestr[]={"r", "rb", "r+", "r+b", "w", "wb", "BAD"};
+        const char *modestr[]={"r", "rb", "r+", "r+b", "w", "wb", "BAD"};
         void * handle;
         if (mode > 5)
                 mode = 6;
@@ -232,39 +232,43 @@ void * Sys_FileOpen(const char * name, unsigned mode)
 
 int Sys_Throw()
 {
-        return throw;
+        return throwval;
 }
 
 void Sys_FileClose(void * handle)
 {
+        FILE * fh = (FILE*)handle;
         errnoThrow(handle == 0);
-        if (!throw) errnoThrow(0 != fclose(handle));
+        if (!throwval) errnoThrow(0 != fclose(fh));
 }
 
 unsigned Sys_FileRead(void * handle, char * buf, unsigned len)
 {
+        FILE * fh = (FILE*)handle;
         unsigned res = 0;
-        errnoThrow(handle == 0);
-        if (!throw) res = fread(buf, 1, len, handle);
-        if (!throw) ferrorThrow(res != len, handle);
+        errnoThrow(fh == 0);
+        if (!throwval) res = fread(buf, 1, len, fh);
+        if (!throwval) ferrorThrow(res != len, fh);
         return res;
 }
 
 void Sys_FileWrite(void * handle, char * buf, unsigned len)
 {
+        FILE * fh = (FILE*)handle;  
         unsigned res = 0;
-        errnoThrow(handle == 0);
-        if (!throw) res = fwrite(buf, 1, len, handle);
-        if (!throw) ferrorThrow(res != len, handle);
+        errnoThrow(fh == 0);
+        if (!throwval) res = fwrite(buf, 1, len, fh);
+        if (!throwval) ferrorThrow(res != len, fh);
 }
 
 void * Sys_FileMMap(void * handle)
 {
+        FILE * fh = (FILE*)handle; 
         void * res = 0;
-        errnoThrow(handle == 0);
-        if (!throw) res = mmap(0, 0x40000000, PROT_READ, MAP_SHARED, 
-                               fileno((FILE*)handle), 0);
-        if (!throw) errnoThrow(res == (void*)-1);
+        errnoThrow(fh == 0);
+        if (!throwval) res = mmap(0, 0x40000000, PROT_READ, MAP_SHARED, 
+                               fileno(fh), 0);
+        if (!throwval) errnoThrow(res == (void*)-1);
         return res;
 }
 
@@ -280,37 +284,41 @@ char ** Sys_Argv()
 
 DCELL Sys_FileSize(void * handle)
 {
+        FILE * fh = (FILE*)handle;   
         off_t prev = -1, res = -1;
-        errnoThrow(handle == 0);
-        if (!throw) errnoThrow(-1 == (prev = ftello(handle)));
-        if (!throw) errnoThrow(-1 == fseeko(handle, 0, SEEK_END));
-        if (!throw) errnoThrow(-1 == (res = ftello(handle)));
-        if (!throw) errnoThrow(-1 == fseeko(handle, prev, SEEK_SET));
+        errnoThrow(fh == 0);
+        if (!throwval) errnoThrow(-1 == (prev = ftello(fh)));
+        if (!throwval) errnoThrow(-1 == fseeko(fh, 0, SEEK_END));
+        if (!throwval) errnoThrow(-1 == (res = ftello(fh)));
+        if (!throwval) errnoThrow(-1 == fseeko(fh, prev, SEEK_SET));
         return res;
 }
 
 void Sys_FileSeek(void * handle, DCELL pos)
 {
-        errnoThrow(handle == 0);
-        if (!throw) errnoThrow(-1 == fseeko(handle, pos, SEEK_SET));
+        FILE * fh = (FILE*)handle;     
+        errnoThrow(fh == 0);
+        if (!throwval) errnoThrow(-1 == fseeko(fh, pos, SEEK_SET));
 }
 
 DCELL Sys_FileTell(void * handle)
 {
+        FILE * fh = (FILE*)handle;       
         off_t res = -1;
-        errnoThrow(handle == 0);
-        if (!throw) res = ftello(handle);
-        if (!throw) errnoThrow(-1 == res);
+        errnoThrow(fh == 0);
+        if (!throwval) res = ftello(fh);
+        if (!throwval) errnoThrow(-1 == res);
         return res;
 }
 
 unsigned Sys_FileLine(void * handle, char * buf, unsigned size)
 {
+        FILE * fh = (FILE*)handle;  
         unsigned res = 0;
-        errnoThrow(handle == 0);
-        if (!throw) ferrorThrow(0 == fgets(buf, size, handle), handle);
-        if (!throw) res = strlen(buf);
-        if (!throw) res -= buf[res-1] == '\n';
+        errnoThrow(fh == 0);
+        if (!throwval) ferrorThrow(0 == fgets(buf, size, fh), fh);
+        if (!throwval) res = strlen(buf);
+        if (!throwval) res -= buf[res-1] == '\n';
         return res;
 }
 
@@ -367,19 +375,21 @@ unsigned Sys_FileStat(const char * name)
         return s.st_mode;
 }
 
-void Sys_FileRen(const char * old, const char * new)
+void Sys_FileRen(const char * oldname, const char * newname)
 {
-        errnoThrow(rename(old, new));
+        errnoThrow(rename(oldname, newname));
 }
 
 void Sys_FileTrunc(void * handle, DCELL size)
 {
-        errnoThrow(ftruncate(fileno((FILE*)handle), size));
+        FILE * fh = (FILE*)handle;  
+        errnoThrow(ftruncate(fileno((FILE*)fh), size));
 }
 
 void Sys_FileFlush(void * handle)
 {
-        errnoThrow(fflush(handle));
+        FILE * fh = (FILE*)handle;  
+        errnoThrow(fflush(fh));
 }
 
 
@@ -393,7 +403,7 @@ void * Sys_MemAllocate(unsigned bytes)
 unsigned Sys_MemFree(void * p)
 {
         free(p);
-	return 0;
+        return 0;
 }
 
 void * Sys_MemResize(void * p, unsigned newsize)

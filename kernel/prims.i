@@ -36,10 +36,10 @@
                 fpc = getlnk();
 #if BUILD_PROFILE
                 {
-			extern CELL Forth_Prof, Forth_Entry;
-			fpc[(&Forth_Prof - &Forth_Entry)
-			    + 2 - arch_callsize() / sizeof(CELL)]++;
-		}
+                        extern CELL Forth_Prof, Forth_Entry;
+                        fpc[(&Forth_Prof - &Forth_Entry)
+                            + 2 - arch_callsize() / sizeof(CELL)]++;
+                }
 #endif    
                 NEXT;
                 
@@ -122,7 +122,7 @@
                 PRIM(EXECUTE);
                 t0 = tos;
                 POP;
-                goto *t0;
+                goto *(CELL*)t0;
                 NEXT;
                 
                 PRIM(EXIT);
@@ -267,7 +267,7 @@
                 
                 PRIM(CALL1);
                 CALLSAVE;
-                t1 = ((UCELL(*)())tos)(dsp[0]);
+                t1 = ((UCELL(*)(CELL))tos)(dsp[0]);
                 CALLREST;
                 tos = t1;
                 dsp++;
@@ -275,7 +275,7 @@
                 
                 PRIM(CALL2);
                 CALLSAVE;
-                t1 = ((UCELL(*)())tos)(dsp[0], dsp[1]);
+                t1 = ((UCELL(*)(CELL,CELL))tos)(dsp[0], dsp[1]);
                 CALLREST;
                 tos = t1;
                 dsp += 2;
@@ -283,7 +283,7 @@
                 
                 PRIM(CALL3);
                 CALLSAVE;
-                t1 = ((UCELL(*)())tos)(dsp[0], dsp[1], dsp[2]);
+                t1 = ((UCELL(*)(CELL,CELL,CELL))tos)(dsp[0], dsp[1], dsp[2]);
                 CALLREST;
                 tos = t1;
                 dsp += 3;
@@ -291,7 +291,7 @@
                 
                 PRIM(CALL4);
                 CALLSAVE;
-                t1 = ((UCELL(*)())tos)(dsp[0], dsp[1], dsp[2], dsp[3]);
+                t1 = ((UCELL(*)(CELL,CELL,CELL,CELL))tos)(dsp[0], dsp[1], dsp[2], dsp[3]);
                 CALLREST;
                 tos = t1;
                 dsp += 4;

@@ -1,4 +1,4 @@
-int FINA_InternalTick(struct FINA_State * state, int throw);
+int FINA_InternalTick(struct FINA_State *, int);
 
 void Sys_Init(int argc, char ** argv);
 void Sys_End();
@@ -20,7 +20,7 @@ void Sys_FileSeek(void * handle, DCELL pos);
 unsigned Sys_FileLine(void * handle, char * buf, unsigned len);
 void Sys_FileDelete(const char * name);
 unsigned Sys_FileStat(const char * name);
-void Sys_FileRen(const char * old, const char * new);
+void Sys_FileRen(const char *, const char *);
 void Sys_FileTrunc(void * handle, DCELL size);
 void Sys_FileFlush(void * handle);
 

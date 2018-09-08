@@ -50,6 +50,7 @@ if os.name == 'nt':
 	tools = ['mingw']
 
 env = Environment(ARCH=tarch, TOOLS=['mingw'], OS=normalized_os())
+
 ring0 = ARGUMENTS.get('ring0', False)
 if ring0:
    env.Tool('crossmingw', '.')
@@ -58,7 +59,7 @@ if ring0:
 env['ENV']['PATH'] = os.environ['PATH']
 env.Append(CCFLAGS='-Ofast')
 if env['OS'] == 'darwin':
-   env.Append(LINKFLAGS='-Wl,-S -Wl,-no_pie -Wl,-map,${TARGET}.map')
+   env.Append(LINKFLAGS='-Wl,-no_pie')
 
 if tarch == 'x64':
    env.Append(CPPDEFINES=['X86_64'])
