@@ -55,7 +55,7 @@ if ring0:
    env.Tool('crossmingw', '.')
    env['LINK'] = env['CC']
    env['OS'] = 'win32'
-#env['ENV']['PATH'] = os.environ['PATH']
+env['ENV']['PATH'] = os.environ['PATH']
 env.Append(CCFLAGS='-O2 -g')
 env.Append(LINKFLAGS='-g')
 if tarch == 'x64':
