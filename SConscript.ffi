@@ -34,7 +34,10 @@ bsdfiles = {
 }[env['ARCH']]
 
 ffiossrc = {
-	'darwin' : 'darwin.S',
+	'darwin' : {
+		 'x64': 'darwin64.S',
+		 'i386': 'darwin.S',
+		 }[env['ARCH']],
 	'linux' : {
 		'powerpc' : 'sysv.S ppc_closure.S',
 		'i386' : 'sysv.S',
@@ -49,13 +52,13 @@ ffiossrc = {
 if env['ARCH'] == 'mips' and ffiossrc == 'freebsd.S':
    ffiossrc = 'o32.S'
    env.Append(CPPDEFINES=[['FFI_MIPS_O32', 1]])
-if ffiossrc == 'unix64.S':
-   plat = ffiarchbase + '/ffi64.c '	
+if ffiossrc in ['unix64.S', 'darwin64.S']:
+   plat = ffiarchbase + '/ffi64.c '
 else:
    plat = ffiarchbase + '/ffi.c '
 
 fficpppath = [
-	'libs/libffi/include', 
+	'libs/libffi/include',
 	'libs/libffi/src/',
 	'libs/libffi/src/' + ffiarchbase,
 	'libs/libffi/',
@@ -69,10 +72,8 @@ for i in Split(ffiossrc):
     platasm += e.CppAsm(i + '.o', 'libs/libffi/src/' + ffiarchbase + '/' + i)
 
 env.Library('ffi', ['libs/libffi/src/' + i for i in Split('''
-	debug.c 
-	prep_cif.c 
+	debug.c
+	prep_cif.c
 	types.c
 	closures.c
 ''' + plat)] + platasm)
-
-

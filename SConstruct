@@ -56,8 +56,10 @@ if ring0:
    env['LINK'] = env['CC']
    env['OS'] = 'win32'
 env['ENV']['PATH'] = os.environ['PATH']
-env.Append(CCFLAGS='-O2 -g')
-env.Append(LINKFLAGS='-g')
+env.Append(CCFLAGS='-Ofast')
+if env['OS'] == 'darwin':
+   env.Append(LINKFLAGS='-Wl,-S -Wl,-no_pie -Wl,-map,${TARGET}.map')
+
 if tarch == 'x64':
    env.Append(CPPDEFINES=['X86_64'])
 else:
@@ -68,11 +70,7 @@ else:
    env.Append(CPPFLAGS='-m32')
    env.Append(LINKFLAGS='-m32')
 
-gccmajor, gccminor, gccrev = gccversion()
-if gccmajor < 3:
-	env.Append(CPPDEFINES=[['__LONG_LONG_MAX__', '9223372036854775807']])
-else:
-	env.Append(CCFLAGS='-fno-reorder-blocks')
+env.Append(CCFLAGS='-fno-reorder-blocks')
 
 def slurp(f):
 	f = open(str(f))
@@ -85,7 +83,7 @@ def barf(f, contents):
 	f = open(str(f), 'w')
 	f.write(contents)
 	f.close
-	
+
 def gentab(env, target, source):
 	res = ''
 	prims = slurp(source[0]).split('PRIM(')[1:]
@@ -99,7 +97,7 @@ def cat(env, target, source):
 		res += slurp(src)
 	barf(target[0], res)
 
-		
+
 cat = Builder(action=cat)
 
 tab = Builder(action=gentab, source_scanner = CScan)
@@ -133,7 +131,7 @@ def outputfrom(self, cmd):
 	return shelloutput(cmd)
 
 def CppAsm(self, target, source):
-	cpp = self.Command(target + '.s', source, 
+	cpp = self.Command(target + '.s', source,
 			   '$CC $CCFLAGS $CPPFLAGS $_CPPDEFFLAGS $_CPPINCFLAGS -E -o $TARGET $SOURCE')
 	return self.Object(target, cpp)
 
@@ -146,11 +144,11 @@ def Ins(self, where, what):
     return self.Default(self.Install(prefix + where, what))
 
 def Run(self, files):
-    env.Default(env.Command('dummyrun', files, 
+    env.Default(env.Command('dummyrun', files,
     			str(Dir(prefix)) + '/bin/fina $SOURCES'))
 
 def TimedRun(self, file):
-    env.Default(env.Command('dummy' + file, file, 
+    env.Default(env.Command('dummy' + file, file,
 		     'time ' + str(Dir(prefix)) \
 		     	   + '/bin/fina $SOURCE -e "main bye"'))
 
@@ -163,7 +161,7 @@ env.AddMethod(Ins)
 env.AddMethod(Run)
 env.AddMethod(TimedRun)
 env.SConscript('SConscript.ffi',
-	       variant_dir = 'obj', 
+	       variant_dir = 'obj',
 	       exports=['env'],
 	       duplicate = 0)
 
@@ -178,6 +176,6 @@ env['moreprims'] = ARGUMENTS.get('moreprims', 1)
 env['profile'] = ARGUMENTS.get('profile', 0)
 
 env.SConscript(sc,
-	       variant_dir = 'obj', 
+	       variant_dir = 'obj',
 	       exports=['env'],
 	       duplicate = 0)

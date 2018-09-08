@@ -36,16 +36,16 @@ static inline void loc(const char * p) {
     Sys_PutChar(p[-1]);
   Sys_PutChar('\n');
 }
-#define DUMPDECL(x) const char * locstr = #x;
-#define DUMPLOC SAVEREGS; loc(locstr); RESTREGS; 
+#define DUMPDECL(x) const char * locstr = #x
+#define DUMPLOC SAVEREGS; loc(locstr); RESTREGS
 #else
 #define DUMPDECL(x)
 #define DUMPLOC
 #endif
 
 #define PRIM(x)  x: asm("XT_" #x ":"); { DUMPDECL(x); int unused
-#define NEXTT goto **fpc++
-#define NEXT (void) unused; DUMPLOC } NEXTT
+#define NEXTT goto *(CELL*)*fpc++
+#define NEXT (void) unused; DUMPLOC; } NEXTT
 #define PUSH *--dsp = tos
 #define RPUSH(reg) *--rsp = (CELL)(reg)
 #define RPOP(reg) reg = *rsp++;
@@ -129,10 +129,10 @@ static inline UCELL UMStar(UCELL * rl, UCELL a, UCELL b) {
 	*rl = res;
 	return res >> CELLSHIFT;
 }
-#endif			   
+#endif
 
-static inline UCELL UMSlashMod(UCELL * dd, 
-                               UCELL d, 
+static inline UCELL UMSlashMod(UCELL * dd,
+                               UCELL d,
                                UCELL * pmod)
 {
         UCELL s = CELLSHIFT-1;
@@ -222,11 +222,11 @@ int internalTick(struct FINA_State * state, int throw) {
 
                 &&ARGV,
         };
-        
+
         register CELL * rsp RSPREG;
         register CELL * fpc FPCREG;
         register CELL * dsp DSPREG;
-        register CELL   tos TOSREG; 
+        register CELL   tos TOSREG;
 #if defined LNKREG
 	volatile register CELL * lnk LNKREG;
 #endif
@@ -254,15 +254,15 @@ int internalTick(struct FINA_State * state, int throw) {
         // DON'T MOVE THIS
         PRIM(NOOP);
         NEXT;
-        
+
 #define RETURN(x) ret = x; goto end
-        
+
 #include "prims.i"
-        
+
 #if BUILD_MOREPRIMS
 #include "moreprims.i"
 #endif
-        
+
 #if BUILD_FILES
 #include "files.i"
 #endif
@@ -287,10 +287,8 @@ int internalTick(struct FINA_State * state, int throw) {
         CALLREST;
         tos = t1;
         NEXT;
-        
+
 end:
         SAVEREGS;
         return ret;
 }
-
-

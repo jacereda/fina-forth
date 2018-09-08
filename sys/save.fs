@@ -17,7 +17,7 @@ defer coldchain  ' noop is coldchain
 : dictsize ( -- size )
    memtop dict0 - ;
 
-: exesize
+: exesize ( -- size )
    0 arg r/o open-file throw >r
    r@ file-size throw drop
    r> close-file throw ;
@@ -28,19 +28,19 @@ defer coldchain  ' noop is coldchain
 : savedict ( dstfile )
    dict0 dictsize rot write-file throw ;
 
-: saveftr ( src dstfile )
+: saveftr ( srcmem dstfile )
    >r exesize over hdrsize dictsize + /string r> write-file throw ;
 
-: savefile' ( dstfile srcfile -- srcmem dstfile )
-   mmap-file throw swap
-   2dup savehdr
-   dup savedict ;
+: savefile' ( dstfile srcfile -- )
+   mmap-file throw swap  ( srcmem dstfile )
+   2dup savehdr ( srcmem dstfile )
+   dup savedict ( srcmem dstfile )
+   saveftr ;
 
 : savefile ( dstfile -- )
    0 arg r/o open-file throw >r
    r@ ['] savefile' catch
-   r> close-file throw 
-   throw saveftr ;
+   r> close-file throw throw ;
 
 : save ( a u -- )
    w/o open-file throw >r   
@@ -53,3 +53,4 @@ defer coldchain  ' noop is coldchain
 
 export save" save coldchain
 end-module
+
