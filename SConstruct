@@ -57,7 +57,7 @@ if ring0:
    env['LINK'] = env['CC']
    env['OS'] = 'win32'
 env['ENV']['PATH'] = os.environ['PATH']
-env.Append(CCFLAGS='-Ofast')
+env.Append(CCFLAGS='-Ofast -fno-reorder-blocks')
 if env['OS'] == 'darwin':
    env.Append(LINKFLAGS='-Wl,-no_pie')
 
@@ -70,8 +70,6 @@ else:
       env.Replace(AS='as --32')
    env.Append(CPPFLAGS='-m32')
    env.Append(LINKFLAGS='-m32')
-
-env.Append(CCFLAGS='-fno-reorder-blocks')
 
 def slurp(f):
 	f = open(str(f))
