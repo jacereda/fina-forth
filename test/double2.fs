@@ -10,7 +10,12 @@ DECIMAL
 
 { -> }          \ START WITH CLEAN SLATE
 
-HEX 80000000 CONSTANT MSB
+1 cells 4 = [if]
+HEX 80000000
+[else]
+HEX 8000000000000000
+[then]
+CONSTANT MSB
 DECIMAL
 
 \ ----------------------------------------------------------------------------
@@ -129,4 +134,3 @@ TESTING MIXED ARITHMETICS
 { -1. 2 1   M*/ -> -2. }
 { -1. 1 2   M*/ -> 0. }
 { -1. -1 1  M*/ -> 1. }
-
