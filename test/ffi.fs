@@ -23,4 +23,4 @@ libm cos df (df) cos
 libc qsort ptr int int ptr (void) qsort
 callback pp:i ptr ptr (int) callback;
 :noname @ swap @ - ; pp:i qsortcb
-{ here here 2 , 1 , 4 , 3 ,  4 4 qsortcb qsort @ -> 4 }
+{ here here  2 , 1 , 4 , 3 ,  4  1 cells  qsortcb qsort  @ -> 4 }
