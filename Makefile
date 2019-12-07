@@ -142,7 +142,7 @@ obj/toc.help: obj/fina $(ALLHELP)
 	echo $(ALLHELP)
 	$< help/maketoc.fs -e "toc{ $(ALLHELP) }toc bye" > $@
 
-install:
+install: obj/fina $(ALLFORTH) $(ALLTESTS) $(ALLBENCHMARKS) obj/toc.help $(ALLHELP) $(ANSHELP)
 	install obj/fina $(PREFIX)/bin/fina
 	install $(ALLFORTH) $(PREFIX)/share/
 	install $(ALLTESTS) $(PREFIX)/share/fina/test
