@@ -15,7 +15,6 @@ CFLAGS+=-Ofast -fomit-frame-pointer -fno-reorder-blocks -freorder-blocks-algorit
 CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIDIR) -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)_$(FFIOS) -D$(FFIARCH)_$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1
 LDFLAGS+=-Wl,-no_pie
 
-
 IFILES=kernel/allocate.i kernel/files.i kernel/moreprims.i	\
 kernel/ffi.i kernel/fixed.i kernel/prims.i
 
