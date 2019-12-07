@@ -189,5 +189,3 @@ install: obj/fina $(ALLFORTH) $(ALLTESTS) $(ALLBENCHMARKS) obj/toc.help $(ALLHEL
 
 clean:
 	rm -fR obj
-
-include $(patsubst %.cpp,b/%.o.dep,$(CXXSRCS))
