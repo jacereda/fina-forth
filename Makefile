@@ -91,7 +91,8 @@ $(FFIPLAT_$(OS)_$(ARCH))
 all: obj/fina
 
 obj/arch.h: kernel/$(ARCH)-arch.h
-	cp $^ $@
+	install -d obj
+	install $^ $@
 
 obj/%tab.it: kernel/%.i
 	cat $^ | python gentab.py > $@
@@ -135,7 +136,8 @@ tests: obj/fina $(TESTS)
 bench: obj/fina $(ALLBENCHMARKS)
 	for b in $(ALLBENCHMARKS) ; do time $< $$b -e "main bye" ; done
 
-obj/%.help: %.fs help/glosgen.fs
+obj/%.help: %.fs obj/fina help/glosgen.fs
+	install -d `dirname $@`
 	obj/fina help/glosgen.fs -e "newglos makeglos $< writeglos $@ bye"
 
 obj/toc.help: obj/fina $(ALLHELP)
@@ -152,6 +154,6 @@ install: obj/fina $(ALLFORTH) $(ALLTESTS) $(ALLBENCHMARKS) obj/toc.help $(ALLHEL
 	install ffl/html/*.html $(PREFIX)/share/doc/fina/ffl/html
 
 clean:
-	rm obj/*
+	rm -fR obj
 
 include $(patsubst %.cpp,b/%.o.dep,$(CXXSRCS))
