@@ -1,18 +1,56 @@
-ARCH=x64
-OS=Darwin
+ARCH_x86_64=x64
+ARCH_amd64=x64
+ARCH_ppc=powerpc
+ARCH_i686=i386
+ARCH_sgimips=mips
+ARCH:=$(ARCH_$(shell uname -m))
+OS=$(shell uname -s)
 CC=gcc
 LD=gcc
 PREFIX=inst
 ASMCALL_x64='nop;nop;nop;call'
+ASMCALL_arm='bl'
+ASMCALL_i386='nop;nop;nop;call'
+ASMCALL_mips='bal'
+ASMCALL_powerpc='bl'
 ASMCELL_x64='.quad'
+ASMCELL_arm='.long'
+ASMCELL_i386='.long'
+ASMCELL_mips='.long'
+ASMCELL_powerpc='.long'
 ASMALIGN_x64='.p2align 3'
-FFIDIR_x64=x86
+ASMALIGN_arm='.balign 4'
+ASMALIGN_i386='.p2align 2'
+ASMALIGN_mips='.balign 4'
+ASMALIGN_powerpc='.align 2'
 FFIARCH_x64=X86
-FFIOS_Darwin=DARWIN
+FFIARCH_i386=X86
+FFIARCH_powerpc=POWERPC
+FFIARCH_mips=MIPS
+FFIARCH_arm=ARM
+FFIARCH=$(FFIARCH_$(ARCH))
+FFIOS_Darwin=_DARWIN
+FFIOS_NetBSD=_FREEBSD
+FFIOS_FreeBSD=_FREEBSD
+FFIOS_OpenBSD=_FREEBSD
+FFIOS_DragonFly=_FREEBSD
+FFIOS_Linux=
+FFIOS=$(FFIOS_$(OS))
 FFIPLAT_Darwin_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/darwin64.S
-
+FFIPLAT_Linux_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
+FFIPLAT_Linux_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/sysv.S
+FFIPLAT_Linux_powerpc=libs/libffi/src/powerpc/ffi.c libs/libffi/src/powerpc/sysv.S libs/libffi/src/powerpc/ppc_closure.S
+FFIPLAT_Linux_mips=libs/libffi/src/mips/ffi.c libs/libffi/src/mips/o32.S
+FFIPLAT_Linux_arm=libs/libffi/src/arm/ffi.c libs/libffi/src/arm/sysv.S
+FFIPLAT_FreeBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
+FFIPLAT_FreeBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
+FFIPLAT_OpenBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
+FFIPLAT_OpenBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
+FFIPLAT_NetBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
+FFIPLAT_NetBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
+FFIPLAT_DragonFly_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 CFLAGS+=-Ofast -fomit-frame-pointer -fno-reorder-blocks -freorder-blocks-algorithm=simple
-CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIDIR) -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)_$(FFIOS) -D$(FFIARCH)_$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1
+CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1
 LDFLAGS+=-Wl,-no_pie
 
 IFILES=kernel/allocate.i kernel/files.i kernel/moreprims.i	\
