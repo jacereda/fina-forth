@@ -80,11 +80,8 @@ benchmarks/sieve.fs
 META=meta/$(ARCH)-tconfig.fs meta/tconfig.fs meta/host-fina.fs	\
 meta/meta.fs meta/fina.fs
 
-FFISRCS=\
-libs/libffi/src/debug.c \
-libs/libffi/src/prep_cif.c \
-libs/libffi/src/types.c \
-libs/libffi/src/closures.c \
+FFISRCS= libs/libffi/src/debug.c libs/libffi/src/prep_cif.c	\
+libs/libffi/src/types.c libs/libffi/src/closures.c		\
 $(FFIPLAT_$(OS)_$(ARCH))
 
 all: obj/fina
@@ -117,7 +114,7 @@ obj/kernel2.S: obj/finac.S obj/dict2.S
 kerneltest%: obj/kernel%
 	cat $(KERNELTESTS) | $<
 
-obj/kernel%: obj/kernel%.S kernel/main.c kernel/sysposix.c $(patsubst %.c,%.o,$(FFISRCS))
+obj/kernel%: obj/kernel%.o kernel/main.c kernel/sysposix.c $(FFISRCS)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
 obj/build.fs: $(FULL) saveaux.fs
