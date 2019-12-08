@@ -15,9 +15,9 @@ variable eflag
            THEN  2 +
        LOOP  DROP ;
 
-: BENCHMARK  0 1000 0 DO  PRIMES NIP  LOOP ;
+: BENCHMARK  0 5000 0 DO  PRIMES NIP  LOOP ;
 \ SECS BENCHMARK . SECS SWAP - CR . .( secs)
-: main 
+: main
         flags 8190 + eflag !
         benchmark .
 ;
