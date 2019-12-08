@@ -11,9 +11,9 @@
 
                 PRIM(FREE);
                 CALLSAVE;
-                t1 = Sys_MemFree((void*)tos);
+                Sys_MemFree((void*)tos); 
                 CALLREST;
-                tos = t1;
+                tos = 0;
                 NEXT;
 
                 PRIM(RESIZE);

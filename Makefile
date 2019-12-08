@@ -50,7 +50,7 @@ FFIPLAT_NetBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 FFIPLAT_NetBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_DragonFly_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 CFLAGS+=-Ofast -fomit-frame-pointer -fno-reorder-blocks -freorder-blocks-algorithm=simple -ffunction-sections -fdata-sections -flto -fvisibility=hidden
-CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1
+CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
 LDFLAGS_Darwin=-Wl,-dead_strip
 LDFLAGS_Linux=-Wl,-gc-sections
 LDFLAGS_FreeBSD=-Wl,-gc-sections
@@ -183,12 +183,25 @@ obj/toc.help: obj/fina $(ALLHELP)
 	$< help/maketoc.fs -e "toc{ $(ALLHELP) }toc bye" > $@
 
 install: obj/fina $(ALLFORTH) $(ALLTESTS) $(ALLBENCHMARKS) obj/toc.help $(ALLHELP) $(ANSHELP)
+	install -d $(PREFIX)/bin
 	install obj/fina $(PREFIX)/bin/fina
-	install $(ALLFORTH) $(PREFIX)/share/
+	install -d $(PREFIX)/share/fina/test
+	install $(ALLFORTH) $(PREFIX)/share/fina
 	install $(ALLTESTS) $(PREFIX)/share/fina/test
+	install -d $(PREFIX)/share/fina/benchmarks
 	install $(ALLBENCHMARKS) $(PREFIX)/share/fina/benchmarks
+	install -d $(PREFIX)/share/fina/help
 	install obj/toc.help $(ALLHELP) $(ANSHELP) $(PREFIX)/share/fina/help
+	install -d $(PREFIX)/share/doc/fina
 	install README AUTHORS LICENSE $(PREFIX)/share/doc/fina
+	install -d $(PREFIX)/share/fina/ffl
+	install ffl/ffl/*.fs $(PREFIX)/share/fina/ffl/
+	install ffl/engines/fina/config.fs $(PREFIX)/share/fina/ffl/
+	install ffl/test/*.fs $(PREFIX)/share/fina/test/
+	install ffl/test/*.xml $(PREFIX)/share/fina/test/
+	install ffl/test/*.mo $(PREFIX)/share/fina/test/
+	install ffl/test/*.gz $(PREFIX)/share/fina/test/
+	install -d $(PREFIX)/share/doc/fina/ffl/html
 	install ffl/html/*.html $(PREFIX)/share/doc/fina/ffl/html
 
 clean:

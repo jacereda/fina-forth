@@ -209,12 +209,12 @@ void Sys_PutChar(unsigned c)
         errnoThrow(ret != 0);
 }
 
-void Sys_MemMove(char * to, const char * from, unsigned bytes)
+void Sys_MemMove(char * to, const char * from, memsz bytes)
 {
         memmove(to, from, bytes);
 }
 
-void Sys_MemSet(char * dst, unsigned val, unsigned bytes)
+void Sys_MemSet(char * dst, unsigned val, memsz bytes)
 {
         memset(dst, val, bytes);
 }
@@ -242,20 +242,20 @@ void Sys_FileClose(void * handle)
         if (!throwval) errnoThrow(0 != fclose(fh));
 }
 
-unsigned Sys_FileRead(void * handle, char * buf, unsigned len)
+memsz Sys_FileRead(void * handle, char * buf, memsz len)
 {
         FILE * fh = (FILE*)handle;
-        unsigned res = 0;
+        size_t res = 0;
         errnoThrow(fh == 0);
         if (!throwval) res = fread(buf, 1, len, fh);
         if (!throwval) ferrorThrow(res != len, fh);
         return res;
 }
 
-void Sys_FileWrite(void * handle, char * buf, unsigned len)
+void Sys_FileWrite(void * handle, char * buf, memsz len)
 {
         FILE * fh = (FILE*)handle;  
-        unsigned res = 0;
+        size_t res = 0;
         errnoThrow(fh == 0);
         if (!throwval) res = fwrite(buf, 1, len, fh);
         if (!throwval) ferrorThrow(res != len, fh);
@@ -282,10 +282,11 @@ char ** Sys_Argv()
         return argv;
 }
 
-DCELL Sys_FileSize(void * handle)
+foffset Sys_FileSize(void * handle)
 {
         FILE * fh = (FILE*)handle;   
-        off_t prev = -1, res = -1;
+        off_t prev = -1;
+        off_t res = -1;
         errnoThrow(fh == 0);
         if (!throwval) errnoThrow(-1 == (prev = ftello(fh)));
         if (!throwval) errnoThrow(-1 == fseeko(fh, 0, SEEK_END));
@@ -294,14 +295,14 @@ DCELL Sys_FileSize(void * handle)
         return res;
 }
 
-void Sys_FileSeek(void * handle, DCELL pos)
+void Sys_FileSeek(void * handle, foffset pos)
 {
         FILE * fh = (FILE*)handle;     
         errnoThrow(fh == 0);
         if (!throwval) errnoThrow(-1 == fseeko(fh, pos, SEEK_SET));
 }
 
-DCELL Sys_FileTell(void * handle)
+foffset Sys_FileTell(void * handle)
 {
         FILE * fh = (FILE*)handle;       
         off_t res = -1;
@@ -380,7 +381,7 @@ void Sys_FileRen(const char * oldname, const char * newname)
         errnoThrow(rename(oldname, newname));
 }
 
-void Sys_FileTrunc(void * handle, DCELL size)
+void Sys_FileTrunc(void * handle, foffset size)
 {
         FILE * fh = (FILE*)handle;  
         errnoThrow(ftruncate(fileno((FILE*)fh), size));
@@ -393,20 +394,19 @@ void Sys_FileFlush(void * handle)
 }
 
 
-void * Sys_MemAllocate(unsigned bytes)
+void * Sys_MemAllocate(memsz bytes)
 {
         void * ret = malloc(bytes);
         memThrow(0 == ret);
         return ret;
 }
 
-unsigned Sys_MemFree(void * p)
+void Sys_MemFree(void * p)
 {
         free(p);
-        return 0;
 }
 
-void * Sys_MemResize(void * p, unsigned newsize)
+void * Sys_MemResize(void * p, memsz newsize)
 {
         void * ret = realloc(p, newsize);
         memThrow(0 == ret);

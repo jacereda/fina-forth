@@ -77,7 +77,7 @@ static void sighandler(int sig)
         default:
                 throw = -59;
         }
-	mysignal(sig, sighandler);
+        mysignal(sig, sighandler);
         longjmp(jmpbuf, throw);
 }
 
@@ -88,7 +88,7 @@ int Sys_Tick(struct FINA_State * state)
         if (!set)
                 throw = setjmp(jmpbuf);
         set = !throw;
-		return FINA_InternalTick(state, throw);
+        return FINA_InternalTick(state, throw);
 }
 
 static void initSignals()
@@ -119,7 +119,7 @@ void Sys_End()
 
 unsigned Sys_HasChar()
 {
-	return 1;
+        return 1;
 }
 
 unsigned Sys_GetChar() 
@@ -131,17 +131,17 @@ void Sys_PutChar(unsigned c)
 {
         unsigned ret;
         ret = putchar(c);
-	errnoThrow(ret != c);
+        errnoThrow(ret != c);
         ret = fflush(stdout);
-	errnoThrow(ret != 0);
+        errnoThrow(ret != 0);
 }
 
-void Sys_MemMove(char * to, const char * from, unsigned bytes)
+void Sys_MemMove(char * to, const char * from, memsz bytes)
 {
         memmove(to, from, bytes);
 }
 
-void Sys_MemSet(char * dst, unsigned val, unsigned bytes)
+void Sys_MemSet(char * dst, unsigned val, memsz bytes)
 {
         memset(dst, val, bytes);
 }
@@ -168,18 +168,18 @@ void Sys_FileClose(void * handle)
         if (!throw) errnoThrow(0 != fclose(handle));
 }
 
-unsigned Sys_FileRead(void * handle, char * buf, unsigned len)
+memsz Sys_FileRead(void * handle, char * buf, memsz len)
 {
-        unsigned res = 0;
+        size_t res = 0;
         errnoThrow(handle == 0);
         if (!throw) res = fread(buf, 1, len, handle);
         if (!throw) ferrorThrow(1, handle);
         return res;
 }
 
-void Sys_FileWrite(void * handle, char * buf, unsigned len)
+void Sys_FileWrite(void * handle, char * buf, memsz len)
 {
-        unsigned res = 0;
+        size_t res = 0;
         errnoThrow(handle == 0);
         if (!throw) res = fwrite(buf, 1, len, handle);
         if (!throw) ferrorThrow(res != len, handle);
@@ -187,7 +187,7 @@ void Sys_FileWrite(void * handle, char * buf, unsigned len)
 
 void * Sys_FileMMap(void * handle)
 {
-	return 0;
+        return 0;
 }
 
 unsigned Sys_Argc()
@@ -200,7 +200,7 @@ char ** Sys_Argv()
         return argv;
 }
 
-unsigned long long Sys_FileSize(void * handle)
+foffset Sys_FileSize(void * handle)
 {
         off_t prev = -1, res = -1;
         errnoThrow(handle == 0);
@@ -211,17 +211,17 @@ unsigned long long Sys_FileSize(void * handle)
         return res;
 }
 
-void Sys_FileSeek(void * handle, unsigned long long pos)
+void Sys_FileSeek(void * handle, foffset pos)
 {
         errnoThrow(handle == 0);
         if (!throw) errnoThrow(-1 == fseek(handle, pos, SEEK_SET));
 }
 
-unsigned long long Sys_FileTell(void * handle)
+foffset Sys_FileTell(void * handle)
 {
-        unsigned long long res = -1;
+        off_t res = -1;
         errnoThrow(handle == 0);
-        if (!throw) res = ftell(handle);
+        if (!throw) res = ftello(handle);
         if (!throw) errnoThrow(-1 == res);
         return res;
 }
@@ -294,7 +294,7 @@ void Sys_FileRen(const char * old, const char * new)
         errnoThrow(rename(old, new));
 }
 
-void Sys_FileTrunc(void * handle, unsigned long long size)
+void Sys_FileTrunc(void * handle, foffset size)
 {
         errnoThrow(ftruncate(fileno((FILE*)handle), size));
 }
@@ -304,21 +304,19 @@ void Sys_FileFlush(void * handle)
         errnoThrow(fflush(handle));
 }
 
-
-void * Sys_MemAllocate(unsigned bytes)
+void * Sys_MemAllocate(memsz bytes)
 {
         void * ret = malloc(bytes);
         memThrow(0 == ret);
         return ret;
 }
 
-unsigned Sys_MemFree(void * p)
+void Sys_MemFree(void * p)
 {
         free(p);
-	return 0;
 }
 
-void * Sys_MemResize(void * p, unsigned newsize)
+void * Sys_MemResize(void * p, memsz newsize)
 {
         void * ret = realloc(p, newsize);
         memThrow(0 == ret);

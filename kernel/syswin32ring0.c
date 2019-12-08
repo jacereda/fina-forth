@@ -41,12 +41,12 @@ void Sys_PutChar(unsigned c)
 	g_outbuf[g_outcurr++] = c;
 }
 
-void Sys_MemMove(char * to, const char * from, unsigned bytes)
+void Sys_MemMove(char * to, const char * from, memsz bytes)
 {
 	__builtin_memmove(to, from, bytes);
 }
 
-void Sys_MemSet(char * dst, unsigned val, unsigned bytes)
+void Sys_MemSet(char * dst, unsigned val, memsz bytes)
 {
 	__builtin_memset(dst, val, bytes);
 }
@@ -65,12 +65,12 @@ void Sys_FileClose(void * handle)
 {
 }
 
-unsigned Sys_FileRead(void * handle, char * buf, unsigned len)
+memsz Sys_FileRead(void * handle, char * buf, memsz len)
 {
 	return 0;
 }
 
-void Sys_FileWrite(void * handle, char * buf, unsigned len)
+void Sys_FileWrite(void * handle, char * buf, memsz len)
 {
 }
 
@@ -89,16 +89,16 @@ char ** Sys_Argv()
 	return 0;
 }
 
-unsigned long long Sys_FileSize(void * handle)
+foffset Sys_FileSize(void * handle)
 {
 	return 0;
 }
 
-void Sys_FileSeek(void * handle, unsigned long long pos)
+void Sys_FileSeek(void * handle, foffset pos)
 {
 }
 
-unsigned long long Sys_FileTell(void * handle)
+foffset Sys_FileTell(void * handle)
 {
 	return 0;
 }
@@ -160,7 +160,7 @@ void Sys_FileRen(const char * old, const char * new)
 {
 }
 
-void Sys_FileTrunc(void * handle, unsigned long long size)
+void Sys_FileTrunc(void * handle, foffset size)
 {
 }
 
@@ -168,17 +168,16 @@ void Sys_FileFlush(void * handle)
 {
 }
 
-void * Sys_MemAllocate(unsigned bytes)
+void * Sys_MemAllocate(memsz bytes)
 {
 	return 0;
 }
 
-unsigned Sys_MemFree(void * p)
+void Sys_MemFree(void * p)
 {
-	return 0;
 }
 
-void * Sys_MemResize(void * p, unsigned newsize)
+void * Sys_MemResize(void * p, memsz newsize)
 {
 	return 0;
 }
