@@ -1,8 +1,8 @@
 /* -----------------------------------------------------------------------
    ffi.c - Copyright (c) 2002, 2007  Bo Thorsen <bo@suse.de>
            Copyright (c) 2008  Red Hat, Inc.
-   
-   x86-64 Foreign Function Interface 
+
+   x86-64 Foreign Function Interface
 
    Permission is hereby granted, free of charge, to any person obtaining
    a copy of this software and associated documentation files (the
@@ -167,7 +167,7 @@ classify_argument (ffi_type *type, enum x86_64_reg_class classes[],
       {
 	const int UNITS_PER_WORD = 8;
 	int words = (type->size + UNITS_PER_WORD - 1) / UNITS_PER_WORD;
-	ffi_type **ptr; 
+	ffi_type **ptr;
 	int i;
 	enum x86_64_reg_class subclasses[MAX_CLASSES];
 
@@ -464,6 +464,7 @@ ffi_prep_closure_loc (ffi_closure* closure,
 }
 
 int
+__attribute__((externally_visible))
 ffi_closure_unix64_inner(ffi_closure *closure, void *rvalue,
 			 struct register_args *reg_args, char *argp)
 {
@@ -505,7 +506,7 @@ ffi_closure_unix64_inner(ffi_closure *closure, void *rvalue,
 
   avn = cif->nargs;
   arg_types = cif->arg_types;
-  
+
   for (i = 0; i < avn; ++i)
     {
       enum x86_64_reg_class classes[MAX_CLASSES];
