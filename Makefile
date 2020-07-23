@@ -36,6 +36,7 @@ FFIOS_OpenBSD=_FREEBSD
 FFIOS_DragonFly=_FREEBSD
 FFIOS_Linux=
 FFIOS=$(FFIOS_$(OS))
+FFIPLATDIR=$(shell echo $(FFIARCH) | tr '[:upper:]' '[:lower:]')
 FFIPLAT_Darwin_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/darwin64.S
 FFIPLAT_Linux_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 FFIPLAT_Linux_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/sysv.S
@@ -50,14 +51,15 @@ FFIPLAT_NetBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 FFIPLAT_NetBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_DragonFly_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 CFLAGS+=-Ofast -fomit-frame-pointer -fno-reorder-blocks -freorder-blocks-algorithm=simple -ffunction-sections -fdata-sections -flto -fvisibility=hidden
-CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
+CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR) -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
 LDFLAGS_Darwin=-Wl,-dead_strip
 LDFLAGS_Linux=-Wl,-gc-sections
 LDFLAGS_FreeBSD=-Wl,-gc-sections
 LDFLAGS_OpenBSD=-Wl,-gc-sections
 LDFLAGS_NetBSD=-Wl,-gc-sections
 LDFLAGS_DragonFly=-Wl,-gc-sections
-LDFLAGS+=-Wl,-no_pie $(LDFLAGS_$(OS))
+LDFLAGS=$(LDFLAGS_$(OS)) -ldl
+#LDFLAGS+=-Wl,-no_pie $(LDFLAGS_$(OS))
 
 IFILES=kernel/allocate.i kernel/files.i kernel/moreprims.i	\
 kernel/ffi.i kernel/fixed.i kernel/prims.i
