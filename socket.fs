@@ -5,7 +5,8 @@ libc 0gethostbyname ptr (ptr) gethostbyname
 libc fdopen int ptr (ptr) fdopen
 libc connect int ptr int (ptr) connect
 
-create saddr 0 c, 2 c, 
+create saddr
+2 0 base c@ [if] swap [then] c, c,
 here 0 c, 0 c,
 here 0 c, 0 c, 0 c, 0 c,
 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c,
@@ -34,12 +35,12 @@ constant port
 : >mode ( fam -- c-addr u)
    3 *  s" r  rb r+ r+b w  wb BAD" drop + 3 ;
 
-: >port ( c-addr u -- port) 
+: >port ( c-addr u -- port)
    10 based s>unumber ;
 
 : open-tcp ( c-addr u fam -- fileid ior )
-   >r [char] : split 2swap 1 /string >port (open-tcp) 
+   >r [char] : split 2swap 1 /string >port (open-tcp)
    swap r> >mode 0term fdopen swap ;
 
-export open-tcp 
+export open-tcp
 end-module
