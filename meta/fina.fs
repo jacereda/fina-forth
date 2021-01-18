@@ -1,4 +1,4 @@
-0 
+0
 value dict0 ( -- a-addr )
 \g Start of dictionary space
 
@@ -11,12 +11,12 @@ value dicttop  ( -- a-addr )
 user sighandler  ( -- a-addr )
 
 \g User variable holding the throw frame pointer for each task
-user throwframe  ( -- a-addr ) 
+user throwframe  ( -- a-addr )
 
-\ XXX could this be a normal var? 
+\ XXX could this be a normal var?
 \ probably, under the restriction that no task will check it between PAUSEs
 \g User variable holding decimal point location
-user dpl  ( -- a-addr ) 
+user dpl  ( -- a-addr )
 
 \g User variable holding a pointer to the stack origin
 user sp0  ( -- a-addr )
@@ -59,15 +59,15 @@ variable hasname?  ( -- a-addr )
 \g Contains true when the last definition has a name
 
 \ SYSTEM VALUES
-0 
+0
 value get-current  ( -- wid )
 \g @see anssearch
 
--1414673666 
+-1414673666
 value memtop  ( -- a-addr )
 \g Holds upper memory limit
 
-0 
+0
 value lastname  ( -- a-addr )
 \g Pointer to NFA of last word
 
@@ -75,31 +75,31 @@ value lastname  ( -- a-addr )
 value lastxt  ( -- a-addr )
 \g Pointer to XT of last word
 
--1414673666 
+-1414673666
 value here  ( -- c-addr )
 \g @see anscore
 
--1414673666 
+-1414673666
 value source-id  ( -- 0 | -1 )
 \g @see anscore
 
--1414673666 
+-1414673666
 value pad  ( -- a-addr )
 \g @see anscore
 
--1414673666 
+-1414673666
 value tib  ( -- c-addr )
 \g @see anscore
 
--1414673666 
+-1414673666
 value hld0  ( -- c-addr )
 \g Pointer to end of hold buffer
 
--1414673666 
+-1414673666
 value hld  ( -- a-addr )
 \g Pointer to numeric output string
 
-0 
+0
 value found  ( -- a-addr )
 \g Result of lastest NFA search
 \g @also nfa
@@ -109,13 +109,13 @@ value lastuser ( -- n )
 \g Offset of last user variable
 
 0 , 0 ,
-0 
+0
 value forth-wordlist  ( -- a-addr )
 \g @see anssearch
 
 
 \ CONSTANTS
-32 
+32
 constant bl  ( -- char )
 \g @see anscore
 
@@ -159,10 +159,10 @@ prim rx?  ( -- flag )
 prim rx@  ( -- u )
 
 \g Returns true if output device is ready
-prim tx?  ( -- flag ) 
+prim tx?  ( -- flag )
 
 \g Send char to output device
-prim tx!  ( u --) 
+prim tx!  ( u --)
 
 \ stack
 
@@ -242,16 +242,16 @@ prim time&date ( -- +n1 +n2 +n3 +n4 +n5 +n6 )
 
 
 \ Runtime for CREATE
-prim docreate  ( -- a-addr ) 
+prim docreate  ( -- a-addr )
 compile-only
 
 
 \g Runtime for LITERAL
-prim dolit  ( -- x ) 
+prim dolit  ( -- x )
 compile-only
 
 \g Runtime for USER
-prim douser  ( -- x ) 
+prim douser  ( -- x )
 compile-only
 
 \g Runtime for VARIABLE
@@ -259,7 +259,7 @@ prim dovar  ( -- a-addr )
 compile-only
 
 \g Runtime for CONSTANT
-prim doconst  ( -- x ) 
+prim doconst  ( -- x )
 compile-only
 
 \g Runtime for VALUE
@@ -268,11 +268,11 @@ compile-only
 
 
 \g Runtime for processing colon lists
-prim dolist  ( -- ) 
+prim dolist  ( -- )
 compile-only
 
 \g Runtime for LOOP
-prim doloop  ( r: n1 n2 -- n1 n3 ) 
+prim doloop  ( r: n1 n2 -- n1 n3 )
 compile-only
 
 \g Runtime for +LOOP
@@ -280,11 +280,11 @@ prim do+loop  ( r: n1 n2 -- n1 n3 )
 compile-only
 
 \g Runtime for NEXT
-prim donext  ( r: n1 -- n2 ) 
+prim donext  ( r: n1 -- n2 )
 compile-only
 
 \g Branch to inline address if flag is zero
-prim 0branch  ( flag -- ) 
+prim 0branch  ( flag -- )
 compile-only
 
 \g Branch unconditionally to inline address
@@ -300,15 +300,15 @@ prim i  ( -- x )
 compile-only
 
 \g @see anscore
-prim >r  ( x --  r: -- x ) 
+prim >r  ( x --  r: -- x )
 compile-only
 
 \g @see anscore
-prim r>  ( -- x  r: x -- ) 
+prim r>  ( -- x  r: x -- )
 compile-only
 
 \g @see anscore
-prim r@  ( -- x  r: x -- x ) 
+prim r@  ( -- x  r: x -- x )
 compile-only
 
 \ Memory allocation
@@ -327,7 +327,7 @@ mprim resize  ( a-addr1 u -- a-addr2 )
 fprim openf  ( c-addr u1 u2 -- handle ior )
 
 \g Close file
-fprim closef  ( handle -- ior ) 
+fprim closef  ( handle -- ior )
 
 \g Read from file
 fprim readf  ( c-addr u1 handle -- u2 ior )
@@ -336,19 +336,19 @@ fprim readf  ( c-addr u1 handle -- u2 ior )
 fprim writef  ( c-addr u1 handle -- u2 ior )
 
 \g Map file in memory
-fprim mmapf  ( handle -- a-addr ) 
+fprim mmapf  ( handle -- a-addr )
 
 \g Size of file
-fprim sizef  ( handle -- ud ) 
+fprim sizef  ( handle -- ud )
 
 \g Seek to file position
 fprim seekf  ( ud handle -- ior )
 
 \g Tell file position
-fprim tellf  ( handle -- ud ior ) 
+fprim tellf  ( handle -- ud ior )
 
 \g Read line from file
-fprim linef  ( c-addr u1 handle -- u2 u3 ior ) 
+fprim linef  ( c-addr u1 handle -- u2 u3 ior )
 
 \g Delete file
 fprim deletef ( c-addr u -- ior )
@@ -378,7 +378,7 @@ fxprim fx>double
 fxprim double>fx
 
 \g Prepare foreign function call
-ffprim ffprep 
+ffprim ffprep
 
 \g Call to foreign function
 ffprim ffcall
@@ -428,93 +428,94 @@ defer refill ( -- flag )
 
 \ COLON DEFINITIONS
 
-: cellshift 2 1 cells 2/ 2/ 2/ + ;
+: cellshift throwframe sighandler - 2/ 2/ 2/ 2 + ;
+\ 1 cells 2/ 2/ 2/ 2 + ;
 
 : cellbits 8 cells ;
 
 \g Throw code if flag is true
-: ?throw  
+: ?throw
    and throw ;
 \ swap 0<> and throw ;
 
 \ I/O
 
 \g Execute content of a
-: @execute  ( a-addr -- i*x ) 
+: @execute  ( a-addr -- i*x )
    @ execute ;
 
 \g @see ansfacility
-defer ekey?  ( -- flag ) 
+defer ekey?  ( -- flag )
 
 \g @see ansfacility
 defer ekey  ( -- u )
 
 \g @see ansfacility
-defer emit?  ( -- flag ) 
+defer emit?  ( -- flag )
 
 \g @see anscore
 defer emit  ( char -- )
 
 \g Display prompt
-defer .prompt  ( -- ) 
+defer .prompt  ( -- )
 
 \g @see anscore
-: cr  ( -- ) 
-   10 emit ;  
+: cr  ( -- )
+   10 emit ;
 
 \g @see anscore
 : space  ( -- )
-   32 emit ;   
+   32 emit ;
 
 \g @see anscore
-: spaces  ( n -- ) 
-   0 max 0 ?do space loop ;  
+: spaces  ( n -- )
+   0 max 0 ?do space loop ;
 
 \ Stack
 
 \g @see anscore
 p: ?dup  ( x -- x x | 0 )
-   dup if dup then ;  
+   dup if dup then ;
 
 \g @see anscore
 p: nip  ( x1 x2 -- x2 )
-   swap drop ;  
+   swap drop ;
 
 \g @see anscore
 p: rot  ( x1 x2 x3 -- x2 x3 x1 )
-   >r swap r> swap ;  
+   >r swap r> swap ;
 
 \g @see anscore
 p: 2drop  ( x1 x2 -- )
-   drop drop ;  
+   drop drop ;
 
 \g @see anscore
 p: 2dup  ( x1 x2 -- x1 x2 x1 x2 )
-   over over ;  
+   over over ;
 
 \g @see anscore
 p: 2swap  ( x1 x2 x3 x4 -- x3 x4 x1 x2 )
-   rot >r rot r> ;  
+   rot >r rot r> ;
 
 \g @see anscore
 p: 2over  ( x1 x2 x3 x4 -- x1 x2 x3 x4 x1 x2 )
-   >r >r 2dup r> r> 2swap ;  
+   >r >r 2dup r> r> 2swap ;
 
 \g @see anscore
 p: unloop  ( --  r: x1 x2 -- )
-   r> r> r> 2drop >r ; compile-only  
+   r> r> r> 2drop >r ; compile-only
 
 \g Drop top of return stack
 p: rdrop  ( --  r: x -- )
-   r> r> drop >r ; compile-only  
+   r> r> drop >r ; compile-only
 
 \g Fetch from postincremented RTOS
 : @r+  ( -- x  r: a-addr1 -- a-addr2 )
-   r> r@ @ r> cell+ >r swap >r ; compile-only  
+   r> r@ @ r> cell+ >r swap >r ; compile-only
 
 \g Store to postincremented RTOS
 : !r+  ( x --  r: a-addr1 -- a-addr2 )
-   r> swap r@ ! r> cell+ >r >r ; compile-only  
+   r> swap r@ ! r> cell+ >r >r ; compile-only
 
 \ More stack
 
@@ -545,8 +546,8 @@ p: pick ( xu ... x1 x0 u -- xu ... x1 x0 xu )
 
 : rpick ( x_u ... x1 x0 u -- x_u ... x1 x0 x_u )
    rdepth dup 2 < -4 ?throw
-   2 - over u< -4 ?throw 
-   1+ cells rp@ + @ ;  
+   2 - over u< -4 ?throw
+   1+ cells rp@ + @ ;
 
 \g Print number as <number>, used in .s and .backtrace
 : .depth ( u -- )
@@ -554,12 +555,12 @@ p: pick ( xu ... x1 x0 u -- xu ... x1 x0 xu )
 
 \g @see anstools
 : .s
-   depth .depth  
+   depth .depth
    depth dup 0 ?do dup pick . 1- loop drop cr ;
 
 : .rs
    rdepth .depth
-   rdepth 0 ?do i rpick . loop cr ;  
+   rdepth 0 ?do i rpick . loop cr ;
 
 \ Exception handling
 
@@ -570,47 +571,47 @@ p: pick ( xu ... x1 x0 u -- xu ... x1 x0 xu )
       r> throwframe !
       r> swap >r sp!
       drop r>
-   then ;  
+   then ;
 
 \g @see ansexception
 : catch  ( i*x xt -- j*x 0 | i*x n )
    sp@ >r throwframe @ >r
    rp@ throwframe !  execute
    r> throwframe !
-   rdrop 0 ;  
+   rdrop 0 ;
 
 \ Arithmetic
 
 \g @see anscore
 p: +  ( n1|u1 n2|u2 -- n3|u3 )
-   um+ drop ;  
+   um+ drop ;
 
 \g @see anscore
 p: 1+  ( n1|u1 -- n2|u2 )
-   1 + ;  
+   1 + ;
 
 \g @see anscore
 p: 1-  ( n1|u1 -- n2|u2 )
-   -1 + ;  
+   -1 + ;
 
 \g @see anscore
 p: invert  ( x1 -- x2 )
-   -1 xor ;  
+   -1 xor ;
 
 \g @see anscore
 p: negate  ( n1 -- n2 )
-   invert 1+ ;  
+   invert 1+ ;
 
 \g @see anscore
 p: -  ( n1|u1 n2|u2 -- n3|u3 )
-  negate + ;  
+  negate + ;
 
 
 \ Looping
 
 \g @see anscore
 p: j  ( -- n|u  r: n|u x1 x2 -- n|u x1 x2)
-   rp@ 3 cells + @ ; compile-only 
+   rp@ 3 cells + @ ; compile-only
 
 \ Comparisons
 \g @see anscore
@@ -619,15 +620,15 @@ p: 0<>  ( x -- flag )
 
 \g @see anscore
 p: <  ( n1 n2 -- flag )
-   2dup xor 0< if  drop 0< exit  then - 0< ;  
+   2dup xor 0< if  drop 0< exit  then - 0< ;
 
 \g @see anscore
 p: u<  ( u1 u2 -- flag )
-   2dup xor 0< if  nip 0< exit  then - 0< ;  
+   2dup xor 0< if  nip 0< exit  then - 0< ;
 
 \g @see anscore
 p: >  ( n1 n2 -- f )
-   swap < ;  
+   swap < ;
 
 \g @see anscore
 : u>  ( u1 u2 -- flag )
@@ -635,47 +636,47 @@ p: >  ( n1 n2 -- f )
 
 \g Returns true if u1 >= u2
 : u>=  ( u1 u2 -- flag )
-   u< 0= ;  
+   u< 0= ;
 
 \g @see anscore
 p: =  ( x1 x2 -- flag )
-   xor 0= ; 
+   xor 0= ;
 
 \g @see anscore
 p: <>  ( x1 x2 -- f )
-   = 0= ; 
+   = 0= ;
 
 \g @see anscore
 p: cell+  ( a-addr1 -- a-addr2 )
    1 cells + ;
 
 \g Runtime for DO
-p: dodo  ( x1 x2 --  r: x1 x2 ) 
-   r> rot >r swap >r >r ; compile-only 
+p: dodo  ( x1 x2 --  r: x1 x2 )
+   r> rot >r swap >r >r ; compile-only
 
 \g Runtime for FOR
 : dofor ( n1 --  r: -- n1 n1 )
-   r> swap dup >r >r >r ; compile-only  
+   r> swap dup >r >r >r ; compile-only
 
 \g Runtime for ?DO
 : do?do ( n1 n2 --  r: -- n2 n1 )
    2dup = if 2drop r> dup @ cells + cell+ >r exit then
-   r> rot >r swap >r cell+ >r ; compile-only 
+   r> rot >r swap >r cell+ >r ; compile-only
 
 
 \ Arithmetic
 
 \g @see anscore
 p: abs  ( n -- u )
-   dup 0< if  negate  then ;  
+   dup 0< if  negate  then ;
 
 \g @see anscore
 p: lshift  ( x1 u -- x2 )
-   0 ?do 2* loop ;  
+   0 ?do 2* loop ;
 
 \g Shift n1 u bits right arithmetically
 : arshift  ( n1 u -- n2 )
-   0 ?do 2/ loop ;  
+   0 ?do 2/ loop ;
 
 \g @see anscore
 p: rshift  ( x1 u -- x2 )
@@ -683,11 +684,11 @@ p: rshift  ( x1 u -- x2 )
 
 \g @see anscore
 p: max  ( n1 n2 -- n3 )
-   2dup < if swap then drop ;  
+   2dup < if swap then drop ;
 
 \g @see anscore
 p: min  ( n1 n2 -- n3 )
-   2dup > if swap then drop ;  
+   2dup > if swap then drop ;
 
 \g Minimum of two unsigned values
 : umin ( u1 u2 -- u3 )
@@ -696,51 +697,51 @@ p: min  ( n1 n2 -- n3 )
 \g @see anscore
 p: um*  ( u1 u2 -- ud )
    0 swap cellbits 1- for
-      dup um+ >r >r dup um+ r> + 
+      dup um+ >r >r dup um+ r> +
       r> if >r over um+ r> + then
-   next rot drop ;  
+   next rot drop ;
 
 \g @see ansdouble
 p: dnegate  ( d1 -- d2 )
-   invert >r invert 1 um+ r> + ;  
+   invert >r invert 1 um+ r> + ;
 
 \g @see anscore
 p: m*  ( n1 n2 -- d )
-   2dup xor 0< >r abs swap abs um* r> if dnegate then ;  
+   2dup xor 0< >r abs swap abs um* r> if dnegate then ;
 
 \g @see anscore
 p: *  ( n1|u1 n2|u2 -- n3|u3 )
-   um* drop ;  
+   um* drop ;
 
 \g @see anscore
 p: um/mod  ( ud1 u1 -- u2 u3 )
    negate cellbits 1- for
       >r dup um+ >r >r dup um+ r> + dup
-      r> r@ swap >r um+ r> or 
-      if >r drop 1+ r> else drop then r> 
-   next drop swap ;  
+      r> r@ swap >r um+ r> or
+      if >r drop 1+ r> else drop then r>
+   next drop swap ;
 
 \g @see anscore
 p: s>d  ( n1 -- d1 )
-   dup 0< ;  
+   dup 0< ;
 
 \g @see anscore
 p: within  ( n1|u1 n2|u2 n3|u3 -- flag )
-   over - >r - r> u< ;  
+   over - >r - r> u< ;
 
 \g @see ansdouble
 p: d+  ( d1 d2 -- d3 )
-   >r swap >r um+ r> r> + + ;  
+   >r swap >r um+ r> r> + + ;
 
 \g From Comus. Add n2|u2 to n1|u1, giving the sum n3|u3
-: under+  ( n1|u1 x n2|u2 -- n3|u3 x ) 
+: under+  ( n1|u1 x n2|u2 -- n3|u3 x )
    rot + swap ;
 
 \ Memory
 
 \g @see anscore
 p: char+  ( c-addr1 -- c-addr2 )
-   1+ ;  
+   1+ ;
 
 \g Is address within dictionary space?
 : dict?  ( c-addr -- flag )
@@ -748,23 +749,23 @@ p: char+  ( c-addr1 -- c-addr2 )
 
 \g Check for dictionary overflow
 : ?dict  ( -- )
-   here dict? 0= -8 ?throw ; 
+   here dict? 0= -8 ?throw ;
 
 \g @see anscore
 p: cells  ( n1 -- n2 )
-   cellshift lshift ;  
+   cellshift lshift ;
 
 \g Decrement by the size of a cell
-p: cell-  ( a-addr1 -- a-addr2 ) 
+p: cell-  ( a-addr1 -- a-addr2 )
    -1 cells + ;
 
 \g @see anscore
 p: 2!  ( x1 x2 a-addr -- )
-   swap over ! cell+ ! ;  
+   swap over ! cell+ ! ;
 
 \g @see anscore
 p: 2@  ( a-addr -- x1 x2 )
-   dup cell+ @ swap @ ;  
+   dup cell+ @ swap @ ;
 
 \g @see anscore
 p: aligned  ( addr -- a-addr )
@@ -772,23 +773,23 @@ p: aligned  ( addr -- a-addr )
 
 \g @see anscore
 : align  ( -- )
-   here aligned to here ?dict ;  
+   here aligned to here ?dict ;
 
-\g Rotate backwards top three items 
+\g Rotate backwards top three items
 : -rot  ( x1 x2 x3 -- x3 x2 x1 )
    rot rot ;
 
 \g @see anscore
 p: fill  ( c-addr u char -- )
-   -rot 0 ?do 2dup c! char+ loop 2drop ;  
+   -rot 0 ?do 2dup c! char+ loop 2drop ;
 
 \g @see anscore
 p: count  ( c-addr1 -- c-addr2 u )
-   dup char+ swap c@ ;  
+   dup char+ swap c@ ;
 
 \g Convert word name to counted string
-: namecount  ( c-addr1 -- c-addr2 u ) 
-   count 31 and ;  
+: namecount  ( c-addr1 -- c-addr2 u )
+   count 31 and ;
 
 \g Place string at c-addr2
 : place  ( c-addr1 u c-addr2 -- )
@@ -801,45 +802,45 @@ p: +!  ( x a-addr -- )
 
 \g @see anscore
 : allot  ( n -- )
-   here + to here ?dict ;  
+   here + to here ?dict ;
 
 \g @see anscore
 : ,  ( x -- )
-   here !  1 cells allot ;  
+   here !  1 cells allot ;
 
 \g Store 0 at address
-: off  ( a-addr -- ) 
-   0 swap ! ;  
+: off  ( a-addr -- )
+   0 swap ! ;
 
 \g Store -1 at address
-: on  ( a-addr -- ) 
-   -1 swap ! ;  
+: on  ( a-addr -- )
+   -1 swap ! ;
 
 \ Parsing
 
 \g @see anscore
 : source  ( -- c-addr u )
-   sourcevar 2@ ;  
+   sourcevar 2@ ;
 
 \g @see ansstring
 : /string  ( c-addr1 u1 n -- c-addr2 u2 )
    >r r@ under+ r> - ;
 
 \g Returns unparsed input
-: unparsed  ( -- c-addr u ) 
-   source >in @ /string ;  
+: unparsed  ( -- c-addr u )
+   source >in @ /string ;
 
 \g Set start of unparsed input
 : unparsed! ( c-addr -- )
    source -rot - umin >in ! ;
 
 \g Scan string looking for char
-: scan  ( c-addr1 u1 char -- c-addr2 u2 ) 
+: scan  ( c-addr1 u1 char -- c-addr2 u2 )
    >r  begin  dup while over c@ r@ xor while 1 /string repeat then  rdrop ;
 
 \g Skip leading characters
 : skip  ( c-addr1 u1 char -- c-addr2 u2 )
-   >r  begin  dup while over c@ r@ = while 1 /string repeat then  rdrop ;  
+   >r  begin  dup while over c@ r@ = while 1 /string repeat then  rdrop ;
 
 \g @see anscore
 : parse  ( char "xxxc" -- c-addr u )
@@ -850,82 +851,82 @@ p: +!  ( x a-addr -- )
    >r unparsed r@ skip drop unparsed! r> parse ;
 
 \g Skip leading spaces and parse word
-: parse-word  ( "  xxx " -- c-addr u ) 
+: parse-word  ( "  xxx " -- c-addr u )
    bl skipparse ;
 
 \ Dictionary
 
 \g Buffer holding the search order stack, first cell holds the depth
 create #order ( -- a-addr )
-0 , 
-0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,  
+0 ,
+0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 ,
 
 \g  Go from name to execution token
 : name>xt  ( a-addr -- xt )
-   namecount + aligned 
-   dup @ -559038737 = if cell+ @ then ;  
+   namecount + aligned
+   dup @ -559038737 = if cell+ @ then ;
 
 \g Convert address/count to loop limits
 : bounds  ( c-addr1 u -- c-addr2 c-addr3 )
-   over + swap ;  
+   over + swap ;
 
 : link? dup 0= swap dict? or ;
 
 : name? ( xt addr -- flag)
-   >r r@ name>xt = r@ cell- @ link? and 
+   >r r@ name>xt = r@ cell- @ link? and
    r> namecount 0 scan nip 0= and ;
 
 \g Get name for colon definition
 : colname ( xt -- c-addr)
    dup ?dodefine nip unless drop 0 exit then
-   dup -32 bounds do 
-      dup i name? if  drop i unloop exit  then 
-   -1 cells +loop 
+   dup -32 bounds do
+      dup i name? if  drop i unloop exit  then
+   -1 cells +loop
    drop 0 ;
 
-\g Get name for primitive definition   
+\g Get name for primitive definition
 : primname ( xt -- c-addr)
    >r xtof cold colname  begin cell- @ dup name>xt r@ = until rdrop ;
 
 \g Apply xt to each word in wordlist
 : forwordsin ( wid xt -- )
    0 to found
-   >r cell+ begin 
-      cell- @ dup found 0= and 
-   while 
-      r@ execute 
-   repeat drop rdrop ;  
+   >r cell+ begin
+      cell- @ dup found 0= and
+   while
+      r@ execute
+   repeat drop rdrop ;
 
 \g Apply xt to each word in search order
 : forwords ( xt -- )
    >r #order cell+ #order @ cells bounds ?do
       i @ j forwordsin found if leave then
-   1 cells +loop rdrop ;  
+   1 cells +loop rdrop ;
 
 : match? ( c-addr -- c-addr )
-   dup namecount parsed @ = if 
+   dup namecount parsed @ = if
       parsed 2@ isame? unless dup to found then
-   else drop then ;  
+   else drop then ;
 
 \g Find word in wordlist, sets PARSED, result also stored in FOUND
 \g @also found
 \g @also parsed
-: nfain  ( a u wid -- nfa ) 
+: nfain  ( a u wid -- nfa )
    >r parsed 2! r> xtof match? forwordsin found ;
 
 \g Find word, sets PARSED, result also stored in FOUND
 \g @also found
 \g @also parsed
-: nfa  ( a u -- nfa ) 
-   parsed 2! xtof match? forwords found ;  
+: nfa  ( a u -- nfa )
+   parsed 2! xtof match? forwords found ;
 
 \g Immediacy flag of word, 1 if word is immediate, -1 otherwise
 : fimmed  ( nfa -- -1|1 )
-   c@ [ immed ] literal and 0= 2* 1+ ;  
+   c@ [ immed ] literal and 0= 2* 1+ ;
 
 \g Negated compile-only flag of word
 : /fcompo  ( nfa -- flag )
-   c@ [ compo ] literal and 0= ;  
+   c@ [ compo ] literal and 0= ;
 
 : 'nfa ( "  xxx" -- nfa )
    parse-word nfa dup 0= -13 ?throw ;
@@ -936,29 +937,29 @@ create #order ( -- a-addr )
 
 \g @see anscore
 : type  ( a u -- )
-   bounds ?do i c@ emit loop ; 
+   bounds ?do i c@ emit loop ;
 
 bcreate redefstr ," redefined "
 \g Compile a header
-: (head,)  ( c-addr u -- ) 
+: (head,)  ( c-addr u -- )
    ?dict
    dup 0= -16 ?throw
-   dup 31 > -19 ?throw 
+   dup 31 > -19 ?throw
    2dup get-current nfain
    if  warnings @ if redefstr count type 2dup type space then  then
    align  get-current @ ,
    here to lastname
-   s, align ;  
+   s, align ;
 
 \g Parse input and compile header
-: head,  ( " xxx" -- ) 
+: head,  ( " xxx" -- )
    parse-word (head,) ;
 
 \ Numeric output
 
 \g @see anscore
 : hold   ( char -- )
-    hld 1- to hld   hld c! ;  
+    hld 1- to hld   hld c! ;
 
 \g @see anscore
 : <#   ( -- )
@@ -966,29 +967,29 @@ bcreate redefstr ," redefined "
 
 \g @see anscore
 : #  ( ud1 -- ud2 )
-   0 base @ um/mod >r base @ um/mod swap 
-   9 over < [ char A char 9 1 + - ] literal and + 
-   [ char 0 ] literal + hold r> ;  
+   0 base @ um/mod >r base @ um/mod swap
+   9 over < [ char A char 9 1 + - ] literal and +
+   [ char 0 ] literal + hold r> ;
 
 \g @see anscore
 : #s  ( ud -- 0 0 )
-   begin # 2dup or 0= until ;  
+   begin # 2dup or 0= until ;
 
 \g @see anscore
 : #>  ( xd -- a-addr u )
-   2drop hld hld0 over - 1chars/ ;  
+   2drop hld hld0 over - 1chars/ ;
 
 \g @see anscore
 : sign  ( n -- )
-   0< if [char] - hold then ;  
+   0< if [char] - hold then ;
 
 \g Convert double number to string
-: (d.)  ( d -- c-addr u ) 
-   swap over  dup 0< if  dnegate  then   <# #s rot sign #> ;  
+: (d.)  ( d -- c-addr u )
+   swap over  dup 0< if  dnegate  then   <# #s rot sign #> ;
 
 \g @ansdouble
-: d.  ( d -- ) 
-   (d.) type space ;  
+: d.  ( d -- )
+   (d.) type space ;
 
 \g @see anscore
 : .  ( n -- )
@@ -998,68 +999,68 @@ bcreate redefstr ," redefined "
 
 \g @see anscore
 : [  ( -- )
-   state off ; immediate compile-only 
+   state off ; immediate compile-only
 
 \g @see anscore
 : ]  ( -- )
-   state on ; 
+   state on ;
 
 
 \g Handle printable character for ACCEPT. Upon return the top of the stack
 \g will be 0 if there isn't enough room to hold char. Otherwise it will be
 \g the original char.
 : printable ( start count char -- start count char|0 )
-   over span @ u>= and dup >r if 
-     over span @ + r@ swap c!  1 span +! 
+   over span @ u>= and dup >r if
+     over span @ + r@ swap c!  1 span +!
    then r> ;
 
 \g @see anscore
 : accept ( c-addr +n1 -- +n2 )
    2dup bl fill  span off
-   begin ekey keyhandler 10 = until 2drop 
+   begin ekey keyhandler 10 = until 2drop
    -1 span +! span @ ;
 
 \g in-kernel refill implementation
 : (refill)  ( -- flag )
-   tib dup [ /tib ] literal accept sourcevar 2! >in off -1 ;  
+   tib dup [ /tib ] literal accept sourcevar 2! >in off -1 ;
 
 \g @see anscore
 defer compile,  ( xt -- )
 
 \g Compile inline xt into current colon def
-: (compile)  ( -- ) 
-   @r+ compile, ;  
+: (compile)  ( -- )
+   @r+ compile, ;
 
 \g Extract inline xt
-: xtof  ( -- xt ) 
-   @r+ ; compile-only 
+: xtof  ( -- xt )
+   @r+ ; compile-only
 
 \g Returns true for lower case characters
 : lower?  ( char -- flag)
    [char] a [ char z 1+ ] literal within ;
 
 \g Convert character to upper case
-: toupper  ( char1 -- char2) 
+: toupper  ( char1 -- char2)
    dup lower? -32 and + ;
 
 \g Convert character to digit
-: digit  ( char -- u ) 
+: digit  ( char -- u )
    toupper
-   dup [ char 9 1+ ] literal [char] A within 128 and + 
-   dup [char] A u>= [ char A char 9 - 1- ] literal and - 
-   [char] 0 - ;  
+   dup [ char 9 1+ ] literal [char] A within 128 and +
+   dup [char] A u>= [ char A char 9 - 1- ] literal and -
+   [char] 0 - ;
 
 \g Is character a valid digit for current base?
-: digit?  ( char -- flag ) 
-   digit base @ u< ;  
+: digit?  ( char -- flag )
+   digit base @ u< ;
 
 \g Accumulate u1 into ud1
-: accum  ( ud1 u1 -- ud2 ) 
-   swap base @ um* drop rot base @ um* d+ ;  
+: accum  ( ud1 u1 -- ud2 )
+   swap base @ um* drop rot base @ um* d+ ;
 
 \g @see anscore
 : >number  ( ud1 c-addr1 u1 -- ud2 c-addr2 u2 )
-   base @ >r      
+   base @ >r
    begin
       over c@ [char] # = if
          2swap drop base ! 0 0 2swap 1 /string
@@ -1068,20 +1069,20 @@ defer compile,  ( xt -- )
    while
       >r >r r@ c@ digit accum r> r> 1 /string
    repeat
-   r> base ! ;  
+   r> base ! ;
 
 \g Convert string to unsigned double number
 : s>udnumber ( c-addr u -- ud )
    -1 dpl !
-   0 0 2swap begin 
-      >number dup 
-   while 
-      over c@ [char] . <> -13 ?throw dup 1- dpl ! 1 /string 
+   0 0 2swap begin
+      >number dup
+   while
+      over c@ [char] . <> -13 ?throw dup 1- dpl ! 1 /string
    repeat 2drop ;
 
 \g Convert string to double number
 : s>dnumber ( c-addr u -- d )
-   over c@ [char] - = >r  
+   over c@ [char] - = >r
    r@ negate /string
    s>udnumber r> if dnegate then ;
 
@@ -1095,7 +1096,7 @@ defer compile,  ( xt -- )
 
 \g @see anscore
 : literal ( ct: x -- rt: -- x )
-   postpone dolit , ; immediate compile-only  
+   postpone dolit , ; immediate compile-only
 
 \g Runtime for 2LITERAL
 : do2lit ( ct: xd --  rt: -- xd )
@@ -1107,11 +1108,11 @@ defer compile,  ( xt -- )
 
 \ process last found word
 : doword ( nfa -- )
-   dup /fcompo state @ or 0= -14 ?throw 
+   dup /fcompo state @ or 0= -14 ?throw
    dup name>xt swap fimmed 0< state @ and if compile, else execute then ;
 
 : donumber ( -- )
-   parsed 2@ s>number state @ if 
+   parsed 2@ s>number state @ if
       dpl @ 0< if postpone literal else postpone 2literal then
    then ;
 
@@ -1134,7 +1135,7 @@ bcreate exstr ,"  exception # "
 : quit  ( --  r: i*x -- )
    begin
       rp0 @ rp!  0 to source-id  postpone [  begin
-         refill drop 
+         refill drop
          xtof interpret catch .error! ?dup 0=
       while
          state @ unless .prompt then
@@ -1146,11 +1147,11 @@ bcreate exstr ,"  exception # "
 : :noname ( -- xt colon-sys )
    hasname? off  ]
    here to lastxt
-   xtof dolist xt, dup -1 ;  
+   xtof dolist xt, dup -1 ;
 
 \g @see anscore
 : : ( "<spaces>name" -- colon-sys )
-   head, :noname rot drop   hasname? on ;  
+   head, :noname rot drop   hasname? on ;
 
 variable dummy1
 
@@ -1165,18 +1166,18 @@ variable dummy1
 : ; ( colon-sys -- )
    nip 1+ -22 ?throw
    reveal
-   postpone exit  postpone [ ; immediate compile-only 
+   postpone exit  postpone [ ; immediate compile-only
 
 \ Definers
 
 \g Runtime for TO, store x at inline address
-p: doto  ( x -- ) 
-   @r+ [ /tcall ] literal + ! ; compile-only 
+p: doto  ( x -- )
+   @r+ [ /tcall ] literal + ! ; compile-only
 
 \g @see anscore
 : postpone ( "<spaces>name" -- )
    'nfa dup name>xt swap fimmed 0< if postpone (compile) , exit then
-   compile, ; immediate compile-only  
+   compile, ; immediate compile-only
 
 \ Strings
 
@@ -1191,15 +1192,15 @@ p: doto  ( x -- )
 \g Startup word
 : cold ( -- )
    xtof dummy2 colname  to here
-   xtof dict0  
+   xtof dict0
    begin cell- dup @ -17974594 = until  to dict0
-   here [ /tdict ] literal + 
+   here [ /tdict ] literal +
    begin cell+ dup @ -892679478 = until  to memtop
    memtop cell-
    \ userp must be initialized before rp0 and sp0
-   dup userp ! [ /user ]  literal cells - 
-   dup rp0 !   [ /rs ]    literal cells - 
-   dup sp0 !   [ /ds ]    literal cells - 
+   dup userp ! [ /user ]  literal cells -
+   dup rp0 !   [ /rs ]    literal cells -
+   dup sp0 !   [ /ds ]    literal cells -
    [ /pad ]   literal - dup to pad
    [ /tib ]   literal - dup to tib
    dup to hld0 [ /hld ]   literal -
@@ -1217,7 +1218,7 @@ p: doto  ( x -- )
    xtof , (is) compile,
    xtof noop (is) .prompt
    xtof (refill) (is) refill
-   xtof forth-wordlist colname 3 cells - to forth-wordlist 
+   xtof forth-wordlist colname 3 cells - to forth-wordlist
    xtof cold colname forth-wordlist !
    forth-wordlist to get-current
    get-current 1 #order 2!
