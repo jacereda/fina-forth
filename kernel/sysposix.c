@@ -59,7 +59,7 @@ static void errnoThrow(int error)
 static void memThrow(int error)
 {
 // malloc() doesn't seem to set errno on Darwin. The man page says it should.
-#if defined(__MACH__)  
+#if defined(__MACH__)
         if (error) errno = ENOMEM;
 #endif
         errnoThrow(error);
@@ -190,12 +190,12 @@ unsigned Sys_HasChar()
         assert(rflags != -1);
         ret = getchar();
         ungetc(ret, stdin);
-        rflags = fcntl(fileno(stdin),F_SETFL,flags);        
+        rflags = fcntl(fileno(stdin),F_SETFL,flags);
         assert(rflags != -1);
         return ret != EOF;
 }
 
-unsigned Sys_GetChar() 
+unsigned Sys_GetChar()
 {
         return getchar();
 }
@@ -248,13 +248,13 @@ memsz Sys_FileRead(void * handle, char * buf, memsz len)
         size_t res = 0;
         errnoThrow(fh == 0);
         if (!throwval) res = fread(buf, 1, len, fh);
-        if (!throwval) ferrorThrow(res != len, fh);
+	//        if (!throwval) ferrorThrow(res != len, fh);
         return res;
 }
 
 void Sys_FileWrite(void * handle, char * buf, memsz len)
 {
-        FILE * fh = (FILE*)handle;  
+        FILE * fh = (FILE*)handle;
         size_t res = 0;
         errnoThrow(fh == 0);
         if (!throwval) res = fwrite(buf, 1, len, fh);
@@ -263,10 +263,10 @@ void Sys_FileWrite(void * handle, char * buf, memsz len)
 
 void * Sys_FileMMap(void * handle)
 {
-        FILE * fh = (FILE*)handle; 
+        FILE * fh = (FILE*)handle;
         void * res = 0;
         errnoThrow(fh == 0);
-        if (!throwval) res = mmap(0, 0x40000000, PROT_READ, MAP_SHARED, 
+        if (!throwval) res = mmap(0, 0x40000000, PROT_READ, MAP_SHARED,
                                fileno(fh), 0);
         if (!throwval) errnoThrow(res == (void*)-1);
         return res;
@@ -284,7 +284,7 @@ char ** Sys_Argv()
 
 foffset Sys_FileSize(void * handle)
 {
-        FILE * fh = (FILE*)handle;   
+        FILE * fh = (FILE*)handle;
         off_t prev = -1;
         off_t res = -1;
         errnoThrow(fh == 0);
@@ -297,14 +297,14 @@ foffset Sys_FileSize(void * handle)
 
 void Sys_FileSeek(void * handle, foffset pos)
 {
-        FILE * fh = (FILE*)handle;     
+        FILE * fh = (FILE*)handle;
         errnoThrow(fh == 0);
         if (!throwval) errnoThrow(-1 == fseeko(fh, pos, SEEK_SET));
 }
 
 foffset Sys_FileTell(void * handle)
 {
-        FILE * fh = (FILE*)handle;       
+        FILE * fh = (FILE*)handle;
         off_t res = -1;
         errnoThrow(fh == 0);
         if (!throwval) res = ftello(fh);
@@ -314,7 +314,7 @@ foffset Sys_FileTell(void * handle)
 
 unsigned Sys_FileLine(void * handle, char * buf, unsigned size)
 {
-        FILE * fh = (FILE*)handle;  
+        FILE * fh = (FILE*)handle;
         unsigned res = 0;
         errnoThrow(fh == 0);
         if (!throwval) ferrorThrow(0 == fgets(buf, size, fh), fh);
@@ -383,13 +383,13 @@ void Sys_FileRen(const char * oldname, const char * newname)
 
 void Sys_FileTrunc(void * handle, foffset size)
 {
-        FILE * fh = (FILE*)handle;  
+        FILE * fh = (FILE*)handle;
         errnoThrow(ftruncate(fileno((FILE*)fh), size));
 }
 
 void Sys_FileFlush(void * handle)
 {
-        FILE * fh = (FILE*)handle;  
+        FILE * fh = (FILE*)handle;
         errnoThrow(fflush(fh));
 }
 
