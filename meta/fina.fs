@@ -428,7 +428,7 @@ defer refill ( -- flag )
 
 \ COLON DEFINITIONS
 
-: cellshift throwframe sighandler - 2/ 2/ 2/ 2 + ;
+: cellshift sighandler throwframe - 2/ 2/ 2/ 2 + ;
 \ 1 cells 2/ 2/ 2/ 2 + ;
 
 : cellbits 8 cells ;
