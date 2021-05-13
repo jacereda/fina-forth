@@ -1,5 +1,5 @@
 with (import <nixpkgs> {});
-stdenv.mkDerivation {
+gccStdenv.mkDerivation {
   name = "fina-forth";
   buildInputs = [];
   nativeBuildInputs = [ python ];
