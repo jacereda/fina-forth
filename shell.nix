@@ -1,6 +1,6 @@
 with (import <nixpkgs> {});
 gccStdenv.mkDerivation {
   name = "fina-forth";
-  buildInputs = [];
+  buildInputs = [ gdb ];
   nativeBuildInputs = [ python ];
 }

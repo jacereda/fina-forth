@@ -28,9 +28,15 @@ constant port
 
 : addr! sp@ cell+ swap 4 move drop ;
 
+: (open-con) ( c-addr u port type prot -- filenum ior )
+   2>r port bw! >ip addr addr!
+   2 2r> socket dup saddr /saddr connect -38 and ;
+
 : (open-tcp) ( c-addr u port -- filenum ior )
-   port bw! >ip addr addr!
-   2 1 0 socket dup saddr /saddr connect -38 and ;
+   1 6 (open-con) ;
+
+: (open-udp) ( c-addr u port -- filenum ior )
+   2 17 (open-con) ;
 
 : >mode ( fam -- c-addr u)
    3 *  s" r  rb r+ r+b w  wb BAD" drop + 3 ;
@@ -38,9 +44,15 @@ constant port
 : >port ( c-addr u -- port)
    10 based s>unumber ;
 
-: open-tcp ( c-addr u fam -- fileid ior )
-   >r [char] : split 2swap 1 /string >port (open-tcp)
+: (open-net) ( c-addr u fam xt -- fileid ior )
+   2>r  [char] : split 2swap 1 /string >port r> execute
    swap r> >mode 0term fdopen swap ;
 
-export open-tcp
+: open-tcp ( c-addr u fam -- fileid ior )
+   ['] (open-tcp) (open-net) ;
+
+: open-udp ( c-addr u fam -- fileid ior )
+   ['] (open-udp) (open-net) ;
+
+export open-tcp open-udp
 end-module

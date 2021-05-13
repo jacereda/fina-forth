@@ -232,8 +232,7 @@ int internalTick(struct FINA_State * state, int throwval) {
 #endif
         int ret = 0xdeadbeef;
         extern CELL Forth_Here;
-        register CELL t0;
-        CELL t1, t2, t3, t4, t5, t6, t7;
+        CELL t0, t1, t2, t3, t4, t5, t6, t7;
         DCELL dc, dc2;
         float f;
         double d;

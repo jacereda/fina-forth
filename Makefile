@@ -50,7 +50,7 @@ FFIPLAT_OpenBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_NetBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 FFIPLAT_NetBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_DragonFly_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
-CFLAGS+=-Ofast -fomit-frame-pointer -fno-reorder-blocks -freorder-blocks-algorithm=simple -ffunction-sections -fdata-sections -fvisibility=hidden -fno-stack-check
+CFLAGS+=-Ofast -fomit-frame-pointer -fno-reorder-blocks -freorder-blocks-algorithm=simple -ffunction-sections -fdata-sections -flto -fvisibility=hidden -fno-stack-check
 CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR) -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
 LDFLAGS_Darwin=-Wl,-dead_strip -no-pie -segprot __DATA rwx rwx
 LDFLAGS_Linux=-Wl,-gc-sections
@@ -81,16 +81,17 @@ test/core.fs test/postpone.fs test/bye.fs
 
 TESTS=test/tester.fs test/core.fs test/postpone.fs test/double.fs	\
 test/double2.fs test/file.fs test/filehandler.fs test/pipehandler.fs	\
-test/tcphandler.fs test/fina.fs test/multi.fs test/module.fs		\
-test/struct.fs test/ffi.fs test/bye.fs
+test/tcphandler.fs test/udphandler.fs test/fina.fs test/multi.fs	\
+test/module.fs test/struct.fs test/ffi.fs test/bye.fs
 
 ALLTESTS= test/aw.fs test/double2.fs test/fina.fs test/pipehandler.fs	\
-test/tcphandler.fs test/wrongeval.fs test/bye.fs test/error.fs		\
-test/gl.fs test/postpone.fs test/tester.fs test/wronginclude.fs		\
-test/checkans.fs test/ffi.fs test/module.fs test/right.fs		\
-test/wordsets.fs test/core.fs test/file.fs test/multi.fs		\
-test/rightinclude.fs test/wrong.fs test/double.fs test/filehandler.fs	\
-test/pboof.fs test/struct.fs test/wrongafterinclude.fs
+test/tcphandler.fs test/udphandler.fs test/wrongeval.fs test/bye.fs	\
+test/error.fs test/gl.fs test/postpone.fs test/tester.fs		\
+test/wronginclude.fs test/checkans.fs test/ffi.fs test/module.fs	\
+test/right.fs test/wordsets.fs test/core.fs test/file.fs		\
+test/multi.fs test/rightinclude.fs test/wrong.fs test/double.fs		\
+test/filehandler.fs test/pboof.fs test/struct.fs			\
+test/wrongafterinclude.fs
 
 ALLBENCHMARKS=benchmarks/bubble-sort.fs benchmarks/fib.fs	\
 benchmarks/sieve.fs
@@ -99,10 +100,10 @@ ALLFORTH=ans-report.fs answords.fs aw.fs bnf.fs cce.fs ce.fs		\
 filehandler.fs fixed.fs gdbdis.fs gl.fs glhelpers.fs glu.fs gtk.fs	\
 handler.fs later.fs list.fs machtimer.fs measure.fs memory.fs ns.fs	\
 nstimer.fs pboof.fs pipehandler.fs prof.fs saveaux.fs sh.fs socket.fs	\
-struct.fs sudoku.fs tcphandler.fs ticker.fs timer.fs tt.fs under.fs	\
-units.fs ustimer.fs verboseinc.fs sys/args.fs sys/assert.fs		\
-sys/backtrace.fs sys/based.fs sys/c.fs sys/core.fs sys/core2.fs		\
-sys/coreext.fs sys/cstr.fs sys/defer.fs sys/double.fs			\
+struct.fs sudoku.fs tcphandler.fs udphandler.fs ticker.fs timer.fs	\
+tt.fs under.fs units.fs ustimer.fs verboseinc.fs sys/args.fs		\
+sys/assert.fs sys/backtrace.fs sys/based.fs sys/c.fs sys/core.fs	\
+sys/core2.fs sys/coreext.fs sys/cstr.fs sys/defer.fs sys/double.fs	\
 sys/doubleext.fs sys/facility.fs sys/facilityext.fs sys/ffi.fs		\
 sys/file.fs sys/fileext.fs sys/help.fs sys/instinclude.fs		\
 sys/lineedit.fs sys/module.fs sys/multi.fs sys/optional.fs		\
