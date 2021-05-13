@@ -3,7 +3,7 @@
 \            ffl_test - the test-all source file in the ffl
 \
 \               Copyright (C) 2005  Dick van Oudheusden
-\  
+\
 \ This library is free software; you can redistribute it and/or
 \ modify it under the terms of the GNU General Public
 \ License as published by the Free Software Foundation; either
@@ -19,7 +19,7 @@
 \ Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 \
 \ ==============================================================================
-\ 
+\
 \  $Date: 2009-05-23 05:37:24 $ $Revision: 1.47 $
 \
 \ ==============================================================================
@@ -63,7 +63,7 @@ include test/gmo_test.fs
 include test/nct_test.fs
 include test/nnt_test.fs
 include test/rdg_test.fs
-include test/rgx_test.fs
+\ include test/rgx_test.fs
 include test/rng_test.fs
 include test/scl_test.fs
 include test/snl_test.fs
@@ -80,8 +80,7 @@ include test/xos_test.fs
 include test/zif_test.fs
 
 .( Forth Foundation Library Test: ) tst-get-result .  .( errors in ) . .( tests took ) . .( ms.) cr
-  
+
 bye
 
 \ ==============================================================================
-
