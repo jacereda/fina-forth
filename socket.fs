@@ -6,7 +6,7 @@ libc fdopen int ptr (ptr) fdopen
 libc connect int ptr int (ptr) connect
 
 create saddr
-2 0 base c@ [if] swap [then] c, c,
+2 c, 2 c,
 here 0 c, 0 c,
 here 0 c, 0 c, 0 c, 0 c,
 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c,
@@ -33,10 +33,10 @@ constant port
    2 2r> socket dup saddr /saddr connect -38 and ;
 
 : (open-tcp) ( c-addr u port -- filenum ior )
-   1 6 (open-con) ;
+   1 0 (open-con) ;
 
 : (open-udp) ( c-addr u port -- filenum ior )
-   2 17 (open-con) ;
+   2 0 (open-con) ;
 
 : >mode ( fam -- c-addr u)
    3 *  s" r  rb r+ r+b w  wb BAD" drop + 3 ;
