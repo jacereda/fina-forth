@@ -1,3 +1,5 @@
+require os.fs
+
 module socket
 
 libc socket int int int (int) socket
@@ -6,7 +8,11 @@ libc fdopen int ptr (ptr) fdopen
 libc connect int ptr int (ptr) connect
 
 create saddr
-2 c, 2 c,
+[darwin] [if]
+  0 c, 2 c,
+[else]
+  2 0 base c@ [if] swap [then] c, c,
+[then]
 here 0 c, 0 c,
 here 0 c, 0 c, 0 c, 0 c,
 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c,
