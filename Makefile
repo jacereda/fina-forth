@@ -50,7 +50,7 @@ FFIPLAT_OpenBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_NetBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 FFIPLAT_NetBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_DragonFly_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
-CFLAGS+=-Ofast -fomit-frame-pointer -fno-reorder-blocks -freorder-blocks-algorithm=simple -ffunction-sections -fdata-sections -flto -fvisibility=hidden -fno-stack-check
+CFLAGS+=-Ofast -fomit-frame-pointer -fno-reorder-blocks -freorder-blocks-algorithm=simple -ffunction-sections -fdata-sections -flto -fvisibility=hidden -fno-stack-check -fno-stack-protector
 CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR) -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
 LDFLAGS_Darwin=-Wl,-dead_strip -no-pie -segprot __DATA rwx rwx
 LDFLAGS_Linux=-Wl,-gc-sections
