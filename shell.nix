@@ -1,6 +1,7 @@
 with (import <nixpkgs> {});
-gccStdenv.mkDerivation {
+gcc11Stdenv.mkDerivation {
   name = "fina-forth";
   buildInputs = [ gdb ];
-  nativeBuildInputs = [ python git ];
+  nativeBuildInputs = [ python git scons ];
+  hardeningDisable = [ "all" ];
 }
