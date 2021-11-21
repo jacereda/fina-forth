@@ -43,7 +43,7 @@ static inline void loc(const char * p) {
 #define DUMPLOC
 #endif
 
-#define PRIM(x)  x: asm(".globl XT_" #x); asm("XT_" #x ":"); { DUMPDECL(x); int unused
+#define PRIM(x)  x: asm volatile(".globl XT_" #x "\nXT_" #x ":"); { DUMPDECL(x); int unused
 #define NEXTT goto *(CELL*)*fpc++
 #define NEXT (void) unused; DUMPLOC; } NEXTT
 #define PUSH *--dsp = tos
