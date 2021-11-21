@@ -90,8 +90,7 @@ test/error.fs test/gl.fs test/postpone.fs test/tester.fs		\
 test/wronginclude.fs test/checkans.fs test/ffi.fs test/module.fs	\
 test/right.fs test/wordsets.fs test/core.fs test/file.fs		\
 test/multi.fs test/rightinclude.fs test/wrong.fs test/double.fs		\
-test/filehandler.fs test/pboof.fs test/struct.fs			\
-test/wrongafterinclude.fs
+test/filehandler.fs test/struct.fs test/wrongafterinclude.fs
 
 ALLBENCHMARKS=benchmarks/bubble-sort.fs benchmarks/fib.fs	\
 benchmarks/sieve.fs
@@ -99,11 +98,11 @@ benchmarks/sieve.fs
 ALLFORTH=ans-report.fs answords.fs aw.fs bnf.fs cce.fs ce.fs		\
 filehandler.fs fixed.fs gdbdis.fs gl.fs glhelpers.fs glu.fs gtk.fs	\
 handler.fs later.fs list.fs machtimer.fs measure.fs memory.fs ns.fs	\
-nstimer.fs os.fs pboof.fs pipehandler.fs prof.fs saveaux.fs sh.fs	\
-socket.fs struct.fs sudoku.fs tcphandler.fs udphandler.fs ticker.fs	\
-timer.fs tt.fs under.fs units.fs ustimer.fs verboseinc.fs sys/args.fs	\
-sys/assert.fs sys/backtrace.fs sys/based.fs sys/c.fs sys/core.fs	\
-sys/core2.fs sys/coreext.fs sys/cstr.fs sys/defer.fs sys/double.fs	\
+nstimer.fs os.fs pipehandler.fs prof.fs saveaux.fs sh.fs socket.fs	\
+struct.fs sudoku.fs tcphandler.fs udphandler.fs ticker.fs timer.fs	\
+tt.fs units.fs ustimer.fs verboseinc.fs sys/args.fs sys/assert.fs	\
+sys/backtrace.fs sys/based.fs sys/c.fs sys/core.fs sys/core2.fs		\
+sys/coreext.fs sys/cstr.fs sys/defer.fs sys/double.fs			\
 sys/doubleext.fs sys/facility.fs sys/facilityext.fs sys/ffi.fs		\
 sys/file.fs sys/fileext.fs sys/help.fs sys/instinclude.fs		\
 sys/lineedit.fs sys/module.fs sys/multi.fs sys/optional.fs		\
