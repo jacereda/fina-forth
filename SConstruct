@@ -58,8 +58,7 @@ if ring0:
    env['OS'] = 'win32'
 env['ENV']['PATH'] = os.environ['PATH']
 env.Append(CCFLAGS='-Ofast -fno-reorder-blocks -freorder-blocks-algorithm=simple')
-if env['OS'] == 'darwin':
-   env.Append(LINKFLAGS='-Wl,-no_pie')
+env.Append(LINKFLAGS='-no-pie')
 
 if tarch == 'x64':
    env.Append(CPPDEFINES=['X86_64'])
