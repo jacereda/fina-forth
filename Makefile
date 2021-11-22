@@ -52,14 +52,13 @@ FFIPLAT_NetBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_DragonFly_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 CFLAGS+=-Ofast -fomit-frame-pointer -fno-reorder-blocks -freorder-blocks-algorithm=simple -ffunction-sections -fdata-sections -flto -fvisibility=hidden -fno-stack-check -fno-stack-protector
 CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR) -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
-LDFLAGS_Darwin=-Wl,-dead_strip -no-pie -segprot __DATA rwx rwx
-LDFLAGS_Linux=-Wl,-gc-sections
+LDFLAGS_Darwin=-Wl,-dead_strip -segprot __DATA rwx rwx
+LDFLAGS_Linux=-Wl,-gc-sections -ldl
 LDFLAGS_FreeBSD=-Wl,-gc-sections
 LDFLAGS_OpenBSD=-Wl,-gc-sections
 LDFLAGS_NetBSD=-Wl,-gc-sections
 LDFLAGS_DragonFly=-Wl,-gc-sections
-LDFLAGS=$(LDFLAGS_$(OS)) -ldl
-#LDFLAGS+=-Wl,-no_pie $(LDFLAGS_$(OS))
+LDFLAGS=$(LDFLAGS_$(OS)) -no-pie
 
 IFILES=kernel/allocate.i kernel/files.i kernel/moreprims.i	\
 kernel/ffi.i kernel/fixed.i kernel/prims.i
@@ -159,7 +158,7 @@ kerneltest%: obj/kernel%
 	cat $(KERNELTESTS) | $<
 
 obj/kernel%: obj/dict%.S kernel/finac.c kernel/main.c kernel/sysposix.c $(FFISRCS)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) $^ -o $@
+	$(CC) $(CPPFLAGS) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 obj/build.fs: $(FULL) saveaux.fs
 	cat $(FULL) > $@
