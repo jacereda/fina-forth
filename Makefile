@@ -6,7 +6,6 @@ ARCH_sgimips=mips
 ARCH:=$(ARCH_$(shell uname -m))
 OS=$(shell uname -s)
 CC=gcc
-LD=gcc
 PREFIX=inst
 ASMCALL_x64='nop;nop;nop;call'
 ASMCALL_arm='bl'
@@ -50,7 +49,10 @@ FFIPLAT_OpenBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_NetBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 FFIPLAT_NetBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_DragonFly_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
-CFLAGS+=-Ofast -fomit-frame-pointer -fno-reorder-blocks -freorder-blocks-algorithm=simple -ffunction-sections -fdata-sections -flto -fvisibility=hidden -fno-stack-check -fno-stack-protector
+CFLAGS_gcc+=-fno-reorder-blocks -freorder-blocks-algorithm=simple
+CFLAGS_clang+=-Wno-unknown-attributes
+CFLAGS+=$(CFLAGS_$(CC))
+CFLAGS+=-Ofast -fomit-frame-pointer -ffunction-sections -fdata-sections -flto -fvisibility=hidden -fno-stack-check -fno-stack-protector
 CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR) -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
 LDFLAGS_Darwin=-Wl,-dead_strip -segprot __DATA rwx rwx
 LDFLAGS_Linux=-Wl,-gc-sections -ldl
@@ -78,10 +80,12 @@ sys/c.fs sys/backtrace.fs sys/pipe.fs sys/instinclude.fs sys/help.fs
 KERNELTESTS=sys/core.fs sys/defer.fs sys/core2.fs test/tester.fs	\
 test/core.fs test/postpone.fs test/bye.fs
 
-TESTS=test/tester.fs test/core.fs test/postpone.fs test/double.fs	\
+PURETESTS=test/tester.fs test/core.fs test/postpone.fs test/double.fs	\
 test/double2.fs test/file.fs test/filehandler.fs test/pipehandler.fs	\
-test/tcphandler.fs test/udphandler.fs test/fina.fs test/multi.fs	\
-test/module.fs test/struct.fs test/ffi.fs test/bye.fs
+test/fina.fs test/multi.fs test/module.fs test/struct.fs test/ffi.fs	\
+test/bye.fs
+
+TESTS=$(PURETESTS) test/tcphandler.fs test/udphandler.fs 
 
 ALLTESTS= test/aw.fs test/double2.fs test/fina.fs test/pipehandler.fs	\
 test/tcphandler.fs test/udphandler.fs test/wrongeval.fs test/bye.fs	\
@@ -171,6 +175,12 @@ obj/fina: obj/kernel2 $(FULL) sys/savefina.fs saveaux.fs
 
 tests: obj/fina $(TESTS)
 	$^
+
+puretests: obj/fina $(PURETESTS)
+	$^
+
+check: 
+	echo TESTING | $(MAKE) puretests
 
 bench: obj/fina $(ALLBENCHMARKS)
 	for b in $(ALLBENCHMARKS) ; do time $< $$b -e "main bye" ; done
