@@ -11,7 +11,12 @@ libc 0dirname ptr (ptr) dirname
 
 \g Returns absolute program name
 : progname ( -- addr len )
-  s" realpath " pad place  0 arg pad append
+  0 arg s" /" search nip nip if
+    s" realpath "
+  else
+    s" which "
+  then
+  pad place  0 arg pad append
   pad count pad 256 pipeto ;
 
 \g Returns absolute installation path
