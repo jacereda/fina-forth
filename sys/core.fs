@@ -2,7 +2,7 @@ warnings off
 : immediate
    lastname c@ 64 or lastname c! ;
 
-: \ 
+: \
    source >in ! drop ; immediate
 
 : \g postpone \ ; immediate
@@ -10,13 +10,13 @@ warnings off
 : compile-only
    lastname c@ 32 or lastname c! ;
 
-: char  
+: char
    parse-word drop c@ ;
 
-: [char] 
+: [char]
    char postpone literal ; immediate compile-only
 
-: (  
+: (
    [char] ) parse 2drop ; immediate
 
 
@@ -36,7 +36,7 @@ warnings off
 \ char  ( "<spaces>name" -- char )
 
 \g @see anscore
-\ [char]  ( ct: "<spaces>name" --  rt: -- char ) 
+\ [char]  ( ct: "<spaces>name" --  rt: -- char )
 
 \g @see anscore
 \ (  ( "ccc<paren>" -- )
@@ -104,7 +104,7 @@ warnings off
 
 \g @see anscore
 : while ( a-addr1 -1 -- a-addr2 1 a-addr1 -1 )
-   postpone if   2swap ; immediate compile-only 
+   postpone if   2swap ; immediate compile-only
 
 \g @see anscore
 : again ( a-addr -1 -- )
@@ -120,17 +120,17 @@ warnings off
 
 \ Strings
 
-\g Runtime for s" 
+\g Runtime for s"
 : dos"  ( -- c-addr u )
    r> count 2dup + aligned >r ; compile-only
 
 \g @see ansstring
 : sliteral ( c-addr u -- )
-   postpone dos" s, align ; immediate compile-only 
+   postpone dos" s, align ; immediate compile-only
 
 \g @see anscore
 : ."  ( "ccc<quote>" --  rt: -- )
-   [char] " parse   postpone sliteral 
+   [char] " parse   postpone sliteral
    postpone type ; immediate compile-only
 
 \g @see anscore
@@ -149,10 +149,10 @@ warnings off
    head,  ['] dovalue xt, drop  , linklast ;
 
 \g @see anscore
-: variable ( "<spaces>name" -- ) 
-   head, ['] dovar xt, drop  -559038737 , linklast ; 
+: variable ( "<spaces>name" -- )
+   head, ['] dovar xt, drop  -559038737 , linklast ;
 
-variable leaves 
+variable leaves
 variable sleaves
 : 0leaves  leaves @ sleaves ! leaves off ;
 : rleaves  sleaves @ leaves ! ;
@@ -184,7 +184,7 @@ variable sleaves
 
 \g Apply xt to each element in list
 : foreach ( xt list -- )
-   swap >r @ >r 
+   swap >r @ >r
    begin r@ while r> r@ over @ >r execute repeat
    rdrop rdrop ;
 
@@ -199,21 +199,21 @@ variable sleaves
 
 \g @see anscore
 : loop ( ct: dest -1  rt:  --  r: limit index --  | limit index+1 )
-   postpone doloop  
-   bwresolve  
+   postpone doloop
+   bwresolve
    resolvleaves
    postpone unloop ; immediate compile-only
 
 \g Terminate for-next loop
 : next ( ct: dest -1  rt: initial index --  | initial index-1 )
-   postpone donext  
+   postpone donext
    bwresolve
    resolvleaves
    postpone unloop ; immediate compile-only
 
 \g @see anscore
 : +loop ( ct: dest -1  rt: n --  r: limit index --  | limit index+n )
-   postpone do+loop  
+   postpone do+loop
    bwresolve
    resolvleaves
    postpone unloop ; immediate compile-only
@@ -248,21 +248,21 @@ variable abort"msg  ( -- a-addr ) 0 ,
 
 \g @see anscore
 : create ( "<spaces>name" --  R: -- a-addr  )
-   head, here to lastxt  
+   head, here to lastxt
    ['] docreate xt, drop  ['] noop , linklast ;
 
 \g @see anscore
 : >body ( xt -- a-addr )
    ?dodefine ['] docreate <> -31 ?throw
-   cell+ ; 
+   cell+ ;
 
 \g Connect latest word to the DOES> code
 : pipe ( --  R: xt -- )
    lastname name>xt >body cell- r> swap ! ;
 
 \g Compile call to inline xt into current colon def
-: (xt,)  ( -- xt ) 
-   @r+ xt, ;  
+: (xt,)  ( -- xt )
+   @r+ xt, ;
 
 \g @see anscore
 : does> ( C: colon-sys1 -- colon-sys2 )
@@ -287,34 +287,34 @@ variable abort"msg  ( -- a-addr ) 0 ,
 
 \g @see anscore
 : find  ( a -- a 0 | xt 1 | xt -1 )
-   count nfa dup if 
-      dup name>xt swap fimmed 
-   else parsed cell+ @ -1 chars + swap then ; 
+   count nfa dup if
+      dup name>xt swap fimmed
+   else parsed cell+ @ -1 chars + swap then ;
 
 : um/mod
-   dup 0= -10 ?throw 
-   2dup u< 0= -11 ?throw 
+   dup 0= -10 ?throw
+   2dup u< 0= -11 ?throw
    um/mod ;
 
 \g @see anscore
 : fm/mod  ( d n1 -- n2 n3 )
    >r r@ 2dup xor >r >r dup 0< if dnegate then
    r@ abs um/mod
-   r> 0< if swap negate swap then 
-   r> 0< if 
-      negate over if r@ rot - swap 1- then 
-      rdrop 
-      0 over < -11 ?throw exit 
-   then rdrop 
-   dup 0< -11 ?throw ;  
+   r> 0< if swap negate swap then
+   r> 0< if
+      negate over if r@ rot - swap 1- then
+      rdrop
+      0 over < -11 ?throw exit
+   then rdrop
+   dup 0< -11 ?throw ;
 
 \g @see anscore
 : /mod  ( n1 n2 -- n3 n4 )
-   >r s>d r> fm/mod ;  
+   >r s>d r> fm/mod ;
 
 \g @see anscore
 : /  ( n1 n2 -- n3 )
-   /mod nip ;  
+   /mod nip ;
 
 \g @see anscore
 : mod  ( n1 n2 -- n3 )
@@ -322,7 +322,7 @@ variable abort"msg  ( -- a-addr ) 0 ,
 
 \g @see anscore
 : sm/rem  ( d n1 -- n2 n3 )
-   2dup xor >r over >r >r dup 0< if dnegate then 
+   2dup xor >r over >r >r dup 0< if dnegate then
    r> abs um/mod
    r> 0< if swap negate swap then
    r> 0< if negate 0 over < -11 ?throw exit then
@@ -359,7 +359,7 @@ create env-wordlist here forth-wordlist cell+ ! 0 , 0 , 0 ,
    env-wordlist search-wordlist dup >r if execute then r> ;
 
 \g Define a new environment query
-: env: 
+: env:
    get-current env-wordlist set-current : ;
 
 : ;env

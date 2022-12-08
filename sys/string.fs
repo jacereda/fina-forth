@@ -24,11 +24,11 @@
 : cmove>  ( c-addr1 c-addr2 u -- )
    move ;
 
-\g @see ansstring 
+\g @see ansstring
 : search  ( c-addr1 u1 c-addr2 u2 -- c-addr3 u3 flag )
-   2over bounds do 
+   2over bounds do
       2dup i swap same?  unless
-         2drop + i swap over -  true unloop exit 
+         2drop + i swap over -  true unloop exit
       then
    loop 2drop false ;
 

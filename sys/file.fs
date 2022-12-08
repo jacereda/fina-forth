@@ -1,13 +1,13 @@
 expose-module private
-0 
+0
 constant r/o ( -- fam )
 \g @see ansfile
 
-2 
+2
 constant r/w ( -- fam )
 \g @see ansfile
 
-4 
+4
 constant w/o ( -- fam )
 \g @see ansfile
 
@@ -90,15 +90,15 @@ variable sourcepos 0 ,
    source-id nextline
    if sourcevar 2! >in off source tabs>spaces true else 2drop false then ;
 
-:noname 
+:noname
    sourcepos 2@ 2stksave
    deferred inputsaver ; is inputsaver
 
-:noname 
+:noname
    deferred inputrestorer
    2stkrest sourcepos 2!
-   filesource? if 
-      sourcepos 2@ source-id reposition-file throw 
+   filesource? if
+      sourcepos 2@ source-id reposition-file throw
       source-id nextline drop 2drop
    then ; is inputrestorer
 
@@ -133,15 +133,15 @@ create includes-stack 1024 allot includes-stack off
    to source-id  0 to sourceline#
    ['] interpret-file catch .error!
    pop-include
-   nr> restore-input -37 ?throw 
+   nr> restore-input -37 ?throw
    throw ;
 
 
-\g Deferred word called at start of INCLUDED. 
+\g Deferred word called at start of INCLUDED.
 \g The xt must be ( c-addr1 u1 --- c-addr2 u2 )
 defer inchook0  ' noop is inchook0
 
-\g Deferred word called at end of INCLUDED. 
+\g Deferred word called at end of INCLUDED.
 \g The xt must be ( c-addr -- c-addr ).
 \g Will be called with the value of HERE before file was included.
 defer inchook1  ' noop is inchook1
@@ -150,10 +150,10 @@ defer inchook1  ' noop is inchook1
 : included  ( i*x c-addr u -- j*x )
    inchook0
    here >r
-   r/o open-file throw >r 
+   r/o open-file throw >r
    r@ ['] include-file catch
    r> close-file throw
-   r> inchook1 drop 
+   r> inchook1 drop
    throw ;
 
 \g Include file
@@ -166,7 +166,7 @@ defer inchook1  ' noop is inchook1
 env: file true ;env
 
 export r/o r/w w/o bin
-export open-file read-file write-file close-file mmap-file 
+export open-file read-file write-file close-file mmap-file
 export file-size file-position reposition-file read-line
 export create-file delete-file resize-file
 export include-file included include

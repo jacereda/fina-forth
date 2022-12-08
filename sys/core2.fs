@@ -9,7 +9,7 @@
 : stksave ( n*x n val -- n*x+1 n+1 )
    swap 1+ ;
 
-: 2stksave 
+: 2stksave
    >r stksave r> stksave ;
 
 : stkrest ( n*x+1 n+1 -- n*x n val )
@@ -21,13 +21,13 @@
 defer inputsaver
 :noname
    source 2stksave
-   >in @ stksave 
+   >in @ stksave
    source-id stksave ; is inputsaver
 
 defer inputrestorer
 :noname
-   stkrest to source-id 
-   stkrest >in ! 
+   stkrest to source-id
+   stkrest >in !
    2stkrest sourcevar 2! ; is inputrestorer
 
 \g @see anscore
@@ -52,13 +52,13 @@ defer save-input  ( -- xn ... x1 n )
 \g @see anscore
 is refill
 
-defer evaluator ( -- ) 
+defer evaluator ( -- )
 ' interpret is evaluator
 
 \g @see anscore
 : evaluate  ( i*x c-addr u -- j*x )
    save-input n>r
-   -1 to source-id  sourcevar 2!  >in off 
+   -1 to source-id  sourcevar 2!  >in off
    ['] evaluator catch .error!
-   nr> restore-input -37 ?throw 
+   nr> restore-input -37 ?throw
    throw ;

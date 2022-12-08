@@ -1,4 +1,4 @@
--1 
+-1
 \g @see anscore
 constant true ( -- -1 )
 
@@ -11,7 +11,7 @@ constant false ( -- 0 )
 : hex ( -- )
    16 base ! ;
 
-\g @see anscore 
+\g @see anscore
 : unused ( -- u )
    pad here - ;
 
@@ -21,9 +21,9 @@ constant false ( -- 0 )
 
 \g Compile a counted string literal
 : csliteral ( c-addr u -- )
-   postpone doc" s, align ; immediate compile-only 
+   postpone doc" s, align ; immediate compile-only
 
-\g #see anscore    
+\g #see anscore
 : c"  ( <string>" --  rt: -- c-addr )
    [char] " parse   postpone csliteral ; immediate compile-only
 
@@ -61,7 +61,7 @@ constant false ( -- 0 )
 
 \g @see anscore
 : of  ( ct: -- orig 2 )
-   postpone over postpone = 
+   postpone over postpone =
    postpone if postpone drop 1+ ; immediate compile-only
 
 \g @see anscore
@@ -124,8 +124,7 @@ does>     dup @ to here
    ' compile, ; immediate compile-only
 
 \g @see anscore
-: 0> ( n -- flag ) 
+: 0> ( n -- flag )
   0 > ;
 
 env: core-ext true ;env
-

@@ -1,4 +1,4 @@
-\g @see ansdouble 
+\g @see ansdouble
 : d=  ( d1 d2 -- flag )
     rot xor >r xor r> or 0= ;
 
@@ -36,7 +36,7 @@
 
 \g @see ansdouble
 : d>s  ( d -- u )
-   drop ; 
+   drop ;
 
 \g Discard second pair
 : 2nip  ( x1 x2 x3 x4 -- x3 x4 )
@@ -92,9 +92,9 @@
 
 \g Multiply unsigned double by unsigned giving a unsigned triple number
 : ud*u  ( ud u -- ut )
-   tuck um* 2swap um* swap >r 0 d+ r> -rot ;  
+   tuck um* 2swap um* swap >r 0 d+ r> -rot ;
 
-\g Multiply double by signed giving a triple number 
+\g Multiply double by signed giving a triple number
 : d*n  ( d n -- t )
    2dup xor 0< >r abs >r dabs r> ud*u r> if tnegate then ;
 

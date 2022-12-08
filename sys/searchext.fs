@@ -25,12 +25,12 @@
 \g Go from XT to data part, safe for non-CREATEd words
 : xt>body ( xt -- body )
    dup ?dodefine nip ['] docreate = if >body else ?dodefine drop then ;
-   
+
 \g Print wordlist name (or wordlist address if name cannot be found)
 : .wid ( wid -- )
-   dup [ 3 cells ] literal + name>xt xt>name if 
-      dup [ 3 cells ] literal + name>xt xt>body @ over = if 
-         [ 3 cells ] literal + .name exit 
+   dup [ 3 cells ] literal + name>xt xt>name if
+      dup [ 3 cells ] literal + name>xt xt>body @ over = if
+         [ 3 cells ] literal + .name exit
       then
    then . ;
 

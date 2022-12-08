@@ -6,7 +6,7 @@ expose-module private
    >r begin
       begin
          parse-word dup
-      while 
+      while
          r@ execute if rdrop exit then
       repeat 2drop refill 0=
    until rdrop ;
@@ -15,20 +15,20 @@ expose-module private
 : []handle
    s" [if]"   2over icompare unless 2drop 1+ false exit then
    s" [else]" 2over icompare unless 2drop dup 1 = + dup 0= exit then
-   s" [then]" 2over icompare unless 2drop 1- dup 0= exit then 
-   2drop false ; 
+   s" [then]" 2over icompare unless 2drop 1- dup 0= exit then
+   2drop false ;
 
 \g @see anstools
-: [else] 
+: [else]
    1 ['] []handle foreachparsed drop ; immediate
 
 \g @see anstools
-: [if] 
+: [if]
    unless postpone [else] then ; immediate
 
 \g @see anstools
 : [then] ( -- )
-   ; immediate 
+   ; immediate
 
 export [if] [else] [then]
 end-module

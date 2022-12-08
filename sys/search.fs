@@ -6,7 +6,7 @@
 : xt>name ( xt -- c-addr )
    dup primxt? if primname else colname then ;
 
-\g @see anssearch 
+\g @see anssearch
 : wordlist ( -- wid )
    forth-wordlist begin cell+ dup @ while @ repeat
    here swap !  here 0 , 0 , ;
@@ -27,7 +27,7 @@ wordlist constant root-wordlist
    #order cell+ @ set-current ;
 
 root-wordlist set-current
-: set-order set-order ; 
+: set-order set-order ;
 : forth-wordlist forth-wordlist ;
 root-wordlist forth-wordlist 2 set-order
 forth-wordlist set-current

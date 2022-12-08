@@ -12,7 +12,7 @@ variable requested 0 ,
 : matches? ( c-addr u -- flag )
    bl scan bl skip nextword requested 2@ icompare 0= ;
 
-0 value helpstatus 
+0 value helpstatus
 0 value '@see
 0 value level
 
@@ -23,7 +23,7 @@ variable requested 0 ,
    2dup s" ====" beginswith? if  0 to helpstatus  then
    helpstatus 1 = if  2dup matches?  if  -1000 to helpstatus  then  then
    helpstatus 0< if
-      2dup s" @see" beginswith? if  
+      2dup s" @see" beginswith? if
          2dup bl scan  bl skip helpstatus >r '@see execute r> to helpstatus
       else 2dup s" @also" beginswith? if
          ." See also: " 2dup bl scan  bl skip ?type ?cr
@@ -39,7 +39,7 @@ variable requested 0 ,
    s" <<" ?type 2dup ?type s" >>" ?type ?cr
    s" help" >share pad place
    s" /" pad append  pad append
-   s" .help" pad append 
+   s" .help" pad append
    pad count r/o open-file throw >r
    2 to helpstatus
    r@ ['] .line? foreachline

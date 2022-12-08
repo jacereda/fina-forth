@@ -10,7 +10,7 @@ variable fname 0 ,
       0 to tocstatus
    then
    tocstatus 1 = if
-      ." ====" cr 
+      ." ====" cr
       2dup type cr
       ." @see " fname 2@ type cr
    then
@@ -20,10 +20,10 @@ variable fname 0 ,
    >r begin 2dup r@ scan r@ skip dup while 2nip repeat 2drop rdrop ;
 
 : toc
-   2dup [char] / findlast 2dup [char] . scan nip - fname 2! 
+   2dup [char] / findlast 2dup [char] . scan nip - fname 2!
    2 to tocstatus
    r/o open-file throw >r
-   r@ ['] .entry foreachline 
+   r@ ['] .entry foreachline
    r> close-file throw ;
 
 : toc{
