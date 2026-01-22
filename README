@@ -18,11 +18,11 @@ FINA takes some inspiration from:
 BUILD REQUIREMENTS
 ==================
 
+- Python 2 or 3
+
 - GCC ( http://gcc.gnu.org ). Versions 2.x and 4.x seem to generate
   better code than 3.x. In some cases, 3.x might even generate wrong
   code.
-
-- SCons ( http://scons.org ). This one requires a Python installation.
 
 
 BUILDING
@@ -30,7 +30,7 @@ BUILDING
 
 Typing the following will build and install under a directory called "inst":
 
-$ scons
+$ make install
 
 To start the interpreter:
 
@@ -38,35 +38,27 @@ $ inst/bin/fina
 
 To pass some regression tests, build with:
 
-$ scons check=1
+$ make check
 
 To perform some benchmarks, build with:
 
-$ scons bench=1
+$ make bench
 
 To compile a call profiling version (for using prof.fs):
 
-$ scons profile=1
+$ make PROF=1
 
 To build a slow version with a minimal set of primitives:
 
-$ scons moreprims=0
+$ make MOREPRIMS=0
 
 To avoid building the memory allocation words (ALLOCATE/FREE/RESIZE):
 
-$ scons allocate=0
+$ make ALLOCATE=0
 
-To compile a i386 version when the default compiler is 64 bits:
+Clean the built objects if you change the Makefile with
 
-$ scons arch=i386
-
-To force a x64 build when the architecture is reported as i386:
-
-$ scons arch=x64
-
-To clean the built files (~= make clean):
-
-$ scons -c
+$ make clean
 
 
 INSTALLATION
@@ -74,7 +66,7 @@ INSTALLATION
 
 To install, just build passing a prefix argument:
 
-$ scons prefix=/tmp/fina
+$ make install PREFIX=$HOME/fina
 
 
 HELP

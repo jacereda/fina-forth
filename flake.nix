@@ -11,6 +11,9 @@
       cosmoVars = ''
             export CC=cosmocc
             export OS=Cosmo
+            export DCE=
+            export LTO=
+            export OPT=-O1
             export CFLAGS=-fno-strict-aliasing
             export
           '';

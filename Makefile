@@ -56,8 +56,12 @@ CFLAGS_clang+=-Wno-unknown-attributes
 CFLAGS+=$(CFLAGS_$(CC))
 LTO?=-flto
 DCE?=-ffunction-sections -fdata-sections
-CFLAGS+=-Ofast -fomit-frame-pointer -fvisibility=hidden -fno-stack-check -fno-stack-protector $(LTO) $(DCE)
-CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR) -DPOSIX_C_SOURCE=2 -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_PIPE=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
+OPT?=-Ofast
+PROF?=0
+MOREPRIMS?=1
+ALLOCATE?=1
+CFLAGS+=$(OPT) -fomit-frame-pointer -fvisibility=hidden -fno-stack-check -fno-stack-protector $(LTO) $(DCE)
+CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR) -DPOSIX_C_SOURCE=2 -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=$(ALLOCATE) -DBUILD_FIXED=1 -DBUILD_PIPE=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=$(MOREPRIMS) -DBUILD_PROFILE=$(PROF) -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
 LDFLAGS_Darwin=-Wl,-dead_strip -segprot __DATA rwx rwx
 LDFLAGS_Linux=-Wl,-gc-sections -ldl
 LDFLAGS_FreeBSD=-Wl,-gc-sections
@@ -68,7 +72,7 @@ LDFLAGS_Cosmo=-Wl,-gc-sections
 LDFLAGS=$(LDFLAGS_$(OS)) -no-pie
 
 IFILES=kernel/allocate.i kernel/files.i kernel/moreprims.i	\
-kernel/pipe.i kernel/ffi.i kernel/fixed.i kernel/prims.i
+kernel/ffi.i kernel/fixed.i kernel/prims.i
 
 BOOT=sys/core.fs sys/defer.fs sys/core2.fs sys/throwmsg.fs	\
 sys/based.fs sys/source.fs sys/search.fs sys/coreext.fs
