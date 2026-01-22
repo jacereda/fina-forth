@@ -1,6 +1,6 @@
 expose-module private
-libc popen ptr ptr (ptr) popen
-libc pclose ptr (int) pclose
+\ libc popen ptr ptr (ptr) popen
+\ libc pclose ptr (int) pclose
 
 create wfamtab
 char r c, 0 c,

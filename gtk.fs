@@ -1,13 +1,13 @@
 \ Sample gtk application using gtk-server
-\ Written by Jorge Acereda ( jacereda@users.sourceforge.net )
+\ Written by Jorge Acereda ( jacereda@gmail.com )
 
 require sh.fs
 sh gtk-server fifo gtkserver.fifo &
 sh sleep 2
 
 create buf 256 allot
-0 value pbuf 
-: gtkemit 
+0 value pbuf
+: gtkemit
    pbuf c! pbuf 1+ to pbuf ;
 : gtk{ ( -- , send subsequent output to gtk-server)
    buf to pbuf
@@ -20,7 +20,7 @@ create buf 256 allot
    r> close-file throw ;
 : }gtk ( -- , finish output to gtk-server, receive response)
    }gtknores
-   buf 1+ 255 
+   buf 1+ 255
    s" gtkserver.fifo" r/o open-file throw >r
    r@ read-line throw drop buf c!
    r> close-file throw ;
@@ -52,7 +52,7 @@ create buf 256 allot
 : check ( -- widget , check for activity )
    gtk{ ." gtk_server_callback 0" }gtk gtkres ;
 : done ( -- , disconnect from gtk-server )
-   gtk{ ." gtk_exit 0" }gtknores 
+   gtk{ ." gtk_exit 0" }gtknores
    s" rm gtkserver.fifo" (sh) ;
 
 init
@@ -64,8 +64,7 @@ label" Hello world" constant lab
 button" exit" constant but
 button" nothing" constant but0
 27 23 28 20 but tab attach
-lab show  but show  tab show  win show 
+lab show  but show  tab show  win show
 : loop  begin  iteration check but =  until done ;
 loop
 bye
-

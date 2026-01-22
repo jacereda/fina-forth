@@ -39,7 +39,7 @@ defer ret
 : libfuncs 2 cells + ;
 
 : newproto (  -- )
-   create here 
+   create here
    0 ,                      \ addr
    9 cells allot            \ 9*cif
    0 ,                      \ nargs
@@ -48,7 +48,7 @@ defer ret
 \ Structure addr|9*cif|link|nargs|args...|name
 : newfun ( lib -- lib fun )
    ['] funret is ret  newproto
-   over libfuncs linked 
+   over libfuncs linked
    does> dup @ swap cell+ ffcall ;
 : link>fun 11 cells - ;
 
@@ -69,13 +69,13 @@ variable libs libs off
 : libname 3 cells + ;
 
 : restorelib ( lib -- )
-   dup libname count openlib over ! 
+   dup libname count openlib over !
    dup libfuncs begin @ dup while 2dup link>fun funresolve repeat 2drop ;
 
 
 \ Structure: handle|liblink|funclink|name
-: library ( "forthname" "libname" ) 
-   create here 
+: library ( "forthname" "libname" )
+   create here
    0 ,             \ handle
    libs linked     \ link
    0 ,             \ funcs
@@ -91,15 +91,15 @@ variable libs libs off
 256 constant /clos
 
 : cbexec ( ... spbase inline:xt -- )
-   @r+ sp0 @ >r  swap sp0 ! 
-   execute 
+   @r+ sp0 @ >r  swap sp0 !
+   execute
    r> sp0 ! endtick ;
 
 : wrapcb ( xt -- xt')
    pad ! :noname postpone cbexec pad @ , postpone ; ;
 : callback ( -- cif )
    ['] cbret is ret  newproto 0 ,
-   does> ( xt cif -- ) >r wrapcb r> funcif create here /clos allot 
+   does> ( xt cif -- ) >r wrapcb r> funcif create here /clos allot
    ffclos abort" Unable to setup closure" ;
 
 : callback; ( cif -- ) setupcif ;

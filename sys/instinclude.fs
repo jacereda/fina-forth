@@ -1,9 +1,13 @@
 expose-module private
-libc 0dirname ptr (ptr) dirname
 
-\g Returns directory part of a path
-: dirname ( addr len -- addr' len' )
-   0term 0dirname dup 0= -37 ?throw 0count ;
+: pad' pad 256 + ;
+
+\g Returns absolute program name
+: dirname ( c-addr1 len1 -- c-addr2 len2 )
+  pad' place
+  s" dirname " pad place
+  pad' count pad append
+  pad count pad 256 pipeto 1- ;
 
 \g Determines existence of a file by opening it for read
 : file-exists? ( addr len -- flag )
@@ -12,11 +16,11 @@ libc 0dirname ptr (ptr) dirname
 \g Returns absolute program name
 : progname ( -- addr len )
   0 arg s" /" search nip nip if
-    s" realpath "
+    s" realpath '"
   else
-    s" which "
+    s" which '"
   then
-  pad place  0 arg pad append
+  pad place  0 arg pad append  s" '" pad append
   pad count pad 256 pipeto ;
 
 \g Returns absolute installation path

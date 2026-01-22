@@ -1,9 +1,11 @@
 expose-module private
 : .line type cr ;
-: license
-   s" share/doc/fina/LICENSE" >inst r/o open-file throw >r
+: ftype ( path -- )
+   r/o open-file throw >r
    r@ ['] .line foreachline
    r> close-file throw ;
+: license
+   s" share/doc/fina/LICENSE" >inst ftype ;
 defer banner
 :noname
    ." FINA v0.2-" buildstr type
@@ -23,13 +25,13 @@ defer banner
    +loop ;
 
 :noname
-   deferred coldchain 
+   deferred coldchain
    s" *cmdline*" errorname 2!
-   ['] doargs catch .error 
+   ['] doargs catch .error
    banner quit ; is coldchain
 
 :noname
    ." ok" cr ; is .prompt
-echo on 
+echo on
 export license
 end-module

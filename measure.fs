@@ -1,6 +1,4 @@
 
-require timer.fs
-
 \g Start recording time
 : lap ( --  r: -- d)
   r> nstime 2>r >r ;
@@ -16,11 +14,11 @@ require timer.fs
 \g Measure time required to execute xt.
 : measured ( i*x xt -- j*x d )
    ['] noop rawmeasured 2drop \ warm up cache
-   rawmeasured 
+   rawmeasured
    ['] noop rawmeasured d- ;
 
-\g Measure time required to execute word. 
-: measure ( "word" -- ) 
+\g Measure time required to execute word.
+: measure ( "word" -- )
    ' measured ;
 
 : .### # # # [char] . hold ;

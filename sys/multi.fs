@@ -3,9 +3,9 @@
 
 expose-module private
 
-: user ( "<spaces>name" -- ) 
+: user ( "<spaces>name" -- )
    head, ['] douser xt, drop
-   lastuser ,  
+   lastuser ,
    lastuser 1- to lastuser
    linklast ;
 
@@ -57,7 +57,7 @@ decimal
 \g Stop current task and transfer control to the next task
 : pause  ( -- )
    rp@  \ This item will be consumed by READY
-   sp@ stacktop !  follower @ dup 's status >r ; compile-only  
+   sp@ stacktop !  follower @ dup 's status >r ; compile-only
 
 : resume
    postpone rdrop postpone userp postpone ! ; immediate compile-only
@@ -74,7 +74,7 @@ decimal
 
 \g Status for ready tasks
 : ready
-   resume stacktop @ sp! rp! ; compile-only 
+   resume stacktop @ sp! rp! ; compile-only
 
 \g Status for starting tasks
 : starting
@@ -82,11 +82,11 @@ decimal
 
 \g Stop current task
 : stop  ( -- )
-   ['] stopped status ! pause ; 
+   ['] stopped status ! pause ;
 
 \g Set sleeping state for given task
 : sleep ( tid -- )
-   ['] sleeping swap 's status ! ; 
+   ['] sleeping swap 's status ! ;
 
 \g Set ready state for given task
 : awake  ( tid -- )
@@ -98,7 +98,7 @@ decimal
    assert( r@ built )
    assert( r@ active )
    assert( r@ 's follower follower <> ) \ suicide not allowed
-   r@ prevtask r@ 's follower @ swap 's follower ! 
+   r@ prevtask r@ 's follower @ swap 's follower !
    r@ 's follower off
    assert( r@ active 0= )
    assert( r@ built )
@@ -111,16 +111,16 @@ decimal
 \g Create a new task.
 : task: ( user_size ds_size rs_size "<spaces>name" --  rt: -- tid )
    [ hex ]
-   create here 0 , >r 
+   create here 0 , >r
    cells 033 ,allot here cell- dup r> ! >r
    cells 0AA ,allot here cell- r@ 's rp0 !
    cells 055 ,allot here cell- r@ 's sp0 !
    [ decimal ]
-   lastname r> 's taskname ! 
+   lastname r> 's taskname !
    does> @ ;
 
 \  system:follower/ego  newtask:follower/ego
-\g Initialize and link task 
+\g Initialize and link task
 : build ( tid -- )
    assert( dup built 0= )
    follower @ over 's follower !  dup follower !  sleep ;
@@ -136,7 +136,7 @@ decimal
 \ Initializations for system task
 ' ready status !
 ego follower !
-ego constant system
+\ ego constant system
 lastname taskname !
 
 \ Pause when no key ready
@@ -152,6 +152,6 @@ lastname taskname !
 : .tasks
    cr ['] .task foreachtask ;
 
-export .tasks .task task: activate build kill awake sleep stop pause user 
+export .tasks .task task: activate build kill awake sleep stop pause user
 export 's status
 end-module

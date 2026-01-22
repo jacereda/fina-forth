@@ -365,6 +365,27 @@ fprim truncf  ( ud fileid -- ior )
 \g Flush file
 fprim flushf  ( fileid -- ior )
 
+\g Open pipe
+fprim popen ( c-addr1 c-addr2 -- n )
+
+\g Close pipe
+fprim pclose ( c-addr -- n )
+
+\g Invoke system command
+fprim system ( c-addr -- n )
+
+\g Create socket
+fprim socket ( n1 n2 n3 -- n )
+
+\g Get host by 0-terminated name
+fprim zgethostbyname ( c-addr -- addr )
+
+\g Create file pointer from file descriptor
+fprim fdopen ( n c-addr -- addr )
+
+\g Connect socket
+fprim connect ( n1 c-addr1 -- n2 -- addr )
+
 \g Convert 16.16 fixed point integer to float
 fxprim fx>float
 
@@ -401,6 +422,9 @@ prim argc ( -- u )
 
 \g Get command line argument
 prim argv ( -- addr )
+
+\g Get clock nanoseconds
+prim nstime ( -- d )
 
 \g End of xt
 prim xtend ( xt -- addr )

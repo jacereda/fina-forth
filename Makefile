@@ -4,8 +4,8 @@ ARCH_ppc=powerpc
 ARCH_i686=i386
 ARCH_sgimips=mips
 ARCH:=$(ARCH_$(shell uname -m))
-OS=$(shell uname -s)
-CC=gcc
+OS?=$(shell uname -s)
+CC?=gcc
 PREFIX=inst
 ASMCALL_x64='nop;nop;nop;call'
 ASMCALL_arm='bl'
@@ -34,6 +34,7 @@ FFIOS_FreeBSD=_FREEBSD
 FFIOS_OpenBSD=_FREEBSD
 FFIOS_DragonFly=_FREEBSD
 FFIOS_Linux=
+FFIOS_Cosmo=
 FFIOS=$(FFIOS_$(OS))
 FFIPLATDIR=$(shell echo $(FFIARCH) | tr '[:upper:]' '[:lower:]')
 FFIPLAT_Darwin_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/darwin64.S
@@ -49,21 +50,25 @@ FFIPLAT_OpenBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_NetBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
 FFIPLAT_NetBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
 FFIPLAT_DragonFly_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
+FFIPLAT_Cosmo_x64=$(FFIPLAT_Linux_x64)
 CFLAGS_gcc+=-fno-reorder-blocks -freorder-blocks-algorithm=simple
 CFLAGS_clang+=-Wno-unknown-attributes
 CFLAGS+=$(CFLAGS_$(CC))
-CFLAGS+=-Ofast -fomit-frame-pointer -ffunction-sections -fdata-sections -flto -fvisibility=hidden -fno-stack-check -fno-stack-protector
-CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR) -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
+LTO?=-flto
+DCE?=-ffunction-sections -fdata-sections
+CFLAGS+=-Ofast -fomit-frame-pointer -fvisibility=hidden -fno-stack-check -fno-stack-protector $(LTO) $(DCE)
+CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR) -DPOSIX_C_SOURCE=2 -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=1 -DBUILD_FIXED=1 -DBUILD_PIPE=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=1 -DBUILD_PROFILE=0 -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
 LDFLAGS_Darwin=-Wl,-dead_strip -segprot __DATA rwx rwx
 LDFLAGS_Linux=-Wl,-gc-sections -ldl
 LDFLAGS_FreeBSD=-Wl,-gc-sections
 LDFLAGS_OpenBSD=-Wl,-gc-sections
 LDFLAGS_NetBSD=-Wl,-gc-sections
 LDFLAGS_DragonFly=-Wl,-gc-sections
+LDFLAGS_Cosmo=-Wl,-gc-sections
 LDFLAGS=$(LDFLAGS_$(OS)) -no-pie
 
 IFILES=kernel/allocate.i kernel/files.i kernel/moreprims.i	\
-kernel/ffi.i kernel/fixed.i kernel/prims.i
+kernel/pipe.i kernel/ffi.i kernel/fixed.i kernel/prims.i
 
 BOOT=sys/core.fs sys/defer.fs sys/core2.fs sys/throwmsg.fs	\
 sys/based.fs sys/source.fs sys/search.fs sys/coreext.fs
@@ -82,10 +87,9 @@ test/core.fs test/postpone.fs test/bye.fs
 
 PURETESTS=test/tester.fs test/core.fs test/postpone.fs test/double.fs	\
 test/double2.fs test/file.fs test/filehandler.fs test/pipehandler.fs	\
-test/fina.fs test/multi.fs test/module.fs test/struct.fs test/ffi.fs	\
-test/bye.fs
+test/fina.fs test/multi.fs test/module.fs test/struct.fs test/ffi.fs
 
-TESTS=$(PURETESTS) test/tcphandler.fs test/udphandler.fs 
+TESTS= $(PURETESTS) test/tcphandler.fs test/udphandler.fs
 
 ALLTESTS= test/aw.fs test/double2.fs test/fina.fs test/pipehandler.fs	\
 test/tcphandler.fs test/udphandler.fs test/wrongeval.fs test/bye.fs	\
@@ -100,12 +104,11 @@ benchmarks/sieve.fs
 
 ALLFORTH=ans-report.fs answords.fs aw.fs bnf.fs cce.fs ce.fs		\
 filehandler.fs fixed.fs gdbdis.fs gl.fs glhelpers.fs glu.fs gtk.fs	\
-handler.fs later.fs list.fs machtimer.fs measure.fs memory.fs ns.fs	\
-nstimer.fs os.fs pipehandler.fs prof.fs saveaux.fs sh.fs socket.fs	\
-struct.fs sudoku.fs tcphandler.fs udphandler.fs ticker.fs timer.fs	\
-tt.fs units.fs ustimer.fs verboseinc.fs sys/args.fs sys/assert.fs	\
-sys/backtrace.fs sys/based.fs sys/c.fs sys/core.fs sys/core2.fs		\
-sys/coreext.fs sys/cstr.fs sys/defer.fs sys/double.fs			\
+handler.fs later.fs list.fs measure.fs memory.fs ns.fs pipehandler.fs	\
+prof.fs saveaux.fs sh.fs socket.fs struct.fs sudoku.fs tcphandler.fs	\
+udphandler.fs ticker.fs tt.fs units.fs verboseinc.fs sys/args.fs	\
+sys/assert.fs sys/backtrace.fs sys/based.fs sys/c.fs sys/core.fs	\
+sys/core2.fs sys/coreext.fs sys/cstr.fs sys/defer.fs sys/double.fs	\
 sys/doubleext.fs sys/facility.fs sys/facilityext.fs sys/ffi.fs		\
 sys/file.fs sys/fileext.fs sys/help.fs sys/instinclude.fs		\
 sys/lineedit.fs sys/module.fs sys/multi.fs sys/optional.fs		\
@@ -176,10 +179,10 @@ obj/fina: obj/kernel2 $(FULL) sys/savefina.fs saveaux.fs
 tests: obj/fina $(TESTS)
 	$^
 
-puretests: obj/fina $(PURETESTS)
+puretests: obj/fina $(PURETESTS) test/bye.fs
 	$^
 
-check: 
+check:
 	echo TESTING | $(MAKE) puretests
 
 bench: obj/fina $(ALLBENCHMARKS)

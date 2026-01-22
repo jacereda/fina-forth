@@ -1,3 +1,5 @@
+\ This might require executing:
+\ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 require pipehandler.fs
 expose-module private
 libc getpid (ptr) getpid

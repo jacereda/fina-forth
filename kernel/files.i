@@ -23,7 +23,7 @@
                 *++dsp = t1;
                 tos = t2 == -39? 0 : t2;
                 NEXT;
-                
+
                 PRIM(WRITEF);
                 CALLSAVE;
                 Sys_FileWrite((void*)tos, (char*)dsp[1], dsp[0]);
@@ -54,7 +54,7 @@
                 PUSH;
                 tos = t1;
                 NEXT;
-                
+
                 PRIM(SIZEF);
                 t0 = tos;
                 POP;
@@ -77,7 +77,7 @@
                 PUSH;
                 tos = t1;
                 NEXT;
-                        
+
                 PRIM(LINEF);
                 CALLSAVE;
                 t1 = Sys_FileLine((void*)tos, (char*)dsp[1], dsp[0]+1);
@@ -134,5 +134,58 @@
                 Sys_FileFlush((void*)tos);
                 t1 = Sys_Throw();
                 CALLREST;
+                tos = t1;
+                NEXT;
+
+                PRIM(POPEN)
+                CALLSAVE;
+                t1= (CELL)Sys_Popen((char *)dsp[0], (char*)tos);
+                CALLREST;
+                POP;
+                tos = t1;
+                NEXT;
+
+                PRIM(PCLOSE)
+                CALLSAVE;
+                t1 = Sys_Pclose((void*)tos);
+                CALLREST;
+                tos = t1;
+                NEXT;
+
+                PRIM(SYSTEM)
+                CALLSAVE;
+                t1 = Sys_System((char*)tos);
+                CALLREST;
+                tos = t1;
+                NEXT;
+
+                PRIM(SOCKET)
+                CALLSAVE;
+                t1 = Sys_Socket(dsp[1], dsp[0], tos);
+                CALLREST;
+                dsp += 2;
+                tos = t1;
+                NEXT;
+
+                PRIM(ZGETHOSTBYNAME)
+                CALLSAVE;
+                t1 = (CELL)Sys_GetHostByName((char*)tos);
+                CALLREST;
+                tos = t1;
+                NEXT;
+
+                PRIM(FDOPEN)
+                CALLSAVE;
+                t1 = (CELL)Sys_FDOpen(dsp[0], (char*)tos);
+                CALLREST;
+                dsp++;
+                tos = t1;
+                NEXT;
+
+                PRIM(CONNECT);
+                CALLSAVE;
+                t1 = Sys_Connect(dsp[1], (void*)dsp[0], tos);
+                CALLREST;
+                dsp += 2;
                 tos = t1;
                 NEXT;

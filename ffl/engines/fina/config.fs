@@ -34,8 +34,6 @@
 
 char " parse ffl.version" forth-wordlist search-wordlist 0= [IF]
 
-require timer.fs
-
 : s" [char] " parse state @ if postpone sliteral else here >r s, r> count then ; immediate
 
 : [DEFINED]
@@ -77,16 +75,16 @@ create end-of-line    ( -- c-addr = Counted string for the end of line for the c
  newline s,
 
 
-s" ADDRESS-UNIT-BITS" environment? 0= [IF] 8 [THEN] 
+s" ADDRESS-UNIT-BITS" environment? 0= [IF] 8 [THEN]
   constant #bits/byte   ( -- +n = Number of bits in a byte )
-  
+
 #bits/byte 1 chars *
   constant #bits/char   ( -- +n = Number of bits in a char )
-  
-#bits/byte cell *
-  constant #bits/cell   ( -- +n = Number of bits in a cell )  
 
-ffl.endian c@ 0=             
+#bits/byte cell *
+  constant #bits/cell   ( -- +n = Number of bits in a cell )
+
+ffl.endian c@ 0=
   constant bigendian?   ( -- flag = Check for bigendian hardware )
 
 
@@ -157,7 +155,7 @@ s" MAX-U" environment? drop constant max-ms@  ( -- u = Max val of the millisecon
 
 : ?free            ( addr -- wior = Free the address if not nil )
   dup nil<> IF
-    free 
+    free
   ELSE
     drop 0
   THEN

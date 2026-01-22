@@ -1,5 +1,5 @@
 expose-module private
-libc system ptr (int) system
+\ libc system ptr (int) system
 : (sh?) 0term system ;
 : (sh) (sh?) throw ;
 : sh"

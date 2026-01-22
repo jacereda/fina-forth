@@ -1,18 +1,14 @@
-require os.fs
-
 module socket
 
-libc socket int int int (int) socket
-libc 0gethostbyname ptr (ptr) gethostbyname
-libc fdopen int ptr (ptr) fdopen
-libc connect int ptr int (ptr) connect
+\ libc socket int int int (int) socket
+\ libc zgethostbyname ptr (ptr) gethostbyname
+\ libc fdopen int ptr (ptr) fdopen
+\ libc connect int ptr int (ptr) connect
 
 create saddr
-[darwin] [if]
-  0 c, 2 c,
-[else]
-  2 0 base c@ [if] swap [then] c, c,
-[then]
+2 0
+base c@ [if] swap [then]
+c, c,
 here 0 c, 0 c,
 here 0 c, 0 c, 0 c, 0 c,
 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c, 0 c,
@@ -24,7 +20,7 @@ constant port
 : bw! ( n addr -- , store short in big-endian mode)
    >r dup 8 rshift r@ c! r> 1+ c! ;
 
-: gethostbyname 0term 0gethostbyname ;
+: gethostbyname 0term zgethostbyname ;
 
 : split ( c-addr u c -- c-addr1 u1 c-addr2 u2 )
    >r 2dup r> scan 2swap 2 pick - ;

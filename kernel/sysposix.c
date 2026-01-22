@@ -1,72 +1,67 @@
 #define _LARGEFILE_SOURCE
 #define _FILE_OFFSET_BITS 64
 
-#include <sys/types.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-
 #include <assert.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <netdb.h>
 #include <setjmp.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
+#include <sys/mman.h>
+#include <sys/socket.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include <termios.h>
+#include <time.h>
 #include <unistd.h>
 
-
 #include "fina.h"
+
 #include "arch.h"
 #include "sys.h"
 
 static struct termios otio;
 static unsigned argc;
-static char ** argv;
+static char **argv;
 static int throwval;
 static jmp_buf jmpbuf;
 
-
-void mysignal(int signo, void (*handler)(int))
-{
+void mysignal(int signo, void (*handler)(int)) {
         struct sigaction action;
         action.sa_handler = handler;
         sigemptyset(&action.sa_mask);
-        action.sa_flags=SA_NODEFER;
+        action.sa_flags = SA_NODEFER;
         sigaction(signo, &action, 0);
 }
 
-static void errnoThrow(int error)
-{
-        if (error) switch (errno)
-        {
-        case ENOENT:
-                throwval = -38;
-                break;
-        case ENOMEM:
-                throwval = -21;
-                break;
-        default:
-                throwval = -37;
-        }
-        if (!error)
+static void errnoThrow(int error) {
+        if (error) {
+                if (0)
+                        ;
+                else if (errno == ENOENT)
+                        throwval = -38;
+                else if (errno == ENOMEM)
+                        throwval = -21;
+                else
+                        throwval = -37;
+        } else
                 throwval = 0;
         errno = 0;
 }
 
-static void memThrow(int error)
-{
+static void memThrow(int error) {
 // malloc() doesn't seem to set errno on Darwin. The man page says it should.
 #if defined(__MACH__)
-        if (error) errno = ENOMEM;
+        if (error)
+                errno = ENOMEM;
 #endif
         errnoThrow(error);
 }
 
-static void ferrorThrow(int error, FILE * handle)
-{
+static void ferrorThrow(int error, FILE *handle) {
         if (error && feof(handle))
                 throwval = -39;
         if (error && ferror(handle))
@@ -76,24 +71,16 @@ static void ferrorThrow(int error, FILE * handle)
         clearerr(handle);
 }
 
-static void sighandler(int sig)
-{
-        switch (sig)
-        {
-        case SIGBUS:
-        case SIGSEGV:
-        case SIGILL:
+static void sighandler(int sig) {
+        if (sig == SIGBUS || sig == SIGSEGV || sig == SIGILL)
                 throwval = -9;
-                break;
-        default:
+        else
                 throwval = -59;
-        }
         mysignal(sig, sighandler);
         longjmp(jmpbuf, throwval);
 }
 
-int Sys_Tick(struct FINA_State * state)
-{
+int Sys_Tick(struct FINA_State *state) {
         static int set = 0;
         int throwval = 0;
         if (!set)
@@ -102,19 +89,16 @@ int Sys_Tick(struct FINA_State * state)
         return FINA_InternalTick(state, throwval);
 }
 
-static void initSignals()
-{
+static void initSignals() {
         mysignal(SIGBUS, sighandler);
         mysignal(SIGSEGV, sighandler);
         mysignal(SIGILL, sighandler);
 }
 
-static void initTerm()
-{
+static void initTerm() {
         struct termios tio;
         unsigned ret;
-        if (isatty(fileno(stdin)))
-        {
+        if (isatty(fileno(stdin))) {
                 ret = tcgetattr(fileno(stdin), &otio);
                 assert(ret == 0);
                 tio = otio;
@@ -124,11 +108,9 @@ static void initTerm()
         }
 }
 
-static void endTerm()
-{
+static void endTerm() {
         unsigned ret;
-        if (isatty(fileno(stdin)))
-        {
+        if (isatty(fileno(stdin))) {
                 ret = tcsetattr(fileno(stdin), TCSANOW, &otio);
                 assert(ret == 0);
         }
@@ -136,12 +118,12 @@ static void endTerm()
 
 static uintptr_t end() {
         extern CELL Forth_End;
-        return (uintptr_t) &Forth_End;
+        return (uintptr_t)&Forth_End;
 }
 
 static uintptr_t start() {
         extern CELL Forth_Entry;
-        return (uintptr_t) &Forth_Entry;
+        return (uintptr_t)&Forth_Entry;
 }
 
 static unsigned pageshift() {
@@ -160,48 +142,43 @@ static uintptr_t tosize(uintptr_t npages) {
         return npages * pagesize();
 }
 
-static void * toaddr(uintptr_t page) {
-        return (void*)(page * pagesize());
+static void *toaddr(uintptr_t page) {
+        return (void *)(page * pagesize());
 }
 
-void Sys_Init(int argcc, char ** argvv)
-{
+void Sys_Init(int argcc, char **argvv) {
         argc = argcc;
         argv = argvv;
         initTerm();
         initSignals();
         if (mprotect(toaddr(page(start())),
                      tosize(page(end()) - page(start()) + 1),
-                     PROT_READ+PROT_WRITE+PROT_EXEC))
+                     PROT_READ + PROT_WRITE + PROT_EXEC))
                 perror("mprotect");
 }
 
-void Sys_End()
-{
+void Sys_End() {
         endTerm();
 }
 
-unsigned Sys_HasChar()
-{
+unsigned Sys_HasChar() {
         int ret, flags, rflags;
-        flags = fcntl(fileno(stdin),F_GETFL,0);
+        flags = fcntl(fileno(stdin), F_GETFL, 0);
         assert(flags != -1);
-        rflags = fcntl(fileno(stdin),F_SETFL,flags|O_NDELAY);
+        rflags = fcntl(fileno(stdin), F_SETFL, flags | O_NDELAY);
         assert(rflags != -1);
         ret = getchar();
         ungetc(ret, stdin);
-        rflags = fcntl(fileno(stdin),F_SETFL,flags);
+        rflags = fcntl(fileno(stdin), F_SETFL, flags);
         assert(rflags != -1);
         return ret != EOF;
 }
 
-unsigned Sys_GetChar()
-{
+unsigned Sys_GetChar() {
         return getchar();
 }
 
-void Sys_PutChar(unsigned c)
-{
+void Sys_PutChar(unsigned c) {
         unsigned ret;
         ret = putchar(c);
         errnoThrow(ret != c);
@@ -209,20 +186,17 @@ void Sys_PutChar(unsigned c)
         errnoThrow(ret != 0);
 }
 
-void Sys_MemMove(char * to, const char * from, memsz bytes)
-{
+void Sys_MemMove(char *to, const char *from, memsz bytes) {
         memmove(to, from, bytes);
 }
 
-void Sys_MemSet(char * dst, unsigned val, memsz bytes)
-{
+void Sys_MemSet(char *dst, unsigned val, memsz bytes) {
         memset(dst, val, bytes);
 }
 
-void * Sys_FileOpen(const char * name, unsigned mode)
-{
-        const char *modestr[]={"r", "rb", "r+", "r+b", "w", "wb", "BAD"};
-        void * handle;
+void *Sys_FileOpen(const char *name, unsigned mode) {
+        const char *modestr[] = {"r", "rb", "r+", "r+b", "w", "wb", "BAD"};
+        void *handle;
         if (mode > 5)
                 mode = 6;
         handle = fopen(name, modestr[mode]);
@@ -230,185 +204,206 @@ void * Sys_FileOpen(const char * name, unsigned mode)
         return handle;
 }
 
-int Sys_Throw()
-{
+int Sys_Throw() {
         return throwval;
 }
 
-void Sys_FileClose(void * handle)
-{
-        FILE * fh = (FILE*)handle;
+void Sys_FileClose(void *handle) {
+        FILE *fh = (FILE *)handle;
         errnoThrow(handle == 0);
-        if (!throwval) errnoThrow(0 != fclose(fh));
+        if (!throwval)
+                errnoThrow(0 != fclose(fh));
 }
 
-memsz Sys_FileRead(void * handle, char * buf, memsz len)
-{
-        FILE * fh = (FILE*)handle;
+memsz Sys_FileRead(void *handle, char *buf, memsz len) {
+        FILE *fh = (FILE *)handle;
         size_t res = 0;
         errnoThrow(fh == 0);
-        if (!throwval) res = fread(buf, 1, len, fh);
-	//        if (!throwval) ferrorThrow(res != len, fh);
+        if (!throwval)
+                res = fread(buf, 1, len, fh);
+        //        if (!throwval) ferrorThrow(res != len, fh);
         return res;
 }
 
-void Sys_FileWrite(void * handle, char * buf, memsz len)
-{
-        FILE * fh = (FILE*)handle;
+void Sys_FileWrite(void *handle, char *buf, memsz len) {
+        FILE *fh = (FILE *)handle;
         size_t res = 0;
         errnoThrow(fh == 0);
-        if (!throwval) res = fwrite(buf, 1, len, fh);
-        if (!throwval) ferrorThrow(res != len, fh);
+        if (!throwval)
+                res = fwrite(buf, 1, len, fh);
+        if (!throwval)
+                ferrorThrow(res != len, fh);
 }
 
-void * Sys_FileMMap(void * handle)
-{
-        FILE * fh = (FILE*)handle;
-        void * res = 0;
+void *Sys_FileMMap(void *handle) {
+        FILE *fh = (FILE *)handle;
+        void *res = 0;
         errnoThrow(fh == 0);
-        if (!throwval) res = mmap(0, 0x40000000, PROT_READ, MAP_SHARED,
-                               fileno(fh), 0);
-        if (!throwval) errnoThrow(res == (void*)-1);
+        if (!throwval)
+                res = mmap(0, 0x40000000, PROT_READ, MAP_SHARED, fileno(fh), 0);
+        if (!throwval)
+                errnoThrow(res == (void *)-1);
         return res;
 }
 
-unsigned Sys_Argc()
-{
+unsigned Sys_Argc() {
         return argc;
 }
 
-char ** Sys_Argv()
-{
+char **Sys_Argv() {
         return argv;
 }
 
-foffset Sys_FileSize(void * handle)
-{
-        FILE * fh = (FILE*)handle;
+foffset Sys_FileSize(void *handle) {
+        FILE *fh = (FILE *)handle;
         off_t prev = -1;
         off_t res = -1;
         errnoThrow(fh == 0);
-        if (!throwval) errnoThrow(-1 == (prev = ftello(fh)));
-        if (!throwval) errnoThrow(-1 == fseeko(fh, 0, SEEK_END));
-        if (!throwval) errnoThrow(-1 == (res = ftello(fh)));
-        if (!throwval) errnoThrow(-1 == fseeko(fh, prev, SEEK_SET));
+        if (!throwval)
+                errnoThrow(-1 == (prev = ftello(fh)));
+        if (!throwval)
+                errnoThrow(-1 == fseeko(fh, 0, SEEK_END));
+        if (!throwval)
+                errnoThrow(-1 == (res = ftello(fh)));
+        if (!throwval)
+                errnoThrow(-1 == fseeko(fh, prev, SEEK_SET));
         return res;
 }
 
-void Sys_FileSeek(void * handle, foffset pos)
-{
-        FILE * fh = (FILE*)handle;
+void Sys_FileSeek(void *handle, foffset pos) {
+        FILE *fh = (FILE *)handle;
         errnoThrow(fh == 0);
-        if (!throwval) errnoThrow(-1 == fseeko(fh, pos, SEEK_SET));
+        if (!throwval)
+                errnoThrow(-1 == fseeko(fh, pos, SEEK_SET));
 }
 
-foffset Sys_FileTell(void * handle)
-{
-        FILE * fh = (FILE*)handle;
+foffset Sys_FileTell(void *handle) {
+        FILE *fh = (FILE *)handle;
         off_t res = -1;
         errnoThrow(fh == 0);
-        if (!throwval) res = ftello(fh);
-        if (!throwval) errnoThrow(-1 == res);
+        if (!throwval)
+                res = ftello(fh);
+        if (!throwval)
+                errnoThrow(-1 == res);
         return res;
 }
 
-unsigned Sys_FileLine(void * handle, char * buf, unsigned size)
-{
-        FILE * fh = (FILE*)handle;
+unsigned Sys_FileLine(void *handle, char *buf, unsigned size) {
+        FILE *fh = (FILE *)handle;
         unsigned res = 0;
         errnoThrow(fh == 0);
-        if (!throwval) ferrorThrow(0 == fgets(buf, size, fh), fh);
-        if (!throwval) res = strlen(buf);
-        if (!throwval) res -= buf[res-1] == '\n';
+        if (!throwval)
+                ferrorThrow(0 == fgets(buf, size, fh), fh);
+        if (!throwval)
+                res = strlen(buf);
+        if (!throwval)
+                res -= buf[res - 1] == '\n';
         return res;
 }
 
-void * Sys_Time()
-{
+void *Sys_Time() {
         time_t t = time(0);
         return localtime(&t);
 }
 
-unsigned Sys_Second(void * t)
-{
+unsigned Sys_Second(void *t) {
         return ((struct tm *)t)->tm_sec;
 }
 
-unsigned Sys_Minute(void * t)
-{
+unsigned Sys_Minute(void *t) {
         return ((struct tm *)t)->tm_min;
 }
 
-unsigned Sys_Hour(void * t)
-{
+unsigned Sys_Hour(void *t) {
         return ((struct tm *)t)->tm_hour;
 }
 
-unsigned Sys_Day(void * t)
-{
+unsigned Sys_Day(void *t) {
         return ((struct tm *)t)->tm_mday;
 }
 
-unsigned Sys_Month(void * t)
-{
+unsigned Sys_Month(void *t) {
         return ((struct tm *)t)->tm_mon + 1;
 }
 
-unsigned Sys_Year(void * t)
-{
+unsigned Sys_Year(void *t) {
         return ((struct tm *)t)->tm_year + 1900;
 }
 
-void Sys_Sleep(unsigned ms)
-{
+void Sys_Sleep(unsigned ms) {
         usleep(ms * 1000);
 }
 
-void Sys_FileDelete(const char * name)
-{
+uint64_t Sys_Nanoseconds() {
+        struct timespec tv;
+        clock_gettime(CLOCK_MONOTONIC, &tv);
+        return tv.tv_sec * 1000000000ULL + tv.tv_nsec;
+}
+
+void Sys_FileDelete(const char *name) {
         errnoThrow(-1 == unlink(name));
 }
 
-unsigned Sys_FileStat(const char * name)
-{
+unsigned Sys_FileStat(const char *name) {
         struct stat s;
         errnoThrow(stat(name, &s));
         return s.st_mode;
 }
 
-void Sys_FileRen(const char * oldname, const char * newname)
-{
+void Sys_FileRen(const char *oldname, const char *newname) {
         errnoThrow(rename(oldname, newname));
 }
 
-void Sys_FileTrunc(void * handle, foffset size)
-{
-        FILE * fh = (FILE*)handle;
-        errnoThrow(ftruncate(fileno((FILE*)fh), size));
+void Sys_FileTrunc(void *handle, foffset size) {
+        FILE *fh = (FILE *)handle;
+        errnoThrow(ftruncate(fileno((FILE *)fh), size));
 }
 
-void Sys_FileFlush(void * handle)
-{
-        FILE * fh = (FILE*)handle;
+void Sys_FileFlush(void *handle) {
+        FILE *fh = (FILE *)handle;
         errnoThrow(fflush(fh));
 }
 
-
-void * Sys_MemAllocate(memsz bytes)
-{
-        void * ret = malloc(bytes);
+void *Sys_MemAllocate(memsz bytes) {
+        void *ret = malloc(bytes);
         memThrow(0 == ret);
         return ret;
 }
 
-void Sys_MemFree(void * p)
-{
+void Sys_MemFree(void *p) {
         free(p);
 }
 
-void * Sys_MemResize(void * p, memsz newsize)
-{
-        void * ret = realloc(p, newsize);
+void *Sys_MemResize(void *p, memsz newsize) {
+        void *ret = realloc(p, newsize);
         memThrow(0 == ret);
         return ret;
+}
+
+void *Sys_Popen(const char *a, const char *b) {
+        return popen(a, b);
+}
+
+int Sys_Pclose(void *a) {
+        return pclose(a);
+}
+
+int Sys_System(const char *c) {
+        return system(c);
+}
+
+int Sys_Socket(int a, int b, int c) {
+        return socket(a, b, c);
+}
+
+void *Sys_GetHostByName(const char *a) {
+        return gethostbyname(a);
+}
+
+void *Sys_FDOpen(int a, const char *b) {
+        return fdopen(a, b);
+}
+
+int Sys_Connect(int a, void *b, int c) {
+        return connect(a, b, c);
 }
