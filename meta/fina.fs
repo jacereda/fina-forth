@@ -432,6 +432,12 @@ prim xtend ( xt -- addr )
 \g Do nothing
 prim noop ( -- )
 
+\g XT of primitive at lowest address
+prim lowestprim
+
+\g XT of primitive at highest address
+prim highestprim
+
 
 \ HOOKS
 

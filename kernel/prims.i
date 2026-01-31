@@ -1,3 +1,5 @@
+	        PRIM(NOOP);
+	        NEXT;
 
                 PRIM(DOLIT);
                 PUSH;
@@ -367,3 +369,21 @@
                 CALLREST;
                 tos = t1;
                 NEXT;
+
+		PRIM(ARGV);
+		PUSH;
+		CALLSAVE;
+		t1 = (CELL)Sys_Argv();
+		CALLREST;
+		tos = t1;
+		NEXT;
+
+		PRIM(LOWESTPRIM);
+		PUSH;
+		tos = (CELL)lprim;
+		NEXT;
+
+		PRIM(HIGHESTPRIM);
+		PUSH;
+		tos = (CELL)hprim;
+		NEXT;

@@ -4,6 +4,17 @@
 #define RSPREG // asm("%r13")
 #define DSPREG // asm("%r14")
 #define TOSREG // asm("%r15")
+
+#define ASMCALL                                                                \
+        nop;                                                                   \
+        nop;                                                                   \
+        nop;                                                                   \
+        call
+#define ASMCELL .quad
+#define ASMALIGN .p2align 3
+
+#if !defined ASM
+
 typedef __int128_t DCELL;
 typedef __uint128_t UDCELL;
 static inline CELL *getlnk() {
@@ -31,3 +42,4 @@ static inline void arch_xtstore(CELL xt, CELL pdict) {
         ((int32_t *)pdict)[0] = 0xe8909090;
         ((int32_t *)pdict)[1] = xt - (pdict + 3 + 5);
 }
+#endif

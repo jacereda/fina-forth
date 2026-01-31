@@ -201,9 +201,24 @@ int FINA_Tick(struct FINA_State *state) {
         return Sys_Tick(state);
 }
 
-int internalTick(struct FINA_State *state, int throwval) {
+static const uintptr_t lowest(const uintptr_t *p, unsigned sz) {
+        uintptr_t r = p[0];
+        for (unsigned i = 1; i < sz; i++)
+                if (p[i] < r)
+                        r = p[i];
+        return r;
+}
+
+static const uintptr_t highest(const uintptr_t *p, unsigned sz) {
+        uintptr_t r = p[0];
+        for (unsigned i = 1; i < sz; i++)
+                if (p[i] > r)
+                        r = p[i];
+        return r;
+}
+
+static int internalTick(struct FINA_State *state, int throwval) {
         static const void *tab[] = {
-            &&NOOP,
 #include "primstab.it"
 
 #if BUILD_MOREPRIMS
@@ -225,10 +240,15 @@ int internalTick(struct FINA_State *state, int throwval) {
 #if BUILD_FFI
 #include "ffitab.it"
 #endif
-
-            &&ARGV,
         };
-
+        static uintptr_t lprim;
+        static uintptr_t hprim;
+        if (!lprim) {
+                lprim = lowest((const uintptr_t *)tab,
+                               sizeof(tab) / sizeof(tab[0]));
+                hprim = highest((const uintptr_t *)tab,
+                                sizeof(tab) / sizeof(tab[0]));
+        }
         register CELL *rsp RSPREG;
         register CELL *fpc FPCREG;
         register CELL *dsp DSPREG;
@@ -255,10 +275,6 @@ int internalTick(struct FINA_State *state, int throwval) {
         } else
                 RESTREGS;
 
-        // DON'T MOVE THIS
-        PRIM(NOOP);
-        NEXT;
-
 #define RETURN(x)                                                              \
         ret = x;                                                               \
         goto end
@@ -284,15 +300,6 @@ int internalTick(struct FINA_State *state, int throwval) {
 #if BUILD_FFI
 #include "ffi.i"
 #endif
-
-        // DON'T MOVE THIS
-        PRIM(ARGV);
-        PUSH;
-        CALLSAVE;
-        t1 = (CELL)Sys_Argv();
-        CALLREST;
-        tos = t1;
-        NEXT;
 
 end:
         SAVEREGS;

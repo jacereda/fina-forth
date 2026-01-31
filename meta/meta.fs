@@ -1,4 +1,5 @@
 \ Helpers
+char ' parse #include "arch.h"' type cr
 : .call ."  ASMCALL XT_" ;
 : .cell ."  ASMCELL " ;
 : .align ."  ASMALIGN" cr ;

@@ -6,22 +6,8 @@ ARCH_sgimips=mips
 ARCH:=$(ARCH_$(shell uname -m))
 OS?=$(shell uname -s)
 CC?=gcc
+CPP?=$(CC)
 PREFIX=inst
-ASMCALL_x64='nop;nop;nop;call'
-ASMCALL_arm='bl'
-ASMCALL_i386='nop;nop;nop;call'
-ASMCALL_mips='bal'
-ASMCALL_powerpc='bl'
-ASMCELL_x64='.quad'
-ASMCELL_arm='.long'
-ASMCELL_i386='.long'
-ASMCELL_mips='.long'
-ASMCELL_powerpc='.long'
-ASMALIGN_x64='.p2align 3'
-ASMALIGN_arm='.balign 4'
-ASMALIGN_i386='.p2align 2'
-ASMALIGN_mips='.balign 4'
-ASMALIGN_powerpc='.align 2'
 FFIARCH_x64=X86
 FFIARCH_i386=X86
 FFIARCH_powerpc=POWERPC
@@ -61,7 +47,11 @@ PROF?=0
 MOREPRIMS?=1
 ALLOCATE?=1
 CFLAGS+=$(OPT) -fomit-frame-pointer -fvisibility=hidden -fno-stack-check -fno-stack-protector $(LTO) $(DCE)
-CPPFLAGS+=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR) -DPOSIX_C_SOURCE=2 -DASMCALL=$(ASMCALL_$(ARCH)) -DASMCELL=$(ASMCELL_$(ARCH)) -DASMALIGN=$(ASMALIGN_$(ARCH)) -DBUILD_FILES=1 -DBUILD_ALLOCATE=$(ALLOCATE) -DBUILD_FIXED=1 -DBUILD_PIPE=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=$(MOREPRIMS) -DBUILD_PROFILE=$(PROF) -DX86_64 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG
+FEATURES=-DBUILD_FILES=1 -DBUILD_ALLOCATE=$(ALLOCATE) -DBUILD_FIXED=1 -DBUILD_PIPE=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=$(MOREPRIMS) -DBUILD_PROFILE=$(PROF)
+INCPATHS=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR)
+CPPFLAGS+=$(INCPATHS) -DPOSIX_C_SOURCE=2 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG $(CPPFLAGS_$(OS)) $(FEATURES)
+ASPPFLAGS+=$(INCPATHS) $(FEATURES) -DASM
+# CPPFLAGS_Cosmo=-D__x86_64__
 LDFLAGS_Darwin=-Wl,-dead_strip -segprot __DATA rwx rwx
 LDFLAGS_Linux=-Wl,-gc-sections -ldl
 LDFLAGS_FreeBSD=-Wl,-gc-sections
@@ -69,7 +59,7 @@ LDFLAGS_OpenBSD=-Wl,-gc-sections
 LDFLAGS_NetBSD=-Wl,-gc-sections
 LDFLAGS_DragonFly=-Wl,-gc-sections
 LDFLAGS_Cosmo=-Wl,-gc-sections
-LDFLAGS=$(LDFLAGS_$(OS)) -no-pie
+LDFLAGS=$(LDFLAGS_$(OS)) -no-pie -s
 
 IFILES=kernel/allocate.i kernel/files.i kernel/moreprims.i	\
 kernel/ffi.i kernel/fixed.i kernel/prims.i
@@ -140,6 +130,14 @@ FFISRCS= libs/libffi/src/debug.c libs/libffi/src/prep_cif.c	\
 libs/libffi/src/types.c libs/libffi/src/closures.c		\
 $(FFIPLAT_$(OS)_$(ARCH))
 
+
+KERNELSRCS=kernel/finac.c kernel/main.c kernel/sysposix.c $(FFISRCS)
+
+KERNELOBJS = \
+  $(patsubst %.c,obj/%.o,$(filter %.c,$(KERNELSRCS))) \
+  $(patsubst %.S,obj/%.o,$(filter %.S,$(KERNELSRCS)))
+
+
 all: obj/fina
 
 obj/arch.h: kernel/$(ARCH)-arch.h
@@ -168,7 +166,7 @@ bootstrap: obj/dict2.S
 kerneltest%: obj/kernel%
 	cat $(KERNELTESTS) | $<
 
-obj/kernel%: obj/dict%.S kernel/finac.c kernel/main.c kernel/sysposix.c $(FFISRCS)
+obj/kernel%: obj/dict%.o $(KERNELOBJS)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 obj/build.fs: $(FULL) saveaux.fs
@@ -179,6 +177,19 @@ obj/build.fs: $(FULL) saveaux.fs
 obj/fina: obj/kernel2 $(FULL) sys/savefina.fs saveaux.fs
 	(cat $(FULL) && printf ': buildstr s" %s" ;\n' `git rev-parse HEAD|cut -c1-8` && cat sys/savefina.fs saveaux.fs) | obj/kernel2
 	chmod 755 $@
+
+obj/%.o: %.S
+	mkdir -p $(dir $@)
+	$(CC) $(ASPPFLAGS) -c $< -o $@
+
+obj/%.o: obj/%.S
+	mkdir -p $(dir $@)
+	$(CC) $(ASPPFLAGS) -c $< -o $@
+
+obj/%.o: %.c
+	echo "COMPILING $@"
+	mkdir -p $(dir $@)
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
 tests: obj/fina $(TESTS)
 	$^

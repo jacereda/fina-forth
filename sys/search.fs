@@ -1,6 +1,6 @@
 \g Is xt a primitive xt?
 : primxt? ( xt -- flag )
-   xtof noop xtof argv cell+ within ;
+   lowestprim highestprim cell+ within ;
 
 \g Go from execution token to name
 : xt>name ( xt -- c-addr )

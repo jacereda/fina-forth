@@ -5,23 +5,24 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs, ... }:
     let
-      cosmo = false;
+      cosmo = true;
+#      cosmocc-3-bin = pkgs.callPackage ./cosmocc-3-bin.nix {};
+      cosmocc-4-bin = pkgs.callPackage ./cosmocc-4-bin.nix {};
       cosmoVars = ''
-            export CC=cosmocc
+            export CC=${cosmocc-4-bin}/bin/x86_64-unknown-cosmo-cc
+            export AS=${cosmocc-4-bin}/cosmocc/bin/x86_64-unknown-cosmo-as
             export OS=Cosmo
             export DCE=
             export LTO=
-            export OPT=-O1
-            export CFLAGS=-fno-strict-aliasing
-            export
           '';
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
+#      cosmocc-4 = pkgs.callPackage ./cosmopolitan.nix { inherit cosmocc-3-bin; };
       nativeBuildInputs = with pkgs;
         [ python3 clang-tools gdb ]
-        ++ pkgs.lib.optional cosmo [ cosmocc cosmopolitan ];
+        ++ pkgs.lib.optional cosmo [  ];
       buildInputs = with pkgs; [ ];
     in
     {
@@ -49,7 +50,7 @@
           '';
 
           checkPhase = ''
-            type foo | make tests
+            echo foo | make tests
           '';
 
           meta = with pkgs.lib; {
