@@ -26,11 +26,13 @@
 
       qemuMap = {
         i686    = "i386";
+        armv6l = "arm";
         armv7l = "arm";
         powerpc = "ppc";
       };
 
       cpuMap = {
+        armv6l = "arm";
         armv7l = "arm";
       };
 
@@ -40,7 +42,7 @@
         };
 
         x86_64-static = {
-          pkgs = pkgs.pkgsCross.musl64.pkgsStatic;
+          pkgs = crossTargets.x86_64.pkgs.pkgsStatic;
         };
 
         i686 = {
@@ -48,15 +50,15 @@
         };
 
         i686-static = {
-          pkgs = pkgs.pkgsCross.musl32.pkgsStatic;
+          pkgs = crossTargets.i686.pkgs.pkgsStatic;
         };
 
         arm = {
-          pkgs = pkgs.pkgsCross.armv7l-hf-multiplatform-musl;
+          pkgs = pkgs.pkgsCross.muslpi;
         };
 
         arm-static = {
-          pkgs = pkgs.pkgsCross.armv7l-hf-multiplatfor-musl.pkgsStatic;
+          pkgs = crossTargets.arm.pkgs.pkgsStatic;
         };
 
         aarch64 = {
@@ -64,15 +66,18 @@
         };
 
         aarch64-static = {
-          pkgs = pkgs.pkgsCross.aarch64-multiplatform-musl.pkgsStatic;
+          pkgs = crossTargets.aarch64.pkgs.pkgsStatic;
         };
 
         powerpc = {
-          pkgs = pkgs.pkgsCross.ppc32-multiplatform-musl;
+          pkgs = import nixpkgs {
+            inherit system;
+            crossSystem = { config = "powerpc-unknown-linux-musl"; };
+          };
         };
 
         powerpc-static = {
-          pkgs = pkgs.pkgsCross.ppc32-multiplatform-musl.pkgsStatic;
+          pkgs = crossTargets.powowerpc.pkgs.pkgsStatic;
         };
 
         cosmo = {
@@ -142,11 +147,7 @@
         };
     in
     {
-      packages.${system} =
-        (nixpkgs.lib.mapAttrs mkFina crossTargets)
-        // {
-          libffi-cosmo = libffi-cosmo;
-        };
+      packages.${system} = nixpkgs.lib.mapAttrs mkFina crossTargets;
 
       defaultPackage.${system} =
         self.packages.${system}.x86_64;
