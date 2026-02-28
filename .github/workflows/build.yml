@@ -24,7 +24,6 @@ jobs:
           powerpc-static, # powerpc,
 #          cosmo
           ]
-      fail-fast: true
 
     steps:
       - name: Checkout the repository
