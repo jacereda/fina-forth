@@ -194,7 +194,7 @@ install: obj/fina$(EXE) $(ALLFORTH) $(ALLTESTS) $(ALLBENCHMARKS) obj/toc.help $(
 	install -d $(PREFIX)/share/fina/help
 	install obj/toc.help $(ALLHELP) $(ANSHELP) $(PREFIX)/share/fina/help
 	install -d $(PREFIX)/share/doc/fina
-	install README AUTHORS LICENSE $(PREFIX)/share/doc/fina
+	install README.md AUTHORS LICENSE $(PREFIX)/share/doc/fina
 	install -d $(PREFIX)/share/fina/ffl
 	install ffl/ffl/*.fs $(PREFIX)/share/fina/ffl/
 	install ffl/engines/fina/config.fs $(PREFIX)/share/fina/ffl/
