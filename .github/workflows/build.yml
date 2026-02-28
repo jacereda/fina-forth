@@ -17,10 +17,10 @@ jobs:
       matrix:
         target: [
           x86_64, x86_64-static,
-#          i686, i686-static,
-#          arm, arm-static,
-#          aarch64, aarch64-static,
-#          powerpc-static, # powerpc,
+          i686, i686-static,
+          arm, arm-static,
+          aarch64, aarch64-static,
+          powerpc-static, # powerpc,
 #          cosmo
           ]
       fail-fast: true
