@@ -35,7 +35,7 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
-      - name: Build and Create ZIP Archive
+      - name: Build ${{ matrix.target }}
         run: |
           nix build .#${{ matrix.target }}
           cp -rL result/ fina-${{ matrix.target }}
