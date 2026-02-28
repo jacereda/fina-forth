@@ -380,10 +380,10 @@
 
 		PRIM(LOWESTPRIM);
 		PUSH;
-		tos = (CELL)lprim;
+		tos = (CELL)tab[0];
 		NEXT;
 
 		PRIM(HIGHESTPRIM);
 		PUSH;
-		tos = (CELL)hprim;
+		tos = (CELL)tab[sizeof tab / sizeof tab[0] - 1];
 		NEXT;

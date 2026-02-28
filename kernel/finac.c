@@ -16,7 +16,6 @@ static void *dlopen(const char *path, int mode) {
 static void *dlsym(void *l, const char *sym) {
         return GetProcAddress(l, sym);
 }
-
 #else
 #include <dlfcn.h>
 #endif
@@ -57,13 +56,12 @@ __attribute__((noinline)) static void loc(const char *p) {
 
 #define PRIM(x)                                                                \
         x:                                                                     \
-        asm volatile(".globl XT_" #x "\nXT_" #x ":");                          \
+        asm volatile("\nXT_" #x ":");                                          \
         {                                                                      \
-                DUMPDECL(x);                                                   \
-                int unused
+                DUMPDECL(x);
+
 #define NEXTT goto *(CELL *)*fpc++
 #define NEXT                                                                   \
-        (void)unused;                                                          \
         DUMPLOC;                                                               \
         }                                                                      \
         NEXTT
@@ -201,24 +199,20 @@ int FINA_Tick(struct FINA_State *state) {
         return Sys_Tick(state);
 }
 
-static const uintptr_t lowest(const uintptr_t *p, unsigned sz) {
-        uintptr_t r = p[0];
-        for (unsigned i = 1; i < sz; i++)
-                if (p[i] < r)
-                        r = p[i];
-        return r;
-}
-
-static const uintptr_t highest(const uintptr_t *p, unsigned sz) {
-        uintptr_t r = p[0];
-        for (unsigned i = 1; i < sz; i++)
-                if (p[i] > r)
-                        r = p[i];
-        return r;
+static void sorttab(uintptr_t *tab, unsigned n) {
+        for (unsigned i = 0; i < n; i++) {
+                for (unsigned j = 0; j + 1 < n; j++) {
+                        if (tab[j] > tab[j + 1]) {
+                                CELL t = tab[j];
+                                tab[j] = tab[j + 1];
+                                tab[j + 1] = t;
+                        }
+                }
+        }
 }
 
 static int internalTick(struct FINA_State *state, int throwval) {
-        static const void *tab[] = {
+        static void *tab[] = {
 #include "primstab.it"
 
 #if BUILD_MOREPRIMS
@@ -241,14 +235,9 @@ static int internalTick(struct FINA_State *state, int throwval) {
 #include "ffitab.it"
 #endif
         };
-        static uintptr_t lprim;
-        static uintptr_t hprim;
-        if (!lprim) {
-                lprim = lowest((const uintptr_t *)tab,
-                               sizeof(tab) / sizeof(tab[0]));
-                hprim = highest((const uintptr_t *)tab,
-                                sizeof(tab) / sizeof(tab[0]));
-        }
+        static int sorted;
+        if (!sorted && ++sorted)
+                sorttab((CELL *)tab, sizeof tab / sizeof tab[0]);
         register CELL *rsp RSPREG;
         register CELL *fpc FPCREG;
         register CELL *dsp DSPREG;
@@ -274,6 +263,8 @@ static int internalTick(struct FINA_State *state, int throwval) {
                 tos = throwval;
         } else
                 RESTREGS;
+
+        NEXTT;
 
 #define RETURN(x)                                                              \
         ret = x;                                                               \
@@ -305,3 +296,7 @@ end:
         SAVEREGS;
         return ret;
 }
+
+asm(
+#include IHEADER_NAME
+    );

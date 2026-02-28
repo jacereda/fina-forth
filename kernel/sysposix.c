@@ -20,8 +20,11 @@
 
 #include "fina.h"
 
-#include "arch.h"
 #include "sys.h"
+
+#if defined __COSMOPOLITAN__
+#include <cosmo.h>
+#endif
 
 static struct termios otio;
 static unsigned argc;
@@ -406,4 +409,16 @@ void *Sys_FDOpen(int a, const char *b) {
 
 int Sys_Connect(int a, void *b, int c) {
         return connect(a, b, c);
+}
+
+const char *Sys_GetProgramExecutableName(void) {
+#if defined __COSMOPOLITAN__
+        return GetProgramExecutableName();
+#else
+        return 0;
+#endif
+}
+
+intptr_t Sys_GetPid(void) {
+        return getpid();
 }

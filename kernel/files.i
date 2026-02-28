@@ -139,7 +139,7 @@
 
                 PRIM(POPEN)
                 CALLSAVE;
-                t1= (CELL)Sys_Popen((char *)dsp[0], (char*)tos);
+                t1 = (CELL)Sys_Popen((char *)dsp[0], (char*)tos);
                 CALLREST;
                 POP;
                 tos = t1;
@@ -189,3 +189,19 @@
                 dsp += 2;
                 tos = t1;
                 NEXT;
+
+                PRIM(EXENAMEZERO);
+                PUSH;
+                CALLSAVE;
+                t1 = (CELL)Sys_GetProgramExecutableName();
+                CALLREST;
+                tos = t1;
+                NEXT;
+
+		PRIM(PID);
+		PUSH;
+		SAVEREGS;
+		t1 = Sys_GetPid();
+		RESTREGS;
+		tos = t1;
+		NEXT;

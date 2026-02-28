@@ -1,57 +1,25 @@
-ARCH_x86_64=x64
-ARCH_amd64=x64
-ARCH_ppc=powerpc
-ARCH_i686=i386
-ARCH_sgimips=mips
-ARCH:=$(ARCH_$(shell uname -m))
+CPU?=$(shell uname -m)
+QEMU?=qemu-$(CPU)
+EXE?=
 OS?=$(shell uname -s)
 CC?=gcc
 CPP?=$(CC)
 PREFIX=inst
-FFIARCH_x64=X86
-FFIARCH_i386=X86
-FFIARCH_powerpc=POWERPC
-FFIARCH_mips=MIPS
-FFIARCH_arm=ARM
-FFIARCH=$(FFIARCH_$(ARCH))
-FFIOS_Darwin=_DARWIN
-FFIOS_NetBSD=_FREEBSD
-FFIOS_FreeBSD=_FREEBSD
-FFIOS_OpenBSD=_FREEBSD
-FFIOS_DragonFly=_FREEBSD
-FFIOS_Linux=
-FFIOS_Cosmo=
-FFIOS=$(FFIOS_$(OS))
-FFIPLATDIR=$(shell echo $(FFIARCH) | tr '[:upper:]' '[:lower:]')
-FFIPLAT_Darwin_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/darwin64.S
-FFIPLAT_Linux_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
-FFIPLAT_Linux_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/sysv.S
-FFIPLAT_Linux_powerpc=libs/libffi/src/powerpc/ffi.c libs/libffi/src/powerpc/sysv.S libs/libffi/src/powerpc/ppc_closure.S
-FFIPLAT_Linux_mips=libs/libffi/src/mips/ffi.c libs/libffi/src/mips/o32.S
-FFIPLAT_Linux_arm=libs/libffi/src/arm/ffi.c libs/libffi/src/arm/sysv.S
-FFIPLAT_FreeBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
-FFIPLAT_FreeBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
-FFIPLAT_OpenBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
-FFIPLAT_OpenBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
-FFIPLAT_NetBSD_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
-FFIPLAT_NetBSD_i386=libs/libffi/src/x86/ffi.c libs/libffi/src/x86/freebsd.S
-FFIPLAT_DragonFly_x64=libs/libffi/src/x86/ffi64.c libs/libffi/src/x86/unix64.S
-FFIPLAT_Cosmo_x64=$(FFIPLAT_Linux_x64)
-CFLAGS_gcc+=-fno-reorder-blocks -freorder-blocks-algorithm=simple
-CFLAGS_clang+=-Wno-unknown-attributes
+CFLAGS_gcc+=-fno-reorder-blocks -freorder-blocks-algorithm=simple -fno-reorder-blocks-and-partition
+# CFLAGS_clang+=-Wno-unknown-attributes
 CFLAGS+=$(CFLAGS_$(CC))
 LTO?=-flto
 DCE?=-ffunction-sections -fdata-sections
-OPT?=-Ofast
+OPT?=-O2 -g
+CFLAGS+=$(OPT) -std=gnu11 -fomit-frame-pointer -fvisibility=hidden -fno-stack-check -fno-stack-protector $(LTO) $(DCE)
 PROF?=0
 MOREPRIMS?=1
 ALLOCATE?=1
-CFLAGS+=$(OPT) -fomit-frame-pointer -fvisibility=hidden -fno-stack-check -fno-stack-protector $(LTO) $(DCE)
-FEATURES=-DBUILD_FILES=1 -DBUILD_ALLOCATE=$(ALLOCATE) -DBUILD_FIXED=1 -DBUILD_PIPE=1 -DBUILD_FFI=1 -DBUILD_MOREPRIMS=$(MOREPRIMS) -DBUILD_PROFILE=$(PROF)
-INCPATHS=-Iobj -Ilibs/libffi -Ilibs/libffi/include -Ilibs/libffi/src/$(FFIPLATDIR)
-CPPFLAGS+=$(INCPATHS) -DPOSIX_C_SOURCE=2 -DTARGET=$(FFIARCH)$(FFIOS) -D$(FFIARCH)$(FFIOS)=1 -DHAVE_LONG_DOUBLE=1 -DNDEBUG $(CPPFLAGS_$(OS)) $(FEATURES)
-ASPPFLAGS+=$(INCPATHS) $(FEATURES) -DASM
-# CPPFLAGS_Cosmo=-D__x86_64__
+FFI?=1
+FEATURES=-DBUILD_FILES=1 -DBUILD_ALLOCATE=$(ALLOCATE) -DBUILD_FIXED=1 -DBUILD_PIPE=1 -DBUILD_FFI=$(FFI) -DBUILD_MOREPRIMS=$(MOREPRIMS) -DBUILD_PROFILE=$(PROF)
+INCPATHS=-Ikernel -Iobj
+CPPFLAGS+=$(INCPATHS) -DPOSIX_C_SOURCE=2 -DHAVE_LONG_DOUBLE=1 -DNDEBUG $(CPPFLAGS_$(OS)) $(FEATURES)
+ASPPFLAGS+=$(INCPATHS) $(FEATURES)
 LDFLAGS_Darwin=-Wl,-dead_strip -segprot __DATA rwx rwx
 LDFLAGS_Linux=-Wl,-gc-sections -ldl
 LDFLAGS_FreeBSD=-Wl,-gc-sections
@@ -59,10 +27,14 @@ LDFLAGS_OpenBSD=-Wl,-gc-sections
 LDFLAGS_NetBSD=-Wl,-gc-sections
 LDFLAGS_DragonFly=-Wl,-gc-sections
 LDFLAGS_Cosmo=-Wl,-gc-sections
-LDFLAGS=$(LDFLAGS_$(OS)) -no-pie -s
+LDFLAGS_FFI1=-lffi
+LDFLAGS+=$(LDFLAGS_$(OS)) -no-pie $(LDFLAGS_FFI$(FFI))
+
+
 
 IFILES=kernel/allocate.i kernel/files.i kernel/moreprims.i	\
 kernel/ffi.i kernel/fixed.i kernel/prims.i
+
 
 BOOT=sys/core.fs sys/defer.fs sys/core2.fs sys/throwmsg.fs	\
 sys/based.fs sys/source.fs sys/search.fs sys/coreext.fs
@@ -99,7 +71,7 @@ benchmarks/sieve.fs
 ALLFORTH=ans-report.fs answords.fs aw.fs bnf.fs cce.fs ce.fs		\
 filehandler.fs fixed.fs gdbdis.fs gl.fs glhelpers.fs glu.fs gtk.fs	\
 handler.fs later.fs list.fs measure.fs memory.fs ns.fs pipehandler.fs	\
-prof.fs saveaux.fs sh.fs socket.fs struct.fs sudoku.fs tcphandler.fs	\
+prof.fs sh.fs socket.fs struct.fs sudoku.fs tcphandler.fs	\
 udphandler.fs ticker.fs tt.fs units.fs verboseinc.fs sys/args.fs	\
 sys/assert.fs sys/backtrace.fs sys/based.fs sys/c.fs sys/core.fs	\
 sys/core2.fs sys/coreext.fs sys/cstr.fs sys/defer.fs sys/double.fs	\
@@ -110,8 +82,8 @@ sys/osnice.fs sys/pipe.fs sys/require.fs sys/save.fs sys/savefina.fs	\
 sys/search.fs sys/searchext.fs sys/signals.fs sys/source.fs		\
 sys/string.fs sys/throwmsg.fs sys/tools.fs sys/toolsext.fs		\
 meta/arm-tconfig.fs meta/fina.fs meta/host-fina.fs			\
-meta/i386-tconfig.fs meta/meta.fs meta/mips-tconfig.fs			\
-meta/powerpc-tconfig.fs meta/tconfig.fs meta/x64-tconfig.fs
+meta/i686-tconfig.fs meta/meta.fs meta/mips-tconfig.fs			\
+meta/powerpc-tconfig.fs meta/tconfig.fs meta/x86_64-tconfig.fs
 
 ALLHELP=$(addprefix obj/, $(ALLFORTH:.fs=.help))
 ANSHELP=help/ansblock.help help/ansexception.help		\
@@ -123,42 +95,35 @@ help/anstools.help
 BENCHMARKS=benchmarks/bubble-sort.fs benchmarks/fib.fs	\
 benchmarks/sieve.fs
 
-META=meta/$(ARCH)-tconfig.fs meta/tconfig.fs meta/host-fina.fs	\
+META=meta/$(CPU)-tconfig.fs meta/tconfig.fs meta/host-fina.fs	\
 meta/meta.fs meta/fina.fs
 
-FFISRCS= libs/libffi/src/debug.c libs/libffi/src/prep_cif.c	\
-libs/libffi/src/types.c libs/libffi/src/closures.c		\
-$(FFIPLAT_$(OS)_$(ARCH))
-
-
-KERNELSRCS=kernel/finac.c kernel/main.c kernel/sysposix.c $(FFISRCS)
+KERNELSRCS=kernel/main.c kernel/sysposix.c
 
 KERNELOBJS = \
   $(patsubst %.c,obj/%.o,$(filter %.c,$(KERNELSRCS))) \
   $(patsubst %.S,obj/%.o,$(filter %.S,$(KERNELSRCS)))
 
-
-all: obj/fina
-
-obj/arch.h: kernel/$(ARCH)-arch.h
-	install -d obj
-	install $^ $@
+all: obj/fina$(EXE)
 
 obj/%tab.it: kernel/%.i
 	install -d `dirname $@`
 	cat $^ | python gentab.py > $@
 
-obj/finac.S: kernel/finac.c obj/arch.h $(patsubst kernel/%.i,obj/%tab.it,$(IFILES))
-	$(CC) -S -MMD -MT $@ -MF $@.dep $(CPPFLAGS) $(CFLAGS) $< -o $@
-
-obj/dict0.S: kernel/dict0.S $(patsubst kernel/%.i,obj/%tab.it,$(IFILES)) obj/arch.h
+obj/dict0.S: kernel/dict0.S $(patsubst kernel/%.i,obj/%tab.it,$(IFILES))
 	cp $< $@
 
-obj/dict1.S: obj/kernel0 $(BOOT) $(META)
-	cat $(BOOT) $(META) | obj/kernel0 > $@
+obj/dict1.S: obj/kernel0$(EXE) $(BOOT) $(META)
+	cat $(BOOT) $(META) | $(QEMU) obj/kernel0$(EXE) > $@
 
-obj/dict2.S: obj/kernel1 $(BOOT) $(META)
-	cat $(BOOT) $(META) | obj/kernel1 > $@
+obj/dict2.S: obj/kernel1$(EXE) $(BOOT) $(META)
+	cat $(BOOT) $(META) | $(QEMU) obj/kernel1$(EXE) > $@
+
+obj/dict-$(CPU)-%.i: obj/dict%.S
+	$(CPP) -D__$(CPU)__ -E $(CPPFLAGS) $< -o - | sed 's/\\/\\\\/g; s/"/\\"/g; s/^/"/; s/$$/\\n"/' > $@
+
+obj/dict-aarch64-%.i: obj/dict%.S
+	$(CPP) -D__aarch64__ -E $(CPPFLAGS) $< -o - | sed 's/\\/\\\\/g; s/"/\\"/g; s/^/"/; s/$$/\\n"/' > $@
 
 bootstrap: obj/dict2.S
 	cp $< kernel/dict0.S
@@ -166,16 +131,27 @@ bootstrap: obj/dict2.S
 kerneltest%: obj/kernel%
 	cat $(KERNELTESTS) | $<
 
-obj/kernel%: obj/dict%.o $(KERNELOBJS)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $^ $(LDFLAGS) -o $@
+kernel/finac.c: $(patsubst kernel/%.i,obj/%tab.it,$(IFILES))
 
-obj/build.fs: $(FULL) saveaux.fs
+obj/finac%.o: kernel/finac.c obj/dict%.i obj/dict-$(CPU)-%.i  obj/dict-aarch64-%.i
+	$(CC) -c -DSTAGE=$* $(CPPFLAGS) $(CFLAGS) $< $(LDFLAGS) -o $@
+
+obj/dict%.i:
+	echo "#include \"dict-$(CPU)-$*.i\"" > $@
+
+obj/kernel%$(EXE): obj/finac%.o $(KERNELOBJS)
+	$(CC) -DSTAGE=$* $(CPPFLAGS) $(CFLAGS) $^ $(LDFLAGS) -o $@
+
+obj/saveaux.fs:
+	echo warnings on 'save"' obj/fina$(EXE)'"' bye > $@
+
+obj/build.fs: $(FULL) obj/saveaux.fs
 	cat $(FULL) > $@
 	printf ': buildstr s" %s" ;\n' `git rev-parse HEAD|cut -c1-8` >> $@
-	cat sys/savefina.fs saveaux.fs >> $@
+	cat sys/savefina.fs obj/saveaux.fs >> $@
 
-obj/fina: obj/kernel2 $(FULL) sys/savefina.fs saveaux.fs
-	(cat $(FULL) && printf ': buildstr s" %s" ;\n' `git rev-parse HEAD|cut -c1-8` && cat sys/savefina.fs saveaux.fs) | obj/kernel2
+obj/fina$(EXE): obj/kernel2$(EXE) $(FULL) sys/savefina.fs obj/saveaux.fs
+	(cat $(FULL) && printf ': buildstr s" %s" ;\n' `git rev-parse HEAD|cut -c1-8` && cat sys/savefina.fs obj/saveaux.fs) | $(QEMU) obj/kernel2$(EXE)
 	chmod 755 $@
 
 obj/%.o: %.S
@@ -187,33 +163,32 @@ obj/%.o: obj/%.S
 	$(CC) $(ASPPFLAGS) -c $< -o $@
 
 obj/%.o: %.c
-	echo "COMPILING $@"
 	mkdir -p $(dir $@)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-tests: obj/fina $(TESTS)
-	$^
+tests: obj/fina$(EXE) $(TESTS)
+	$(QEMU) $^
 
-puretests: obj/fina $(PURETESTS) test/bye.fs
-	$^
+puretests: obj/fina$(EXE) $(PURETESTS) test/bye.fs
+	$(QEMU) $^
 
 check:
 	echo TESTING | $(MAKE) puretests
 
-bench: obj/fina $(ALLBENCHMARKS)
+bench: obj/fina$(EXE) $(ALLBENCHMARKS)
 	for b in $(ALLBENCHMARKS) ; do time $< $$b -e "main bye" ; done
 
-obj/%.help: %.fs obj/fina help/glosgen.fs
+obj/%.help: %.fs obj/fina$(EXE) help/glosgen.fs
 	install -d `dirname $@`
-	obj/fina help/glosgen.fs -e "newglos makeglos $< writeglos $@ bye"
+	$(QEMU) obj/fina$(EXE) help/glosgen.fs -e "newglos makeglos $< writeglos $@ bye"
 
-obj/toc.help: obj/fina $(ALLHELP)
+obj/toc.help: obj/fina$(EXE) $(ALLHELP)
 	echo $(ALLHELP)
-	$< help/maketoc.fs -e "toc{ $(ALLHELP) }toc bye" > $@
+	$(QEMU) $< help/maketoc.fs -e "toc{ $(ALLHELP) }toc bye" > $@
 
-install: obj/fina $(ALLFORTH) $(ALLTESTS) $(ALLBENCHMARKS) obj/toc.help $(ALLHELP) $(ANSHELP)
+install: obj/fina$(EXE) $(ALLFORTH) $(ALLTESTS) $(ALLBENCHMARKS) obj/toc.help $(ALLHELP) $(ANSHELP)
 	install -d $(PREFIX)/bin
-	install obj/fina $(PREFIX)/bin/fina
+	install obj/fina$(EXE) $(PREFIX)/bin/fina$(EXE)
 	install -d $(PREFIX)/share/fina/test
 	install $(ALLFORTH) $(PREFIX)/share/fina
 	install $(ALLTESTS) $(PREFIX)/share/fina/test

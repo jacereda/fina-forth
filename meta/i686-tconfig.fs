@@ -1,8 +1,8 @@
 32 constant tcellbits
-4 constant /tcall
+8 constant /tcall
 
 : .cell ."  .long " ;
-: .call ."  bl XT_" ;
+: .call ."  nop" cr ."  nop" cr ."  nop" cr ."  call XT_" ;
 : .align ."  .p2align 2" cr ;
 : .init ;
 : .end ;

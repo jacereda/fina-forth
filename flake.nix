@@ -7,39 +7,123 @@
 
   outputs = { self, nixpkgs, ... }:
     let
-      cosmo = true;
-#      cosmocc-3-bin = pkgs.callPackage ./cosmocc-3-bin.nix {};
-      cosmocc-4-bin = pkgs.callPackage ./cosmocc-4-bin.nix {};
-      cosmoVars = ''
-            export CC=${cosmocc-4-bin}/bin/x86_64-unknown-cosmo-cc
-            export AS=${cosmocc-4-bin}/cosmocc/bin/x86_64-unknown-cosmo-as
-            export OS=Cosmo
-            export DCE=
-            export LTO=
-          '';
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
-#      cosmocc-4 = pkgs.callPackage ./cosmopolitan.nix { inherit cosmocc-3-bin; };
-      nativeBuildInputs = with pkgs;
-        [ python3 clang-tools gdb ]
-        ++ pkgs.lib.optional cosmo [  ];
-      buildInputs = with pkgs; [ ];
-    in
-    {
-      packages.${system} = rec {
-        default = pkgs.stdenv.mkDerivation {
-          pname = "fina";
-          version = "0.0.0";
 
+      cosmocc-4-bin = pkgs.callPackage ./cosmocc-4-bin.nix {};
+      libffi-cosmo = pkgs.callPackage ./libffi-cosmo.nix {pkgs=pkgs.pkgsCross.gnu64; inherit cosmocc-4-bin;};
+      cosmoVars = ''
+#        export CC=${cosmocc-4-bin}/bin/x86_64-unknown-cosmo-cc
+        export CC=${cosmocc-4-bin}/bin/cosmocc
+        export CPP=${cosmocc-4-bin}/bin/x86_64-unknown-cosmo-cc
+        export FFI=0
+        export OS=Cosmo
+        export LTO=
+        export DCE=
+        export EXE=.com
+        export QEMU="$QEMU /usr/bin/env sh -c"
+      '';
+
+      qemuMap = {
+        i686    = "i386";
+        armv7l = "arm";
+        powerpc = "ppc";
+      };
+
+      cpuMap = {
+        armv7l = "arm";
+      };
+
+      crossTargets = {
+        x86_64 = {
+          pkgs = pkgs.pkgsCross.gnu64;
+        };
+
+        x86_64musl = {
+          pkgs = pkgs.pkgsCross.musl64;
+        };
+
+        x86_64muslStatic = {
+          pkgs = pkgs.pkgsCross.musl64.pkgsStatic;
+        };
+
+        i686 = {
+          pkgs = pkgs.pkgsCross.gnu32;
+        };
+
+        i686musl = {
+          pkgs = pkgs.pkgsCross.musl32;
+        };
+
+        i686muslStatic = {
+          pkgs = pkgs.pkgsCross.musl32.pkgsStatic;
+        };
+
+        arm = {
+          pkgs = pkgs.pkgsCross.armv7l-hf-multiplatform;
+        };
+
+        armStatic = {
+          pkgs = pkgs.pkgsCross.armv7l-hf-multiplatform.pkgsStatic;
+        };
+
+        aarch64 = {
+          pkgs = pkgs.pkgsCross.aarch64-multiplatform;
+        };
+
+        aarch64musl = {
+          pkgs = pkgs.pkgsCross.aarch64-multiplatform-musl;
+        };
+
+        powerpc = {
+          pkgs = pkgs.pkgsCross.ppc32;
+        };
+
+        cosmo = {
+          pkgs = pkgs.pkgsCross.gnu64;
+          extraConfigure = cosmoVars;
+        };
+      };
+
+      gnativeBuildInputs = with pkgs; [
+        python3
+        gdb
+        git
+        qemu
+        clang-tools
+      ];
+
+      mkFina = name: target:
+        let
+          crossPkgs = target.pkgs;
+          extraConfigure = target.extraConfigure or "";
+          libffi = if name == "cosmo" then libffi-cosmo else crossPkgs.pkgsStatic.libffi;
+        in
+        crossPkgs.stdenv.mkDerivation {
+          pname = "fina";
+          version = "0.0.0-${name}";
           src = ./.;
 
-          inherit nativeBuildInputs;
-          inherit buildInputs;
+          nativeBuildInputs = gnativeBuildInputs ++ [ libffi ];
+
+          strictDeps = true;
 
           dontUseCmakeConfigure = true;
           dontUseGnuMakeConfigure = true;
 
-          configurePhase = pkgs.lib.optionalString cosmo cosmoVars;
+          configurePhase = ''
+            export CPPFLAGS=-I${libffi.dev}/include
+            export LDFLAGS=-L${libffi.out}/lib
+            export CPU=${nixpkgs.lib.attrByPath
+              [ crossPkgs.stdenv.hostPlatform.parsed.cpu.name ]
+              crossPkgs.stdenv.hostPlatform.parsed.cpu.name
+              cpuMap};
+            export QEMU=qemu-${nixpkgs.lib.attrByPath
+              [ crossPkgs.stdenv.hostPlatform.parsed.cpu.name ]
+              crossPkgs.stdenv.hostPlatform.parsed.cpu.name
+              qemuMap};
+            ${extraConfigure}
+          '';
 
           buildPhase = ''
             make -j$(nproc)
@@ -57,19 +141,44 @@
             description = "FINA - FINA Is Not ANS Forth";
             homepage = "https://github.com/jacereda/fina-forth";
             license = licenses.bsd3;
+            platforms = platforms.linux;
           };
         };
-      };
-
-      devShells.${system} = rec {
-        default = pkgs.mkShell {
-          packages = nativeBuildInputs ++ buildInputs;
-          shellHook = ''
-            export LD_LIBRARY_PATH=${pkgs.lib.makeLibraryPath [
-                                    pkgs.glibc
-            ]}
-          '' + pkgs.lib.optionalString cosmo cosmoVars;
+    in
+    {
+      packages.${system} =
+        (nixpkgs.lib.mapAttrs mkFina crossTargets)
+        // {
+          libffi-cosmo = libffi-cosmo;
         };
-      };
+
+      defaultPackage.${system} =
+        self.packages.${system}.x86_64;
+
+      devShells.${system} =
+        nixpkgs.lib.mapAttrs (name: target:
+          let
+            crossPkgs = target.pkgs;
+            extraConfigure = target.extraConfigure or "";
+            libffi = if name == "cosmo" then libffi-cosmo else crossPkgs.pkgsStatic.libffi;
+          in
+            crossPkgs.mkShell {
+              nativeBuildInputs = gnativeBuildInputs ++ [ libffi ];
+              shellHook = ''
+                export CPPFLAGS=-I${libffi.dev}/include
+                export LDFLAGS=-L${libffi.out}/lib
+                export CPU=${nixpkgs.lib.attrByPath
+                  [ crossPkgs.stdenv.hostPlatform.parsed.cpu.name ]
+                  crossPkgs.stdenv.hostPlatform.parsed.cpu.name
+                  cpuMap};
+                export QEMU=qemu-${nixpkgs.lib.attrByPath
+                  [ crossPkgs.stdenv.hostPlatform.parsed.cpu.name ]
+                  crossPkgs.stdenv.hostPlatform.parsed.cpu.name
+                  qemuMap};
+
+              ${extraConfigure}
+            '';
+            }
+        ) crossTargets;
     };
 }

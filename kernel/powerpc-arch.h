@@ -8,15 +8,10 @@
 #define CALLSAVE
 #define CALLREST
 
-#define ASMCALL bl
-#define ASMCELL .long
-#define ASMALIGN .align 2
-
-#if !defined ASM
 typedef int64_t DCELL;
 typedef uint64_t UDCELL;
 
-static inline CELL *getlnk() {
+static inline CELL *getlnk(void) {
         CELL *res;
         asm volatile(" mflr %0 " : "=r"(res));
         return res;
@@ -26,7 +21,7 @@ static inline CELL arch_iscall(CELL xt) {
         return (*(CELL *)xt & 0xfc000003) == 0x48000001;
 }
 
-static inline CELL arch_callsize() {
+static inline CELL arch_callsize(void) {
         return 4;
 }
 
@@ -47,4 +42,3 @@ static inline void arch_xtstore(CELL xt, CELL pdict) {
         asm volatile(
             "dcbst 0,%0\n sync\n icbi 0,%0\n sync\n isync\n" ::"r"(pdict));
 }
-#endif

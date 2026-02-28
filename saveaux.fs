@@ -1,3 +1,3 @@
 warnings on
-save" obj/fina"
+save" obj/fina.com"
 bye

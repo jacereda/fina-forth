@@ -386,6 +386,12 @@ fprim fdopen ( n c-addr -- addr )
 \g Connect socket
 fprim connect ( n1 c-addr1 -- n2 -- addr )
 
+\g Program executable name, NUL-terminated
+fprim exename0 ( -- c-addr )
+
+\g Program identifier
+fprim pid ( -- n )
+
 \g Convert 16.16 fixed point integer to float
 fxprim fx>float
 

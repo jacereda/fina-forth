@@ -1,14 +1,11 @@
 \ Helpers
-char ' parse #include "arch.h"' type cr
+char ' parse #include "asmarch.h"' type cr
 : .call ."  ASMCALL XT_" ;
 : .cell ."  ASMCELL " ;
 : .align ."  ASMALIGN" cr ;
 : global
    ."  .globl " 2dup type cr
-   ."  .globl _" 2dup type cr
-   2dup type ." :" cr
-   ." _" 2dup type ." :" cr
-   2drop ;
+   type ." :" cr ;
 
 : literal postpone literal ; immediate compile-only
 : under+ rot + swap ;

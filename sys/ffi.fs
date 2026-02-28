@@ -1,3 +1,4 @@
+char ' parse ffprep' nfa [if]
 expose-module private
 : lastbody ( -- addr )
    lastname name>xt xt>body ;
@@ -117,3 +118,4 @@ export callback callback;
 export symbolfrom:
 
 end-module
+[then]

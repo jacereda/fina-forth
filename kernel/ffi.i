@@ -2,15 +2,15 @@
         PRIM(FFPREP);
         // types rtype nargs cif -- status
         CALLSAVE;
-        t1 = ffi_prep_cif((ffi_cif*)tos, FFI_DEFAULT_ABI, 
+        t1 = ffi_prep_cif((ffi_cif*)tos, FFI_DEFAULT_ABI,
                            dsp[0], (ffi_type*)dsp[1], (ffi_type**)dsp[2]);
         CALLREST;
         tos = t1;
         dsp += 3;
         NEXT;
-        
+
         PRIM(FFCALL);
-        // ... func cif -- 
+        // ... func cif --
         {
 		void * arg[16];
 		double darg[16];
@@ -21,7 +21,7 @@
 		int n = cif->nargs;
 		t0 = *dsp++;
 		void * parg;
-		while(n--) { 
+		while(n--) {
 			ffi_type * type = cif->arg_types[n];
 			if (type == &ffi_type_double) {
 				darg[n] = (*(int*)dsp) / (double)FXSCALE;
@@ -37,7 +37,7 @@
 			}
 			else
 				parg = dsp++;
-			arg[n] = parg; 
+			arg[n] = parg;
 		}
 		CALLSAVE;
 		ffi_call(cif, FFI_FN(t0), ret, arg);
@@ -48,7 +48,7 @@
 			tos = FXSCALE * *(double*)ret;
 		else if (rtype == &ffi_type_uint64)
 			*--dsp = ret[0], tos = ret[1];
-		else if (rtype != &ffi_type_void) 
+		else if (rtype != &ffi_type_void)
 			tos = ret[0];
 		else
 			tos = *dsp++;
@@ -97,7 +97,7 @@
 
         PRIM(DLOPEN);
         CALLSAVE;
-        t1 = (CELL)dlopen(zstr(str1, (char*)dsp[0], tos), 
+        t1 = (CELL)dlopen(zstr(str1, (char*)dsp[0], tos),
 #if defined(__NetBSD__) || defined(_WIN32)
 	DL_LAZY
 #else
@@ -108,7 +108,7 @@
         tos = t1;
         dsp++;
         NEXT;
-        
+
         PRIM(DLSYM);
         CALLSAVE;
         t1 = (CELL)dlsym((void*)tos, zstr(str1, (char*)dsp[1], dsp[0]));
