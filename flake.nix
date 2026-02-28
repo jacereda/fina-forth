@@ -36,47 +36,43 @@
 
       crossTargets = {
         x86_64 = {
-          pkgs = pkgs.pkgsCross.gnu64;
-        };
-
-        x86_64musl = {
           pkgs = pkgs.pkgsCross.musl64;
         };
 
-        x86_64muslStatic = {
+        x86_64-static = {
           pkgs = pkgs.pkgsCross.musl64.pkgsStatic;
         };
 
         i686 = {
-          pkgs = pkgs.pkgsCross.gnu32;
-        };
-
-        i686musl = {
           pkgs = pkgs.pkgsCross.musl32;
         };
 
-        i686muslStatic = {
+        i686-static = {
           pkgs = pkgs.pkgsCross.musl32.pkgsStatic;
         };
 
         arm = {
-          pkgs = pkgs.pkgsCross.armv7l-hf-multiplatform;
+          pkgs = pkgs.pkgsCross.armv7l-hf-multiplatform-musl;
         };
 
-        armStatic = {
-          pkgs = pkgs.pkgsCross.armv7l-hf-multiplatform.pkgsStatic;
+        arm-static = {
+          pkgs = pkgs.pkgsCross.armv7l-hf-multiplatfor-musl.pkgsStatic;
         };
 
         aarch64 = {
-          pkgs = pkgs.pkgsCross.aarch64-multiplatform;
-        };
-
-        aarch64musl = {
           pkgs = pkgs.pkgsCross.aarch64-multiplatform-musl;
         };
 
+        aarch64-static = {
+          pkgs = pkgs.pkgsCross.aarch64-multiplatform-musl.pkgsStatic;
+        };
+
         powerpc = {
-          pkgs = pkgs.pkgsCross.ppc32;
+          pkgs = pkgs.pkgsCross.ppc32-multiplatform-musl;
+        };
+
+        powerpc-static = {
+          pkgs = pkgs.pkgsCross.ppc32-multiplatform-musl.pkgsStatic;
         };
 
         cosmo = {
@@ -101,7 +97,7 @@
         in
         crossPkgs.stdenv.mkDerivation {
           pname = "fina";
-          version = "0.0.0-${name}";
+          version = "0.3-${name}";
           src = ./.;
 
           nativeBuildInputs = gnativeBuildInputs ++ [ libffi ];
