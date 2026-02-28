@@ -13,7 +13,6 @@
       cosmocc-4-bin = pkgs.callPackage ./cosmocc-4-bin.nix {};
       libffi-cosmo = pkgs.callPackage ./libffi-cosmo.nix {pkgs=pkgs.pkgsCross.gnu64; inherit cosmocc-4-bin;};
       cosmoVars = ''
-#        export CC=${cosmocc-4-bin}/bin/x86_64-unknown-cosmo-cc
         export CC=${cosmocc-4-bin}/bin/cosmocc
         export CPP=${cosmocc-4-bin}/bin/x86_64-unknown-cosmo-cc
         export FFI=0
