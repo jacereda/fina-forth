@@ -20,7 +20,7 @@ jobs:
 #          i686, i686-static,
 #          arm, arm-static,
 #          aarch64, aarch64-static,
-#          powerpc, powerpc-static,
+#          powerpc-static, # powerpc,
 #          cosmo
           ]
       fail-fast: true

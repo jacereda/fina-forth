@@ -5,9 +5,6 @@ OS?=$(shell uname -s)
 CC?=gcc
 CPP?=$(CC)
 PREFIX=inst
-CFLAGS_gcc+=-fno-reorder-blocks -freorder-blocks-algorithm=simple -fno-reorder-blocks-and-partition
-# CFLAGS_clang+=-Wno-unknown-attributes
-CFLAGS+=$(CFLAGS_$(CC))
 LTO?=-flto
 DCE?=-ffunction-sections -fdata-sections
 OPT?=-O2 -g

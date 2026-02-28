@@ -21,6 +21,7 @@
         export LTO=
         export DCE=
         export EXE=.com
+        export TMPDIR=.
         export QEMU="$QEMU /usr/bin/env sh -c"
       '';
 
@@ -77,7 +78,7 @@
         };
 
         powerpc-static = {
-          pkgs = crossTargets.powowerpc.pkgs.pkgsStatic;
+          pkgs = crossTargets.powerpc.pkgs.pkgsStatic;
         };
 
         cosmo = {
@@ -87,6 +88,7 @@
       };
 
       gnativeBuildInputs = with pkgs; [
+        git
         python3
         qemu-user
       ];
@@ -161,7 +163,6 @@
                 clang-tools
                 libffi
                 gdb
-                git
               ];
               shellHook = ''
                 export CPPFLAGS=-I${libffi.dev}/include

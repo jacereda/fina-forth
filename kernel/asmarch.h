@@ -23,4 +23,6 @@
 #define ASMCALL nop; nop; nop; call
 #define ASMCELL .quad
 #define ASMALIGN .p2align 3
+#else
+#error unknown cpu
 #endif
