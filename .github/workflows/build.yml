@@ -12,6 +12,7 @@ on:
 
 jobs:
   build:
+    name: Build ${{ matrix.target }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -35,13 +36,13 @@ jobs:
           extra_nix_config: |
             experimental-features = nix-command flakes
 
-      - name: Build ${{ matrix.target }}
+      - name: Build
         run: |
           nix build .#${{ matrix.target }}
           cp -rL result/ fina-${{ matrix.target }}
           tar -cvzf fina-${{ matrix.target }}.tar.gz fina-${{ matrix.target }}
 
-      - name: Upload Artifacts
+      - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: fina-${{ matrix.target }}
