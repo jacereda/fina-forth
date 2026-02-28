@@ -88,10 +88,7 @@
 
       gnativeBuildInputs = with pkgs; [
         python3
-        gdb
-        git
         qemu-user
-        clang-tools
       ];
 
       mkFina = name: target:
@@ -160,7 +157,12 @@
             libffi = if name == "cosmo" then libffi-cosmo else crossPkgs.pkgsStatic.libffi;
           in
             crossPkgs.mkShell {
-              nativeBuildInputs = gnativeBuildInputs ++ [ libffi ];
+              nativeBuildInputs = with pkgs; gnativeBuildInputs ++ [
+                clang-tools
+                libffi
+                gdb
+                git
+              ];
               shellHook = ''
                 export CPPFLAGS=-I${libffi.dev}/include
                 export LDFLAGS=-L${libffi.out}/lib
