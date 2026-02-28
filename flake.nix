@@ -90,7 +90,7 @@
         python3
         gdb
         git
-        qemu
+        qemu-user
         clang-tools
       ];
 

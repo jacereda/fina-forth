@@ -40,7 +40,6 @@ jobs:
           nix build .#${{ matrix.target }}
           cp -rL result/ fina-${{ matrix.target }}
           tar -cvzf fina-${{ matrix.target }}.tar.gz fina-${{ matrix.target }}
-          rm -rf fina-${{ matrix.target }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
